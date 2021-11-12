@@ -1,0 +1,7 @@
+# Markdown, Notebooks, and Dynamic Documents
+
+In this class, we'll be using markdown notebooks to keep our code and notes in the same place. One of the advantages of both R and Python is that they are both scripting languages, but they can be used within notebooks as well. This means that you can have an R script file or a python script file, and you can run that file, but you can also create a document (like the one you're reading now) that has code AND text together in one place.
+
+Notes:
+
+Show code R file, code python file, R notebook file, and jupyter notebook file that do similar things. Then show a quarto notebook file that runs the R and python chunks together in a single document.

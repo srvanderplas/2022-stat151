@@ -9,6 +9,7 @@ book:
   chapters:
     - index.qmd
     - getting-started.qmd
+    - markdown.qmd
     - basic-math-operations.qmd
     - data-types.qmd
     - vectors.qmd
@@ -19,7 +20,6 @@ book:
     - ttests.qmd
     - linear-modeling.qmd
     - git-github.qmd
-    - markdown.qmd
     - references.qmd
   site-url: https://srvanderplas.github.io/Stat151/
   repo-url: https://github.com/srvanderplas/Stat151
