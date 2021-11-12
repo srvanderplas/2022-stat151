@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "index.html#how-to-use-this-book",
+    "href": "index.html#how-to-use-this-book",
+    "title": "Introduction to Statistical Computing",
+    "section": "How to Use This Book",
+    "text": "I’ve made an effort to use some specific formatting and enable certain features that make this book a useful tool for this class.\n\nSpecial Sections\n\nWatch Out\nWatch out sections contain things you may want to look out for - common errors, etc.\n\n \n\nExamples\nExample sections contain code and other information. Don’t skip them!\n\n \n\nMy Opinion\nThese sections contain things you should definitely not consider as fact and should just take with a grain of salt.\n\n \n\nGo Read\nSometimes, there are better resources out there than something I could write myself. When you see this section, go read the enclosed link as if it were part of the book.\n\n \n\nTry It Out\nTry it out sections contain activities you should do to reinforce the things you’ve just read.\n\n \n\nLearn More\nLearn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (email me to suggest a new reference that I should add), as there’s no way for one person to catalog all of the helpful programming resources on the internet!\n\n \n\nNote\nNote sections contain clarification points (anywhere I would normally say “note that ….)\n\n\nExpandable Sections\n\n\nThese are expandable sections, with additional information when you click on the line\n\nThis additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.\n\n \n\n\nMany times, examples will be in expandable sections\n\nThis keeps the code and output from obscuring the actual information in the textbook that I want you to retain. You can always look up the syntax, but you do need to absorb the details I’ve written out."
+  },
+  {
+    "objectID": "index.html#about-this-book",
+    "href": "index.html#about-this-book",
+    "title": "Introduction to Statistical Computing",
+    "section": "About This Book",
+    "text": "This is a Quarto book. To learn more about Quarto books visit https://quarto.org/docs/books.\nI have written this entire book using reproducible techniques, with R and python code and results included within the book’s text.\nStat 151 will be offered for the first time in Spring 2022, as I’m writing this in Fall 2021. Initially, my goal is to write the book in R and include python as an additional option/example. Eventually, I hope to teach Stat 151 in R and Python at the same time."
+  },
+  {
+    "objectID": "getting-started.html",
+    "href": "getting-started.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "basic-math-operations.html",
+    "href": "basic-math-operations.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "data-types.html",
+    "href": "data-types.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "vectors.html",
+    "href": "vectors.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "data-structures.html",
+    "href": "data-structures.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "reading-data.html",
+    "href": "reading-data.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "functions.html",
+    "href": "functions.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "statistics.html",
+    "href": "statistics.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "ttests.html",
+    "href": "ttests.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "linear-modeling.html",
+    "href": "linear-modeling.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "git-github.html",
+    "href": "git-github.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "markdown.html",
+    "href": "markdown.html",
+    "title": "Introduction to Statistical Computing",
+    "section": "",
+    "text": ""
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": ""
+  }
+]
