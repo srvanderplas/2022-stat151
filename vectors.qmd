@@ -1,0 +1,5 @@
+# Vectors, Arrays, Indexing, and Loops
+
+Vectors, Matrices, and Numpy arrays. Logical indexing. For loops.
+
+(probably 2 weeks of content)

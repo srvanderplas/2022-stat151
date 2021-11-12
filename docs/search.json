@@ -4,7 +4,7 @@
     "href": "index.html#how-to-use-this-book",
     "title": "Introduction to Statistical Computing",
     "section": "How to Use This Book",
-    "text": "I’ve made an effort to use some specific formatting and enable certain features that make this book a useful tool for this class.\n\nSpecial Sections\n\nWatch Out\nWatch out sections contain things you may want to look out for - common errors, etc.\n\n \n\nExamples\nExample sections contain code and other information. Don’t skip them!\n\n \n\nMy Opinion\nThese sections contain things you should definitely not consider as fact and should just take with a grain of salt.\n\n \n\nGo Read\nSometimes, there are better resources out there than something I could write myself. When you see this section, go read the enclosed link as if it were part of the book.\n\n \n\nTry It Out\nTry it out sections contain activities you should do to reinforce the things you’ve just read.\n\n \n\nLearn More\nLearn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (email me to suggest a new reference that I should add), as there’s no way for one person to catalog all of the helpful programming resources on the internet!\n\n \n\nNote\nNote sections contain clarification points (anywhere I would normally say “note that ….)\n\n\nExpandable Sections\n\n\nThese are expandable sections, with additional information when you click on the line\n\nThis additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.\n\n \n\n\nMany times, examples will be in expandable sections\n\nThis keeps the code and output from obscuring the actual information in the textbook that I want you to retain. You can always look up the syntax, but you do need to absorb the details I’ve written out."
+    "text": "I’ve made an effort to use some specific formatting and enable certain features that make this book a useful tool for this class.\nSpecial Sections\nWatch Out\nWatch out sections contain things you may want to look out for - common errors, etc.\n \nExamples\nExample sections contain code and other information. Don’t skip them!\n \nMy Opinion\nThese sections contain things you should definitely not consider as fact and should just take with a grain of salt.\n \nGo Read\nSometimes, there are better resources out there than something I could write myself. When you see this section, go read the enclosed link as if it were part of the book.\n \nTry It Out\nTry it out sections contain activities you should do to reinforce the things you’ve just read.\n \nLearn More\nLearn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (email me to suggest a new reference that I should add), as there’s no way for one person to catalog all of the helpful programming resources on the internet!\n \nNote\nNote sections contain clarification points (anywhere I would normally say “note that ….)\nExpandable Sections\n\nThese are expandable sections, with additional information when you click on the line\n\nThis additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.\n \n\nMany times, examples will be in expandable sections\n\nThis keeps the code and output from obscuring the actual information in the textbook that I want you to retain. You can always look up the syntax, but you do need to absorb the details I’ve written out."
   },
   {
     "objectID": "index.html#about-this-book",
@@ -30,30 +30,30 @@
   {
     "objectID": "data-types.html",
     "href": "data-types.html",
-    "title": "Introduction to Statistical Computing",
+    "title": "4  Basic Data Types",
     "section": "",
-    "text": ""
+    "text": "integer/numeric/string/double/etc."
   },
   {
     "objectID": "vectors.html",
     "href": "vectors.html",
-    "title": "Introduction to Statistical Computing",
+    "title": "5  Vectors, Arrays, Indexing, and Loops",
     "section": "",
-    "text": ""
+    "text": "Vectors, Matrices, and Numpy arrays. Logical indexing. For loops.\n(probably 2 weeks of content)"
   },
   {
     "objectID": "data-structures.html",
     "href": "data-structures.html",
-    "title": "Introduction to Statistical Computing",
+    "title": "6  Data Structures",
     "section": "",
-    "text": ""
+    "text": "data frames in R and Pandas"
   },
   {
     "objectID": "reading-data.html",
     "href": "reading-data.html",
-    "title": "Introduction to Statistical Computing",
+    "title": "7  Reading in Data",
     "section": "",
-    "text": ""
+    "text": "External data files - csv, excel, etc."
   },
   {
     "objectID": "functions.html",
