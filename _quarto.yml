@@ -1,0 +1,36 @@
+project:
+  type: book
+
+book:
+  title: "Introduction to Statistical Computing"
+  author: "Susan Vanderplas"
+  date: "Spring 2022"
+  chapters:
+    - index.qmd
+    - getting-started.qmd
+    - basic-math-operations.qmd
+    - data-types.qmd
+    - vectors.qmd
+    - data-structures.qmd
+    - reading-data.qmd
+    - functions.qmd
+    - statistics.qmd
+    - ttests.qmd
+    - linear-modeling.qmd
+    - git-github.qmd
+    - markdown.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    css: style.css
+    theme: cosmo
+  pdf:
+    documentclass: scrreport
+  epub:
+    cover-image: cover.png
+
+editor: visual
+
