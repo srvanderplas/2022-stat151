@@ -21,13 +21,21 @@ book:
     - git-github.qmd
     - markdown.qmd
     - references.qmd
-
+  site-url: https://srvanderplas.github.io/Stat151/
+  repo-url: https://github.com/srvanderplas/Stat151
+  repo-branch: main
+  repo-actions: [edit]
+  sharing: [twitter, facebook, linkedin]
 bibliography: references.bib
+
+from: markdown+emoji
 
 format:
   html:
     css: style.css
     theme: cosmo
+    code-link: true
+
   pdf:
     documentclass: scrreport
   epub:
