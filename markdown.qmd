@@ -77,14 +77,40 @@ Notebooks are an implementation of literate programming. Both R and python have 
 
 In this class, we're going to use Quarto/R markdown, because it is a much better tool for creating polished reports than Jupyter (in my opinion). This matters because the goal is that you learn something useful for your own coding and then you can easily apply it when you go to work as an analyst somewhere to produce impressive documents. Jupyter notebooks are great for interactive coding, but aren't so wonderful for producing polished results. They also don't allow you to switch between languages mid-notebook, and since I'm trying to teach this class in both R and python, I want you to have both languages available.
 
-
-
 ::: learn-more
 There are some excellent opinions surrounding the use of notebooks in data analysis:
 
 - [Why I Don't Like Notebooks"](https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/preview#slide=id.g362da58057_0_1) by Joel Grus at JupyterCon 2018
 - [The First Notebook War](https://yihui.org/en/2018/09/notebook-war/) by Yihui Xie (response to Joel's talk).    
 Yihui Xie is the person responsible for `knitr` and `Rmarkdown`.
+:::
+
+::: tryitout
+### Try it out - R markdown
+
+Take a look at the [R markdown sample file](files/markdown-demo.Rmd) I've created to go with the R script above. You can see the HTML file it generates [here](files/markdown-demo.html). 
+
+- Download the Rmd file and open it with RStudio.
+
+- Change the output to `output: word_document` and hit the Render button ![Render button in RStudio](images/Render-button-Rstudio.png). Can you find the markdown-demo.docx file that was generated? What does it look like?
+
+- Change the output to `output: pdf_document` and hit the Render button ![Render button in RStudio](images/Render-button-Rstudio.png). Can you find the markdown-demo.pdf file that was generated? What does it look like?
+
+Rmarkdown tries very hard to preserve your formatted text appropriately regardless of the output document type. While things may not look exactly the same, the goal is to allow you to focus on the content and the formatting will "just work". 
+:::
+
+&nbsp;
+::: tryitout
+### Try it out - Jupyter
+
+Take a look at the [jupyter notebook sample file](files/jupyter-demo.ipynb) I've created to go with the R script above. You can see the HTML file it generates [here](files/jupyter-demo.html). 
+
+- Download the ipynb file and open it with jupyter.
+
+- Export the notebook as a pdf file (File -> Save as -> PDF via HTML). Can you find the jupyter-demo.pdf file that was generated? What does it look like?
+
+- Export the notebook as an html file (File -> Save as -> HTML). Can you find the jupyter-demo.html file that was generated? What does it look like?
+
 :::
 
 
