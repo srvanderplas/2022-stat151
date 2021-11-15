@@ -3,8 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.2.232">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="author" content="Susan Vanderplas">
-  <title>Spirals</title>
+  <title>Quarto demo</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -81,16 +80,16 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
-  <script src="markdown-demo_files/libs/clipboard/clipboard.min.js"></script>
-  <script src="markdown-demo_files/libs/quarto-html/quarto.js"></script>
-  <script src="markdown-demo_files/libs/quarto-html/popper.min.js"></script>
-  <script src="markdown-demo_files/libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="markdown-demo_files/libs/quarto-html/anchor.min.js"></script>
-  <link href="markdown-demo_files/libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="markdown-demo_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <script src="markdown-demo_files/libs/bootstrap/bootstrap.min.js"></script>
-  <link href="markdown-demo_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="markdown-demo_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script src="quarto-demo_files/libs/clipboard/clipboard.min.js"></script>
+  <script src="quarto-demo_files/libs/quarto-html/quarto.js"></script>
+  <script src="quarto-demo_files/libs/quarto-html/popper.min.js"></script>
+  <script src="quarto-demo_files/libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="quarto-demo_files/libs/quarto-html/anchor.min.js"></script>
+  <link href="quarto-demo_files/libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="quarto-demo_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="quarto-demo_files/libs/bootstrap/bootstrap.min.js"></script>
+  <link href="quarto-demo_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="quarto-demo_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div id="quarto-content" class="container-fluid page-layout-article">
@@ -98,83 +97,68 @@
 <div class="col mx-auto col-sm-12 col-md-9 col-lg-7">
 <main>
 <header id="title-block-header">
-<h1 class="title display-7">Spirals</h1>
-<p class="author">Susan Vanderplas</p>
+<h1 class="title display-7">Quarto demo</h1>
 </header>
-<section id="logarithmic-spiral" class="level2">
-<h2 class="anchored" data-anchor-id="logarithmic-spiral">Logarithmic Spiral</h2>
-<p>The logarithmic spiral has a polar equation of <span class="math display">\[r = a e^{b\theta}\]</span> where <span class="math inline">\(r\)</span> is distance from the origin, <span class="math inline">\(\theta\)</span> is the angle from the x-axis, and <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are constants. <a href="https://mathworld.wolfram.com/LogarithmicSpiral.html">Source</a></p>
-<p>We can write the logarithmic spiral equation in Cartesian coordinates as: <span class="math display">\[\begin{array}{c} x &amp;= r \cos\theta = a \cos\theta e^{b\theta}\\y &amp;= r \sin\theta = a \sin\theta e^{b\theta}\end{array}\]</span></p>
-<p>We can implement this spiral in R by first defining it in polar coordinates and then converting the polar coordinates into a sequence of Cartesian points that should be connected by line segments.</p>
+<section id="scripts" class="level2">
+<h2 class="anchored" data-anchor-id="scripts">Scripts</h2>
+<p>Before I show you how to use literate programming, let’s look at what it replaces: scripts. <strong>Scripts</strong> are files of code that are meant to be run on their own. They may produce results, or format data and save it somewhere, or scrape data from the web – scripts can do just about anything.</p>
+<p>Scripts can even have documentation within the file, using <code>#</code> characters (at least, in R and python) at the beginning of a line. <code>#</code> indicates a comment – that is, that the line does not contain code and should be ignored by the computer when the program is run. Comments are incredibly useful to help humans understand what the code does and why it does it.</p>
+<p>::: ex ### Plotting a <a href="https://mathworld.wolfram.com/LogarithmicSpiral.html">logarithmic spiral</a> in R and python</p>
+<p>This code will use concepts we have not yet introduced - feel free to tinker with it if you want, but know that you’re not responsible for being able to <strong>write</strong> this code yet. You just need to read it and get a sense for what it does. I have heavily commented it to help with this process.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the angle of the spiral (polar coords)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># go around two full times (2*pi = one revolution)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span>pi, .<span class="dv">01</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span>pi, .<span class="dv">01</span>) </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the distance from the origin of the spiral</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Needs to have the same length as theta</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="fu">length</span>(theta))</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(r, theta))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>               r theta
-[1,] 0.000000000  0.00
-[2,] 0.003980892  0.01
-[3,] 0.007961783  0.02
-[4,] 0.011942675  0.03
-[5,] 0.015923567  0.04
-[6,] 0.019904459  0.05</code></pre>
-</div>
-</div>
-<p>While we could probably figure out how to make R plot in polar coordinates, it’s much easier to plot in Cartesian coordinates (because that’s what most plotting packages are set up to do). So we need to convert into Cartesian (XY) coordinates before we try to plot things.</p>
-<p>Notice how my R code is in separate chunks, and between chunks everything is annotated?</p>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now define x and y in cartesian coordinates</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(x, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>               x            y
-[1,] 0.000000000 0.000000e+00
-[2,] 0.003980693 3.980825e-05
-[3,] 0.007960191 1.592251e-04
-[4,] 0.011937301 3.582265e-04
-[5,] 0.015910830 6.367728e-04
-[6,] 0.019879583 9.948083e-04</code></pre>
-</div>
-</div>
-<p>With <code>x</code> and <code>y</code> defined, we can create a line plot. By default, R will create a scatterplot, so we use <code>type=l</code> to tell R to create a line plot instead.</p>
-<div class="cell">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Now define x and y in cartesian coordinates</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="markdown-demo_files/figure-html/plot-the-spiral-1.png" class="img-fluid" width="672"></p>
+<div id="fig-polar-r" class="quarto-figure quarto-figure-center anchored" width="672">
+<figure class="figure">
+<p><img src="quarto-demo_files/figure-html/fig-polar-r-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 1: A Cartesian Spiral in R</figcaption><p></p>
+</figure>
 </div>
 </div>
-<p>With markdown, I can create nice formatting with simple text -</p>
-</section>
-<section id="first-header" class="level1">
-<h1>First header</h1>
-<section id="second-header" class="level2">
-<h2 class="anchored" data-anchor-id="second-header">Second header</h2>
-<blockquote class="blockquote">
-<p>A really nice quote</p>
-</blockquote>
-<section id="third-header" class="level3">
-<h3 class="anchored" data-anchor-id="third-header">Third header</h3>
-<pre><code>some code from an unknown language</code></pre>
-<p>I also like the ability to make</p>
-<ol type="1">
-<li>numbered</li>
-<li>lists</li>
-</ol>
-<p>but sometimes you want to make a</p>
-<ul>
-<li>bulleted</li>
-<li>list</li>
-</ul>
-<p>I have to put a blank line between the text and the list for the formatting to work just right. When in doubt, add a blank line :).</p>
-</section>
-</section>
+</div>
+<p>We can also plot a logarithmic spiral in python using the same essential steps. Notice how the fundamentals are the same, but things like how to reference the value of <span class="math inline">\(\pi\)</span> or the length of a vector are slightly different.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the angle of the spiral (polar coords)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># go around two full times (2*pi = one revolution)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">4</span> <span class="op">*</span> np.pi, <span class="fl">0.01</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the distance from the origin of the spiral</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Needs to have the same length as theta </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># (get length of theta with theta.size, </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  and then divide 5 by that to get the increment)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span><span class="op">/</span>theta.size)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Now define x and y in cartesian coordinates</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> r <span class="op">*</span> np.cos(theta)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> r <span class="op">*</span> np.sin(theta)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the axes</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the line</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-polar-py" class="quarto-figure quarto-figure-center anchored" width="672">
+<figure class="figure">
+<p><img src="quarto-demo_files/figure-html/fig-polar-py-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2: A Cartesian Spiral in python</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

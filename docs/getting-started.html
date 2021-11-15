@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.2.275">
+<meta name="generator" content="quarto-0.2.232">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Introduction to Statistical Computing - 1&nbsp; Getting Started</title>
 <style>
@@ -91,33 +91,23 @@
     "collapse-after": 2,
     "panel-placement": "start",
     "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
+    "limit": 20
   }</script><link rel="stylesheet" href="style.css">
 </head>
-<body class="floating">
+<body>
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">
+<header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">
 <span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span>
 </h1>
-      <button type="button" class="quarto-btn-toggle btn">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</nav></header><!-- /navbar/sidebar --><div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
+<div class="row flex-fill">
+  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
+    <nav class="ms-lg-auto floating overflow-auto"><div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Statistical Computing</a> 
         <div class="sidebar-tools-main">
@@ -148,11 +138,12 @@
   </div>
     <div class="px-3 mt-2 flex-shrink-0 align-items-center">
       <div class="sidebar-search">
-      <div id="quarto-search" class="" title="Search"></div>
+      <div id="quarto-search" class="mb-0 " title="Search">
+</div>
       </div>
     </div>
   <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-1">
+  <ul class="list-unstyled mt-1 px-3">
 <li class="sidebar-item">
   <a href="./index.html" class="">Preface</a>
 </li>
@@ -163,7 +154,7 @@
   <a href="./markdown.html" class=""><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./basic-math-operations.html" class=""><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Using R and Python as Calculators</span></a>
+  <a href="./finding-your-way.html" class=""><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./data-types.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></a>
@@ -197,7 +188,9 @@
 </li>
   </ul>
 </div>
-</nav><!-- toc --><nav id="TOC" role="doc-toc" class="sidebar sidebar-toc"><h2 id="toc-title">On this page</h2>
+</nav>
+</div>
+  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc"><h2 id="toc-title">On this page</h2>
 <ul>
 <li><a href="#getting-started-objectives" class="nav-link active" data-scroll-target="#getting-started-objectives">Objectives</a></li>
 <li>
@@ -214,9 +207,9 @@
 <li><a href="#in-class-activity" class="nav-link" data-scroll-target="#in-class-activity">In class activity</a></li>
 </ul>
 </li>
-</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/getting-started.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
-<!-- main -->
-<main class="content"><header id="title-block-header"><h1 class="title d-none d-lg-block display-7">
+</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/getting-started.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
+  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
+<main><header id="title-block-header"><h1 class="title d-none d-lg-block display-7">
 <span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span>
 </h1>
 </header><section id="getting-started-objectives" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="getting-started-objectives">Objectives</h2>
@@ -237,6 +230,12 @@
 </iframe>
 </div>
 <p>When programming, it is usually helpful to understand the distinction between RAM and disk storage (hard drives). We also need to know at least a little bit about processors (so that we know when we’ve asked our processor to do too much). Most of the other details aren’t necessary (for now).</p>
+<div class="learn-more">
+<ul>
+<li>
+<a href="https://www.py4e.com/html3/01-intro">Chapter 1 of Python for Everybody</a> - Computer hardware architecture</li>
+</ul>
+</div>
 </section><section id="operating-systems" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="operating-systems">
 <span class="header-section-number">1.1.2</span> Operating Systems</h3>
 <p>Operating systems, such as Windows, MacOS, or Linux, are a sophisticated program that allows CPUs to keep track of multiple programs and tasks and execute them at the same time.</p>
@@ -301,7 +300,14 @@
 <li>If this all worked, you have RStudio, Quarto, R, and Python set up correctly on your machine.</li>
 </ul>
 </li>
-</ul></section>
+</ul></section><p>&nbsp;</p>
+<div class="learn-more">
+<ul>
+<li><p><a href="https://www.py4e.com/lessons/install">Additional instructions for installing Python 3</a> from Python for Everybody</p></li>
+<li>
+</li></ul>
+</div>
+
 
 </section><script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -331,21 +337,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     e.clearSelection();
   });
   function tippyHover(el, contentFn) {
-    const config = {
+    window.tippy(el, {
       allowHTML: true,
       content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
       placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
+    }); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -378,7 +380,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script></main><!-- /main --><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script></main><div class="page-navigation ">
+  <div class="nav-page nav-page-previous">
       <a href="./index.html">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
@@ -388,8 +391,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
-</div> <!-- /content -->
+</div>
+</div> <!-- /main column -->
+</div> <!-- /row -->
+</div> <!-- /container fluid -->
 
 
 </body></html>

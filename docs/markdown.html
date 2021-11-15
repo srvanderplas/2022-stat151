@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.2.275">
+<meta name="generator" content="quarto-0.2.232">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Introduction to Statistical Computing - 2&nbsp; Scripts and Notebooks</title>
 <style>
@@ -79,7 +79,7 @@
 <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]--><script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./basic-math-operations.html" rel="next">
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./finding-your-way.html" rel="next">
 <link href="./getting-started.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
@@ -91,33 +91,23 @@
     "collapse-after": 2,
     "panel-placement": "start",
     "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
+    "limit": 20
   }</script><link rel="stylesheet" href="style.css">
 </head>
-<body class="floating">
+<body>
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">
+<header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">
 <span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span>
 </h1>
-      <button type="button" class="quarto-btn-toggle btn">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</nav></header><!-- /navbar/sidebar --><div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
+<div class="row flex-fill">
+  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
+    <nav class="ms-lg-auto floating overflow-auto"><div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Statistical Computing</a> 
         <div class="sidebar-tools-main">
@@ -148,11 +138,12 @@
   </div>
     <div class="px-3 mt-2 flex-shrink-0 align-items-center">
       <div class="sidebar-search">
-      <div id="quarto-search" class="" title="Search"></div>
+      <div id="quarto-search" class="mb-0 " title="Search">
+</div>
       </div>
     </div>
   <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-1">
+  <ul class="list-unstyled mt-1 px-3">
 <li class="sidebar-item">
   <a href="./index.html" class="">Preface</a>
 </li>
@@ -163,7 +154,7 @@
   <a href="./markdown.html" class="active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./basic-math-operations.html" class=""><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Using R and Python as Calculators</span></a>
+  <a href="./finding-your-way.html" class=""><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./data-types.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></a>
@@ -197,7 +188,9 @@
 </li>
   </ul>
 </div>
-</nav><!-- toc --><nav id="TOC" role="doc-toc" class="sidebar sidebar-toc"><h2 id="toc-title">On this page</h2>
+</nav>
+</div>
+  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc"><h2 id="toc-title">On this page</h2>
 <ul>
 <li>
 <a href="#scripts" class="nav-link active" data-scroll-target="#scripts"> <span class="header-section-number">2.1</span> Scripts</a>
@@ -211,11 +204,12 @@
 <ul class="collapse">
 <li><a href="#try-it-out---r-markdown" class="nav-link" data-scroll-target="#try-it-out---r-markdown"> <span class="header-section-number">2.2.1</span> Try it out - R markdown</a></li>
 <li><a href="#try-it-out---jupyter" class="nav-link" data-scroll-target="#try-it-out---jupyter"> <span class="header-section-number">2.2.2</span> Try it out - Jupyter</a></li>
+<li><a href="#try-it-out---quarto-markdown" class="nav-link" data-scroll-target="#try-it-out---quarto-markdown"> <span class="header-section-number">2.2.3</span> Try it out - Quarto markdown</a></li>
 </ul>
 </li>
-</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/markdown.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
-<!-- main -->
-<main class="content"><header id="title-block-header"><h1 class="title d-none d-lg-block display-7">
+</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/markdown.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
+  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
+<main><header id="title-block-header"><h1 class="title d-none d-lg-block display-7">
 <span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span>
 </h1>
 </header><p>In this class, we’ll be using markdown notebooks to keep our code and notes in the same place. One of the advantages of both R and Python is that they are both scripting languages, but they can be used within notebooks as well. This means that you can have an R script file or a python script file, and you can run that file, but you can also create a document (like the one you’re reading now) that has code AND text together in one place. This is called <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> and it is a very useful workflow both when you are learning programming and when you are working as an analyst and presenting results.</p>
@@ -282,8 +276,14 @@
 </section><p>Scripts can be run in Rstudio by clicking the Run button <img src="images/Run-button-Rstudio.png" class="img-fluid" alt="RStudio run button"> at the top of the editor window when the script is open.</p>
 <section id="try-it-out" class="level3 tryitout" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="try-it-out">
 <span class="header-section-number">2.1.2</span> Try it out!</h3>
-<p>Download the R and python scripts in the above example, open them in RStudio, and run each script using the Run button. What do you see?</p>
-</section></section><section id="notebooks" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="notebooks">
+<ul>
+<li><p>Download the R and python scripts in the above example, open them in RStudio, and run each script using the Run button. What do you see?</p></li>
+<li><p>(Advanced) Open a terminal in RStudio (Tools -&gt; Terminal -&gt; New Terminal) and see if you can run the R script from the terminal using <code>R CMD BATCH path/to/file/markdown-spiral-script.R</code> (You will have to modify this command to point to the file on your machine)<br>
+Notice that two new files appear in your working directory: <code>Rplots.pdf</code> and <code>markdown-spiral-script.Rout</code></p></li>
+<li><p>(Advanced) Open a terminal in RStudio (Tools -&gt; Terminal -&gt; New Terminal) and see if you can run the R script from the terminal using <code>python3 path/to/file/markdown-spiral-script.py</code> (You will have to modify this command to point to the file on your machine)<br>
+This will require you to have python3 accessible to you on the command line, which may be a challenge if it is not set up in the way that I’m assuming it is. Feel free to make an appointment to see if we can figure it out, if this does not work the first time.</p></li>
+</ul></section><p>Most of the time, you will run scripts interactively - that is, you’ll be sitting there watching the script run and seeing what the results are as you are modifying the script. However, one advantage to scripts over notebooks is that it is easy to write a script and schedule it to run without supervision to complete tasks which may be repetitive. I have a script that runs daily at midnight, 6am, noon, and 6pm to pull information off of the internet for a dataset I’m maintaining. I’ve set it up so that this all happens automatically and I only have to check the results when I am interested in working with that data.</p>
+</section><section id="notebooks" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="notebooks">
 <span class="header-section-number">2.2</span> Notebooks</h2>
 <p>Notebooks are an implementation of literate programming. Both R and python have native notebooks that are cross-platform and allow you to code in R or python. This book is written using Quarto markdown, which is an extension of Rmarkdown, but it is also possible to use jupyter notebooks to write R code.</p>
 <p>In this class, we’re going to use Quarto/R markdown, because it is a much better tool for creating polished reports than Jupyter (in my opinion). This matters because the goal is that you learn something useful for your own coding and then you can easily apply it when you go to work as an analyst somewhere to produce impressive documents. Jupyter notebooks are great for interactive coding, but aren’t so wonderful for producing polished results. They also don’t allow you to switch between languages mid-notebook, and since I’m trying to teach this class in both R and python, I want you to have both languages available.</p>
@@ -297,6 +297,7 @@
 Yihui Xie is the person responsible for <code>knitr</code> and <code>Rmarkdown</code>.</li>
 </ul>
 </div>
+<p>&nbsp;</p>
 <section id="try-it-out---r-markdown" class="level3 tryitout" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="try-it-out---r-markdown">
 <span class="header-section-number">2.2.1</span> Try it out - R markdown</h3>
 <p>Take a look at the <a href="./files/markdown-demo.html">R markdown sample file</a> I’ve created to go with the R script above. You can see the HTML file it generates <a href="files/markdown-demo.html">here</a>.</p>
@@ -314,9 +315,17 @@ Yihui Xie is the person responsible for <code>knitr</code> and <code>Rmarkdown</
 <li><p>Download the ipynb file and open it with jupyter.</p></li>
 <li><p>Export the notebook as a pdf file (File -&gt; Save as -&gt; PDF via HTML). Can you find the jupyter-demo.pdf file that was generated? What does it look like?</p></li>
 <li><p>Export the notebook as an html file (File -&gt; Save as -&gt; HTML). Can you find the jupyter-demo.html file that was generated? What does it look like?</p></li>
-</ul></section><p>Notes:</p>
-<p>Show code R file, code python file, R notebook file, and jupyter notebook file that do similar things. Then show a quarto notebook file that runs the R and python chunks together in a single document.</p>
-
+</ul></section><p>&nbsp;</p>
+<section id="try-it-out---quarto-markdown" class="level3 tryitout" data-number="2.2.3"><h3 data-number="2.2.3" class="anchored" data-anchor-id="try-it-out---quarto-markdown">
+<span class="header-section-number">2.2.3</span> Try it out - Quarto markdown</h3>
+<p>The nice thing about quarto is that it will work with python and R seamlessly, and you can compile the document using python or R. R markdown will also allow you to use python chunks, but you must compile the document in R.</p>
+<p>Take a look at the <a href="./files/quarto-demo.html">Qmd notebook sample file</a> I’ve created to go with the scripts above. You’ll notice that it is basically the script portion of this textbook – that’s because I’m writing the textbook in Quarto.</p>
+<ul>
+<li><p>Download the qmd file and open it with RStudio</p></li>
+<li><p>Try to compile the file by hitting the Render button <img src="images/Render-button-Rstudio.png" class="img-fluid" alt="Render button in RStudio"></p></li>
+<li><p>(Advanced) In the terminal, type in <code>quarto render path/to/file/quarto-demo.qmd</code>. Does that render the HTML file?<br>
+One advantage of this is that using quarto to render the file doesn’t require R at the command line. As the document contains R chunks, R is still required to compile the document, but the biggest difference between qmd and rmd is that qmd files are workflow agnostic - you can generate them in e.g.&nbsp;MS Visual Studio Code, compile them in that workflow, and never have to use RStudio.</p></li>
+</ul></section>
 
 </section><script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -346,21 +355,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     e.clearSelection();
   });
   function tippyHover(el, contentFn) {
-    const config = {
+    window.tippy(el, {
       allowHTML: true,
       content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
       placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
+    }); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -393,18 +398,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script></main><!-- /main --><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script></main><div class="page-navigation ">
+  <div class="nav-page nav-page-previous">
       <a href="./getting-started.html">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./basic-math-operations.html">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Using R and Python as Calculators</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./finding-your-way.html">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
-</div> <!-- /content -->
+</div>
+</div> <!-- /main column -->
+</div> <!-- /row -->
+</div> <!-- /container fluid -->
 
 
 </body></html>
