@@ -10,7 +10,7 @@ book:
     - index.qmd
     - getting-started.qmd
     - markdown.qmd
-    - basic-math-operations.qmd
+    - finding-your-way.qmd
     - data-types.qmd
     - vectors.qmd
     - data-structures.qmd
@@ -26,6 +26,8 @@ book:
   repo-branch: main
   repo-actions: [edit]
   sharing: [twitter, facebook, linkedin]
+  toc:
+    collapse: section
 bibliography: references.bib
 
 from: markdown+emoji

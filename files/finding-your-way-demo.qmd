@@ -1,0 +1,24 @@
+---
+title: "Experimenting with R and Python"
+---
+
+```{r}
+2+2
+```
+
+```{python}
+2+2
+```
+
+## Saying goodbye
+
+```{r}
+goodbye, R!
+```
+```{r}
+exit
+```
+
+```{r}
+quit()
+```

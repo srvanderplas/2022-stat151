@@ -1,0 +1,60 @@
+---
+title: "Quarto demo"
+---
+
+## Scripts
+Before I show you how to use literate programming, let's look at what it replaces: scripts. **Scripts** are files of code that are meant to be run on their own. They may produce results, or format data and save it somewhere, or scrape data from the web -- scripts can do just about anything. 
+
+Scripts can even have documentation within the file, using `#` characters (at least, in R and python) at the beginning of a line. `#` indicates a comment -- that is, that  the line does not contain code and should be ignored by the computer when the program is run. Comments are incredibly useful to help humans understand what the code does and why it does it. 
+
+::: ex
+### Plotting a [logarithmic spiral](https://mathworld.wolfram.com/LogarithmicSpiral.html) in R and python
+
+This code will use concepts we have not yet introduced - feel free to tinker with it if you want, but know that you're not responsible for being able to **write** this code yet. You just need to read it and get a sense for what it does. I have heavily commented it to help with this process.
+
+```{r}
+#| label: fig-polar-r
+#| fig-cap: "A Cartesian Spiral in R"
+# Define the angle of the spiral (polar coords)
+# go around two full times (2*pi = one revolution)
+theta <- seq(0, 4*pi, .01) 
+# Define the distance from the origin of the spiral
+# Needs to have the same length as theta
+r <- seq(0, 5, length.out = length(theta))
+
+# Now define x and y in cartesian coordinates
+x <- r * cos(theta)
+y <- r * sin(theta)
+
+plot(x, y, type = "l")
+
+```
+
+We can also plot a logarithmic spiral in python using the same essential steps. Notice how the fundamentals are the same, but things like how to reference the value of $\pi$ or the length of a vector are slightly different. 
+
+```{python}
+#| label: fig-polar-py
+#| fig-cap: "A Cartesian Spiral in python"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the angle of the spiral (polar coords)
+# go around two full times (2*pi = one revolution)
+theta = np.arange(0, 4 * np.pi, 0.01)
+# Define the distance from the origin of the spiral
+# Needs to have the same length as theta 
+# (get length of theta with theta.size, 
+#  and then divide 5 by that to get the increment)
+r = np.arange(0, 5, 5/theta.size)
+
+# Now define x and y in cartesian coordinates
+x = r * np.cos(theta)
+y = r * np.sin(theta)
+
+# Define the axes
+fig, ax = plt.subplots()
+# Plot the line
+ax.plot(x, y)
+plt.show()
+```

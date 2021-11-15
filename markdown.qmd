@@ -66,9 +66,19 @@ Scripts can be run in Rstudio by clicking the Run button ![RStudio run button](i
 ::: tryitout
 ### Try it out!
 
-Download the R and python scripts in the above example, open them in RStudio, and run each script using the Run button. What do you see?
+- Download the R and python scripts in the above example, open them in RStudio, and run each script using the Run button. What do you see?
+
+- (Advanced) Open a terminal in RStudio (Tools -> Terminal -> New Terminal) and see if you can run the R script from the terminal using `R CMD BATCH path/to/file/markdown-spiral-script.R` (You will have to modify this command to point to the file on your machine)    
+Notice that two new files appear in your working directory: `Rplots.pdf` and `markdown-spiral-script.Rout`
+
+- (Advanced) Open a terminal in RStudio (Tools -> Terminal -> New Terminal) and see if you can run the R script from the terminal using `python3 path/to/file/markdown-spiral-script.py` (You will have to modify this command to point to the file on your machine)    
+This will require you to have python3 accessible to you on the command line, which may be a challenge if it is not set up in the way that I'm assuming it is. Feel free to make an appointment to see if we can figure it out, if this does not work the first time.
 
 :::
+
+Most of the time, you will run scripts interactively - that is, you'll be sitting there watching the script run and seeing what the results are as you are modifying the script. However, one advantage to scripts over notebooks is that it is easy to write a script and schedule it to run without supervision to complete tasks which may be repetitive. I have a script that runs daily at midnight, 6am, noon, and 6pm to pull information off of the internet for a dataset I'm maintaining. I've set it up so that this all happens automatically and I only have to check the results when I am interested in working with that data.
+
+
 
 ## Notebooks
 
@@ -84,6 +94,8 @@ There are some excellent opinions surrounding the use of notebooks in data analy
 - [The First Notebook War](https://yihui.org/en/2018/09/notebook-war/) by Yihui Xie (response to Joel's talk).    
 Yihui Xie is the person responsible for `knitr` and `Rmarkdown`.
 :::
+
+&nbsp;
 
 ::: tryitout
 ### Try it out - R markdown
@@ -114,8 +126,21 @@ Take a look at the [jupyter notebook sample file](files/jupyter-demo.ipynb) I've
 
 :::
 
+&nbsp;
 
+::: tryitout
+### Try it out - Quarto markdown
 
-Notes:
+The nice thing about quarto is that it will work with python and R seamlessly, and you can compile the document using python or R. R markdown will also allow you to use python chunks, but you must compile the document in R. 
 
-Show code R file, code python file, R notebook file, and jupyter notebook file that do similar things. Then show a quarto notebook file that runs the R and python chunks together in a single document.
+Take a look at the [Qmd notebook sample file](files/quarto-demo.qmd) I've created to go with the scripts above. You'll notice that it is basically the script portion of this textbook -- that's because I'm writing the textbook in Quarto. 
+
+- Download the qmd file and open it with RStudio
+
+- Try to compile the file by hitting the Render button ![Render button in RStudio](images/Render-button-Rstudio.png)
+
+- (Advanced) In the terminal, type in `quarto render path/to/file/quarto-demo.qmd`. Does that render the HTML file?    
+One advantage of this is that using quarto to render the file doesn't require R at the command line. As the document contains R chunks, R is still required to compile the document, but the biggest difference between qmd and rmd is that qmd files are workflow agnostic - you can generate them in e.g. MS Visual Studio Code, compile them in that workflow, and never have to use RStudio.
+
+:::
+

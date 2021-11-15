@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The logarithmic spiral has a polar equation of $$r = a e^{b\theta}$$ where $r$ is distance from the origin, $\theta$ is the angle from the x-axis, and $a$ and $b$ are constants. [Source](https://mathworld.wolfram.com/LogarithmicSpiral.html)
 
-We can write the logarithmic spiral equation in Cartesian coordinates as: $$\begin{array} x &= r \cos\theta = a \cos\theta e^{b\theta}\\y &= r \sin\theta = a \sin\theta e^{b\theta}\end{array}$$
+We can write the logarithmic spiral equation in Cartesian coordinates as: $$\begin{array}{c} x &= r \cos\theta = a \cos\theta e^{b\theta}\\y &= r \sin\theta = a \sin\theta e^{b\theta}\end{array}$$
 
 We can implement this spiral in R by first defining it in polar coordinates and then converting the polar coordinates into a sequence of Cartesian points that should be connected by line segments.
 
@@ -30,6 +30,7 @@ head(cbind(r, theta))
 While we could probably figure out how to make R plot in polar coordinates, it's much easier to plot in Cartesian coordinates (because that's what most plotting packages are set up to do). So we need to convert into Cartesian (XY) coordinates before we try to plot things.
 
 Notice how my R code is in separate chunks, and between chunks everything is annotated?
+
 ```{r convert-to-cartesian}
 # Now define x and y in cartesian coordinates
 x <- r * cos(theta)
@@ -40,13 +41,11 @@ head(cbind(x, y))
 
 With `x` and `y` defined, we can create a line plot. By default, R will create a scatterplot, so we use `type=l` to tell R to create a line plot instead.
 
-
 ```{r plot-the-spiral}
 plot(x, y, type = "l")
 ```
 
-
-With markdown, I can create nice formatting with simple text - 
+With markdown, I can create nice formatting with simple text -
 
 # First header
 
@@ -56,18 +55,16 @@ With markdown, I can create nice formatting with simple text -
 
 ### Third header
 
-```
-some code from an unknown language
-```
+    some code from an unknown language
 
-I also like the ability to make 
+I also like the ability to make
 
-1. numbered 
-2. lists
+1.  numbered
+2.  lists
 
 but sometimes you want to make a
 
-- bulleted 
-- list 
+-   bulleted
+-   list
 
-I have to put a blank line between the text and the list for the formatting to work just right. When in doubt, add a blank line :). 
+I have to put a blank line between the text and the list for the formatting to work just right. When in doubt, add a blank line :).

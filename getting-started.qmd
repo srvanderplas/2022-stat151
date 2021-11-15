@@ -31,6 +31,11 @@ Here is a short 3-minute video on the basic hardware that makes up your computer
 
 When programming, it is usually helpful to understand the distinction between RAM and disk storage (hard drives). We also need to know at least a little bit about processors (so that we know when we've asked our processor to do too much). Most of the other details aren't necessary (for now).
 
+::: learn-more
+
+- [Chapter 1 of Python for Everybody](https://www.py4e.com/html3/01-intro) - Computer hardware architecture
+:::
+
 ### Operating Systems
 
 Operating systems, such as Windows, MacOS, or Linux, are a sophisticated program that allows CPUs to keep track of multiple programs and tasks and execute them at the same time.
@@ -91,20 +96,29 @@ In this section, I will provide you with links to set up various programs on you
 ### In class activity {.unnumbered}
 
 Open RStudio on your computer and explore a bit.
-    
-- Can you find the R console? Type in `2+2` to make sure the result is `4`.
-- Run the following code in the R console:
 
-```r
+-   Can you find the R console? Type in `2+2` to make sure the result is `4`.
+-   Run the following code in the R console:
+
+``` r
 install.packages(
   c("tidyverse", "rmarkdown", "knitr", "quarto")
 )
 ```
 
-- Can you find the text editor? 
-    - Create a new quarto document (File -> New File -> Quarto Document). 
-    - Paste in the contents of [this document](files/getting-started-quarto.qmd). 
-    - Compile the document and use the Viewer pane to see the result.
-    - If this all worked, you have RStudio, Quarto, R, and Python set up correctly on your machine.
+-   Can you find the text editor?
+    -   Create a new quarto document (File -> New File -> Quarto Document).
+    -   Paste in the contents of [this document](files/getting-started-quarto.qmd).
+    -   Compile the document and use the Viewer pane to see the result.
+    -   If this all worked, you have RStudio, Quarto, R, and Python set up correctly on your machine.
+:::
+
+&nbsp;
+
+::: learn-more
+
+- [Additional instructions for installing Python 3](https://www.py4e.com/lessons/install) from Python for Everybody
+
+- 
 
 :::
