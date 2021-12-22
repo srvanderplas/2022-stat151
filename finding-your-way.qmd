@@ -134,29 +134,145 @@ If you want to start a python console outside of RStudio, bring up your command 
 
 In the last chapter, we played around with scripts and markdown documents for python and R. In the last section, we played with interactive mode by typing R and python commands into a console or running code chunks interactively using the Run button or `Ctrl/Cmd + Enter` (which is the keyboard shortcut). 
 
-XXX TODO: Explain the difference between scripts and interactive mode, running scripts in batch mode, etc. XXX
-
 You may be learning to program in R and python because it's a required part of the curriculum, but hopefully, you also have some broader ideas of what you might do with either language - process data, make pretty pictures, write a program to trigger the computer uprising... 
 
-Scripts are best used when you have a thing you want to do, and you will need to do that thing many times, perhaps with different input data. Suppose that I have a text file and I want to pull out the most common word in that file. 
+Scripts are best used when you have a thing you want to do, and you will need to do that thing many times, perhaps with different input data. Suppose that I have a text file and I want to pull out the most common word in that file. In the next few examples, I will show you how to do this in R and python, and at the same time, demonstrate the difference between interactive mode and script mode in both languages. In each example, try to compare to the previous example to identify whether something is running as a full script or in interactive mode, and how it is launched (in R? at the command line?). 
+
+
+@py4e provides a handy python program to count words. This program is meant to be run on the command line, and it will run for any specified text file. 
 
 ::: ex
-### Example: Counting Words in R
+### Example: Counting Words in Python on the Command Line
+
+Download [words.py](code/words.py) to your computer and open up a command line terminal in the location where you saved the file. 
+
+Before you run the script, save [Oliver Twist](data/dickens-oliver-627.txt) to the same folder as `dickens-oliver-627.txt` (you can use another file name, but you will have to adjust your response to the program)
+
+```{python, eval = F}
+name = input('Enter file:')
+handle = open(name, 'r')
+counts = dict()
+
+for line in handle:
+    words = line.split()
+    for word in words:
+        counts[word] = counts.get(word, 0) + 1
+
+bigcount = None
+bigword = None
+for word, count in list(counts.items()):
+    if bigcount is None or count > bigcount:
+        bigword = word
+        bigcount = count
+
+print(bigword, bigcount)
+
+# Code: http://www.py4e.com/code3/words.py
+```
+
+In your terminal, type in `python words.py`. If all goes well, you should get a prompt that tells you to enter a file name. Type in `dickens-oliver-627.txt`, and the program will read in the file and execute the program according to the instructions shown above. You don't need to understand what is happening in this program (just like you don't need to understand what is happening in the R code above either) -- you get the answer anyways: the most common word, according to the output from the program, is 
+
+    the 8854
+
+That is, the word `the` occurs 8854 times in the text.
+
+![Screenshot of folder and python script evaluation, showing how to run the python script in the terminal and get the count of the most common word, 'the', in the file dickens-oliver-627.txt](images/python-wordcount-example-screenshot.png)
+
+
+::: 
+&nbsp;
+
+::: ex
+### Example: Counting Words in Python within RStudio
+
+We can run this script in interactive mode in RStudio if we want to: Open the words.py file you downloaded in RStudio. 
+
+![Rstudio screenshot showing the words.py file opened, with a green highlighted rectangle around the button "Source Script" which allows you to run the file in RStudio.](images/python-wordcount-rstudio-screenshot.png)
+
+Click the "Source Script" button highlighted in green above, and then look at the console below the script window:
+
+![RStudio screenshot of console window after Source Script button is clicked. Python asks you to enter the file of words to count.](images/python-wordcount-rstudio-screenshot-console1.png)
+Once you enter the path to the text file -- this time, from the **project** working directory -- you get the same answer. It can be a bit tricky to figure out what your current working directory is in RStudio, but in the R console you can get that information with the `getwd()` command. 
+
+![RStudio screenshot of console window with getwd() command and result](images/python-wordcount-rstudio-screenshot-console3.png)
+
+Since I know that I have stored the text file in the `data` subdirectory of the `stat151book` folder, I can type in `data/dickens-oliver-627.txt` and the python program can find my file. 
+:::
+
+&nbsp;
+
+In the above example, RStudio is functioning essentially like a terminal window - it runs the script as a single file, and once it has your input, all commands are executed one after the other automatically. This is convenient if you want to test the whole block of code at once, but it can be more useful to test each line individually and "play" with the output a bit (or modify code line-by-line). 
+
+::: ex
+### Example: Counting Words in Python in Interactive Mode (RStudio)
+
+Suppose we want to modify this python script to be more like the R script, where we tell python what the file name is in the file itself, instead of waiting for user input at the terminal. 
+
+Instead of using the `input` command, I just provide python with a string that contains the path to the file. If you have downloaded the text file to a different folder and RStudio's working directory is set to that folder, you would change the first line to `name = "dickens-oliver-627.txt"` - I have set things up to live in a data folder because if I had all of the files in the same directory where this book lives, I would never be able to find anything. 
+
+
+Create a new python script file in RStudio (File -> New File -> Python Script) and paste in the following lines of code, adjusting the path to the text file appropriately. 
+
+```{python}
+name = "data/dickens-oliver-627.txt"
+handle = open(name, 'r')
+counts = dict()
+
+for line in handle:
+    words = line.split()
+    for word in words:
+        counts[word] = counts.get(word, 0) + 1
+
+bigcount = None
+bigword = None
+for word, count in list(counts.items()):
+    if bigcount is None or count > bigcount:
+        bigword = word
+        bigcount = count
+
+print(bigword, bigcount)
+
+# Code: http://www.py4e.com/code3/words.py
+
+```
+
+![Above script in the RStudio text editor window, with the first 3 lines of code highlighted](images/python-wordcount-rstudio-noinput-interactive1.png)
+
+With the first 3 lines highlighted, click the Run button. 
+
+![In the console, the first 3 lines of the program have run. Note that we are still in python mode - the >>> indicates that the python interpreter is waiting for additional instructions.](images/python-wordcount-rstudio-noinput-interactive2.png)
+We can examine the objects that we have defined this far in the program by typing their names into the console directly.
+
+![RStudio python console allows us to examine the objects we have defined after the first 3 lines of code have been run. We can see that counts is an empty object, handle is a pointer to a text file, and name is a string with the path to the text file -- so far, so good.](images/python-wordcount-rstudio-noinput-interactive3.png)
+
+If we want to continue walking through the program chunk by chunk, we can run the next four lines of code. Lines 5-8 are a for loop, so we should run them all at once unless we want to fiddle with how the for loop works. 
+
+![RStudio editor window with the next four lines of the code chunk highlighted. If we click the Run button, we can tell python to evaluate these few lines of code, and then we can see what the objects we've defined look like once that has been done](images/python-wordcount-rstudio-noinput-interactive4.png)
+
+Select lines 5-8 as shown above, and click the Run button. Your console window should update with additional lines of code. You can type in `counts` after that has been evaluated to see what the `counts` object looks like now.
+
+![RStudio python console with lines 5-8 run and the counts object displayed. Counts is now filled with words and corresponding integer counts of the frequency of that word's appearance in the text](images/python-wordcount-rstudio-noinput-interactive5.png)
+
+The next few lines of code determine which word has the highest count. We won't get into the details here, but to finish out the running of the program, select lines 10-17 and run them in RStudio. 
+
+![RStudio editor window and console showing the results when lines 10-17 are evaluated. It is clear that line 17 results in the console output of `the 8854`](images/python-wordcount-rstudio-noinput-interactive6.png)
+
+
+:::
+
+
+Running scripts in interactive mode or within RStudio is much more convenient if you are still working on the script - it allows you to debug the script line-by-line if necessary. Running a script at the terminal (like we did above) is sometimes more convenient if you have a pre-written script that you know already works. Both modes are useful, but for the time being you will probably be running scripts within your development environment (RStudio or VSCode or any other IDE you prefer) more often than at the command line.
+
+
+
+::: ex
+### Example: Counting Words in R within RStudio
 
 Just for fun, let's work with [Oliver Twist, by Charles Dickens](http://www.textfiles.com/etext/AUTHORS/DICKENS/dickens-oliver-627.txt), which I have saved [here](data/dickens-oliver-627.txt). 
 
-```{r}
+```{r, eval = F}
 # Read in the file
-text <- readLines("data/dickens-oliver-627.txt")
-
-# Skip the first 252 lines, which are project gutenberg text
-text <- text[-c(1:252)]
-
-# Remove punctuation
-text <- gsub("[[:punct:]]", " ", text)
-
-# Convert to lower case
-text <- tolower(text)
+text <- readLines("dickens-oliver-627.txt")
 
 # Split the lines of text into separate words
 text <- strsplit(text, " ")
@@ -165,15 +281,149 @@ text <- strsplit(text, " ")
 text <- unlist(text)
 
 # Count up the number of occurrences of each word
-word_freq <- sort(table(text), decreasing = T)
+word_freq <- table(text)
+
+# Sort the table by decreasing frequency
+word_freq <- sort(word_freq, decreasing = T)
 
 # Show the counts for the most common 10 words
 word_freq[1:10]
 ```
 
+Make a new R script (File -> New File -> R script) and copy the above code into R, or [download the file to your computer directly](code/words-noinput.R) and open the downloaded file in RStudio.
+
+In the R console, run the command `getwd()` to see where R is running from. This is your "working directory". 
+
+![R editor window with relevant script, with R console shown below. My working directory is `/home/susan/Projects/Class/unl-stat151/stat151book/demo`; yours will be different.](images/R-wordcount-rstudio-noinput-interactive1.png)
+
+Save the copy of Oliver Twist to the file `dickens-oliver-627.txt` in the folder that `getwd()` spit out. You can test that you have done this correctly by typing `list.files()` into the R console window and hitting enter.
+It is very important that you know where on your computer R is looking for files - otherwise, you will constantly get "file not found" errors, and that will be very annoying. 
+
+![R editor window with relevant script, with R console shown below. dickens-oliver-627.txt is in the working directory, so we can proceed.](images/R-wordcount-rstudio-noinput-interactive2.png)
+
+Use the "Run" button to run the script and see what the output is. How many times does 'the' appear in the file?
 :::
+&nbsp;
+::: ex
+### Example: Counting words in R in Interactive Mode
+
+Using the file you created above, let's examine what each line does in interactive mode. 
+
+```{r, include = F}
+text <- readLines("data/dickens-oliver-627.txt")
+```
+```{r, eval = F}
+# Read in the file
+text <- readLines("dickens-oliver-627.txt")
+```
+
+Select the above line and click the "Run" button in RStudio. Once you've done that, type in `text[1:5]` in the R console to see the first 5 lines of the file. 
+
+![RStudio editor window with the first 2 lines of the words-noinput.R file selected. The screenshot also shows the console window after running the first 2 lines of the R file, with the `text[1:5]` command run interactively afterwards showing the first 5 lines of the text file we read in.](images/R-wordcount-rstudio-noinput-interactive3.png)
+
+Run the next line of code using the run button (or click on the line of code and hit Ctrl/Cmd + Enter). 
+
+```{r}
+# Split the lines of text into separate words
+text <- strsplit(text, " ")
+```
+
+Type in `text[[1]]` to see what the `text` object looks like now.
+```{r}
+text[[1]]
+```
+
+![Screenshot of RStudio editor window with lines of code highlighted, plus RStudio console with the code as run and `text[[1]]` showing the first entry in the text object - a list of the separate words in the first line of the text file.](images/R-wordcount-rstudio-noinput-interactive4.png)
+
+```{r}
+# Simplify the list
+text <- unlist(text)
+text[[1]]
+text[1:20]
+```
+
+Running `unlist` on text simplifies the object so that it is now a single **vector** of every word in the file, without regard for which line it appears on. 
+
+```{r}
+# Count up the number of occurrences of each word
+word_freq <- table(text)
+word_freq[1:5]
+```
+
+The next line assembles a table of frequency counts in `text`. There are 4558 spaces, 4 occurrences of the string `_I_`, and so on. 
+
+```{r}
+# Sort the table by decreasing frequency
+word_freq <- sort(word_freq, decreasing = T)
+word_freq[1:5]
+```
+
+We can then sort `word_freq` so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5. 
+:::
+&nbsp;
+::: ex
+### Example: Counting Words in R on the Command Line
+
+Download the following file to your working directory: [words.R](code/words.R), or paste the following code into a new R script and save it as `words.R`
+
+```{r, eval = F}
+# Take arguments from the command line
+args <- commandArgs(TRUE)
+
+# Read in the file
+text <- readLines(args[1])
+
+# Split the lines of text into separate words
+text <- strsplit(text, " ")
+
+# Simplify the list
+text <- unlist(text)
+
+# Count up the number of occurrences of each word
+word_freq <- table(text)
+
+# Sort the table by decreasing frequency
+word_freq <- sort(word_freq, decreasing = T)
+
+# Show the counts for the most common 10 words
+word_freq[1:10]
+```
+
+In a terminal window opened at the location you saved the file (and the corresponding text file), enter the following: `Rscript words.R dickens-oliver-627.txt`.
+
+Here, `Rscript` is the command that tells R to evaluate the file, `words.R` is the R code to run, and `dickens-oliver-627.txt` is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit.
+::: 
+
+
+### Comparing Python and R
+
+
+This is one good example of the difference in culture between python and R: python is a general-purpose programming language, where R is a domain specific programming language. In both languages, I've shown you how I would run the script by default first - in python, I would use a pre-built script to run things, and in R I would open things up in RStudio and source the script rather than running R from the command line. 
+
+This is a bit of a cultural difference -- because python is a general purpose programming language, it is easy to use for a wide variety of tasks, and is a common choice for creating scripts that are used on the command line. R is a domain-specific language, so it is extremely easy to use R for data analysis, but that tends to take place (in my experience) in an interactive or script-development setting using RStudio. It is less natural to me to write an R script that takes input from the user on the command line, even though obviously R is completely capable of doing that task. More commonly, I will write an R script for my own use, and thus there is no need to make it easy to use on the command line, because I can just change it in interactive mode. Python scripts, on the other hand, may be written for a novice to use at the command line with no idea of how to write or modify python code. This is a subtle difference, and may not make a huge impression on you now, but it is something to keep in mind as you learn to write code in each language -- the culture around python and the culture around R are slightly different, and this affects how each language is used in practice.
+
+
 
 ## Getting help
+
+In both R and python, you can access help with a `?` - the order is just slightly different.
+
+Suppose we want to get help on a `for` loop in either language. 
+
+In R, we can run this line of code to get help on `for` loops. 
+```{r}
+?`for`
+```
+Because `for` is a reserved word in R, we have to use backticks (the key above the `TAB` key) to surround the word `for` so that R knows we're talking about the function itself. Most other function help can be accessed using `?function_name`. 
+
+In python, we use `for?` to access the same information. 
+```{python, eval = F}
+for?
+```
+
+(You will have to run this in interactive mode for it to work in either language)
+
+w3schools has an excellent python [help page](https://www.w3schools.com/python/python_for_loops.asp) that may be useful as well - usually, these pages will have examples. A similar set of pages exists for [R help on basic functions](https://www.w3schools.com/r/r_for_loop.asp)
 
 
 ::: learn-more

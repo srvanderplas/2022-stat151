@@ -223,7 +223,11 @@
 <li>
 <a href="#talking-to-python-and-r---script-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---script-mode"> <span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</a>
 <ul class="collapse">
-<li><a href="#example-counting-words-in-r" class="nav-link" data-scroll-target="#example-counting-words-in-r"> <span class="header-section-number">3.4.1</span> Example: Counting Words in R</a></li>
+<li><a href="#example-counting-words-in-python-on-the-command-line" class="nav-link" data-scroll-target="#example-counting-words-in-python-on-the-command-line"> <span class="header-section-number">3.4.1</span> Example: Counting Words in Python on the Command Line</a></li>
+<li><a href="#example-counting-words-in-python-within-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-python-within-rstudio"> <span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</a></li>
+<li><a href="#example-counting-words-in-python-in-interactive-mode-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-python-in-interactive-mode-rstudio"> <span class="header-section-number">3.4.3</span> Example: Counting Words in Python in Interactive Mode (RStudio)</a></li>
+<li><a href="#example-counting-words-in-r-within-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-r-within-rstudio"> <span class="header-section-number">3.4.4</span> Example: Counting Words in R within RStudio</a></li>
+<li><a href="#comparing-python-and-r" class="nav-link" data-scroll-target="#comparing-python-and-r"> <span class="header-section-number">3.4.5</span> Comparing Python and R</a></li>
 </ul>
 </li>
 <li><a href="#getting-help" class="nav-link" data-scroll-target="#getting-help"> <span class="header-section-number">3.5</span> Getting help</a></li>
@@ -341,7 +345,7 @@ NaN         NA       function    ...</code></pre>
 </tr>
 </tbody>
 </table>
-<p>R will indicate that it is waiting for your command with a <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> character in the console. If you don’t see that <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> character, chances are you’ve forgotten to finish a statement - check for parentheses and brackets.</p>
+<p>R will indicate that it is waiting for your command with a <code>&gt;</code> character in the console. If you don’t see that <code>&gt;</code> character, chances are you’ve forgotten to finish a statement - check for parentheses and brackets.</p>
 <p>When you are working in an R script, any output is shown only in the console. When you are working in an R code chunk, output is shown both below the chunk and in the console.</p>
 <p>If you want, you can also just work within the R console. This can be useful for quick, interactive work, or if, like me, you’re too lazy to pull up a calculator on your machine and you just want to use R to calculate something quickly. You just type your R command into the console:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -349,8 +353,8 @@ NaN         NA       function    ...</code></pre>
 <p></p><figcaption aria-hidden="true" class="figure-caption">R console with commands “Hello”, print(“Hello”), and (unquoted) “I love R”, which causes an error</figcaption><p></p>
 </figure>
 </div>
-<p>The first two statements in the above example work - “Hello” is a string, and is thus a valid statement equivalent to typing “2” into the console and getting “2” back out. The second command, <code><a href="https://rdrr.io/r/base/print.html">print("Hello")</a></code>, does the same thing - “Hello” is returned as the result. The third command, <code>I love R</code>, however, results in an error - there is an unexpected symbol (the space) in the statement. R thinks we are telling it to do something with variables <code>I</code> and <code>love</code> (which are not defined), and it doesn’t know what we want it to do to the two objects.</p>
-<p>Suppose we define <code>I</code> and <code>love</code> as variables by putting a value into each object using <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, which is the assignment operator. Then, typing “I love” into the console generates the same error, and R tells us “hey, there’s an unexpected symbol here” - in this case, maybe we meant to add the two variables together.</p>
+<p>The first two statements in the above example work - “Hello” is a string, and is thus a valid statement equivalent to typing “2” into the console and getting “2” back out. The second command, <code>print("Hello")</code>, does the same thing - “Hello” is returned as the result. The third command, <code>I love R</code>, however, results in an error - there is an unexpected symbol (the space) in the statement. R thinks we are telling it to do something with variables <code>I</code> and <code>love</code> (which are not defined), and it doesn’t know what we want it to do to the two objects.</p>
+<p>Suppose we define <code>I</code> and <code>love</code> as variables by putting a value into each object using <code>&lt;-</code>, which is the assignment operator. Then, typing “I love” into the console generates the same error, and R tells us “hey, there’s an unexpected symbol here” - in this case, maybe we meant to add the two variables together.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/R-console-error.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">R console with commands “Hello”, print(“Hello”), and (unquoted) “I love R”, which causes an error. Defining variables I and love provides us a context in which R’s error message about unexpected symbols makes sense - R is reminding us that we need a numerical operator in between the two variable names.</figcaption><p></p>
@@ -379,7 +383,7 @@ NaN         NA       function    ...</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Notice that in the console, you get a bit of insight into how RStudio is running the python code: we see <code><a href="https://rdrr.io/pkg/reticulate/man/repl_python.html">reticulate::repl_python()</a></code>, which is R code telling R to run the line in Python. The python console has <code>&gt;&gt;&gt;</code> instead of <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> to indicate that python is waiting for instructions.</p>
+<p>Notice that in the console, you get a bit of insight into how RStudio is running the python code: we see <code><a href="https://rdrr.io/pkg/reticulate/man/repl_python.html">reticulate::repl_python()</a></code>, which is R code telling R to run the line in Python. The python console has <code>&gt;&gt;&gt;</code> instead of <code>&gt;</code> to indicate that python is waiting for instructions.</p>
 <p>Notice also that the only difference between the R and python script file screenshots is that there is a different logo on the documents: <img src="images/R-python-script.png" class="img-fluid" alt="R and python script logos">. Personally, I think it’s easier to work in a markdown document and keep my notes with specific chunks labeled by language when I’m learning the two languages together, but when you are writing code for a specific project in a single language, it is probably better to use a script file specific to that language.</p>
 <p>If you want to start the python console by itself (without a script or working in a markdown document), you can simply type <code><a href="https://rdrr.io/pkg/reticulate/man/repl_python.html">reticulate::repl_python()</a></code> into the R console. <img src="images/python-console.png" class="img-fluid" alt="Screenshot of how to get the python console"></p>
 <p>R is nice enough to remind you that to end the conversation with python, you just need to type “exit” or “quit”.</p>
@@ -387,24 +391,127 @@ NaN         NA       function    ...</code></pre>
 </section></section><section id="talking-to-python-and-r---script-mode" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="talking-to-python-and-r---script-mode">
 <span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</h2>
 <p>In the last chapter, we played around with scripts and markdown documents for python and R. In the last section, we played with interactive mode by typing R and python commands into a console or running code chunks interactively using the Run button or <code>Ctrl/Cmd + Enter</code> (which is the keyboard shortcut).</p>
-<p>XXX TODO: Explain the difference between scripts and interactive mode, running scripts in batch mode, etc. XXX</p>
 <p>You may be learning to program in R and python because it’s a required part of the curriculum, but hopefully, you also have some broader ideas of what you might do with either language - process data, make pretty pictures, write a program to trigger the computer uprising…</p>
-<p>Scripts are best used when you have a thing you want to do, and you will need to do that thing many times, perhaps with different input data. Suppose that I have a text file and I want to pull out the most common word in that file.</p>
-<section id="example-counting-words-in-r" class="level3 ex" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="example-counting-words-in-r">
-<span class="header-section-number">3.4.1</span> Example: Counting Words in R</h3>
+<p>Scripts are best used when you have a thing you want to do, and you will need to do that thing many times, perhaps with different input data. Suppose that I have a text file and I want to pull out the most common word in that file. In the next few examples, I will show you how to do this in R and python, and at the same time, demonstrate the difference between interactive mode and script mode in both languages. In each example, try to compare to the previous example to identify whether something is running as a full script or in interactive mode, and how it is launched (in R? at the command line?).</p>
+<p><span class="citation" data-cites="py4e">Severance (<a href="references.html#ref-py4e" role="doc-biblioref">2016</a>)</span> provides a handy python program to count words. This program is meant to be run on the command line, and it will run for any specified text file.</p>
+<section id="example-counting-words-in-python-on-the-command-line" class="level3 ex" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="example-counting-words-in-python-on-the-command-line">
+<span class="header-section-number">3.4.1</span> Example: Counting Words in Python on the Command Line</h3>
+<p>Download <a href="code/words.py">words.py</a> to your computer and open up a command line terminal in the location where you saved the file.</p>
+<p>Before you run the script, save <a href="data/dickens-oliver-627.txt">Oliver Twist</a> to the same folder as <code>dickens-oliver-627.txt</code> (you can use another file name, but you will have to adjust your response to the program)</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Enter file:'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>handle <span class="op">=</span> <span class="bu">open</span>(name, <span class="st">'r'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> handle:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> line.split()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> word <span class="kw">in</span> words:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        counts[word] <span class="op">=</span> counts.get(word, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>bigcount <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>bigword <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> word, count <span class="kw">in</span> <span class="bu">list</span>(counts.items()):</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> bigcount <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> count <span class="op">&gt;</span> bigcount:</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        bigword <span class="op">=</span> word</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        bigcount <span class="op">=</span> count</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bigword, bigcount)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Code: http://www.py4e.com/code3/words.py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In your terminal, type in <code>python words.py</code>. If all goes well, you should get a prompt that tells you to enter a file name. Type in <code>dickens-oliver-627.txt</code>, and the program will read in the file and execute the program according to the instructions shown above. You don’t need to understand what is happening in this program (just like you don’t need to understand what is happening in the R code above either) – you get the answer anyways: the most common word, according to the output from the program, is</p>
+<pre><code>the 8854</code></pre>
+<p>That is, the word <code>the</code> occurs 8854 times in the text.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-example-screenshot.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of folder and python script evaluation, showing how to run the python script in the terminal and get the count of the most common word, ‘the’, in the file dickens-oliver-627.txt</figcaption><p></p>
+</figure>
+</div>
+</section><p>&nbsp;</p>
+<section id="example-counting-words-in-python-within-rstudio" class="level3 ex" data-number="3.4.2"><h3 data-number="3.4.2" class="anchored" data-anchor-id="example-counting-words-in-python-within-rstudio">
+<span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</h3>
+<p>We can run this script in interactive mode in RStudio if we want to: Open the words.py file you downloaded in RStudio.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-rstudio-screenshot.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Rstudio screenshot showing the words.py file opened, with a green highlighted rectangle around the button “Source Script” which allows you to run the file in RStudio.</figcaption><p></p>
+</figure>
+</div>
+<p>Click the “Source Script” button highlighted in green above, and then look at the console below the script window:</p>
+<p><img src="images/python-wordcount-rstudio-screenshot-console1.png" class="img-fluid" alt="RStudio screenshot of console window after Source Script button is clicked. Python asks you to enter the file of words to count."> Once you enter the path to the text file – this time, from the <strong>project</strong> working directory – you get the same answer. It can be a bit tricky to figure out what your current working directory is in RStudio, but in the R console you can get that information with the <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> command.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-rstudio-screenshot-console3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">RStudio screenshot of console window with getwd() command and result</figcaption><p></p>
+</figure>
+</div>
+<p>Since I know that I have stored the text file in the <code>data</code> subdirectory of the <code>stat151book</code> folder, I can type in <code>data/dickens-oliver-627.txt</code> and the python program can find my file.</p>
+</section><p>&nbsp;</p>
+<p>In the above example, RStudio is functioning essentially like a terminal window - it runs the script as a single file, and once it has your input, all commands are executed one after the other automatically. This is convenient if you want to test the whole block of code at once, but it can be more useful to test each line individually and “play” with the output a bit (or modify code line-by-line).</p>
+<section id="example-counting-words-in-python-in-interactive-mode-rstudio" class="level3 ex" data-number="3.4.3"><h3 data-number="3.4.3" class="anchored" data-anchor-id="example-counting-words-in-python-in-interactive-mode-rstudio">
+<span class="header-section-number">3.4.3</span> Example: Counting Words in Python in Interactive Mode (RStudio)</h3>
+<p>Suppose we want to modify this python script to be more like the R script, where we tell python what the file name is in the file itself, instead of waiting for user input at the terminal.</p>
+<p>Instead of using the <code>input</code> command, I just provide python with a string that contains the path to the file. If you have downloaded the text file to a different folder and RStudio’s working directory is set to that folder, you would change the first line to <code>name = "dickens-oliver-627.txt"</code> - I have set things up to live in a data folder because if I had all of the files in the same directory where this book lives, I would never be able to find anything.</p>
+<p>Create a new python script file in RStudio (File -&gt; New File -&gt; Python Script) and paste in the following lines of code, adjusting the path to the text file appropriately.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"data/dickens-oliver-627.txt"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>handle <span class="op">=</span> <span class="bu">open</span>(name, <span class="st">'r'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> handle:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> line.split()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> word <span class="kw">in</span> words:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        counts[word] <span class="op">=</span> counts.get(word, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>bigcount <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>bigword <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> word, count <span class="kw">in</span> <span class="bu">list</span>(counts.items()):</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> bigcount <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> count <span class="op">&gt;</span> bigcount:</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        bigword <span class="op">=</span> word</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        bigcount <span class="op">=</span> count</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bigword, bigcount)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Code: http://www.py4e.com/code3/words.py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>the 8854</code></pre>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Above script in the RStudio text editor window, with the first 3 lines of code highlighted</figcaption><p></p>
+</figure>
+</div>
+<p>With the first 3 lines highlighted, click the Run button.</p>
+<p><img src="images/python-wordcount-rstudio-noinput-interactive2.png" class="img-fluid" alt="In the console, the first 3 lines of the program have run. Note that we are still in python mode - the >>> indicates that the python interpreter is waiting for additional instructions."> We can examine the objects that we have defined this far in the program by typing their names into the console directly.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">RStudio python console allows us to examine the objects we have defined after the first 3 lines of code have been run. We can see that counts is an empty object, handle is a pointer to a text file, and name is a string with the path to the text file – so far, so good.</figcaption><p></p>
+</figure>
+</div>
+<p>If we want to continue walking through the program chunk by chunk, we can run the next four lines of code. Lines 5-8 are a for loop, so we should run them all at once unless we want to fiddle with how the for loop works.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">RStudio editor window with the next four lines of the code chunk highlighted. If we click the Run button, we can tell python to evaluate these few lines of code, and then we can see what the objects we’ve defined look like once that has been done</figcaption><p></p>
+</figure>
+</div>
+<p>Select lines 5-8 as shown above, and click the Run button. Your console window should update with additional lines of code. You can type in <code>counts</code> after that has been evaluated to see what the <code>counts</code> object looks like now.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive5.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">RStudio python console with lines 5-8 run and the counts object displayed. Counts is now filled with words and corresponding integer counts of the frequency of that word’s appearance in the text</figcaption><p></p>
+</figure>
+</div>
+<p>The next few lines of code determine which word has the highest count. We won’t get into the details here, but to finish out the running of the program, select lines 10-17 and run them in RStudio.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive6.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">RStudio editor window and console showing the results when lines 10-17 are evaluated. It is clear that line 17 results in the console output of <code>the 8854</code></figcaption><p></p>
+</figure>
+</div>
+</section><p>Running scripts in interactive mode or within RStudio is much more convenient if you are still working on the script - it allows you to debug the script line-by-line if necessary. Running a script at the terminal (like we did above) is sometimes more convenient if you have a pre-written script that you know already works. Both modes are useful, but for the time being you will probably be running scripts within your development environment (RStudio or VSCode or any other IDE you prefer) more often than at the command line.</p>
+<section id="example-counting-words-in-r-within-rstudio" class="level3 ex" data-number="3.4.4"><h3 data-number="3.4.4" class="anchored" data-anchor-id="example-counting-words-in-r-within-rstudio">
+<span class="header-section-number">3.4.4</span> Example: Counting Words in R within RStudio</h3>
 <p>Just for fun, let’s work with <a href="http://www.textfiles.com/etext/AUTHORS/DICKENS/dickens-oliver-627.txt">Oliver Twist, by Charles Dickens</a>, which I have saved <a href="data/dickens-oliver-627.txt">here</a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Read in the file</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"data/dickens-oliver-627.txt"</span><span class="op">)</span>
-
-<span class="co"># Skip the first 252 lines, which are project gutenberg text</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="va">text</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">252</span><span class="op">)</span><span class="op">]</span>
-
-<span class="co"># Remove punctuation</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"[[:punct:]]"</span>, <span class="st">" "</span>, <span class="va">text</span><span class="op">)</span>
-
-<span class="co"># Convert to lower case</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Read in the file</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"dickens-oliver-627.txt"</span><span class="op">)</span>
 
 <span class="co"># Split the lines of text into separate words</span>
 <span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" "</span><span class="op">)</span>
@@ -413,18 +520,136 @@ NaN         NA       function    ...</code></pre>
 <span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
 
 <span class="co"># Count up the number of occurrences of each word</span>
-<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
+
+<span class="co"># Sort the table by decreasing frequency</span>
+<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">word_freq</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 
 <span class="co"># Show the counts for the most common 10 words</span>
 <span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Make a new R script (File -&gt; New File -&gt; R script) and copy the above code into R, or <a href="code/words-noinput.R">download the file to your computer directly</a> and open the downloaded file in RStudio.</p>
+<p>In the R console, run the command <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> to see where R is running from. This is your “working directory”.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">R editor window with relevant script, with R console shown below. My working directory is <code>/home/susan/Projects/Class/unl-stat151/stat151book/demo</code>; yours will be different.</figcaption><p></p>
+</figure>
+</div>
+<p>Save the copy of Oliver Twist to the file <code>dickens-oliver-627.txt</code> in the folder that <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> spit out. You can test that you have done this correctly by typing <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code> into the R console window and hitting enter. It is very important that you know where on your computer R is looking for files - otherwise, you will constantly get “file not found” errors, and that will be very annoying.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">R editor window with relevant script, with R console shown below. dickens-oliver-627.txt is in the working directory, so we can proceed.</figcaption><p></p>
+</figure>
+</div>
+<p>Use the “Run” button to run the script and see what the output is. How many times does ‘the’ appear in the file?</p>
+</section><p>&nbsp; ::: ex ### Example: Counting words in R in Interactive Mode</p>
+<p>Using the file you created above, let’s examine what each line does in interactive mode.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Read in the file</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"dickens-oliver-627.txt"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Select the above line and click the “Run” button in RStudio. Once you’ve done that, type in <code>text[1:5]</code> in the R console to see the first 5 lines of the file.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">RStudio editor window with the first 2 lines of the words-noinput.R file selected. The screenshot also shows the console window after running the first 2 lines of the R file, with the <code>text[1:5]</code> command run interactively afterwards showing the first 5 lines of the text file we read in.</figcaption><p></p>
+</figure>
+</div>
+<p>Run the next line of code using the run button (or click on the line of code and hit Ctrl/Cmd + Enter).</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Split the lines of text into separate words</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" "</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Type in <code>text[[1]]</code> to see what the <code>text</code> object looks like now. ::: {.cell}</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">text</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] "The"       "Project"   "Gutenberg" "Etext"     "of"        "Oliver"   
+ [7] "Twist"     "by"        "Charles"   "Dickens"  </code></pre>
+</div>
+<p>:::</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of RStudio editor window with lines of code highlighted, plus RStudio console with the code as run and <code>text[[1]]</code> showing the first entry in the text object - a list of the separate words in the first line of the text file.</figcaption><p></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Simplify the list</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
+<span class="va">text</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "The"</code></pre>
+</div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">text</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] "The"       "Project"   "Gutenberg" "Etext"     "of"        "Oliver"   
+ [7] "Twist"     "by"        "Charles"   "Dickens"   "#13"       "in"       
+[13] "our"       "series"    "by"        "Charles"   "Dickens"   "Copyright"
+[19] "laws"      "are"      </code></pre>
+</div>
+</div>
+<p>Running <code>unlist</code> on text simplifies the object so that it is now a single <strong>vector</strong> of every word in the file, without regard for which line it appears on.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Count up the number of occurrences of each word</span>
+<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
+<span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>text
-        the   and    to    of     a    he    in   his  that 
-38656  9594  5393  3944  3843  3752  2496  2374  2341  1953 </code></pre>
+            _I_     --'    --by --kneel 
+   4558       4       1       1       1 </code></pre>
 </div>
 </div>
+<p>The next line assembles a table of frequency counts in <code>text</code>. There are 4558 spaces, 4 occurrences of the string <code>_I_</code>, and so on.</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Sort the table by decreasing frequency</span>
+<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">word_freq</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>text
+ the  and        to   of 
+8854 4902 4558 3767 3763 </code></pre>
+</div>
+</div>
+<p>We can then sort <code>word_freq</code> so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5. ::: &nbsp; ::: ex ### Example: Counting Words in R on the Command Line</p>
+<p>Download the following file to your working directory: <a href="code/words.R">words.R</a>, or paste the following code into a new R script and save it as <code>words.R</code></p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Take arguments from the command line</span>
+<span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># Read in the file</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">args</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+
+<span class="co"># Split the lines of text into separate words</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" "</span><span class="op">)</span>
+
+<span class="co"># Simplify the list</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
+
+<span class="co"># Count up the number of occurrences of each word</span>
+<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
+
+<span class="co"># Sort the table by decreasing frequency</span>
+<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">word_freq</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+
+<span class="co"># Show the counts for the most common 10 words</span>
+<span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In a terminal window opened at the location you saved the file (and the corresponding text file), enter the following: <code>Rscript words.R dickens-oliver-627.txt</code>.</p>
+<p>Here, <code>Rscript</code> is the command that tells R to evaluate the file, <code>words.R</code> is the R code to run, and <code>dickens-oliver-627.txt</code> is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit. :::</p>
+<section id="comparing-python-and-r" class="level3" data-number="3.4.5"><h3 data-number="3.4.5" class="anchored" data-anchor-id="comparing-python-and-r">
+<span class="header-section-number">3.4.5</span> Comparing Python and R</h3>
+<p>This is one good example of the difference in culture between python and R: python is a general-purpose programming language, where R is a domain specific programming language. In both languages, I’ve shown you how I would run the script by default first - in python, I would use a pre-built script to run things, and in R I would open things up in RStudio and source the script rather than running R from the command line.</p>
+<p>This is a bit of a cultural difference – because python is a general purpose programming language, it is easy to use for a wide variety of tasks, and is a common choice for creating scripts that are used on the command line. R is a domain-specific language, so it is extremely easy to use R for data analysis, but that tends to take place (in my experience) in an interactive or script-development setting using RStudio. It is less natural to me to write an R script that takes input from the user on the command line, even though obviously R is completely capable of doing that task. More commonly, I will write an R script for my own use, and thus there is no need to make it easy to use on the command line, because I can just change it in interactive mode. Python scripts, on the other hand, may be written for a novice to use at the command line with no idea of how to write or modify python code. This is a subtle difference, and may not make a huge impression on you now, but it is something to keep in mind as you learn to write code in each language – the culture around python and the culture around R are slightly different, and this affects how each language is used in practice.</p>
 </section></section><section id="getting-help" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="getting-help">
 <span class="header-section-number">3.5</span> Getting help</h2>
+<p>In both R and python, you can access help with a <code>?</code> - the order is just slightly different.</p>
+<p>Suppose we want to get help on a <code>for</code> loop in either language.</p>
+<p>In R, we can run this line of code to get help on <code>for</code> loops. ::: {.cell}</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="op">?</span><span class="va">`for`</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>::: Because <code>for</code> is a reserved word in R, we have to use backticks (the key above the <code>TAB</code> key) to surround the word <code>for</code> so that R knows we’re talking about the function itself. Most other function help can be accessed using <code>?function_name</code>.</p>
+<p>In python, we use <code>for?</code> to access the same information. ::: {.cell}</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>(You will have to run this in interactive mode for it to work in either language)</p>
+<p>w3schools has an excellent python <a href="https://www.w3schools.com/python/python_for_loops.asp">help page</a> that may be useful as well - usually, these pages will have examples. A similar set of pages exists for <a href="https://www.w3schools.com/r/r_for_loop.asp">R help on basic functions</a></p>
 <div class="learn-more">
 <ul>
 <li>
