@@ -303,7 +303,9 @@ It is very important that you know where on your computer R is looking for files
 
 Use the "Run" button to run the script and see what the output is. How many times does 'the' appear in the file?
 :::
+
 &nbsp;
+
 ::: ex
 ### Example: Counting words in R in Interactive Mode
 
@@ -329,6 +331,7 @@ text <- strsplit(text, " ")
 ```
 
 Type in `text[[1]]` to see what the `text` object looks like now.
+
 ```{r}
 text[[1]]
 ```
@@ -359,9 +362,13 @@ word_freq[1:5]
 ```
 
 We can then sort `word_freq` so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5. 
+
 :::
+
 &nbsp;
+
 ::: ex
+
 ### Example: Counting Words in R on the Command Line
 
 Download the following file to your working directory: [words.R](code/words.R), or paste the following code into a new R script and save it as `words.R`
@@ -392,6 +399,7 @@ word_freq[1:10]
 In a terminal window opened at the location you saved the file (and the corresponding text file), enter the following: `Rscript words.R dickens-oliver-627.txt`.
 
 Here, `Rscript` is the command that tells R to evaluate the file, `words.R` is the R code to run, and `dickens-oliver-627.txt` is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit.
+
 ::: 
 
 
@@ -411,12 +419,15 @@ In both R and python, you can access help with a `?` - the order is just slightl
 Suppose we want to get help on a `for` loop in either language. 
 
 In R, we can run this line of code to get help on `for` loops. 
+
 ```{r}
 ?`for`
 ```
+
 Because `for` is a reserved word in R, we have to use backticks (the key above the `TAB` key) to surround the word `for` so that R knows we're talking about the function itself. Most other function help can be accessed using `?function_name`. 
 
 In python, we use `for?` to access the same information. 
+
 ```{python, eval = F}
 for?
 ```

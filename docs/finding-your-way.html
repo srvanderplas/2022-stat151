@@ -227,7 +227,9 @@
 <li><a href="#example-counting-words-in-python-within-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-python-within-rstudio"> <span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</a></li>
 <li><a href="#example-counting-words-in-python-in-interactive-mode-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-python-in-interactive-mode-rstudio"> <span class="header-section-number">3.4.3</span> Example: Counting Words in Python in Interactive Mode (RStudio)</a></li>
 <li><a href="#example-counting-words-in-r-within-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-r-within-rstudio"> <span class="header-section-number">3.4.4</span> Example: Counting Words in R within RStudio</a></li>
-<li><a href="#comparing-python-and-r" class="nav-link" data-scroll-target="#comparing-python-and-r"> <span class="header-section-number">3.4.5</span> Comparing Python and R</a></li>
+<li><a href="#example-counting-words-in-r-in-interactive-mode" class="nav-link" data-scroll-target="#example-counting-words-in-r-in-interactive-mode"> <span class="header-section-number">3.4.5</span> Example: Counting words in R in Interactive Mode</a></li>
+<li><a href="#example-counting-words-in-r-on-the-command-line" class="nav-link" data-scroll-target="#example-counting-words-in-r-on-the-command-line"> <span class="header-section-number">3.4.6</span> Example: Counting Words in R on the Command Line</a></li>
+<li><a href="#comparing-python-and-r" class="nav-link" data-scroll-target="#comparing-python-and-r"> <span class="header-section-number">3.4.7</span> Comparing Python and R</a></li>
 </ul>
 </li>
 <li><a href="#getting-help" class="nav-link" data-scroll-target="#getting-help"> <span class="header-section-number">3.5</span> Getting help</a></li>
@@ -542,7 +544,9 @@ NaN         NA       function    ...</code></pre>
 </figure>
 </div>
 <p>Use the “Run” button to run the script and see what the output is. How many times does ‘the’ appear in the file?</p>
-</section><p>&nbsp; ::: ex ### Example: Counting words in R in Interactive Mode</p>
+</section><p>&nbsp;</p>
+<section id="example-counting-words-in-r-in-interactive-mode" class="level3 ex" data-number="3.4.5"><h3 data-number="3.4.5" class="anchored" data-anchor-id="example-counting-words-in-r-in-interactive-mode">
+<span class="header-section-number">3.4.5</span> Example: Counting words in R in Interactive Mode</h3>
 <p>Using the file you created above, let’s examine what each line does in interactive mode.</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Read in the file</span>
@@ -559,13 +563,14 @@ NaN         NA       function    ...</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Split the lines of text into separate words</span>
 <span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" "</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Type in <code>text[[1]]</code> to see what the <code>text</code> object looks like now. ::: {.cell}</p>
+<p>Type in <code>text[[1]]</code> to see what the <code>text</code> object looks like now.</p>
+<div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">text</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code> [1] "The"       "Project"   "Gutenberg" "Etext"     "of"        "Oliver"   
  [7] "Twist"     "by"        "Charles"   "Dickens"  </code></pre>
 </div>
-<p>:::</p>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive4.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of RStudio editor window with lines of code highlighted, plus RStudio console with the code as run and <code>text[[1]]</code> showing the first entry in the text object - a list of the separate words in the first line of the text file.</figcaption><p></p>
@@ -608,7 +613,10 @@ NaN         NA       function    ...</code></pre>
 8854 4902 4558 3767 3763 </code></pre>
 </div>
 </div>
-<p>We can then sort <code>word_freq</code> so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5. ::: &nbsp; ::: ex ### Example: Counting Words in R on the Command Line</p>
+<p>We can then sort <code>word_freq</code> so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5.</p>
+</section><p>&nbsp;</p>
+<section id="example-counting-words-in-r-on-the-command-line" class="level3 ex" data-number="3.4.6"><h3 data-number="3.4.6" class="anchored" data-anchor-id="example-counting-words-in-r-on-the-command-line">
+<span class="header-section-number">3.4.6</span> Example: Counting Words in R on the Command Line</h3>
 <p>Download the following file to your working directory: <a href="code/words.R">words.R</a>, or paste the following code into a new R script and save it as <code>words.R</code></p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Take arguments from the command line</span>
@@ -633,21 +641,24 @@ NaN         NA       function    ...</code></pre>
 <span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In a terminal window opened at the location you saved the file (and the corresponding text file), enter the following: <code>Rscript words.R dickens-oliver-627.txt</code>.</p>
-<p>Here, <code>Rscript</code> is the command that tells R to evaluate the file, <code>words.R</code> is the R code to run, and <code>dickens-oliver-627.txt</code> is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit. :::</p>
-<section id="comparing-python-and-r" class="level3" data-number="3.4.5"><h3 data-number="3.4.5" class="anchored" data-anchor-id="comparing-python-and-r">
-<span class="header-section-number">3.4.5</span> Comparing Python and R</h3>
+<p>Here, <code>Rscript</code> is the command that tells R to evaluate the file, <code>words.R</code> is the R code to run, and <code>dickens-oliver-627.txt</code> is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit.</p>
+</section><section id="comparing-python-and-r" class="level3" data-number="3.4.7"><h3 data-number="3.4.7" class="anchored" data-anchor-id="comparing-python-and-r">
+<span class="header-section-number">3.4.7</span> Comparing Python and R</h3>
 <p>This is one good example of the difference in culture between python and R: python is a general-purpose programming language, where R is a domain specific programming language. In both languages, I’ve shown you how I would run the script by default first - in python, I would use a pre-built script to run things, and in R I would open things up in RStudio and source the script rather than running R from the command line.</p>
 <p>This is a bit of a cultural difference – because python is a general purpose programming language, it is easy to use for a wide variety of tasks, and is a common choice for creating scripts that are used on the command line. R is a domain-specific language, so it is extremely easy to use R for data analysis, but that tends to take place (in my experience) in an interactive or script-development setting using RStudio. It is less natural to me to write an R script that takes input from the user on the command line, even though obviously R is completely capable of doing that task. More commonly, I will write an R script for my own use, and thus there is no need to make it easy to use on the command line, because I can just change it in interactive mode. Python scripts, on the other hand, may be written for a novice to use at the command line with no idea of how to write or modify python code. This is a subtle difference, and may not make a huge impression on you now, but it is something to keep in mind as you learn to write code in each language – the culture around python and the culture around R are slightly different, and this affects how each language is used in practice.</p>
 </section></section><section id="getting-help" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="getting-help">
 <span class="header-section-number">3.5</span> Getting help</h2>
 <p>In both R and python, you can access help with a <code>?</code> - the order is just slightly different.</p>
 <p>Suppose we want to get help on a <code>for</code> loop in either language.</p>
-<p>In R, we can run this line of code to get help on <code>for</code> loops. ::: {.cell}</p>
+<p>In R, we can run this line of code to get help on <code>for</code> loops.</p>
+<div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="op">?</span><span class="va">`for`</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>::: Because <code>for</code> is a reserved word in R, we have to use backticks (the key above the <code>TAB</code> key) to surround the word <code>for</code> so that R knows we’re talking about the function itself. Most other function help can be accessed using <code>?function_name</code>.</p>
-<p>In python, we use <code>for?</code> to access the same information. ::: {.cell}</p>
+</div>
+<p>Because <code>for</code> is a reserved word in R, we have to use backticks (the key above the <code>TAB</code> key) to surround the word <code>for</code> so that R knows we’re talking about the function itself. Most other function help can be accessed using <code>?function_name</code>.</p>
+<p>In python, we use <code>for?</code> to access the same information.</p>
+<div class="cell">
 <div class="sourceCode" id="cb26"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+</div>
 <p>(You will have to run this in interactive mode for it to work in either language)</p>
 <p>w3schools has an excellent python <a href="https://www.w3schools.com/python/python_for_loops.asp">help page</a> that may be useful as well - usually, these pages will have examples. A similar set of pages exists for <a href="https://www.w3schools.com/r/r_for_loop.asp">R help on basic functions</a></p>
 <div class="learn-more">
