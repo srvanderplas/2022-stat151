@@ -1,3 +1,68 @@
 # Basic Data Types
 
-integer/numeric/string/double/etc.
+
+## Values and Types
+
+Let's start this section with some basic vocabulary.
+
+- a **value** is a basic unit of stuff that a program works with, like `1`, `2`, `"Hello, World"`, and so on. 
+- values have **types** - `2` is an integer, `"Hello, World"` is a string (it contains a "string" of letters). Strings are in quotation marks to let us know that they are not variable names.
+
+In both R and python, there are some very basic data types:
+
+- **logical** or **boolean** - FALSE/TRUE or 0/1 values. Sometimes, boolean is shortened to **bool**
+- **integer** - whole numbers (positive or negative)
+- **double** or **float** or **numeric**- decimal numbers. 
+    - **float** is short for floating-point value.
+    - **double** is a floating-point value with more precision ("double precision").^[This means that doubles take up more memory but can store more decimal places. You don't need to worry about this much in R, and only a little in Python, but in older and more precise languages such as C/C++/Java, the difference between floats and doubles can be important.]
+    - R uses the name **numeric** to indicate a decimal value, regardless of precision.
+- **character** or **string** - holds text, usually enclosed in quotes. 
+
+If you don't know what type a value is, both R and python have functions to help you with that:
+
+```{r identify-var-type-r, results='hold'}
+class(FALSE)
+class(2L) # by default, R treats all numbers as numeric/decimal values. 
+          # The L indicates that we're talking about an integer. 
+class(2)
+class("Hello, programmer!")
+```
+
+```{python indentify-var-type-py, results='hold'}
+type(False)
+type(2)
+type(3.1415)
+type("This is python code")
+```
+
+::: note
+In R, boolean values are `TRUE` and `FALSE`, but in Python they are `True` and `False`. Capitalization matters a LOT.
+
+Other things matter too: if we try to write a million, we would write it `1000000` instead of `1,000,000` (in both languages). Commas are used for separating numbers, not for proper spacing and punctuation of numbers. This is a hard thing to get used to but very important -- especially when we start reading in data.
+:::
+
+## Variables
+
+Programming languages use **variables** - names that refer to values. Think of a variable as a container that holds something - instead of referring to the value, you can refer to the container and you will get whatever is stored inside. 
+
+We **assign** variables values. 
+
+```{r assign-value-r, results='hold'}
+message <- "So long and thanks for all the fish"
+year <- 2025
+the_answer <- 42L
+earth_demolished <- FALSE
+```
+
+```{python assign-value-py, results='hold'}
+message = "So long and thanks for all the fish"
+year = 2025
+the_answer = 42
+earth_demolished = False
+```
+
+::: note
+Note that in R, we assign variables values using the `<-` operator, where in Python, we assign variables values using the `=` operator. Technically, `=` will work for assignment in both languages, but `<-` is more common than `=` in R by convention.
+:::
+
+We can then use the variables - do numerical computations, evaluate whether a proposition is true or false, and even manipulate the content of strings, all by referencing the variable by name.
