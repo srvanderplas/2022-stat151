@@ -119,6 +119,5 @@ install.packages(
 
 - [Additional instructions for installing Python 3](https://www.py4e.com/lessons/install) from Python for Everybody
 
-- 
 
 :::
