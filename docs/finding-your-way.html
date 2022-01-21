@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="generator" content="quarto-0.2.232">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Introduction to Statistical Computing - 3&nbsp; Finding your way in R and Python</title>
-<style>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.2.275">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Introduction to Statistical Computing - 3&nbsp; Finding your way in R and Python</title>
+  <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -95,58 +94,86 @@
       margin-left: 2em;
     }
   </style>
-<!--[if lt IE 9]>
+
+  <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]--><script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./data-types.html" rel="next">
-<link href="./markdown.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+  <![endif]-->
+  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="./">
+  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="site_libs/quarto-search/fuse.min.js"></script>
+  <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./data-types.html" rel="next">
+  <link href="./markdown.html" rel="prev">
+  <script src="site_libs/quarto-html/quarto.js"></script>
+  <script src="site_libs/quarto-html/popper.min.js"></script>
+  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="site_libs/quarto-html/anchor.min.js"></script>
+  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
     "location": "sidebar",
     "copy-button": false,
     "collapse-after": 2,
     "panel-placement": "start",
     "type": "textbox",
-    "limit": 20
-  }</script><link rel="stylesheet" href="style.css">
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="floating">
 <div id="quarto-search-results"></div>
-<header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">
-<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span>
-</h1>
-    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-</nav></header><!-- /navbar/sidebar --><div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
-<div class="row flex-fill">
-  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
-    <nav class="ms-lg-auto floating overflow-auto"><div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></h1>
+      <button type="button" class="quarto-btn-toggle btn">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Statistical Computing</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/srvanderplas/Stat151" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
-<li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
             <i class="bi bi-bi-twitter pe-1"></i>
           Twitter
           </a>
         </li>
         <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
             <i class="bi bi-bi-facebook pe-1"></i>
           Facebook
           </a>
         </li>
         <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
             <i class="bi bi-bi-linkedin pe-1"></i>
           LinkedIn
           </a>
@@ -157,13 +184,12 @@
   </div>
     <div class="px-3 mt-2 flex-shrink-0 align-items-center">
       <div class="sidebar-search">
-      <div id="quarto-search" class="mb-0 " title="Search">
-</div>
+      <div id="quarto-search" class="" title="Search"></div>
       </div>
     </div>
   <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-1 px-3">
-<li class="sidebar-item">
+  <ul class="list-unstyled mt-1">
+      <li class="sidebar-item">
   <a href="./index.html" class="">Preface</a>
 </li>
       <li class="sidebar-item">
@@ -206,22 +232,20 @@
   <a href="./references.html" class="">References</a>
 </li>
   </ul>
-</div>
+  </div>
 </nav>
-</div>
-  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc"><h2 id="toc-title">On this page</h2>
+<!-- toc -->
+    <nav id="TOC" role="doc-toc" class="sidebar sidebar-toc">
+<h2 id="toc-title">On this page</h2>
 <ul>
 <li><a href="#programming" class="nav-link active" data-scroll-target="#programming"> <span class="header-section-number">3.1</span> Programming</a></li>
 <li><a href="#hello-world" class="nav-link" data-scroll-target="#hello-world"> <span class="header-section-number">3.2</span> Hello world</a></li>
-<li>
-<a href="#talking-to-python-and-r---interactive-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---interactive-mode"> <span class="header-section-number">3.3</span> Talking to Python and R - Interactive mode</a>
+<li><a href="#talking-to-python-and-r---interactive-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---interactive-mode"> <span class="header-section-number">3.3</span> Talking to Python and R - Interactive mode</a>
 <ul class="collapse">
 <li><a href="#the-r-console" class="nav-link" data-scroll-target="#the-r-console"> <span class="header-section-number">3.3.1</span> The R Console</a></li>
 <li><a href="#the-python-console" class="nav-link" data-scroll-target="#the-python-console"> <span class="header-section-number">3.3.2</span> The Python Console</a></li>
-</ul>
-</li>
-<li>
-<a href="#talking-to-python-and-r---script-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---script-mode"> <span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</a>
+</ul></li>
+<li><a href="#talking-to-python-and-r---script-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---script-mode"> <span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</a>
 <ul class="collapse">
 <li><a href="#example-counting-words-in-python-on-the-command-line" class="nav-link" data-scroll-target="#example-counting-words-in-python-on-the-command-line"> <span class="header-section-number">3.4.1</span> Example: Counting Words in Python on the Command Line</a></li>
 <li><a href="#example-counting-words-in-python-within-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-python-within-rstudio"> <span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</a></li>
@@ -230,16 +254,18 @@
 <li><a href="#example-counting-words-in-r-in-interactive-mode" class="nav-link" data-scroll-target="#example-counting-words-in-r-in-interactive-mode"> <span class="header-section-number">3.4.5</span> Example: Counting words in R in Interactive Mode</a></li>
 <li><a href="#example-counting-words-in-r-on-the-command-line" class="nav-link" data-scroll-target="#example-counting-words-in-r-on-the-command-line"> <span class="header-section-number">3.4.6</span> Example: Counting Words in R on the Command Line</a></li>
 <li><a href="#comparing-python-and-r" class="nav-link" data-scroll-target="#comparing-python-and-r"> <span class="header-section-number">3.4.7</span> Comparing Python and R</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#getting-help" class="nav-link" data-scroll-target="#getting-help"> <span class="header-section-number">3.5</span> Getting help</a></li>
-</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/finding-your-way.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
-  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
-<main><header id="title-block-header"><h1 class="title d-none d-lg-block display-7">
-<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span>
-</h1>
-</header><section id="programming" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="programming">
-<span class="header-section-number">3.1</span> Programming</h2>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/finding-your-way.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<!-- main -->
+<main class="content">
+<header id="title-block-header">
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></h1>
+</header>
+
+<section id="programming" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="programming"><span class="header-section-number">3.1</span> Programming</h2>
 <blockquote class="blockquote">
 <p>Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the universe trying to produce bigger and better idiots. So far, the universe is winning. - Rick Cook</p>
 </blockquote>
@@ -251,8 +277,9 @@
 </ul>
 <p>In this class, we’ll be using both <code>R</code> and <code>Python</code>, and we’ll be using these languages to solve problems that are related to working with data. At first, we’ll start with smaller, simpler problems that don’t involve data, but by the end of the semester, you will hopefully be able to solve some statistical problems using one or both languages.</p>
 <p>It will be hard at first - you have to learn the vocabulary in both languages in order to be able to put commands into logical “sentences”. The problem solving skills are the same for all programming languages, though, and while those are harder to learn, they’ll last you a lifetime.</p>
-</section><section id="hello-world" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="hello-world">
-<span class="header-section-number">3.2</span> Hello world</h2>
+</section>
+<section id="hello-world" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="hello-world"><span class="header-section-number">3.2</span> Hello world</h2>
 <p>I particularly like the way that Python for Everybody <span class="citation" data-cites="py4e">(<a href="references.html#ref-py4e" role="doc-biblioref">Severance 2016</a>)</span> explains vocabulary:</p>
 <blockquote class="blockquote">
 <p>Unlike human languages, the Python vocabulary is actually pretty small. We call this “vocabulary” the “reserved words”. These are words that have very special meaning to Python. When Python sees these words in a Python program, they have one and only one meaning to Python. Later as you write programs you will make up your own words that have meaning to you called variables. You will have great latitude in choosing your names for your variables, but you cannot use any of Python’s reserved words as a name for a variable.</p>
@@ -293,45 +320,51 @@ NA_integer_ NA_real_ NA_complex_ NA_character_
 NaN         NA       function    ...</code></pre>
 <p>In R, the “Hello World” program looks exactly the same as it does in python.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">'Hello world!'</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'Hello world!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] "Hello world!"</code></pre>
 </div>
 </div>
 <p>In many situations, R and python will be similar because both languages are based on C. R has a more complicated history, because it is also similar to Lisp, but both languages are still very similar to C and run C or C++ code in the background.</p>
-</section><section id="talking-to-python-and-r---interactive-mode" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="talking-to-python-and-r---interactive-mode">
-<span class="header-section-number">3.3</span> Talking to Python and R - Interactive mode</h2>
+</section>
+<section id="talking-to-python-and-r---interactive-mode" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="talking-to-python-and-r---interactive-mode"><span class="header-section-number">3.3</span> Talking to Python and R - Interactive mode</h2>
 <p>R and python both have an “interactive mode” that you will use most often. In the previous chapter, we talked about scripts and markdown documents, both of which are non-interactive methods for writing R and python code. But for the moment, let’s work with the interactive console in both languages in order to get familiar with how we talk to R and python.</p>
 <p>Let’s start by creating a Qmd file (File -&gt; New File -&gt; Quarto Document) - this will let us work with R and python at the same time.</p>
 <p>Add an R chunk to your file by typing <code>```{r}</code> into the first line of the file, and then hit return. RStudio should add a blank line followed by <code>```</code>.</p>
 <p>Add a python chunk to your file by typing <code>```{python}</code> on a blank line below the R chunk you just created, and then hit return. RStudio should add a blank line followed by <code>```</code>.</p>
 <p>Your file should look like this:</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/finding-your-way-demo-screenshot.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/finding-your-way-demo-screenshot.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of qmd file after adding an empty r and python chunk</figcaption><p></p>
 </figure>
 </div>
 <p>If instead your file looks like this:</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/finding-your-way-demo-screenshot-visualmarkdown.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/finding-your-way-demo-screenshot-visualmarkdown.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of qmd file with visual markdown editing on</figcaption><p></p>
 </figure>
 </div>
 <p>you have visual markdown mode on. To turn it off, click on the A icon at the top right of your editor window:</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/visual-markdown-mode-highlight.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/visual-markdown-mode-highlight.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of editor window toolbar, with A icon highlighted in green</figcaption><p></p>
 </figure>
 </div>
 <p>If we are working in interactive mode, why did I have you start out by creating a markdown document? Good Question! RStudio allows you to switch back and forth between R and python seamlessly, which is good and bad - it’s hard to get a python terminal without telling R which language you’re working in! You can create a python script if you’d prefer to work in a script instead of a markdown document, but that would involve working in 2 separate files, which I personally find rather tedious.</p>
-<section id="the-r-console" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="the-r-console">
-<span class="header-section-number">3.3.1</span> The R Console</h3>
+<section id="the-r-console" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="the-r-console"><span class="header-section-number">3.3.1</span> The R Console</h3>
 <p>In your R chunk or script, type in <code>2+2</code> and hit <code>Ctrl+Enter</code> (or <code>Cmd+Enter</code> on a mac). Look down to the Console (which is usually below the editor window) and see if 4 appears. If you’re like me, output shows up in two places at once:</p>
 <table class="table">
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th>Location</th>
 <th>Picture</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td>Chunk</td>
@@ -351,25 +384,30 @@ NaN         NA       function    ...</code></pre>
 <p>When you are working in an R script, any output is shown only in the console. When you are working in an R code chunk, output is shown both below the chunk and in the console.</p>
 <p>If you want, you can also just work within the R console. This can be useful for quick, interactive work, or if, like me, you’re too lazy to pull up a calculator on your machine and you just want to use R to calculate something quickly. You just type your R command into the console:</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/R-console.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/R-console.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">R console with commands “Hello”, print(“Hello”), and (unquoted) “I love R”, which causes an error</figcaption><p></p>
 </figure>
 </div>
 <p>The first two statements in the above example work - “Hello” is a string, and is thus a valid statement equivalent to typing “2” into the console and getting “2” back out. The second command, <code>print("Hello")</code>, does the same thing - “Hello” is returned as the result. The third command, <code>I love R</code>, however, results in an error - there is an unexpected symbol (the space) in the statement. R thinks we are telling it to do something with variables <code>I</code> and <code>love</code> (which are not defined), and it doesn’t know what we want it to do to the two objects.</p>
 <p>Suppose we define <code>I</code> and <code>love</code> as variables by putting a value into each object using <code>&lt;-</code>, which is the assignment operator. Then, typing “I love” into the console generates the same error, and R tells us “hey, there’s an unexpected symbol here” - in this case, maybe we meant to add the two variables together.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/R-console-error.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/R-console-error.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">R console with commands “Hello”, print(“Hello”), and (unquoted) “I love R”, which causes an error. Defining variables I and love provides us a context in which R’s error message about unexpected symbols makes sense - R is reminding us that we need a numerical operator in between the two variable names.</figcaption><p></p>
 </figure>
 </div>
-</section><section id="the-python-console" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="the-python-console">
-<span class="header-section-number">3.3.2</span> The Python Console</h3>
+</section>
+<section id="the-python-console" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="the-python-console"><span class="header-section-number">3.3.2</span> The Python Console</h3>
 <p>In your python chunk or script, type in <code>2+2</code> and hit <code>Ctrl+Enter</code> (or <code>Cmd+Enter</code> on a mac). Look down to the Console (which is usually below the editor window) and see if 4 appears. If you’re like me, output shows up in two places at once:</p>
 <table class="table">
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th>Location</th>
 <th>Picture</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td>Chunk</td>
@@ -385,19 +423,21 @@ NaN         NA       function    ...</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Notice that in the console, you get a bit of insight into how RStudio is running the python code: we see <code><a href="https://rdrr.io/pkg/reticulate/man/repl_python.html">reticulate::repl_python()</a></code>, which is R code telling R to run the line in Python. The python console has <code>&gt;&gt;&gt;</code> instead of <code>&gt;</code> to indicate that python is waiting for instructions.</p>
+<p>Notice that in the console, you get a bit of insight into how RStudio is running the python code: we see <code>reticulate::repl_python()</code>, which is R code telling R to run the line in Python. The python console has <code>&gt;&gt;&gt;</code> instead of <code>&gt;</code> to indicate that python is waiting for instructions.</p>
 <p>Notice also that the only difference between the R and python script file screenshots is that there is a different logo on the documents: <img src="images/R-python-script.png" class="img-fluid" alt="R and python script logos">. Personally, I think it’s easier to work in a markdown document and keep my notes with specific chunks labeled by language when I’m learning the two languages together, but when you are writing code for a specific project in a single language, it is probably better to use a script file specific to that language.</p>
-<p>If you want to start the python console by itself (without a script or working in a markdown document), you can simply type <code><a href="https://rdrr.io/pkg/reticulate/man/repl_python.html">reticulate::repl_python()</a></code> into the R console. <img src="images/python-console.png" class="img-fluid" alt="Screenshot of how to get the python console"></p>
+<p>If you want to start the python console by itself (without a script or working in a markdown document), you can simply type <code>reticulate::repl_python()</code> into the R console. <img src="images/python-console.png" class="img-fluid" alt="Screenshot of how to get the python console"></p>
 <p>R is nice enough to remind you that to end the conversation with python, you just need to type “exit” or “quit”.</p>
 <p>If you want to start a python console outside of RStudio, bring up your command prompt (Darwin on mac, Konsole on Linux, CMD on Windows) and type python3 into that window and you should see the familiar <code>&gt;&gt;&gt;</code> waiting for a command.</p>
-</section></section><section id="talking-to-python-and-r---script-mode" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="talking-to-python-and-r---script-mode">
-<span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</h2>
+</section>
+</section>
+<section id="talking-to-python-and-r---script-mode" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="talking-to-python-and-r---script-mode"><span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</h2>
 <p>In the last chapter, we played around with scripts and markdown documents for python and R. In the last section, we played with interactive mode by typing R and python commands into a console or running code chunks interactively using the Run button or <code>Ctrl/Cmd + Enter</code> (which is the keyboard shortcut).</p>
 <p>You may be learning to program in R and python because it’s a required part of the curriculum, but hopefully, you also have some broader ideas of what you might do with either language - process data, make pretty pictures, write a program to trigger the computer uprising…</p>
 <p>Scripts are best used when you have a thing you want to do, and you will need to do that thing many times, perhaps with different input data. Suppose that I have a text file and I want to pull out the most common word in that file. In the next few examples, I will show you how to do this in R and python, and at the same time, demonstrate the difference between interactive mode and script mode in both languages. In each example, try to compare to the previous example to identify whether something is running as a full script or in interactive mode, and how it is launched (in R? at the command line?).</p>
 <p><span class="citation" data-cites="py4e">Severance (<a href="references.html#ref-py4e" role="doc-biblioref">2016</a>)</span> provides a handy python program to count words. This program is meant to be run on the command line, and it will run for any specified text file.</p>
-<section id="example-counting-words-in-python-on-the-command-line" class="level3 ex" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="example-counting-words-in-python-on-the-command-line">
-<span class="header-section-number">3.4.1</span> Example: Counting Words in Python on the Command Line</h3>
+<section id="example-counting-words-in-python-on-the-command-line" class="level3 ex" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="example-counting-words-in-python-on-the-command-line"><span class="header-section-number">3.4.1</span> Example: Counting Words in Python on the Command Line</h3>
 <p>Download <a href="code/words.py">words.py</a> to your computer and open up a command line terminal in the location where you saved the file.</p>
 <p>Before you run the script, save <a href="data/dickens-oliver-627.txt">Oliver Twist</a> to the same folder as <code>dickens-oliver-627.txt</code> (you can use another file name, but you will have to adjust your response to the program)</p>
 <div class="cell">
@@ -425,31 +465,36 @@ NaN         NA       function    ...</code></pre>
 <pre><code>the 8854</code></pre>
 <p>That is, the word <code>the</code> occurs 8854 times in the text.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-example-screenshot.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-example-screenshot.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of folder and python script evaluation, showing how to run the python script in the terminal and get the count of the most common word, ‘the’, in the file dickens-oliver-627.txt</figcaption><p></p>
 </figure>
 </div>
-</section><p>&nbsp;</p>
-<section id="example-counting-words-in-python-within-rstudio" class="level3 ex" data-number="3.4.2"><h3 data-number="3.4.2" class="anchored" data-anchor-id="example-counting-words-in-python-within-rstudio">
-<span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</h3>
+</section>
+<p>&nbsp;</p>
+<section id="example-counting-words-in-python-within-rstudio" class="level3 ex" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="example-counting-words-in-python-within-rstudio"><span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</h3>
 <p>We can run this script in interactive mode in RStudio if we want to: Open the words.py file you downloaded in RStudio.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-rstudio-screenshot.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-rstudio-screenshot.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Rstudio screenshot showing the words.py file opened, with a green highlighted rectangle around the button “Source Script” which allows you to run the file in RStudio.</figcaption><p></p>
 </figure>
 </div>
 <p>Click the “Source Script” button highlighted in green above, and then look at the console below the script window:</p>
-<p><img src="images/python-wordcount-rstudio-screenshot-console1.png" class="img-fluid" alt="RStudio screenshot of console window after Source Script button is clicked. Python asks you to enter the file of words to count."> Once you enter the path to the text file – this time, from the <strong>project</strong> working directory – you get the same answer. It can be a bit tricky to figure out what your current working directory is in RStudio, but in the R console you can get that information with the <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> command.</p>
+<p><img src="images/python-wordcount-rstudio-screenshot-console1.png" class="img-fluid" alt="RStudio screenshot of console window after Source Script button is clicked. Python asks you to enter the file of words to count."> Once you enter the path to the text file – this time, from the <strong>project</strong> working directory – you get the same answer. It can be a bit tricky to figure out what your current working directory is in RStudio, but in the R console you can get that information with the <code>getwd()</code> command.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-rstudio-screenshot-console3.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-rstudio-screenshot-console3.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">RStudio screenshot of console window with getwd() command and result</figcaption><p></p>
 </figure>
 </div>
 <p>Since I know that I have stored the text file in the <code>data</code> subdirectory of the <code>stat151book</code> folder, I can type in <code>data/dickens-oliver-627.txt</code> and the python program can find my file.</p>
-</section><p>&nbsp;</p>
+</section>
+<p>&nbsp;</p>
 <p>In the above example, RStudio is functioning essentially like a terminal window - it runs the script as a single file, and once it has your input, all commands are executed one after the other automatically. This is convenient if you want to test the whole block of code at once, but it can be more useful to test each line individually and “play” with the output a bit (or modify code line-by-line).</p>
-<section id="example-counting-words-in-python-in-interactive-mode-rstudio" class="level3 ex" data-number="3.4.3"><h3 data-number="3.4.3" class="anchored" data-anchor-id="example-counting-words-in-python-in-interactive-mode-rstudio">
-<span class="header-section-number">3.4.3</span> Example: Counting Words in Python in Interactive Mode (RStudio)</h3>
+<section id="example-counting-words-in-python-in-interactive-mode-rstudio" class="level3 ex" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="example-counting-words-in-python-in-interactive-mode-rstudio"><span class="header-section-number">3.4.3</span> Example: Counting Words in Python in Interactive Mode (RStudio)</h3>
 <p>Suppose we want to modify this python script to be more like the R script, where we tell python what the file name is in the file itself, instead of waiting for user input at the terminal.</p>
 <p>Instead of using the <code>input</code> command, I just provide python with a string that contains the path to the file. If you have downloaded the text file to a different folder and RStudio’s working directory is set to that folder, you would change the first line to <code>name = "dickens-oliver-627.txt"</code> - I have set things up to live in a data folder because if I had all of the files in the same directory where this book lives, I would never be able to find anything.</p>
 <p>Create a new python script file in RStudio (File -&gt; New File -&gt; Python Script) and paste in the following lines of code, adjusting the path to the text file appropriately.</p>
@@ -478,112 +523,123 @@ NaN         NA       function    ...</code></pre>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive1.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-rstudio-noinput-interactive1.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Above script in the RStudio text editor window, with the first 3 lines of code highlighted</figcaption><p></p>
 </figure>
 </div>
 <p>With the first 3 lines highlighted, click the Run button.</p>
 <p><img src="images/python-wordcount-rstudio-noinput-interactive2.png" class="img-fluid" alt="In the console, the first 3 lines of the program have run. Note that we are still in python mode - the >>> indicates that the python interpreter is waiting for additional instructions."> We can examine the objects that we have defined this far in the program by typing their names into the console directly.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive3.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-rstudio-noinput-interactive3.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">RStudio python console allows us to examine the objects we have defined after the first 3 lines of code have been run. We can see that counts is an empty object, handle is a pointer to a text file, and name is a string with the path to the text file – so far, so good.</figcaption><p></p>
 </figure>
 </div>
 <p>If we want to continue walking through the program chunk by chunk, we can run the next four lines of code. Lines 5-8 are a for loop, so we should run them all at once unless we want to fiddle with how the for loop works.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive4.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-rstudio-noinput-interactive4.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">RStudio editor window with the next four lines of the code chunk highlighted. If we click the Run button, we can tell python to evaluate these few lines of code, and then we can see what the objects we’ve defined look like once that has been done</figcaption><p></p>
 </figure>
 </div>
 <p>Select lines 5-8 as shown above, and click the Run button. Your console window should update with additional lines of code. You can type in <code>counts</code> after that has been evaluated to see what the <code>counts</code> object looks like now.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive5.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-rstudio-noinput-interactive5.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">RStudio python console with lines 5-8 run and the counts object displayed. Counts is now filled with words and corresponding integer counts of the frequency of that word’s appearance in the text</figcaption><p></p>
 </figure>
 </div>
 <p>The next few lines of code determine which word has the highest count. We won’t get into the details here, but to finish out the running of the program, select lines 10-17 and run them in RStudio.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/python-wordcount-rstudio-noinput-interactive6.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/python-wordcount-rstudio-noinput-interactive6.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">RStudio editor window and console showing the results when lines 10-17 are evaluated. It is clear that line 17 results in the console output of <code>the 8854</code></figcaption><p></p>
 </figure>
 </div>
-</section><p>Running scripts in interactive mode or within RStudio is much more convenient if you are still working on the script - it allows you to debug the script line-by-line if necessary. Running a script at the terminal (like we did above) is sometimes more convenient if you have a pre-written script that you know already works. Both modes are useful, but for the time being you will probably be running scripts within your development environment (RStudio or VSCode or any other IDE you prefer) more often than at the command line.</p>
-<section id="example-counting-words-in-r-within-rstudio" class="level3 ex" data-number="3.4.4"><h3 data-number="3.4.4" class="anchored" data-anchor-id="example-counting-words-in-r-within-rstudio">
-<span class="header-section-number">3.4.4</span> Example: Counting Words in R within RStudio</h3>
+</section>
+<p>Running scripts in interactive mode or within RStudio is much more convenient if you are still working on the script - it allows you to debug the script line-by-line if necessary. Running a script at the terminal (like we did above) is sometimes more convenient if you have a pre-written script that you know already works. Both modes are useful, but for the time being you will probably be running scripts within your development environment (RStudio or VSCode or any other IDE you prefer) more often than at the command line.</p>
+<section id="example-counting-words-in-r-within-rstudio" class="level3 ex" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="example-counting-words-in-r-within-rstudio"><span class="header-section-number">3.4.4</span> Example: Counting Words in R within RStudio</h3>
 <p>Just for fun, let’s work with <a href="http://www.textfiles.com/etext/AUTHORS/DICKENS/dickens-oliver-627.txt">Oliver Twist, by Charles Dickens</a>, which I have saved <a href="data/dickens-oliver-627.txt">here</a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Read in the file</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"dickens-oliver-627.txt"</span><span class="op">)</span>
-
-<span class="co"># Split the lines of text into separate words</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" "</span><span class="op">)</span>
-
-<span class="co"># Simplify the list</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
-
-<span class="co"># Count up the number of occurrences of each word</span>
-<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
-
-<span class="co"># Sort the table by decreasing frequency</span>
-<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">word_freq</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-
-<span class="co"># Show the counts for the most common 10 words</span>
-<span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the file</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"dickens-oliver-627.txt"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the lines of text into separate words</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(text, <span class="st">" "</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplify the list</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">unlist</span>(text)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Count up the number of occurrences of each word</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">table</span>(text)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the table by decreasing frequency</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">sort</span>(word_freq, <span class="at">decreasing =</span> T)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the counts for the most common 10 words</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>word_freq[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Make a new R script (File -&gt; New File -&gt; R script) and copy the above code into R, or <a href="code/words-noinput.R">download the file to your computer directly</a> and open the downloaded file in RStudio.</p>
-<p>In the R console, run the command <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> to see where R is running from. This is your “working directory”.</p>
+<p>In the R console, run the command <code>getwd()</code> to see where R is running from. This is your “working directory”.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive1.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/R-wordcount-rstudio-noinput-interactive1.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">R editor window with relevant script, with R console shown below. My working directory is <code>/home/susan/Projects/Class/unl-stat151/stat151book/demo</code>; yours will be different.</figcaption><p></p>
 </figure>
 </div>
-<p>Save the copy of Oliver Twist to the file <code>dickens-oliver-627.txt</code> in the folder that <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> spit out. You can test that you have done this correctly by typing <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code> into the R console window and hitting enter. It is very important that you know where on your computer R is looking for files - otherwise, you will constantly get “file not found” errors, and that will be very annoying.</p>
+<p>Save the copy of Oliver Twist to the file <code>dickens-oliver-627.txt</code> in the folder that <code>getwd()</code> spit out. You can test that you have done this correctly by typing <code>list.files()</code> into the R console window and hitting enter. It is very important that you know where on your computer R is looking for files - otherwise, you will constantly get “file not found” errors, and that will be very annoying.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive2.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/R-wordcount-rstudio-noinput-interactive2.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">R editor window with relevant script, with R console shown below. dickens-oliver-627.txt is in the working directory, so we can proceed.</figcaption><p></p>
 </figure>
 </div>
 <p>Use the “Run” button to run the script and see what the output is. How many times does ‘the’ appear in the file?</p>
-</section><p>&nbsp;</p>
-<section id="example-counting-words-in-r-in-interactive-mode" class="level3 ex" data-number="3.4.5"><h3 data-number="3.4.5" class="anchored" data-anchor-id="example-counting-words-in-r-in-interactive-mode">
-<span class="header-section-number">3.4.5</span> Example: Counting words in R in Interactive Mode</h3>
+</section>
+<p>&nbsp;</p>
+<section id="example-counting-words-in-r-in-interactive-mode" class="level3 ex" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="example-counting-words-in-r-in-interactive-mode"><span class="header-section-number">3.4.5</span> Example: Counting words in R in Interactive Mode</h3>
 <p>Using the file you created above, let’s examine what each line does in interactive mode.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Read in the file</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"dickens-oliver-627.txt"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the file</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"dickens-oliver-627.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Select the above line and click the “Run” button in RStudio. Once you’ve done that, type in <code>text[1:5]</code> in the R console to see the first 5 lines of the file.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive3.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/R-wordcount-rstudio-noinput-interactive3.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">RStudio editor window with the first 2 lines of the words-noinput.R file selected. The screenshot also shows the console window after running the first 2 lines of the R file, with the <code>text[1:5]</code> command run interactively afterwards showing the first 5 lines of the text file we read in.</figcaption><p></p>
 </figure>
 </div>
 <p>Run the next line of code using the run button (or click on the line of code and hit Ctrl/Cmd + Enter).</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Split the lines of text into separate words</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" "</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the lines of text into separate words</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(text, <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Type in <code>text[[1]]</code> to see what the <code>text</code> object looks like now.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">text</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>text[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code> [1] "The"       "Project"   "Gutenberg" "Etext"     "of"        "Oliver"   
  [7] "Twist"     "by"        "Charles"   "Dickens"  </code></pre>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/R-wordcount-rstudio-noinput-interactive4.png" class="img-fluid figure-img"></p>
+<figure class="figure">
+<p><img src="images/R-wordcount-rstudio-noinput-interactive4.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of RStudio editor window with lines of code highlighted, plus RStudio console with the code as run and <code>text[[1]]</code> showing the first entry in the text object - a list of the separate words in the first line of the text file.</figcaption><p></p>
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Simplify the list</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
-<span class="va">text</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplify the list</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">unlist</span>(text)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>text[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] "The"</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">text</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>text[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code> [1] "The"       "Project"   "Gutenberg" "Etext"     "of"        "Oliver"   
  [7] "Twist"     "by"        "Charles"   "Dickens"   "#13"       "in"       
@@ -593,9 +649,9 @@ NaN         NA       function    ...</code></pre>
 </div>
 <p>Running <code>unlist</code> on text simplifies the object so that it is now a single <strong>vector</strong> of every word in the file, without regard for which line it appears on.</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Count up the number of occurrences of each word</span>
-<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
-<span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count up the number of occurrences of each word</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">table</span>(text)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>word_freq[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>text
             _I_     --'    --by --kneel 
@@ -604,9 +660,9 @@ NaN         NA       function    ...</code></pre>
 </div>
 <p>The next line assembles a table of frequency counts in <code>text</code>. There are 4558 spaces, 4 occurrences of the string <code>_I_</code>, and so on.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Sort the table by decreasing frequency</span>
-<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">word_freq</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-<span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the table by decreasing frequency</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">sort</span>(word_freq, <span class="at">decreasing =</span> T)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>word_freq[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>text
  the  and        to   of 
@@ -614,45 +670,49 @@ NaN         NA       function    ...</code></pre>
 </div>
 </div>
 <p>We can then sort <code>word_freq</code> so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5.</p>
-</section><p>&nbsp;</p>
-<section id="example-counting-words-in-r-on-the-command-line" class="level3 ex" data-number="3.4.6"><h3 data-number="3.4.6" class="anchored" data-anchor-id="example-counting-words-in-r-on-the-command-line">
-<span class="header-section-number">3.4.6</span> Example: Counting Words in R on the Command Line</h3>
+</section>
+<p>&nbsp;</p>
+<section id="example-counting-words-in-r-on-the-command-line" class="level3 ex" data-number="3.4.6">
+<h3 data-number="3.4.6" class="anchored" data-anchor-id="example-counting-words-in-r-on-the-command-line"><span class="header-section-number">3.4.6</span> Example: Counting Words in R on the Command Line</h3>
 <p>Download the following file to your working directory: <a href="code/words.R">words.R</a>, or paste the following code into a new R script and save it as <code>words.R</code></p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Take arguments from the command line</span>
-<span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># Read in the file</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">args</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co"># Split the lines of text into separate words</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" "</span><span class="op">)</span>
-
-<span class="co"># Simplify the list</span>
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
-
-<span class="co"># Count up the number of occurrences of each word</span>
-<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>
-
-<span class="co"># Sort the table by decreasing frequency</span>
-<span class="va">word_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">word_freq</span>, decreasing <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-
-<span class="co"># Show the counts for the most common 10 words</span>
-<span class="va">word_freq</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take arguments from the command line</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>args <span class="ot">&lt;-</span> <span class="fu">commandArgs</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the file</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">readLines</span>(args[<span class="dv">1</span>])</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the lines of text into separate words</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(text, <span class="st">" "</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplify the list</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">unlist</span>(text)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Count up the number of occurrences of each word</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">table</span>(text)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the table by decreasing frequency</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">sort</span>(word_freq, <span class="at">decreasing =</span> T)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the counts for the most common 10 words</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>word_freq[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In a terminal window opened at the location you saved the file (and the corresponding text file), enter the following: <code>Rscript words.R dickens-oliver-627.txt</code>.</p>
 <p>Here, <code>Rscript</code> is the command that tells R to evaluate the file, <code>words.R</code> is the R code to run, and <code>dickens-oliver-627.txt</code> is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit.</p>
-</section><section id="comparing-python-and-r" class="level3" data-number="3.4.7"><h3 data-number="3.4.7" class="anchored" data-anchor-id="comparing-python-and-r">
-<span class="header-section-number">3.4.7</span> Comparing Python and R</h3>
+</section>
+<section id="comparing-python-and-r" class="level3" data-number="3.4.7">
+<h3 data-number="3.4.7" class="anchored" data-anchor-id="comparing-python-and-r"><span class="header-section-number">3.4.7</span> Comparing Python and R</h3>
 <p>This is one good example of the difference in culture between python and R: python is a general-purpose programming language, where R is a domain specific programming language. In both languages, I’ve shown you how I would run the script by default first - in python, I would use a pre-built script to run things, and in R I would open things up in RStudio and source the script rather than running R from the command line.</p>
 <p>This is a bit of a cultural difference – because python is a general purpose programming language, it is easy to use for a wide variety of tasks, and is a common choice for creating scripts that are used on the command line. R is a domain-specific language, so it is extremely easy to use R for data analysis, but that tends to take place (in my experience) in an interactive or script-development setting using RStudio. It is less natural to me to write an R script that takes input from the user on the command line, even though obviously R is completely capable of doing that task. More commonly, I will write an R script for my own use, and thus there is no need to make it easy to use on the command line, because I can just change it in interactive mode. Python scripts, on the other hand, may be written for a novice to use at the command line with no idea of how to write or modify python code. This is a subtle difference, and may not make a huge impression on you now, but it is something to keep in mind as you learn to write code in each language – the culture around python and the culture around R are slightly different, and this affects how each language is used in practice.</p>
-</section></section><section id="getting-help" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="getting-help">
-<span class="header-section-number">3.5</span> Getting help</h2>
+</section>
+</section>
+<section id="getting-help" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="getting-help"><span class="header-section-number">3.5</span> Getting help</h2>
 <p>In both R and python, you can access help with a <code>?</code> - the order is just slightly different.</p>
 <p>Suppose we want to get help on a <code>for</code> loop in either language.</p>
 <p>In R, we can run this line of code to get help on <code>for</code> loops.</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="op">?</span><span class="va">`for`</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>?<span class="st">`</span><span class="at">for</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Because <code>for</code> is a reserved word in R, we have to use backticks (the key above the <code>TAB</code> key) to surround the word <code>for</code> so that R knows we’re talking about the function itself. Most other function help can be accessed using <code>?function_name</code>.</p>
 <p>In python, we use <code>for?</code> to access the same information.</p>
@@ -663,8 +723,7 @@ NaN         NA       function    ...</code></pre>
 <p>w3schools has an excellent python <a href="https://www.w3schools.com/python/python_for_loops.asp">help page</a> that may be useful as well - usually, these pages will have examples. A similar set of pages exists for <a href="https://www.w3schools.com/r/r_for_loop.asp">R help on basic functions</a></p>
 <div class="learn-more">
 <ul>
-<li>
-<a href="https://www.py4e.com/html3/01-intro#terminology-interpreter-and-compiler">A nice explanation of the difference between an interpreter and a compiler</a>. Both Python and R are interpreted languages that are compiled from lower-level languages like C.</li>
+<li><a href="https://www.py4e.com/html3/01-intro#terminology-interpreter-and-compiler">A nice explanation of the difference between an interpreter and a compiler</a>. Both Python and R are interpreted languages that are compiled from lower-level languages like C.</li>
 </ul>
 </div>
 
@@ -674,7 +733,8 @@ NaN         NA       function    ...</code></pre>
 Severance, Dr Charles Russell. 2016. <em>Python for <span>Everybody</span>: <span>Exploring</span> <span>Data</span> in <span>Python</span> 3</em>. Edited by Sue Blumenberg and Elliott Hauser. Ann Arbor, MI: CreateSpace Independent Publishing Platform. <a href="https://www.py4e.com/html3/">https://www.py4e.com/html3/</a>.
 </div>
 </div>
-</section><script type="application/javascript">
+</section>
+<script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
@@ -702,17 +762,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     e.clearSelection();
   });
   function tippyHover(el, contentFn) {
-    window.tippy(el, {
+    const config = {
       allowHTML: true,
       content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
       placement: 'bottom-start'
-    }); 
+    };
+    window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -745,7 +809,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script></main><div class="page-navigation ">
+</script>
+</main> <!-- /main -->
+<nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./markdown.html">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></span>
@@ -756,10 +822,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</div>
-</div> <!-- /main column -->
-</div> <!-- /row -->
-</div> <!-- /container fluid -->
+</nav>
+</div> <!-- /content -->
 
 
 </body></html>

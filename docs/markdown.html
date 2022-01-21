@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="generator" content="quarto-0.2.232">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Introduction to Statistical Computing - 2&nbsp; Scripts and Notebooks</title>
-<style>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.2.275">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Introduction to Statistical Computing - 2&nbsp; Scripts and Notebooks</title>
+  <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -76,58 +75,86 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-<!--[if lt IE 9]>
+
+  <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]--><script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><link href="./finding-your-way.html" rel="next">
-<link href="./getting-started.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+  <![endif]-->
+  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="./">
+  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="site_libs/quarto-search/fuse.min.js"></script>
+  <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./finding-your-way.html" rel="next">
+  <link href="./getting-started.html" rel="prev">
+  <script src="site_libs/quarto-html/quarto.js"></script>
+  <script src="site_libs/quarto-html/popper.min.js"></script>
+  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="site_libs/quarto-html/anchor.min.js"></script>
+  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
     "location": "sidebar",
     "copy-button": false,
     "collapse-after": 2,
     "panel-placement": "start",
     "type": "textbox",
-    "limit": 20
-  }</script><link rel="stylesheet" href="style.css">
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="floating">
 <div id="quarto-search-results"></div>
-<header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">
-<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span>
-</h1>
-    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-</nav></header><!-- /navbar/sidebar --><div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
-<div class="row flex-fill">
-  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
-    <nav class="ms-lg-auto floating overflow-auto"><div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></h1>
+      <button type="button" class="quarto-btn-toggle btn">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Statistical Computing</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/srvanderplas/Stat151" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
-<li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
             <i class="bi bi-bi-twitter pe-1"></i>
           Twitter
           </a>
         </li>
         <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
             <i class="bi bi-bi-facebook pe-1"></i>
           Facebook
           </a>
         </li>
         <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
             <i class="bi bi-bi-linkedin pe-1"></i>
           LinkedIn
           </a>
@@ -138,13 +165,12 @@
   </div>
     <div class="px-3 mt-2 flex-shrink-0 align-items-center">
       <div class="sidebar-search">
-      <div id="quarto-search" class="mb-0 " title="Search">
-</div>
+      <div id="quarto-search" class="" title="Search"></div>
       </div>
     </div>
   <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-1 px-3">
-<li class="sidebar-item">
+  <ul class="list-unstyled mt-1">
+      <li class="sidebar-item">
   <a href="./index.html" class="">Preface</a>
 </li>
       <li class="sidebar-item">
@@ -187,55 +213,56 @@
   <a href="./references.html" class="">References</a>
 </li>
   </ul>
-</div>
+  </div>
 </nav>
-</div>
-  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc"><h2 id="toc-title">On this page</h2>
+<!-- toc -->
+    <nav id="TOC" role="doc-toc" class="sidebar sidebar-toc">
+<h2 id="toc-title">On this page</h2>
 <ul>
-<li>
-<a href="#scripts" class="nav-link active" data-scroll-target="#scripts"> <span class="header-section-number">2.1</span> Scripts</a>
+<li><a href="#scripts" class="nav-link active" data-scroll-target="#scripts"> <span class="header-section-number">2.1</span> Scripts</a>
 <ul class="collapse">
 <li><a href="#plotting-a-logarithmic-spiral-in-r-and-python" class="nav-link" data-scroll-target="#plotting-a-logarithmic-spiral-in-r-and-python"> <span class="header-section-number">2.1.1</span> Plotting a <span>logarithmic spiral</span> in R and python</a></li>
 <li><a href="#try-it-out" class="nav-link" data-scroll-target="#try-it-out"> <span class="header-section-number">2.1.2</span> Try it out!</a></li>
-</ul>
-</li>
-<li>
-<a href="#notebooks" class="nav-link" data-scroll-target="#notebooks"> <span class="header-section-number">2.2</span> Notebooks</a>
+</ul></li>
+<li><a href="#notebooks" class="nav-link" data-scroll-target="#notebooks"> <span class="header-section-number">2.2</span> Notebooks</a>
 <ul class="collapse">
 <li><a href="#try-it-out---r-markdown" class="nav-link" data-scroll-target="#try-it-out---r-markdown"> <span class="header-section-number">2.2.1</span> Try it out - R markdown</a></li>
 <li><a href="#try-it-out---jupyter" class="nav-link" data-scroll-target="#try-it-out---jupyter"> <span class="header-section-number">2.2.2</span> Try it out - Jupyter</a></li>
 <li><a href="#try-it-out---quarto-markdown" class="nav-link" data-scroll-target="#try-it-out---quarto-markdown"> <span class="header-section-number">2.2.3</span> Try it out - Quarto markdown</a></li>
+</ul></li>
 </ul>
-</li>
-</ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/markdown.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
-  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
-<main><header id="title-block-header"><h1 class="title d-none d-lg-block display-7">
-<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span>
-</h1>
-</header><p>In this class, we’ll be using markdown notebooks to keep our code and notes in the same place. One of the advantages of both R and Python is that they are both scripting languages, but they can be used within notebooks as well. This means that you can have an R script file or a python script file, and you can run that file, but you can also create a document (like the one you’re reading now) that has code AND text together in one place. This is called <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> and it is a very useful workflow both when you are learning programming and when you are working as an analyst and presenting results.</p>
-<section id="scripts" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="scripts">
-<span class="header-section-number">2.1</span> Scripts</h2>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/markdown.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<!-- main -->
+<main class="content">
+<header id="title-block-header">
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></h1>
+</header>
+
+<p>In this class, we’ll be using markdown notebooks to keep our code and notes in the same place. One of the advantages of both R and Python is that they are both scripting languages, but they can be used within notebooks as well. This means that you can have an R script file or a python script file, and you can run that file, but you can also create a document (like the one you’re reading now) that has code AND text together in one place. This is called <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> and it is a very useful workflow both when you are learning programming and when you are working as an analyst and presenting results.</p>
+<section id="scripts" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="scripts"><span class="header-section-number">2.1</span> Scripts</h2>
 <p>Before I show you how to use literate programming, let’s look at what it replaces: scripts. <strong>Scripts</strong> are files of code that are meant to be run on their own. They may produce results, or format data and save it somewhere, or scrape data from the web – scripts can do just about anything.</p>
 <p>Scripts can even have documentation within the file, using <code>#</code> characters (at least, in R and python) at the beginning of a line. <code>#</code> indicates a comment – that is, that the line does not contain code and should be ignored by the computer when the program is run. Comments are incredibly useful to help humans understand what the code does and why it does it.</p>
-<section id="plotting-a-logarithmic-spiral-in-r-and-python" class="level3 ex" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="plotting-a-logarithmic-spiral-in-r-and-python">
-<span class="header-section-number">2.1.1</span> Plotting a <a href="https://mathworld.wolfram.com/LogarithmicSpiral.html">logarithmic spiral</a> in R and python</h3>
+<section id="plotting-a-logarithmic-spiral-in-r-and-python" class="level3 ex" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="plotting-a-logarithmic-spiral-in-r-and-python"><span class="header-section-number">2.1.1</span> Plotting a <a href="https://mathworld.wolfram.com/LogarithmicSpiral.html">logarithmic spiral</a> in R and python</h3>
 <p>This code will use concepts we have not yet introduced - feel free to tinker with it if you want, but know that you’re not responsible for being able to <strong>write</strong> this code yet. You just need to read it and get a sense for what it does. I have heavily commented it to help with this process.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Define the angle of the spiral (polar coords)</span>
-<span class="co"># go around two full times (2*pi = one revolution)</span>
-<span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">*</span><span class="va">pi</span>, <span class="fl">.01</span><span class="op">)</span> 
-<span class="co"># Define the distance from the origin of the spiral</span>
-<span class="co"># Needs to have the same length as theta</span>
-<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Now define x and y in cartesian coordinates</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="va">r</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">cos</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">r</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the angle of the spiral (polar coords)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># go around two full times (2*pi = one revolution)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span>pi, .<span class="dv">01</span>) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the distance from the origin of the spiral</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Needs to have the same length as theta</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="fu">length</span>(theta))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Now define x and y in cartesian coordinates</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-polar-r" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="figure"><p><img src="markdown_files/figure-html/fig-polar-r-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="markdown_files/figure-html/fig-polar-r-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.1: A Cartesian Spiral in R</figcaption><p></p>
 </figure>
 </div>
@@ -266,40 +293,43 @@
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-polar-py" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="figure"><p><img src="markdown_files/figure-html/fig-polar-py-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure">
+<p><img src="markdown_files/figure-html/fig-polar-py-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Figure 2.2: A Cartesian Spiral in python</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p>I have saved this script <a href="files/markdown-spiral-script.py">here</a>. You can download it and open it up in RStudio (File -&gt; Open -&gt; Navigate to file location).</p>
-</section><p>Scripts can be run in Rstudio by clicking the Run button <img src="images/Run-button-Rstudio.png" class="img-fluid" alt="RStudio run button"> at the top of the editor window when the script is open.</p>
-<section id="try-it-out" class="level3 tryitout" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="try-it-out">
-<span class="header-section-number">2.1.2</span> Try it out!</h3>
+</section>
+<p>Scripts can be run in Rstudio by clicking the Run button <img src="images/Run-button-Rstudio.png" class="img-fluid" alt="RStudio run button"> at the top of the editor window when the script is open.</p>
+<section id="try-it-out" class="level3 tryitout" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="try-it-out"><span class="header-section-number">2.1.2</span> Try it out!</h3>
 <ul>
 <li><p>Download the R and python scripts in the above example, open them in RStudio, and run each script using the Run button. What do you see?</p></li>
 <li><p>(Advanced) Open a terminal in RStudio (Tools -&gt; Terminal -&gt; New Terminal) and see if you can run the R script from the terminal using <code>R CMD BATCH path/to/file/markdown-spiral-script.R</code> (You will have to modify this command to point to the file on your machine)<br>
 Notice that two new files appear in your working directory: <code>Rplots.pdf</code> and <code>markdown-spiral-script.Rout</code></p></li>
 <li><p>(Advanced) Open a terminal in RStudio (Tools -&gt; Terminal -&gt; New Terminal) and see if you can run the R script from the terminal using <code>python3 path/to/file/markdown-spiral-script.py</code> (You will have to modify this command to point to the file on your machine)<br>
 This will require you to have python3 accessible to you on the command line, which may be a challenge if it is not set up in the way that I’m assuming it is. Feel free to make an appointment to see if we can figure it out, if this does not work the first time.</p></li>
-</ul></section><p>Most of the time, you will run scripts interactively - that is, you’ll be sitting there watching the script run and seeing what the results are as you are modifying the script. However, one advantage to scripts over notebooks is that it is easy to write a script and schedule it to run without supervision to complete tasks which may be repetitive. I have a script that runs daily at midnight, 6am, noon, and 6pm to pull information off of the internet for a dataset I’m maintaining. I’ve set it up so that this all happens automatically and I only have to check the results when I am interested in working with that data.</p>
-</section><section id="notebooks" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="notebooks">
-<span class="header-section-number">2.2</span> Notebooks</h2>
+</ul>
+</section>
+<p>Most of the time, you will run scripts interactively - that is, you’ll be sitting there watching the script run and seeing what the results are as you are modifying the script. However, one advantage to scripts over notebooks is that it is easy to write a script and schedule it to run without supervision to complete tasks which may be repetitive. I have a script that runs daily at midnight, 6am, noon, and 6pm to pull information off of the internet for a dataset I’m maintaining. I’ve set it up so that this all happens automatically and I only have to check the results when I am interested in working with that data.</p>
+</section>
+<section id="notebooks" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="notebooks"><span class="header-section-number">2.2</span> Notebooks</h2>
 <p>Notebooks are an implementation of literate programming. Both R and python have native notebooks that are cross-platform and allow you to code in R or python. This book is written using Quarto markdown, which is an extension of Rmarkdown, but it is also possible to use jupyter notebooks to write R code.</p>
 <p>In this class, we’re going to use Quarto/R markdown, because it is a much better tool for creating polished reports than Jupyter (in my opinion). This matters because the goal is that you learn something useful for your own coding and then you can easily apply it when you go to work as an analyst somewhere to produce impressive documents. Jupyter notebooks are great for interactive coding, but aren’t so wonderful for producing polished results. They also don’t allow you to switch between languages mid-notebook, and since I’m trying to teach this class in both R and python, I want you to have both languages available.</p>
 <div class="learn-more">
 <p>There are some excellent opinions surrounding the use of notebooks in data analysis:</p>
 <ul>
-<li>
-<a href="https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/preview#slide=id.g362da58057_0_1">Why I Don’t Like Notebooks”</a> by Joel Grus at JupyterCon 2018</li>
-<li>
-<a href="https://yihui.org/en/2018/09/notebook-war/">The First Notebook War</a> by Yihui Xie (response to Joel’s talk).<br>
+<li><a href="https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/preview#slide=id.g362da58057_0_1">Why I Don’t Like Notebooks”</a> by Joel Grus at JupyterCon 2018</li>
+<li><a href="https://yihui.org/en/2018/09/notebook-war/">The First Notebook War</a> by Yihui Xie (response to Joel’s talk).<br>
 Yihui Xie is the person responsible for <code>knitr</code> and <code>Rmarkdown</code>.</li>
 </ul>
 </div>
 <p>&nbsp;</p>
-<section id="try-it-out---r-markdown" class="level3 tryitout" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="try-it-out---r-markdown">
-<span class="header-section-number">2.2.1</span> Try it out - R markdown</h3>
+<section id="try-it-out---r-markdown" class="level3 tryitout" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="try-it-out---r-markdown"><span class="header-section-number">2.2.1</span> Try it out - R markdown</h3>
 <p>Take a look at the <a href="./files/markdown-demo.html">R markdown sample file</a> I’ve created to go with the R script above. You can see the HTML file it generates <a href="files/markdown-demo.html">here</a>.</p>
 <ul>
 <li><p>Download the Rmd file and open it with RStudio.</p></li>
@@ -307,17 +337,20 @@ Yihui Xie is the person responsible for <code>knitr</code> and <code>Rmarkdown</
 <li><p>Change the output to <code>output: pdf_document</code> and hit the Render button <img src="images/Render-button-Rstudio.png" class="img-fluid" alt="Render button in RStudio">. Can you find the markdown-demo.pdf file that was generated? What does it look like?</p></li>
 </ul>
 <p>Rmarkdown tries very hard to preserve your formatted text appropriately regardless of the output document type. While things may not look exactly the same, the goal is to allow you to focus on the content and the formatting will “just work”.</p>
-</section><p>&nbsp;</p>
-<section id="try-it-out---jupyter" class="level3 tryitout" data-number="2.2.2"><h3 data-number="2.2.2" class="anchored" data-anchor-id="try-it-out---jupyter">
-<span class="header-section-number">2.2.2</span> Try it out - Jupyter</h3>
+</section>
+<p>&nbsp;</p>
+<section id="try-it-out---jupyter" class="level3 tryitout" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="try-it-out---jupyter"><span class="header-section-number">2.2.2</span> Try it out - Jupyter</h3>
 <p>Take a look at the <a href="files/jupyter-demo.ipynb">jupyter notebook sample file</a> I’ve created to go with the R script above. You can see the HTML file it generates <a href="files/jupyter-demo.html">here</a>.</p>
 <ul>
 <li><p>Download the ipynb file and open it with jupyter.</p></li>
 <li><p>Export the notebook as a pdf file (File -&gt; Save as -&gt; PDF via HTML). Can you find the jupyter-demo.pdf file that was generated? What does it look like?</p></li>
 <li><p>Export the notebook as an html file (File -&gt; Save as -&gt; HTML). Can you find the jupyter-demo.html file that was generated? What does it look like?</p></li>
-</ul></section><p>&nbsp;</p>
-<section id="try-it-out---quarto-markdown" class="level3 tryitout" data-number="2.2.3"><h3 data-number="2.2.3" class="anchored" data-anchor-id="try-it-out---quarto-markdown">
-<span class="header-section-number">2.2.3</span> Try it out - Quarto markdown</h3>
+</ul>
+</section>
+<p>&nbsp;</p>
+<section id="try-it-out---quarto-markdown" class="level3 tryitout" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="try-it-out---quarto-markdown"><span class="header-section-number">2.2.3</span> Try it out - Quarto markdown</h3>
 <p>The nice thing about quarto is that it will work with python and R seamlessly, and you can compile the document using python or R. R markdown will also allow you to use python chunks, but you must compile the document in R.</p>
 <p>Take a look at the <a href="./files/quarto-demo.html">Qmd notebook sample file</a> I’ve created to go with the scripts above. You’ll notice that it is basically the script portion of this textbook – that’s because I’m writing the textbook in Quarto.</p>
 <ul>
@@ -325,9 +358,12 @@ Yihui Xie is the person responsible for <code>knitr</code> and <code>Rmarkdown</
 <li><p>Try to compile the file by hitting the Render button <img src="images/Render-button-Rstudio.png" class="img-fluid" alt="Render button in RStudio"></p></li>
 <li><p>(Advanced) In the terminal, type in <code>quarto render path/to/file/quarto-demo.qmd</code>. Does that render the HTML file?<br>
 One advantage of this is that using quarto to render the file doesn’t require R at the command line. As the document contains R chunks, R is still required to compile the document, but the biggest difference between qmd and rmd is that qmd files are workflow agnostic - you can generate them in e.g.&nbsp;MS Visual Studio Code, compile them in that workflow, and never have to use RStudio.</p></li>
-</ul></section>
+</ul>
+</section>
 
-</section><script type="application/javascript">
+
+</section>
+<script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
@@ -355,17 +391,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     e.clearSelection();
   });
   function tippyHover(el, contentFn) {
-    window.tippy(el, {
+    const config = {
       allowHTML: true,
       content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
       placement: 'bottom-start'
-    }); 
+    };
+    window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -398,7 +438,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script></main><div class="page-navigation ">
+</script>
+</main> <!-- /main -->
+<nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./getting-started.html">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span>
@@ -409,10 +451,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</div>
-</div> <!-- /main column -->
-</div> <!-- /row -->
-</div> <!-- /container fluid -->
+</nav>
+</div> <!-- /content -->
 
 
 </body></html>
