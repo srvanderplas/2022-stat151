@@ -29,7 +29,7 @@ book:
   toc:
     collapse: section
 bibliography: references.bib
-
+pdf-engine: xelatex
 from: markdown+emoji
 
 format:
