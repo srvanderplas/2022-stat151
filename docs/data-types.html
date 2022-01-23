@@ -199,7 +199,21 @@
 <li><a href="#valid-names" class="nav-link" data-scroll-target="#valid-names"> <span class="header-section-number">4.2.1</span> Valid Names</a></li>
 </ul>
 </li>
-<li><a href="#type-conversions" class="nav-link" data-scroll-target="#type-conversions"> <span class="header-section-number">4.3</span> Type Conversions</a></li>
+<li>
+<a href="#type-conversions" class="nav-link" data-scroll-target="#type-conversions"> <span class="header-section-number">4.3</span> Type Conversions</a>
+<ul class="collapse">
+<li><a href="#in-class-activity" class="nav-link" data-scroll-target="#in-class-activity">In class activity</a></li>
+</ul>
+</li>
+<li>
+<a href="#operators-and-functions" class="nav-link" data-scroll-target="#operators-and-functions"> <span class="header-section-number">4.4</span> Operators and Functions</a>
+<ul class="collapse">
+<li><a href="#order-of-operations" class="nav-link" data-scroll-target="#order-of-operations"> <span class="header-section-number">4.4.1</span> Order of Operations</a></li>
+<li><a href="#string-operations-in-python" class="nav-link" data-scroll-target="#string-operations-in-python"> <span class="header-section-number">4.4.2</span> String Operations in Python</a></li>
+<li><a href="#functions" class="nav-link" data-scroll-target="#functions"> <span class="header-section-number">4.4.3</span> Functions</a></li>
+<li><a href="#in-class-activity-1" class="nav-link" data-scroll-target="#in-class-activity-1">In class activity</a></li>
+</ul>
+</li>
 </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/data-types.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
   <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
 <main><header id="title-block-header"><h1 class="title d-none d-lg-block display-7">
@@ -298,7 +312,7 @@
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="er">st_thing</span> <span class="op">&lt;-</span> <span class="st">"check your variable names!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note: Run the above chunk in your python window - the book won’t compile if I set it to evaluate 🙍. It generates an error of <code>SyntaxError: invalid syntax (&lt;string&gt;, line 1)</code></p>
+<p>Note: Run the above chunk in your python window - the book won’t compile if I set it to evaluate 😢. It generates an error of <code>SyntaxError: invalid syntax (&lt;string&gt;, line 1)</code></p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>second.thing <span class="op">&lt;-</span> <span class="st">"this isn't valid"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-error">
@@ -322,7 +336,7 @@ Detailed traceback:
 <code>somePeopleUseCamelCase</code>, where words are appended but anything after the first word is capitalized (leading to words with humps like a camel).</li>
 <li>
 <code>some.people.use.periods</code> (in R, obviously this doesn’t work in python)</li>
-<li>A few people mix conventions with <code>variables_thatLookLike.this</code> and they are almost universally hated 🙈</li>
+<li>A few people mix conventions with <code>variables_thatLookLike.this</code> and they are almost universally hated 👿</li>
 </ul>
 <p>As long as you pick ONE naming convention and don’t mix-and-match, you’ll be fine. It will be easier to remember what you named your variables (or at least guess) and you’ll have fewer moments where you have to go scrolling through your script file looking for a variable you named.</p>
 </section></section><section id="type-conversions" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="type-conversions">
@@ -364,14 +378,217 @@ double b = 3.14159</code></pre>
 <pre><code>&lt;class 'int'&gt;</code></pre>
 </div>
 </div>
-<p>In python, by contrast, anything without a decimal point is converted into an integer.</p>
-<p>You may be asking yourself at this point why this matters, and that’s a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become <em>very</em> important at that point, because we’ll have to know how R and python both handle type conversions. In the meantime, do a bit of experimentation - what happens when you try to add a string and a number? Which types are automatically converted to other types?</p>
+<p>In python, by contrast, anything without a decimal point is converted into an integer - essentially, python tries to minimize memory used without losing data. So it will never convert a float into an integer implicitly - if you want Python to do that, you’ll have to tell it to do so directly.</p>
+<p>You may be asking yourself at this point why this matters, and that’s a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become <em>very</em> important at that point, because we’ll have to know how R and python both handle type conversions.</p>
+<section id="in-class-activity" class="level3 unnumbered tryitout"><h3 class="unnumbered anchored" data-anchor-id="in-class-activity">In class activity</h3>
+<p>Do a bit of experimentation - what happens when you try to add a string and a number? Which types are automatically converted to other types? Fill in the following table in your notes:</p>
+<p>Adding a ___ and a ___ produces a ___:</p>
+<table class="table">
+<thead><tr class="header">
+<th>Logical</th>
+<th>Integer</th>
+<th>Decimal</th>
+<th>String</th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Logical</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Integer</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Decimal</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>String</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></section><p>Above, we looked at automatic type conversions, but in many cases, we also may want to convert variables manually, specifying exactly what type we’d like them to be. A common application for this in data analysis is when there are “*” or “.” or other indicators in an otherwise numeric column of a spreadsheet that indicate missing data: when this data is read in, the whole column is usually read in as character data. So we need to know how to tell R and python that we want our string to be treated as a number, or vice-versa.</p>
+<p>In R, we can explicitly convert a variable’s type using <code>as.XXX()</code> functions, where XXX is the type you want to convert to (<code>as.numeric</code>, <code>as.integer</code>, <code>as.logical</code>, <code>as.character</code>, etc.).</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"3.14159"</span>
 
+<span class="va">x</span> <span class="op">+</span> <span class="va">y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-error">
+<pre><code>Error in x + y: non-numeric argument to binary operator</code></pre>
+</div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 6.14159</code></pre>
+</div>
+</div>
+<p>In python, the same basic idea holds true, but in python, we just use the variable type as a function: <code>int()</code>, <code>float()</code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, and <code>bool()</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">"3.14159"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">+</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-error">
+<pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+Detailed traceback:
+  File "&lt;string&gt;", line 1, in &lt;module&gt;</code></pre>
+</div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">+</span> <span class="bu">float</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>6.14159</code></pre>
+</div>
+</div>
+</section><section id="operators-and-functions" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="operators-and-functions">
+<span class="header-section-number">4.4</span> Operators and Functions</h2>
+<p>In addition to variables, <strong>functions</strong> are extremely important in programming.</p>
+<p>Let’s first start with a special class of functions called operators. You’re probably familiar with operators as in arithmetic expressions: +, -, /, *, and so on.</p>
+<p>Here are a few of the most important ones:</p>
+<table class="table">
+<thead><tr class="header">
+<th>Operation</th>
+<th>R symbol</th>
+<th>Python symbol</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Addition</td>
+<td><code>+</code></td>
+<td><code>+</code></td>
+</tr>
+<tr class="even">
+<td>Subtraction</td>
+<td><code>-</code></td>
+<td><code>-</code></td>
+</tr>
+<tr class="odd">
+<td>Multiplication</td>
+<td><code>*</code></td>
+<td><code>*</code></td>
+</tr>
+<tr class="even">
+<td>Division</td>
+<td><code>/</code></td>
+<td><code>/</code></td>
+</tr>
+<tr class="odd">
+<td>Integer Division</td>
+<td><code>%/%</code></td>
+<td><code>//</code></td>
+</tr>
+<tr class="even">
+<td>Modular Division</td>
+<td><code>%%</code></td>
+<td><code>%</code></td>
+</tr>
+<tr class="odd">
+<td>Exponentiation</td>
+<td><code>^</code></td>
+<td><code>**</code></td>
+</tr>
+</tbody>
+</table>
+<p>Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B. So <code>14 %/% 3</code> in R would be 4, and <code>14 %% 3</code> in R would be 2.</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fl">14</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fl">14</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="op">//</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>4</code></pre>
+</div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="op">%</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
+<p>Note that these operands are all intended for scalar operations (operations on a single number) - vectorized versions, such as matrix multiplication, are somewhat more complicated (and different between R and python).</p>
+<section id="order-of-operations" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="order-of-operations">
+<span class="header-section-number">4.4.1</span> Order of Operations</h3>
+<p>Both R and Python operate under the same mathematical rules of precedence that you learned in school. You may have learned the acronym PEMDAS, which stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. That is, when examining a set of mathematical operations, we evaluate parentheses first, then exponents, and then we do multiplication/division, and finally, we add and subtract.</p>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">5</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span> <span class="co"># 2 ^ 3 = 8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">^</span><span class="fl">3</span> <span class="op">*</span> <span class="fl">4</span> <span class="co"># 1 + (8 * 4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 33</code></pre>
+</div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fl">3</span><span class="op">*</span><span class="fl">1</span><span class="op">^</span><span class="fl">3</span> <span class="co"># 3 * 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="op">+</span><span class="dv">1</span>)<span class="op">**</span>(<span class="dv">5</span><span class="op">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>8</code></pre>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">**</span><span class="dv">3</span><span class="op">*</span><span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>33</code></pre>
+</div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="op">*</span><span class="dv">1</span><span class="op">**</span><span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>3</code></pre>
+</div>
+</div>
+</section><section id="string-operations-in-python" class="level3" data-number="4.4.2"><h3 data-number="4.4.2" class="anchored" data-anchor-id="string-operations-in-python">
+<span class="header-section-number">4.4.2</span> String Operations in Python</h3>
+<p>Python has some additional operators that work on strings. In R, you will have to use functions to perform these operations, as R does not have string operators.</p>
+<p>In Python, <code>+</code> will <strong>concatenate</strong> (stick together) two strings, and multiplying a string by an integer will repeat the string the specified number of times</p>
+<div class="cell">
+<div class="sourceCode" id="cb53"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">"first "</span> <span class="op">+</span> <span class="st">"second"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>'first second'</code></pre>
+</div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">"hello "</span> <span class="op">*</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>'hello hello hello '</code></pre>
+</div>
+</div>
+</section><section id="functions" class="level3" data-number="4.4.3"><h3 data-number="4.4.3" class="anchored" data-anchor-id="functions">
+<span class="header-section-number">4.4.3</span> Functions</h3>
+<p><strong>Functions</strong> are sets of instructions that take <strong>arguments</strong> and <strong>return</strong> values. Strictly speaking, operators (like those above) are a special type of functions – but we aren’t going to get into that now.</p>
+<p>We’re also not going to talk about how to create our own functions just yet. Instead, I’m going to show you how to <em>use</em> functions.</p>
+<p>It may be helpful at this point to print out the <a href="files/Short-refcard.pdf">R reference card</a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and the <a href="files/Python3_reference_cheat_sheet.pdf">Python reference card</a><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. These cheat sheets contain useful functions for a variety of tasks in each language.</p>
+<p><strong>Methods</strong> are a special type of function that operate on a specific variable type. In Python, methods are applied using the syntax <code>variable.method_name()</code>. So, you can get the length of a string variable <code>my_string</code> using <code>my_string.length()</code>.</p>
+<p>R has methods too, but they are invoked differently. In R, you would get the length of a string variable using <code>length(my_string)</code>.</p>
+<p>Right now, it is not really necessary to know too much more about functions than this: you can invoke a function by passing in arguments, and the function will do a task and return the value.</p>
+</section><section id="in-class-activity-1" class="level3 unnumbered tryitout"><h3 class="unnumbered anchored" data-anchor-id="in-class-activity-1">In class activity</h3>
+<p>Try out some of the functions mentioned on the R and Python cheatsheets.</p>
+<p>Can you figure out how to define a list or vector of numbers? If so, can you use a function to calculate the maximum value?</p>
+<p>Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings?</p>
+</section>
 
 </section><section class="footnotes" role="doc-endnotes"><h2>Footnotes</h2>
 <ol>
 <li id="fn1" role="doc-endnote"><p>This means that doubles take up more memory but can store more decimal places. You don’t need to worry about this much in R, and only a little in Python, but in older and more precise languages such as C/C++/Java, the difference between floats and doubles can be important.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p>In some ways, this is like the difference between an automatic and a manual transmission - you have fewer things to worry about, but you also don’t know what’s going on under the hood nearly as well<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>From https://cran.r-project.org/doc/contrib/Short-refcard.pdf<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>From http://sixthresearcher.com/wp-content/uploads/2016/12/Python3_reference_cheat_sheet.pdf<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section><script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";

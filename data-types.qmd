@@ -147,7 +147,135 @@ type(2 + True)
 type(True + False)
 ```
 
-In python, by contrast, anything without a decimal point is converted into an integer. 
+In python, by contrast, anything without a decimal point is converted into an integer - essentially, python tries to minimize memory used without losing data. So it will never convert a float into an integer implicitly - if you want Python to do that, you'll have to tell it to do so directly.
 
-You may be asking yourself at this point why this matters, and that's a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become *very* important at that point, because we'll have to know how R and python both handle type conversions. In the meantime, do a bit of experimentation - what happens when you try to add a string and a number? Which types are automatically converted to other types? 
+You may be asking yourself at this point why this matters, and that's a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become *very* important at that point, because we'll have to know how R and python both handle type conversions. 
 
+
+::: tryitout
+### In class activity {.unnumbered}
+
+Do a bit of experimentation - what happens when you try to add a string and a number? Which types are automatically converted to other types? Fill in the following table in your notes:
+
+Adding a ___ and a ___ produces a ___:
+
+ | Logical | Integer | Decimal | String
+--- | ------- | ------- | ------- | ------
+Logical | | | |
+Integer | | | | 
+Decimal | | | |
+String | | | |
+
+:::
+
+
+Above, we looked at automatic type conversions, but in many cases, we also may want to convert variables manually, specifying exactly what type we'd like them to be. A common application for this in data analysis is when there are "*" or "." or other indicators in an otherwise numeric column of a spreadsheet that indicate missing data: when this data is read in, the whole column is usually read in as character data. So we need to know how to tell R and python that we want our string to be treated as a number, or vice-versa.
+
+In R, we can explicitly convert a variable's type using `as.XXX()` functions, where XXX is the type you want to convert to (`as.numeric`, `as.integer`, `as.logical`, `as.character`, etc.).
+
+```{r, error = T}
+x <- 3
+y <- "3.14159"
+
+x + y
+
+x + as.numeric(y)
+```
+
+In python, the same basic idea holds true, but in python, we just use the variable type as a function: `int()`, `float()`, `str()`, and `bool()`.
+
+```{python, error = T}
+x = 3
+y = "3.14159"
+
+x + y
+
+x + float(y)
+```
+
+
+## Operators and Functions
+
+In addition to variables, **functions** are extremely important in programming. 
+
+Let's first start with a special class of functions called operators. You're probably familiar with operators as in arithmetic expressions: +, -, /, *, and so on.
+
+Here are a few of the most important ones:
+
+Operation | R symbol | Python symbol
+--- | --- | ---
+Addition | `+` | `+`
+Subtraction | `-` | `-`
+Multiplication | `*` | `*`
+Division | `/` | `/`
+Integer Division | `%/%` | `//`
+Modular Division | `%%` | `%`
+Exponentiation | `^` | `**`
+
+Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B. So `14 %/% 3` in R would be 4, and `14 %% 3` in R would be 2. 
+
+```{r}
+14 %/% 3
+14 %% 3
+```
+
+```{python}
+14 // 3
+14 % 3
+```
+
+Note that these operands are all intended for scalar operations (operations on a single number) - vectorized versions, such as matrix multiplication, are somewhat more complicated (and different between R and python). 
+
+
+### Order of Operations
+
+Both R and Python operate under the same mathematical rules of precedence that you learned in school. You may have learned the acronym PEMDAS, which stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. That is, when examining a set of mathematical operations, we evaluate parentheses first, then exponents, and then we do multiplication/division, and finally, we add and subtract.
+
+```{r}
+(1+1)^(5-2) # 2 ^ 3 = 8
+1 + 2^3 * 4 # 1 + (8 * 4)
+3*1^3 # 3 * 1
+```
+
+```{python}
+(1+1)**(5-2)
+1 + 2**3*4
+3*1**3
+```
+
+
+### String Operations in Python
+
+Python has some additional operators that work on strings. In R, you will have to use functions to perform these operations, as R does not have string operators.
+
+In Python, `+` will **concatenate** (stick together) two strings, and multiplying a string by an integer will repeat the string the specified number of times
+
+```{python}
+"first " + "second"
+"hello " * 3
+```
+
+### Functions
+
+**Functions** are sets of instructions that take **arguments** and **return** values. Strictly speaking, operators (like those above) are a special type of functions -- but we aren't going to get into that now. 
+
+We're also not going to talk about how to create our own functions just yet. Instead, I'm going to show you how to _use_ functions. 
+
+It may be helpful at this point to print out the [R reference card](files/Short-refcard.pdf)^[From https://cran.r-project.org/doc/contrib/Short-refcard.pdf] and the [Python reference card](files/Python3_reference_cheat_sheet.pdf)^[From http://sixthresearcher.com/wp-content/uploads/2016/12/Python3_reference_cheat_sheet.pdf]. These cheat sheets contain useful functions for a variety of tasks in each language. 
+
+**Methods** are a special type of function that operate on a specific variable type. In Python, methods are applied using the syntax `variable.method_name()`. So, you can get the length of a string variable `my_string` using `my_string.length()`. 
+
+R has methods too, but they are invoked differently. In R, you would get the length of a string variable using `length(my_string)`. 
+
+Right now, it is not really necessary to know too much more about functions than this: you can invoke a function by passing in arguments, and the function will do a task and return the value.
+
+
+::: tryitout
+### In class activity {.unnumbered}
+
+Try out some of the functions mentioned on the R and Python cheatsheets. 
+
+Can you figure out how to define a list or vector of numbers? If so, can you use a function to calculate the maximum value?
+
+Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings? 
+:::
