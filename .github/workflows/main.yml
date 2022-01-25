@@ -13,6 +13,8 @@ jobs:
         run: |
           quarto --version
 
+      - uses: actions/setup-python@v2
+
       - name: Checkout Repository
         uses: actions/checkout@main
 
@@ -30,19 +32,9 @@ jobs:
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 
-      - uses: actions/setup-python@v2
-
       - name: "Install Python deps"
         run: |
           pip install -r requirements.txt
-
-      - name: "Install Quarto and render"
-        uses: pommevilla/quarto-render@main
-
-      - name: Render Site
-        run: |-
-          Rscript -e "rmarkdown::render_site(encoding = 'UTF-8')"
-          echo "::set-env name=DEPLOY_PATH::$(Rscript -e "cat(rmarkdown::site_config()[['output_dir']])")"
 
       - name: "Quarto render"
         shell: bash
@@ -60,7 +52,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}
           publish_dir: docs
 
     container: rocker/verse:latest
