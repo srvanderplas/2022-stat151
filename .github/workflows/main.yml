@@ -31,8 +31,9 @@ jobs:
       - name: "Install R packages initial"
         shell: Rscript {0}
         run: |
+          Sys.setenv(GITHUB_PAT = '${{env.GITHUB_PAT}}')
           install.packages("remotes")
-          remotes::install_github("hadley/emo", auth_token = "${{env.GITHUB_PAT}}")
+          remotes::install_github("hadley/emo")
 
       - name: "Install R Packages: Restore packages"
         shell: Rscript {0}
