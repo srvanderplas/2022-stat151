@@ -1,19 +1,14 @@
 name: Render and Deploy RMarkdown Website
 'on': push
+
 jobs:
-  build:
-    runs-on: ubuntu-18.04
+  quarto-render-and-deploy:
+    runs-on: ubuntu-latest
+    container: rocker/verse:latest
     env:
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
-      - name: setup Python
-        uses: actions/setup-python@v2
-
-      - name: install quarto
-        uses: quarto-dev/quarto-actions/install-quarto@v1
-
-      - name: Checkout Repository
-        uses: actions/checkout@main
+      - uses: actions/checkout@v2
 
       - name: "Install R Packages: Cache packages"
         uses: actions/cache@v1
@@ -29,23 +24,12 @@ jobs:
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 
-      - name: "Quarto render"
-        shell: bash
-        run: |
-          quarto render --execute-debug
+      - name: "Install Quarto and render"
+        uses: pommevilla/quarto-render@main
 
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        uses: maxheld83/ghpages@v0.2.0
-        env:
-          BUILD_DIR: $DEPLOY_PATH
-          GH_PAT: ${{ secrets.GH_PAT }}
-
-      - name: Deploy to GH Pages Docs folder
+      - name: "Deploy to gh-pages"
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
-          github_token: ${{ secrets.GH_PAT }}
-          publish_dir: docs
-
-    container: rocker/verse:latest
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
