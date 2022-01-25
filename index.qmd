@@ -106,4 +106,6 @@ Stat 151 will be offered for the first time in Spring 2022, as I'm writing this 
 library(fontawesome)
 fa_html_dependency()
 # htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+
+knitr::opts_chunk$set(results='hold')
 ```
