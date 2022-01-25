@@ -11,11 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Miniconda
-        run: |
-          Rscript -e "remotes::install_github('rstudio/reticulate')"
-          Rscript -e "reticulate::install_miniconda()"
-
       - name: "Install R Packages: Cache packages"
         uses: actions/cache@v1
         with:

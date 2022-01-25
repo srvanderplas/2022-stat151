@@ -1,6 +1,8 @@
 # Getting Started
 
 ```{r fa-setup, include=FALSE}
+library(reticulate)
+library(quarto)
 library(fontawesome)
 fa_html_dependency()
 # htmltools::tagList(rmarkdown::html_dependency_font_awesome())
