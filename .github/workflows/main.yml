@@ -11,6 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install Python dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade
+          sudo apt-get install python3-virtualenv
+          sudo apt-get install python3-venv
+        shell: /bin/bash {0}
+
+      - name: Activate conda r-reticulate
+        if: runner.os == 'Linux'
+        run: |
+          conda init bash
+          conda activate r-reticulate
+        shell: /bin/bash {0}
+
       - name: "Install R Packages: Cache packages"
         uses: actions/cache@v1
         with:
