@@ -6,6 +6,11 @@ jobs:
     env:
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
+      - name: install quarto
+        uses: quarto-dev/quarto-actions/install-quarto@v1
+        run: |
+          quarto --version
+
       - name: Checkout Repository
         uses: actions/checkout@main
 
@@ -36,6 +41,11 @@ jobs:
         run: |-
           Rscript -e "rmarkdown::render_site(encoding = 'UTF-8')"
           echo "::set-env name=DEPLOY_PATH::$(Rscript -e "cat(rmarkdown::site_config()[['output_dir']])")"
+
+      - name: "Quarto render"
+        shell: bash
+        run: |
+          quarto render --execute-debug
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'

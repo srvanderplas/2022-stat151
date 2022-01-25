@@ -8,11 +8,11 @@ book:
   date: "Spring 2022"
   chapters:
     - index.qmd
-    - getting-started.qmd
-    - markdown.qmd
-    - finding-your-way.qmd
-    - data-types.qmd
-    - vectors.qmd
+    - 1-getting-started.qmd
+    - 2-markdown.qmd
+    - 3-finding-your-way.qmd
+    - 4-data-types.qmd
+    - 5-vectors.qmd
     - data-structures.qmd
     - reading-data.qmd
     - functions.qmd
