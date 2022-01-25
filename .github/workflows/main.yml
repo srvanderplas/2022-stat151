@@ -28,12 +28,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
 
+      - name: "Install R packages initial"
+        shell: Rscript {0}
+        run: |
+          install.packages("remotes")
+          remotes::install_github("hadley/emo", auth_token = GITHUB_PAT)
+
       - name: "Install R Packages: Restore packages"
         shell: Rscript {0}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          install.packages("remotes")
-          remotes::install_github("hadley/emo")
           renv::use_python()
           renv::restore()
 
