@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.2.232">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Introduction to Statistical Computing – statistics</title>
+  <title>Introduction to Statistical Computing - 5&nbsp; Vectors and Control Structures</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -23,8 +23,8 @@
   <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <link href="./ttests.html" rel="next">
-  <link href="./functions.html" rel="prev">
+  <link href="./data-structures.html" rel="next">
+  <link href="./4-data-types.html" rel="prev">
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
   <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -49,7 +49,7 @@
 <header id="quarto-header" class="headroom fixed-top">
 <nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <div class="container-fluid d-flex justify-content-between">
-    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline">(Untitled)</h1>
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors and Control Structures</span></h1>
     <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
       <i class="bi bi-chevron-right"></i>
     </button>
@@ -114,7 +114,7 @@
   <a href="./4-data-types.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./5-vectors.html" class=""><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors and Control Structures</span></a>
+  <a href="./5-vectors.html" class="active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors and Control Structures</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./data-structures.html" class=""><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
@@ -126,7 +126,7 @@
   <a href="./functions.html" class=""><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">functions.html</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./statistics.html" class="active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">statistics.html</span></a>
+  <a href="./statistics.html" class=""><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">statistics.html</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./ttests.html" class=""><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ttests.html</span></a>
@@ -144,11 +144,84 @@
   </div>
 </nav>
   </div>
-  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"></div>
+  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#vectors-and-matrices" class="nav-link active" data-scroll-target="#vectors-and-matrices"> <span class="header-section-number">5.1</span> Vectors and Matrices</a></li>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/5-vectors.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
   <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
 <main>
+<header id="title-block-header">
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors and Control Structures</span></h1>
+</header>
+
+<!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
+<!-- (probably 2 weeks of content) -->
+<p>This chapter introduces some of the most important tools for working with data: vectors, matrices, loops, and if statements. It would be nice to gradually introduce each one of these topics separately, but they tend to go together, especially when you’re talking about programming in the context of data processing.</p>
+<section id="vectors-and-matrices" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="vectors-and-matrices"><span class="header-section-number">5.1</span> Vectors and Matrices</h2>
+<p>In the previous chapter, we discussed 4 different data types: strings/characters, numeric/double/floats, integers, and logical/booleans. As you might imagine, things are about to get more complicated.</p>
+<p>Data <strong>structures</strong> are more complicated arrangements of information.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Homogeneous</th>
+<th>Heterogeneous</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1D</td>
+<td>vector</td>
+<td>list</td>
+</tr>
+<tr class="even">
+<td>2D</td>
+<td>matrix</td>
+<td>data frame</td>
+</tr>
+<tr class="odd">
+<td>N-D</td>
+<td>array</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Consider a vector, a one-dimensional column of data. <strong>vectors</strong> are homogeneous, that is, every element in a vector has the same data type.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lego-1x3-vector.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">vector of purple 1x3 legos</figcaption><p></p>
+</figure>
+</div>
+<p>Each element in a vector has an <strong>index</strong> - an integer telling you what the item’s position within the vector is.</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>R</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R is a 1-indexed language: in R, we count elements as 1, 2, 3, 4, …, N.</td>
+<td>Python is a 0-indexed language: in Python, we count elements as 0, 1, 2, 3, , …, N-1.</td>
+</tr>
+<tr class="even">
+<td><img src="images/lego-1x3-vector-R.png" class="img-fluid" alt="R lego vector, labeled with numbers 1-12"></td>
+<td><img src="images/lego-1x3-vector-python.png" class="img-fluid" alt="Python lego vector, labeled with numbers 0-11"></td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
@@ -224,13 +297,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </main>
 <div class="page-navigation ">
   <div class="nav-page nav-page-previous">
-      <a href="./functions.html">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">functions.html</span></span>
+      <a href="./4-data-types.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ttests.html">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ttests.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./data-structures.html">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </div>
