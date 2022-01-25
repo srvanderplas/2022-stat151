@@ -32,7 +32,7 @@ jobs:
         shell: Rscript {0}
         run: |
           install.packages("remotes")
-          remotes::install_github("hadley/emo", auth_token = GITHUB_PAT)
+          remotes::install_github("hadley/emo", auth_token = "${{env.GITHUB_PAT}}")
 
       - name: "Install R Packages: Restore packages"
         shell: Rscript {0}
