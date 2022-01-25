@@ -1,5 +1,89 @@
-# Vectors, Arrays, Indexing, and Loops
+# Vectors and Control Structures
+<!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
+<!-- (probably 2 weeks of content) -->
 
-Vectors, Matrices, and Numpy arrays. Logical indexing. For loops.
+This chapter introduces some of the most important tools for working with data: vectors, matrices, loops, and if statements. It would be nice to gradually introduce each one of these topics separately, but they tend to go together, especially when you're talking about programming in the context of data processing.
 
-(probably 2 weeks of content)
+In the previous chapter, we discussed 4 different data types: strings/characters, numeric/double/floats, integers, and logical/booleans. As you might imagine, things are about to get more complicated.
+
+Data **structures** are more complicated arrangements of information. 
+
+  | Homogeneous | Heterogeneous
+-- | ---- | ----
+1D | vector | list
+2D | matrix | data frame
+N-D | array | 
+
+## Vectors
+
+A **vector** is a one-dimensional column of homogeneous data. Homogeneous means that every element in a vector has the same data type. 
+
+We can have vectors of any data type: 
+![vectors of different data types](images/lego-set-of-vectors.png)
+
+
+<!-- ![vector of purple 1x3 legos](images/lego-1x3-vector.png) -->
+
+Each element in a vector has an **index** - an integer telling you what the item's position within the vector is. I'm going to demonstrate indices with the string vector
+
+R | Python
+--- | ---
+1-indexed language | 0-indexed language
+Count elements as 1, 2, 3, 4, ..., N  | Count elements as 0, 1, 2, 3, , ..., N-1
+![R lego vector, labeled with numbers 1-12](images/lego-1x3-vector-R.png) | ![Python lego vector, labeled with numbers 0-11](images/lego-1x3-vector-python.png)
+
+
+In R, we create vectors with the `c()` function, which stands for "concatenate" - basically, we stick a bunch of objects into a row.
+
+::: ex
+<details><summary>Creating vectors in R</summary>
+
+```{r}
+digits_pi <- c(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
+
+# Access individual entries
+digits_pi[1]
+digits_pi[2]
+digits_pi[3]
+
+# R is 1-indexed - a list of 11 things goes from 1 to 11
+digits_pi[0]
+digits_pi[11]
+
+# Print out the vector
+digits_pi
+```
+
+</details>
+
+:::
+
+In python, we create vectors using the `array` function in the numpy module. To add a python module, we use the syntax `import <name> as <nickname>`. Many modules have conventional (and very short) nicknames - for `numpy`, we will use `np` as the nickname.
+Any functions we reference in the `numpy` module will then be called using `np.fun_name()` so that python knows where to find them.^[A similar system exists in R libraries, but R doesn't handle multiple libraries having the same function names well, which leads to all sorts of confusion. At least python is explicit about it.]
+
+::: ex
+<details><summary>Creating vectors in python</summary>
+
+```{python, error = T}
+import numpy as np
+digits_list = [3,1,4,1,5,9,2,6,5,3,5]
+digits_pi = np.array(digits_list)
+
+# Access individual entries
+digits_pi[0]
+digits_pi[1]
+digits_pi[2]
+
+# Python is 0 indexed - a list of 11 things goes from 0 to 10
+digits_pi[0]
+digits_pi[11] 
+
+# Print out the vector
+print(digits_pi)
+```
+
+</details>
+
+:::
+
+
