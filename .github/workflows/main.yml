@@ -32,6 +32,8 @@ jobs:
         shell: Rscript {0}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          install.packages("remotes")
+          remotes::install_github("hadley/emo")
           renv::use_python()
           renv::restore()
 
