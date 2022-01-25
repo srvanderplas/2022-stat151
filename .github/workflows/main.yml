@@ -20,13 +20,6 @@ jobs:
           sudo apt install -y python3-venv
         shell: /bin/bash {0}
 
-      - name: Activate conda r-reticulate
-        if: runner.os == 'Linux'
-        run: |
-          conda init bash
-          conda activate r-reticulate
-        shell: /bin/bash {0}
-
       - name: "Install R Packages: Cache packages"
         uses: actions/cache@v1
         with:
