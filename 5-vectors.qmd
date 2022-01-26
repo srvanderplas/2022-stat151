@@ -1,6 +1,8 @@
-# Vectors and Control Structures
+# Data and Control Structures
 <!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
 <!-- (probably 2 weeks of content) -->
+
+<!-- Lego pictures made with https://www.mecabricks.com/en/workshop -->
 
 This chapter introduces some of the most important tools for working with data: vectors, matrices, loops, and if statements. It would be nice to gradually introduce each one of these topics separately, but they tend to go together, especially when you're talking about programming in the context of data processing.
 
@@ -18,11 +20,15 @@ N-D | array |
 
 A **vector** is a one-dimensional column of homogeneous data. Homogeneous means that every element in a vector has the same data type. 
 
-We can have vectors of any data type: 
+We can have vectors of any data type and length we want^[Throughout this section (and other sections), lego pictures are rendered using https://www.mecabricks.com/en/workshop. It's a pretty nice tool for building stuff online!]: 
 ![vectors of different data types](images/lego-set-of-vectors.png)
 
 
 <!-- ![vector of purple 1x3 legos](images/lego-1x3-vector.png) -->
+
+
+
+### Indexing by Location
 
 Each element in a vector has an **index** - an integer telling you what the item's position within the vector is. I'm going to demonstrate indices with the string vector
 
@@ -38,7 +44,7 @@ In R, we create vectors with the `c()` function, which stands for "concatenate" 
 ::: ex
 <details><summary>Creating vectors in R</summary>
 
-```{r}
+```{r vector-creation-r}
 digits_pi <- c(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
 
 # Access individual entries
@@ -64,7 +70,7 @@ Any functions we reference in the `numpy` module will then be called using `np.f
 ::: ex
 <details><summary>Creating vectors in python</summary>
 
-```{python, error = T}
+```{python vector-creation-python, error = T}
 import numpy as np
 digits_list = [3,1,4,1,5,9,2,6,5,3,5]
 digits_pi = np.array(digits_list)
@@ -86,4 +92,162 @@ print(digits_pi)
 
 :::
 
+We can pull out items in a vector by indexing, but we can also replace specific things as well:
 
+```{r cat-vector-indexing}
+favorite_cats <- c("Grumpy", "Garfield", "Jorts", "Jean")
+
+favorite_cats
+
+favorite_cats[2] <- "Nyan Cat"
+
+favorite_cats
+```
+
+If you're curious about any of these cats, see the footnotes^[
+- Grumpy cat: https://www.grumpycats.com/
+- Garfield: https://www.garfield.com/
+- Nyan cat: https://en.wikipedia.org/wiki/Nyan_Cat
+- Jorts and Jean: [The initial post](https://www.reddit.com/r/AmItheAsshole/comments/rfwgmc/aita_for_perpetuating_ethnic_stereotypes_about/) and the [update](https://www.reddit.com/user/throwawayorangecat/comments/rgi000/update_aita_for_perpetuating_stereotypes_about/) (both are worth a read because the story is hilarious). The cats also have a [Twitter account](https://twitter.com/JortsTheCat) where they promote workers rights.].
+
+
+
+### Indexing with Logical Vectors
+
+As you might imagine, we can create vectors of all sorts of different data types. One particularly useful trick is to create a **logical vector** that goes along with a vector of another type to use as a **logical index**.
+
+![lego vectors - a pink/purple hued set of 1x3 bricks representing the data and a corresponding set of 1x1 grey and black bricks representing the logical index vector of the same length](images/lego-logical-full.png)
+
+If we let the black lego represent "True" and the grey lego represent "False", we can use the logical vector to pull out all values in the main vector. 
+
+Black = True, Grey = False | Grey = True, Black = False
+--- | ---
+![a pink/purple hued set of 1x3 bricks representing a vector and a corresponding set of 1x1 black bricks representing the logical index vector of the same length. The grey bricks (and corresponding values of the previous vector) have been removed (filtered out).](images/lego-logical-black.png) | ![a pink/purple hued set of 1x3 bricks representing a vector and a corresponding set of 1x1 grey bricks representing the logical index vector of the same length. The black bricks (and corresponding values of the previous vector) have been removed (filtered out).](images/lego-logical-grey.png)
+
+Note that for logical indexing to work properly, the logical index must be the same length as the vector we're indexing. This constraint will return when we talk about data frames, but for now just keep in mind that logical indexing doesn't make sense when this constraint isn't true.
+
+```{r logical-vector-indexing-r}
+# Define a character vector
+weekdays <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+weekend <- c("Sunday", "Saturday")
+
+# Create logical vectors
+relax_days <- c(1, 0, 0, 0, 0, 0, 1) # doing this the manual way
+relax_days <- weekdays %in% weekend # This creates a logical vector 
+                                    # with less manual construction
+relax_days
+
+school_days <- !relax_days # FALSE if weekend, TRUE if not
+school_days
+
+# Using logical vectors to index the character vector
+weekdays[school_days] # print out all school days
+```
+
+```{python logical-vector-indexing-python}
+import numpy as np;
+
+animals = np.array(["Cat", "Dog", "Snake", "Lizard", "Tarantula", "Hamster", "Gerbil", "Otter"])
+
+# Define a logical vector
+good_pets = np.array([True, True, False, False, False, True, True, False])
+bad_pets = np.invert(good_pets) # Invert the logical vector 
+                                # so True -> False and False -> True
+
+animals[good_pets]
+animals[bad_pets]
+
+animals[~good_pets] # equivalent to using bad_pets
+```
+
+
+
+### Reviewing Types
+
+As vectors are a collection of things of a single type, what happens if we try to make a vector with differently-typed things?
+
+```{r vector-type-conversion-r}
+c(2L, FALSE, 3.1415, "animal") # all converted to strings
+
+c(2L, FALSE, 3.1415) # converted to numerics
+
+c(2L, FALSE) # converted to integers
+```
+
+```{python vector-type-conversion-python}
+import numpy as np
+
+np.array([2, False, 3.1415, "animal"]) # all converted to strings
+
+np.array([2, False, 3.1415]) # converted to numerics
+
+np.array([2, False]) # converted to integers
+```
+As a reminder, this is an example of **implicit** type conversion - R and python decide what type to use for you, going with the type that doesn't lose data but takes up as little space as possible. 
+
+## Matrices
+
+A **matrix** is the next step after a vector - it's a set of values arranged in a two-dimensional, rectangular format. 
+
+![lego depiction of a 3-row, 4-column matrix of 2x2 red-colored blocks](images/lego-2x2-matrix.png)
+
+```{r matrix-r}
+# Minimal matrix in R: take a vector, 
+# tell R how many rows you want
+matrix(1:12, nrow = 3)
+
+matrix(1:12, ncol = 3) # or columns
+
+# by default, R will fill in column-by-column
+# the byrow parameter tells R to go row-by-row
+matrix(1:12, nrow = 3, byrow = T)
+
+# We can also easily create square matrices 
+# with a specific diagonal (this is useful for modeling)
+diag(rep(1, times = 4))
+```
+
+```{python}
+import numpy as np
+# Minimal matrix in python
+np.mat([[0,  1,  2],
+        [3,  4,  5],
+        [6,  7,  8],
+        [9, 10, 11]])
+# This syntax creates a list of the rows we want in our matrix
+
+np.reshape(range(0,12), (3,4))
+np.reshape(range(0,12), (4,3))
+np.reshape(range(0,12), (3,4), order = 'F')
+```
+
+In python, we create 2-dimensional arrays (aka matrices) either by creating a list of rows to join together or by reshaping a 1-dimensional array. The trick with reshaping the 1-dimensional array is the order argument: 'F' stands for "Fortran-like" and 'C' stands for "C-like"... so to go by column, you use 'F' and to go by row, you use 'C'. Totally intuitive, right?
+
+
+### Indexing in Matrices
+
+Both R and python use [row, column] to index matrices. To extract the bottom-left element of a 3x4 matrix in R, we would use [3,1] to get to the third row and first column entry; in python, we would use [2,0] (remember that Python is 0-indexed).
+
+::: ex
+<details><summary>
+As with vectors, you can replace elements in a matrix using assignment.</summary>
+
+```{r}
+my_mat <- matrix(1:12, nrow = 3, byrow = T)
+
+my_mat[3,1] <- 500
+
+my_mat
+```
+```{python}
+import numpy as np
+
+my_mat = np.reshape(range(1, 13), (3,4))
+
+my_mat[2,0] = 500
+
+my_mat
+```
+
+</details>
+:::

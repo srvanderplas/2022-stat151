@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.2.232">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Introduction to Statistical Computing - 5&nbsp; Vectors and Control Structures</title>
+  <title>Introduction to Statistical Computing - 5&nbsp; Data and Control Structures</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@
 <header id="quarto-header" class="headroom fixed-top">
 <nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <div class="container-fluid d-flex justify-content-between">
-    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors and Control Structures</span></h1>
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and Control Structures</span></h1>
     <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
       <i class="bi bi-chevron-right"></i>
     </button>
@@ -177,7 +177,7 @@
   <a href="./4-data-types.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./5-vectors.html" class="active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors and Control Structures</span></a>
+  <a href="./5-vectors.html" class="active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and Control Structures</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./data-structures.html" class=""><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
@@ -210,17 +210,27 @@
   <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
 <h2 id="toc-title">On this page</h2>
 <ul>
-<li><a href="#vectors" class="nav-link active" data-scroll-target="#vectors"> <span class="header-section-number">5.1</span> Vectors</a></li>
+<li><a href="#vectors" class="nav-link active" data-scroll-target="#vectors"> <span class="header-section-number">5.1</span> Vectors</a>
+<ul class="collapse">
+<li><a href="#indexing-by-location" class="nav-link" data-scroll-target="#indexing-by-location"> <span class="header-section-number">5.1.1</span> Indexing by Location</a></li>
+<li><a href="#indexing-with-logical-vectors" class="nav-link" data-scroll-target="#indexing-with-logical-vectors"> <span class="header-section-number">5.1.2</span> Indexing with Logical Vectors</a></li>
+<li><a href="#reviewing-types" class="nav-link" data-scroll-target="#reviewing-types"> <span class="header-section-number">5.1.3</span> Reviewing Types</a></li>
+</ul></li>
+<li><a href="#matrices" class="nav-link" data-scroll-target="#matrices"> <span class="header-section-number">5.2</span> Matrices</a>
+<ul class="collapse">
+<li><a href="#indexing-in-matrices" class="nav-link" data-scroll-target="#indexing-in-matrices"> <span class="header-section-number">5.2.1</span> Indexing in Matrices</a></li>
+</ul></li>
 </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/5-vectors.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
   <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
 <main>
 <header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors and Control Structures</span></h1>
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and Control Structures</span></h1>
 </header>
 
 <!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
 <!-- (probably 2 weeks of content) -->
+<!-- Lego pictures made with https://www.mecabricks.com/en/workshop -->
 <p>This chapter introduces some of the most important tools for working with data: vectors, matrices, loops, and if statements. It would be nice to gradually introduce each one of these topics separately, but they tend to go together, especially when you’re talking about programming in the context of data processing.</p>
 <p>In the previous chapter, we discussed 4 different data types: strings/characters, numeric/double/floats, integers, and logical/booleans. As you might imagine, things are about to get more complicated.</p>
 <p>Data <strong>structures</strong> are more complicated arrangements of information.</p>
@@ -253,8 +263,10 @@
 <section id="vectors" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="vectors"><span class="header-section-number">5.1</span> Vectors</h2>
 <p>A <strong>vector</strong> is a one-dimensional column of homogeneous data. Homogeneous means that every element in a vector has the same data type.</p>
-<p>We can have vectors of any data type: <img src="images/lego-set-of-vectors.png" class="img-fluid" alt="vectors of different data types"></p>
+<p>We can have vectors of any data type and length we want<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>: <img src="images/lego-set-of-vectors.png" class="img-fluid" alt="vectors of different data types"></p>
 <!-- ![vector of purple 1x3 legos](images/lego-1x3-vector.png) -->
+<section id="indexing-by-location" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="indexing-by-location"><span class="header-section-number">5.1.1</span> Indexing by Location</h3>
 <p>Each element in a vector has an <strong>index</strong> - an integer telling you what the item’s position within the vector is. I’m going to demonstrate indices with the string vector</p>
 <table class="table">
 <colgroup>
@@ -321,7 +333,7 @@ Creating vectors in R
 </div>
 </details>
 </div>
-<p>In python, we create vectors using the numpy module. To add a python module, we use the syntax <code>import &lt;name&gt; as &lt;nickname&gt;</code>. Many modules have conventional (and very short) nicknames - for <code>numpy</code>, we will use <code>np</code> as the nickname.</p>
+<p>In python, we create vectors using the <code>array</code> function in the numpy module. To add a python module, we use the syntax <code>import &lt;name&gt; as &lt;nickname&gt;</code>. Many modules have conventional (and very short) nicknames - for <code>numpy</code>, we will use <code>np</code> as the nickname. Any functions we reference in the <code>numpy</code> module will then be called using <code>np.fun_name()</code> so that python knows where to find them.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <div class="ex">
 <details>
 <summary>
@@ -367,8 +379,266 @@ Detailed traceback:
 </div>
 </details>
 </div>
+<p>We can pull out items in a vector by indexing, but we can also replace specific things as well:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>favorite_cats <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Grumpy"</span>, <span class="st">"Garfield"</span>, <span class="st">"Jorts"</span>, <span class="st">"Jean"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>favorite_cats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "Grumpy"   "Garfield" "Jorts"    "Jean"    </code></pre>
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>favorite_cats[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"Nyan Cat"</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>favorite_cats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "Grumpy"   "Nyan Cat" "Jorts"    "Jean"    </code></pre>
+</div>
+</div>
+<p>If you’re curious about any of these cats, see the footnotes<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+</section>
+<section id="indexing-with-logical-vectors" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="indexing-with-logical-vectors"><span class="header-section-number">5.1.2</span> Indexing with Logical Vectors</h3>
+<p>As you might imagine, we can create vectors of all sorts of different data types. One particularly useful trick is to create a <strong>logical vector</strong> that goes along with a vector of another type to use as a <strong>logical index</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lego-logical-full.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">lego vectors - a pink/purple hued set of 1x3 bricks representing the data and a corresponding set of 1x1 grey and black bricks representing the logical index vector of the same length</figcaption><p></p>
+</figure>
+</div>
+<p>If we let the black lego represent “True” and the grey lego represent “False”, we can use the logical vector to pull out all values in the main vector.</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Black = True, Grey = False</th>
+<th>Grey = True, Black = False</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/lego-logical-black.png" class="img-fluid" alt="a pink/purple hued set of 1x3 bricks representing a vector and a corresponding set of 1x1 black bricks representing the logical index vector of the same length. The grey bricks (and corresponding values of the previous vector) have been removed (filtered out)."></td>
+<td><img src="images/lego-logical-grey.png" class="img-fluid" alt="a pink/purple hued set of 1x3 bricks representing a vector and a corresponding set of 1x1 grey bricks representing the logical index vector of the same length. The black bricks (and corresponding values of the previous vector) have been removed (filtered out)."></td>
+</tr>
+</tbody>
+</table>
+<p>Note that for logical indexing to work properly, the logical index must be the same length as the vector we’re indexing. This constraint will return when we talk about data frames, but for now just keep in mind that logical indexing doesn’t make sense when this constraint isn’t true.</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a character vector</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>weekdays <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Sunday"</span>, <span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>, <span class="st">"Friday"</span>, <span class="st">"Saturday"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>weekend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Sunday"</span>, <span class="st">"Saturday"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create logical vectors</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>relax_days <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># doing this the manual way</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>relax_days <span class="ot">&lt;-</span> weekdays <span class="sc">%in%</span> weekend <span class="co"># This creates a logical vector </span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="co"># with less manual construction</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>relax_days</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1]  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>school_days <span class="ot">&lt;-</span> <span class="sc">!</span>relax_days <span class="co"># FALSE if weekend, TRUE if not</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>school_days</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE</code></pre>
+</div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using logical vectors to index the character vector</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>weekdays[school_days] <span class="co"># print out all school days</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "Monday"    "Tuesday"   "Wednesday" "Thursday"  "Friday"   </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np<span class="op">;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>animals <span class="op">=</span> np.array([<span class="st">"Cat"</span>, <span class="st">"Dog"</span>, <span class="st">"Snake"</span>, <span class="st">"Lizard"</span>, <span class="st">"Tarantula"</span>, <span class="st">"Hamster"</span>, <span class="st">"Gerbil"</span>, <span class="st">"Otter"</span>])</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a logical vector</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>good_pets <span class="op">=</span> np.array([<span class="va">True</span>, <span class="va">True</span>, <span class="va">False</span>, <span class="va">False</span>, <span class="va">False</span>, <span class="va">True</span>, <span class="va">True</span>, <span class="va">False</span>])</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>bad_pets <span class="op">=</span> np.invert(good_pets) <span class="co"># Invert the logical vector </span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># so True -&gt; False and False -&gt; True</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>animals[good_pets]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array(['Cat', 'Dog', 'Hamster', 'Gerbil'], dtype='&lt;U9')</code></pre>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>animals[bad_pets]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array(['Snake', 'Lizard', 'Tarantula', 'Otter'], dtype='&lt;U9')</code></pre>
+</div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>animals[<span class="op">~</span>good_pets] <span class="co"># equivalent to using bad_pets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array(['Snake', 'Lizard', 'Tarantula', 'Otter'], dtype='&lt;U9')</code></pre>
+</div>
+</div>
+</section>
+<section id="reviewing-types" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="reviewing-types"><span class="header-section-number">5.1.3</span> Reviewing Types</h3>
+<p>As vectors are a collection of things of a single type, what happens if we try to make a vector with differently-typed things?</p>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(2L, <span class="cn">FALSE</span>, <span class="fl">3.1415</span>, <span class="st">"animal"</span>) <span class="co"># all converted to strings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "2"      "FALSE"  "3.1415" "animal"</code></pre>
+</div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(2L, <span class="cn">FALSE</span>, <span class="fl">3.1415</span>) <span class="co"># converted to numerics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 2.0000 0.0000 3.1415</code></pre>
+</div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(2L, <span class="cn">FALSE</span>) <span class="co"># converted to integers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 2 0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">2</span>, <span class="va">False</span>, <span class="fl">3.1415</span>, <span class="st">"animal"</span>]) <span class="co"># all converted to strings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array(['2', 'False', '3.1415', 'animal'], dtype='&lt;U32')</code></pre>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">2</span>, <span class="va">False</span>, <span class="fl">3.1415</span>]) <span class="co"># converted to numerics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array([2.    , 0.    , 3.1415])</code></pre>
+</div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">2</span>, <span class="va">False</span>]) <span class="co"># converted to integers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array([2, 0])</code></pre>
+</div>
+</div>
+<p>As a reminder, this is an example of <strong>implicit</strong> type conversion - R and python decide what type to use for you, going with the type that doesn’t lose data but takes up as little space as possible.</p>
+</section>
+</section>
+<section id="matrices" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="matrices"><span class="header-section-number">5.2</span> Matrices</h2>
+<p>A <strong>matrix</strong> is the next step after a vector - it’s a set of values arranged in a two-dimensional, rectangular format.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lego-2x2-matrix.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">lego depiction of a 3-row, 4-column matrix of 2x2 red-colored blocks</figcaption><p></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb53"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Minimal matrix in R: take a vector, </span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tell R how many rows you want</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12</code></pre>
+</div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="co"># or columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    5    9
+[2,]    2    6   10
+[3,]    3    7   11
+[4,]    4    8   12</code></pre>
+</div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by default, R will fill in column-by-column</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the byrow parameter tells R to go row-by-row</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8
+[3,]    9   10   11   12</code></pre>
+</div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can also easily create square matrices </span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with a specific diagonal (this is useful for modeling)</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="at">times =</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    0    1    0    0
+[3,]    0    0    1    0
+[4,]    0    0    0    1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb61"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Minimal matrix in python</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>np.mat([[<span class="dv">0</span>,  <span class="dv">1</span>,  <span class="dv">2</span>],</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">3</span>,  <span class="dv">4</span>,  <span class="dv">5</span>],</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">6</span>,  <span class="dv">7</span>,  <span class="dv">8</span>],</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>]])</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This syntax creates a list of the rows we want in our matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>matrix([[ 0,  1,  2],
+        [ 3,  4,  5],
+        [ 6,  7,  8],
+        [ 9, 10, 11]])</code></pre>
+</div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>np.reshape(<span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">12</span>), (<span class="dv">3</span>,<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11]])</code></pre>
+</div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>np.reshape(<span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">12</span>), (<span class="dv">4</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array([[ 0,  1,  2],
+       [ 3,  4,  5],
+       [ 6,  7,  8],
+       [ 9, 10, 11]])</code></pre>
+</div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>np.reshape(<span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">12</span>), (<span class="dv">3</span>,<span class="dv">4</span>), order <span class="op">=</span> <span class="st">'F'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array([[ 0,  3,  6,  9],
+       [ 1,  4,  7, 10],
+       [ 2,  5,  8, 11]])</code></pre>
+</div>
+</div>
+<p>In python, we create 2-dimensional arrays (aka matrices) either by creating a list of rows to join together or by reshaping a 1-dimensional array. The trick with reshaping the 1-dimensional array is the order argument: ‘F’ stands for “Fortran-like” and ‘C’ stands for “C-like”… so to go by column, you use ‘F’ and to go by row, you use ‘C’. Totally intuitive, right?</p>
+<section id="indexing-in-matrices" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="indexing-in-matrices"><span class="header-section-number">5.2.1</span> Indexing in Matrices</h3>
+<p>Both R and python use [row, column] to index matrices. To extract the bottom-left element of a 3x4 matrix in R, we would use [3,1] to get to the third row and first column entry; in python, we would use [2,0] (remember that Python is 0-indexed).</p>
+<div class="ex">
+<details>
+<summary>
+As with vectors, you can replace elements in a matrix using assignment.
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb69"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>my_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> T)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>my_mat[<span class="dv">3</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>my_mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8
+[3,]  500   10   11   12</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb71"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>my_mat <span class="op">=</span> np.reshape(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">13</span>), (<span class="dv">3</span>,<span class="dv">4</span>))</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>my_mat[<span class="dv">2</span>,<span class="dv">0</span>] <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>my_mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>array([[  1,   2,   3,   4],
+       [  5,   6,   7,   8],
+       [500,  10,  11,  12]])</code></pre>
+</div>
+</div>
+</details>
+</div>
 
 
+</section>
+</section>
+<section class="footnotes" role="doc-endnotes"><h2>Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>Throughout this section (and other sections), lego pictures are rendered using https://www.mecabricks.com/en/workshop. It’s a pretty nice tool for building stuff online!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>A similar system exists in R libraries, but R doesn’t handle multiple libraries having the same function names well, which leads to all sorts of confusion. At least python is explicit about it.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p> - Grumpy cat: https://www.grumpycats.com/ - Garfield: https://www.garfield.com/ - Nyan cat: https://en.wikipedia.org/wiki/Nyan_Cat - Jorts and Jean: <a href="https://www.reddit.com/r/AmItheAsshole/comments/rfwgmc/aita_for_perpetuating_ethnic_stereotypes_about/">The initial post</a> and the <a href="https://www.reddit.com/user/throwawayorangecat/comments/rgi000/update_aita_for_perpetuating_stereotypes_about/">update</a> (both are worth a read because the story is hilarious). The cats also have a <a href="https://twitter.com/JortsTheCat">Twitter account</a> where they promote workers rights.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
