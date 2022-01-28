@@ -10,8 +10,12 @@ jobs:
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
       - uses: actions/checkout@v2
-
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-pandoc@v2
       - uses: actions/setup-python@v2
+
+      - name: Install rmarkdown
+        run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "ggplot2", "tidyverse"))'
 
       - name: Install Python dependencies 1
         if: runner.os == 'Linux'
@@ -22,8 +26,6 @@ jobs:
           sudo apt install -y python3-dev
           sudo apt install -y python3-venv
         shell: /bin/bash {0}
-
-      - uses: r-lib/actions/setup-r@v1
 
       - name: "Install curl for Bioconductor"
         run: |
