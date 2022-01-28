@@ -16,9 +16,6 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
       - uses: actions/setup-python@v2
 
-      - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "ggplot2", "tidyverse", "pak")'
-
       - name: Install Python dependencies 1
         if: runner.os == 'Linux'
         run: |
@@ -28,6 +25,20 @@ jobs:
           sudo apt install -y python3-dev
           sudo apt install -y python3-venv
         shell: /bin/bash {0}
+
+      - name: Install rmarkdown
+        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "ggplot2", "tidyverse", "pak", "reticulate")'
+
+
+      - name: Setup python virtualenv
+        run: |
+          reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy"))
+          reticulate::virtualenv_install("testbook", "numpy",
+              pip_options = c("--no-binary=numpy",  "--force-reinstall"))
+        shell: Rscript {0}
+
+      - if: runner.os == 'Linux'
+        run: echo "Sys.setenv(RETICULATE_PYTHON = ~/.virtualenvs/testbook/bin/python)" >> .Rprofile
 
       - name: "Install curl for Bioconductor"
         run: |
@@ -48,13 +59,6 @@ jobs:
           pak::pkg_install("hadley/emo")
           renv::restore()
 
-      - name: Setup python virtualenv
-        run: |
-          reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy"))
-          reticulate::virtualenv_install("testbook", "numpy",
-              pip_options = c("--no-binary=numpy",  "--force-reinstall"))
-          reticulate::py_config("testbook")
-        shell: Rscript {0}
 
 
       - name: Install Python dependencies - renv
