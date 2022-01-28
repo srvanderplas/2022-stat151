@@ -26,9 +26,11 @@ jobs:
           sudo apt install -y python3-venv
         shell: /bin/bash {0}
 
-      - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "ggplot2", "tidyverse", "pak", "reticulate")'
-
+      - name: Install R dependencies
+        if: runner.os == 'Linux'
+        run: |
+          install.packages(c("rmarkdown", "jsonlite", "reticulate", "quarto", "pak"))
+        shell: Rscript {0}
 
       - name: Setup python virtualenv
         run: |
