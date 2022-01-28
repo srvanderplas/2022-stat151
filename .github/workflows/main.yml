@@ -39,9 +39,6 @@ jobs:
               pip_options = c("--no-binary=numpy",  "--force-reinstall"))
         shell: Rscript {0}
 
-      - if: runner.os == 'Linux'
-        run: echo "Sys.setenv(RETICULATE_PYTHON = ~/.virtualenvs/testbook/bin/python)" >> .Rprofile
-
       - name: "Install curl for Bioconductor"
         run: |
           sudo apt -y install libcurl4-openssl-dev
