@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     container: rocker/verse:latest
     env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_PAT: ${{ secrets.GH_PAT }}
       GITHUB_PAT: ${{ secrets.GH_PAT }}
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
@@ -15,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v2
 
       - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "ggplot2", "tidyverse"))'
+        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "ggplot2", "tidyverse", "pak")'
 
       - name: Install Python dependencies 1
         if: runner.os == 'Linux'
@@ -43,11 +45,8 @@ jobs:
         shell: Rscript {0}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          install.packages("remotes")
-          remotes::install_github("hadley/emo")
+          pak::pkg_install("hadley/emo")
           renv::restore()
-        with:
-          GITHUB_PAT: ${{ secrets.GH_PAT }}
 
       - name: Setup python virtualenv
         run: |
