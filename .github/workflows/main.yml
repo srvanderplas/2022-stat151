@@ -62,8 +62,9 @@ jobs:
 
 
       - name: Install Python dependencies - renv
+        shell: Rscript {0}
         run: |
-          pip install -r requirements.txt
+          reticulate::py_install(pip = T,  "testbook", pip_options = "-r requirements.txt")
 
       - name: "Install Quarto and render"
         uses: pommevilla/quarto-render@main
