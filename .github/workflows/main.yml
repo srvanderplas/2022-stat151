@@ -56,7 +56,7 @@ jobs:
         run: |
           pak::pkg_install("rstudio/renv")
           pak::pkg_install("hadley/emo")
-          pak::pkg_install("rstudio/tidyverse")
+          pak::pkg_install("tidyverse/tidyverse")
           # renv::restore()
 
 
