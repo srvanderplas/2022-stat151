@@ -41,6 +41,8 @@ jobs:
 
       - name: "Install R Packages: Restore packages"
         shell: Rscript {0}
+        with:
+          GITHUB_PAT: ${{ secrets.GH_PAT }}
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           install.packages("remotes")
