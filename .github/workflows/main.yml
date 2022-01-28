@@ -42,7 +42,7 @@ jobs:
 
       - name: "Install curl for Bioconductor"
         run: |
-          sudo apt -y install libcurl4-openssl-dev
+          # sudo apt -y install libcurl4-openssl-dev
 
       - name: "Install R Packages: Cache packages"
         uses: actions/cache@v1
