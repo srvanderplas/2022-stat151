@@ -98,9 +98,10 @@
       "RemoteHost": "api.github.com",
       "RemoteRepo": "emo",
       "RemoteUsername": "hadley",
+      "RemotePkgRef": "hadley/emo",
       "RemoteRef": "HEAD",
       "RemoteSha": "3f03b11491ce3d6fc5601e210927eff73bf8e350",
-      "Hash": "10f2391a926b0087a671ed9965ea30a3",
+      "Hash": "a91f3ba0164bab2c88b7db03777db495",
       "Requirements": [
         "assertthat",
         "crayon",
@@ -321,10 +322,16 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "206c4ef8b7ad6fb1060d69aa7b9dfe69",
+      "Version": "0.15.2-1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "renv",
+      "RemoteUsername": "rstudio",
+      "RemotePkgRef": "rstudio/renv",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "d69b7ef28bd86778491bebbab49894dfc9e3cad2",
+      "Hash": "8324afc248ad25af9ba2a533372e1e8e",
       "Requirements": []
     },
     "reticulate": {

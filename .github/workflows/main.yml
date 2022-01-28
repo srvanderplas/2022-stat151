@@ -54,7 +54,7 @@ jobs:
       - name: "Install R Packages: Restore packages"
         shell: Rscript {0}
         run: |
-          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          if (!requireNamespace("renv", quietly = TRUE)) pak::pkg_install("rstudio/renv")
           pak::pkg_install("hadley/emo")
           renv::restore()
 
