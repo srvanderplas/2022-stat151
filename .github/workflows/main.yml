@@ -13,15 +13,19 @@ jobs:
 
       - uses: actions/setup-python@v2
 
-      - name: "Install Python deps"
+      - name: Install Python dependencies 1
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install -y python3-virtualenv
+          sudo apt install -y python3-dev
+          sudo apt install -y python3-venv
+        shell: /bin/bash {0}
+
+      - name: Install Python dependencies - renv
         run: |
           pip install -r requirements.txt
-
-      - uses: r-lib/actions/setup-r@v1
-
-      - name: "Install curl for Bioconductor"
-        run: |
-          sudo apt -y install libcurl4-openssl-dev
 
       - name: "Install R Packages: Cache packages"
         uses: actions/cache@v1
@@ -36,6 +40,15 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
+
+
+      - name: Setup python virtualenv
+        run: |
+          reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy"))
+          reticulate::virtualenv_install("testbook", "numpy",
+              pip_options = c("--no-binary=numpy",  "--force-reinstall"))
+        shell: Rscript {0}
+
 
       - name: "Install Quarto and render"
         uses: pommevilla/quarto-render@main
