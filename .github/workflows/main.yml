@@ -23,9 +23,11 @@ jobs:
           sudo apt install -y python3-venv
         shell: /bin/bash {0}
 
-      - name: Install Python dependencies - renv
+      - uses: r-lib/actions/setup-r@v1
+
+      - name: "Install curl for Bioconductor"
         run: |
-          pip install -r requirements.txt
+          sudo apt -y install libcurl4-openssl-dev
 
       - name: "Install R Packages: Cache packages"
         uses: actions/cache@v1
@@ -47,8 +49,13 @@ jobs:
           reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy"))
           reticulate::virtualenv_install("testbook", "numpy",
               pip_options = c("--no-binary=numpy",  "--force-reinstall"))
+          reticulate::py_config("testbook")
         shell: Rscript {0}
 
+
+      - name: Install Python dependencies - renv
+        run: |
+          pip install -r requirements.txt
 
       - name: "Install Quarto and render"
         uses: pommevilla/quarto-render@main
