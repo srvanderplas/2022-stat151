@@ -35,8 +35,8 @@ jobs:
       - name: Setup python virtualenv
         run: |
           reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy"))
-          reticulate::virtualenv_install("testbook", "numpy",
-              pip_options = c("--no-binary=numpy",  "--force-reinstall"))
+          reticulate::virtualenv_install("testbook", pip = T,
+          pip_options = c("-r requirements.txt", "--no-binary=numpy",  "--force-reinstall"))
         shell: Rscript {0}
 
       - name: "Install curl for Bioconductor"
@@ -57,14 +57,8 @@ jobs:
           pak::pkg_install("rstudio/renv")
           pak::pkg_install("hadley/emo")
           pak::pkg_install("tidyverse/tidyverse")
+          install.packages("fontawesome")
           # renv::restore()
-
-
-
-      - name: Install Python dependencies - renv
-        shell: Rscript {0}
-        run: |
-          reticulate::py_install(pip = T,  "testbook", pip_options = "-r requirements.txt")
 
       - name: "Install Quarto and render"
         uses: pommevilla/quarto-render@main
