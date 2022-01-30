@@ -6,6 +6,72 @@
 
 This chapter introduces some of the most important tools for working with data: vectors, matrices, loops, and if statements. It would be nice to gradually introduce each one of these topics separately, but they tend to go together, especially when you're talking about programming in the context of data processing.
 
+
+## Mathematical Logic
+
+Before we start talking about data structures and control structures, though, we're going to take a minute to review some concepts from mathematical logic. This will be useful for both data structures and control structures, so stick with me for a few minutes. 
+
+
+### And, Or, and Not
+We can combine logical statements using and, or, and not. 
+
+- (X AND Y) requires that both X and Y are true. 
+- (X OR Y) requires that one of X or Y is true. 
+- (NOT X) is true if X is false, and false if X is true. Sometimes called **negation**.    
+In R, we use `!` to symbolize NOT, in Python, we use `~` for vector-wise negation (NOT). 
+
+<details><summary>Mathematical logic in R</summary>
+
+```{r}
+x <- c(TRUE, FALSE, TRUE, FALSE)
+y <- c(TRUE, TRUE, FALSE, FALSE)
+
+x & y
+x | y
+!x & y
+x & !y
+```
+
+</details>
+
+
+<details><summary>Mathematical logic in python</summary>
+
+```{python}
+import numpy as np
+x = np.array([True, False, True, False])
+y = np.array([True, True, False, False])
+
+x & y
+x | y
+~x & y
+x & ~y
+```
+
+</details>
+
+### De Morgan's Laws
+
+[De Morgan's Laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) are a set of rules for how to combine logical statements. You can represent them in a number of ways:
+
+- NOT(A or B) is equivalent to NOT(A) and NOT(B)
+- NOT(A and B) is equivalent to NOT(A) or NOT(B)
+
+We can also represent them with Venn Diagrams.
+
+![Venn Diagram of Set A and Set B](images/SetA and SetB.svg)
+Suppose that we set the convention that ![Shaded regions are TRUE, unshaded regions are FALSE](images/TrueFalse.svg).
+
+We can then illustrate DeMorgan's first law as follows:
+
+![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A OR B (aka NOT (A OR B)) is the same as the region that is outside of (NOT A) and (NOT B)](images/DeMorgan1.svg)
+
+
+And similarly, DeMorgan's second law: 
+
+![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A AND B (aka NOT (A AND B)) is the same as the region that is outside of (NOT A) OR (NOT B)](images/DeMorgan2.svg)
+
+
 ## Data Structures
 
 In the previous chapter, we discussed 4 different data types: strings/characters, numeric/double/floats, integers, and logical/booleans. As you might imagine, things are about to get more complicated.
@@ -387,9 +453,11 @@ Here's another example:
 The key takeaways from these bits of media are that you should read this section with a focus on exact precision - state *exactly* what you mean, and the computer will do what you say. If you instead expect the computer to get what you mean, you're going to have a bad time. 
 
 
-### If Statements
+### Conditional Statements
 
-If statements^[and related things like case statements that can be written as multiple if statements] determine if code is evaluated. They look like this: 
+Conditional statements determine if code is evaluated. 
+
+They look like this: 
 
 ```
 if (condition)

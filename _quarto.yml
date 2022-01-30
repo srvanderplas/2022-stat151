@@ -29,7 +29,7 @@ book:
   toc:
     collapse: section
 bibliography: references.bib
-pdf-engine: xelatex
+pdf-engine: context
 from: markdown+emoji
 
 format:
@@ -38,8 +38,8 @@ format:
     theme: cosmo
     code-link: true
 
-  pdf:
-    documentclass: scrreport
+  # pdf:
+  #   documentclass: scrreport
   epub:
     cover-image: cover.png
 
