@@ -116,7 +116,7 @@ Rmarkdown tries very hard to preserve your formatted text appropriately regardle
 ::: tryitout
 ### Try it out - Jupyter
 
-Take a look at the [jupyter notebook sample file](files/jupyter-demo.ipynb) I've created to go with the R script above. You can see the HTML file it generates [here](files/jupyter-demo.html). 
+Take a look at the [jupyter notebook sample file](files/Jupyter-demo.ipynb) I've created to go with the R script above. You can see the HTML file it generates [here](files/Jupyter-demo.html). 
 
 - Download the ipynb file and open it with jupyter.
 
