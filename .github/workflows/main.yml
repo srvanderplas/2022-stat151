@@ -1,5 +1,5 @@
 name: Render and Deploy Quarto Book
-'on': push
+# 'on': push
 
 jobs:
   quarto-render-and-deploy:
@@ -56,6 +56,8 @@ jobs:
           pak::pkg_install("rstudio/renv")
           pak::pkg_install("hadley/emo")
           pak::pkg_install("tidyverse/tidyverse")
+          pak::pkg_install("tidyverse/dplyr")
+          pak::pkg_install("tidyverse/tibble")
           install.packages("fontawesome")
           # renv::restore()
 

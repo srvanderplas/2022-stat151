@@ -1121,69 +1121,97 @@ Solution (python)
 <div class="sourceCode" id="cb122"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start with total income</span></span>
 <span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>income <span class="op">=</span> <span class="dv">200000</span></span>
 <span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="co"># x will hold income that hasn't been taxed yet</span></span>
-<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> income</span>
-<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="co"># y will hold taxes paid</span></span>
-<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="co"># untaxed will hold income that hasn't been taxed yet</span></span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a>untaxed <span class="op">=</span> income</span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="co"># taxed will hold taxes paid</span></span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a>taxes <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;=</span> <span class="dv">10275</span>:</span>
-<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> x<span class="op">*</span><span class="fl">.1</span> <span class="co"># tax paid</span></span>
-<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="dv">0</span> <span class="co"># All money has been taxed</span></span>
+<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> untaxed <span class="op">&lt;=</span> <span class="dv">10275</span>:</span>
+<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> untaxed<span class="op">*</span><span class="fl">.1</span> <span class="co"># tax paid</span></span>
+<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> <span class="dv">0</span> <span class="co"># All money has been taxed</span></span>
 <span id="cb122-12"><a href="#cb122-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb122-13"><a href="#cb122-13" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> <span class="dv">10275</span> <span class="op">*</span> <span class="fl">.1</span></span>
-<span id="cb122-14"><a href="#cb122-14" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">-</span> <span class="dv">10275</span> <span class="co"># Money remaining that hasn't been taxed</span></span>
+<span id="cb122-13"><a href="#cb122-13" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> <span class="dv">10275</span> <span class="op">*</span> <span class="fl">.1</span></span>
+<span id="cb122-14"><a href="#cb122-14" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> untaxed <span class="op">-</span> <span class="dv">10275</span> <span class="co"># money remaining that hasn't been taxed</span></span>
 <span id="cb122-15"><a href="#cb122-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-16"><a href="#cb122-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;=</span> (<span class="dv">41775</span> <span class="op">-</span> <span class="dv">10275</span>):</span>
-<span id="cb122-17"><a href="#cb122-17" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> x <span class="op">*</span> <span class="fl">.12</span></span>
-<span id="cb122-18"><a href="#cb122-18" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb122-16"><a href="#cb122-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> untaxed <span class="op">&lt;=</span> (<span class="dv">41775</span> <span class="op">-</span> <span class="dv">10275</span>):</span>
+<span id="cb122-17"><a href="#cb122-17" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> untaxed <span class="op">*</span> <span class="fl">.12</span></span>
+<span id="cb122-18"><a href="#cb122-18" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb122-19"><a href="#cb122-19" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb122-20"><a href="#cb122-20" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> (<span class="dv">41775</span> <span class="op">-</span> <span class="dv">10275</span>) <span class="op">*</span> <span class="fl">.12</span></span>
-<span id="cb122-21"><a href="#cb122-21" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">-</span> (<span class="dv">41775</span> <span class="op">-</span> <span class="dv">10275</span>) </span>
+<span id="cb122-20"><a href="#cb122-20" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> (<span class="dv">41775</span> <span class="op">-</span> <span class="dv">10275</span>) <span class="op">*</span> <span class="fl">.12</span></span>
+<span id="cb122-21"><a href="#cb122-21" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> untaxed <span class="op">-</span> (<span class="dv">41775</span> <span class="op">-</span> <span class="dv">10275</span>) </span>
 <span id="cb122-22"><a href="#cb122-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb122-23"><a href="#cb122-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-24"><a href="#cb122-24" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;=</span> (<span class="dv">89075</span> <span class="op">-</span> <span class="dv">41775</span>):</span>
-<span id="cb122-25"><a href="#cb122-25" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> x <span class="op">*</span> <span class="fl">.22</span></span>
-<span id="cb122-26"><a href="#cb122-26" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb122-24"><a href="#cb122-24" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> untaxed <span class="op">&lt;=</span> (<span class="dv">89075</span> <span class="op">-</span> <span class="dv">41775</span>):</span>
+<span id="cb122-25"><a href="#cb122-25" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> untaxed <span class="op">*</span> <span class="fl">.22</span></span>
+<span id="cb122-26"><a href="#cb122-26" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb122-27"><a href="#cb122-27" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb122-28"><a href="#cb122-28" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> (<span class="dv">89075</span> <span class="op">-</span> <span class="dv">41775</span>) <span class="op">*</span> <span class="fl">.22</span></span>
-<span id="cb122-29"><a href="#cb122-29" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">-</span> (<span class="dv">89075</span> <span class="op">-</span> <span class="dv">41775</span>)</span>
+<span id="cb122-28"><a href="#cb122-28" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> (<span class="dv">89075</span> <span class="op">-</span> <span class="dv">41775</span>) <span class="op">*</span> <span class="fl">.22</span></span>
+<span id="cb122-29"><a href="#cb122-29" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> untaxed <span class="op">-</span> (<span class="dv">89075</span> <span class="op">-</span> <span class="dv">41775</span>)</span>
 <span id="cb122-30"><a href="#cb122-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-31"><a href="#cb122-31" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;=</span> (<span class="dv">170050</span> <span class="op">-</span> <span class="dv">89075</span>):</span>
-<span id="cb122-32"><a href="#cb122-32" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> x <span class="op">*</span> <span class="fl">.24</span></span>
-<span id="cb122-33"><a href="#cb122-33" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb122-31"><a href="#cb122-31" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> untaxed <span class="op">&lt;=</span> (<span class="dv">170050</span> <span class="op">-</span> <span class="dv">89075</span>):</span>
+<span id="cb122-32"><a href="#cb122-32" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> untaxed <span class="op">*</span> <span class="fl">.24</span></span>
+<span id="cb122-33"><a href="#cb122-33" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb122-34"><a href="#cb122-34" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb122-35"><a href="#cb122-35" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> (<span class="dv">170050</span> <span class="op">-</span> <span class="dv">89075</span>) <span class="op">*</span> <span class="fl">.24</span></span>
-<span id="cb122-36"><a href="#cb122-36" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">-</span> (<span class="dv">170050</span> <span class="op">-</span> <span class="dv">89075</span>)</span>
+<span id="cb122-35"><a href="#cb122-35" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> (<span class="dv">170050</span> <span class="op">-</span> <span class="dv">89075</span>) <span class="op">*</span> <span class="fl">.24</span></span>
+<span id="cb122-36"><a href="#cb122-36" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> untaxed <span class="op">-</span> (<span class="dv">170050</span> <span class="op">-</span> <span class="dv">89075</span>)</span>
 <span id="cb122-37"><a href="#cb122-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-38"><a href="#cb122-38" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;=</span> (<span class="dv">215950</span> <span class="op">-</span> <span class="dv">170050</span>):</span>
-<span id="cb122-39"><a href="#cb122-39" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> x <span class="op">*</span> <span class="fl">.32</span></span>
-<span id="cb122-40"><a href="#cb122-40" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb122-38"><a href="#cb122-38" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> untaxed <span class="op">&lt;=</span> (<span class="dv">215950</span> <span class="op">-</span> <span class="dv">170050</span>):</span>
+<span id="cb122-39"><a href="#cb122-39" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> untaxed <span class="op">*</span> <span class="fl">.32</span></span>
+<span id="cb122-40"><a href="#cb122-40" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb122-41"><a href="#cb122-41" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb122-42"><a href="#cb122-42" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> (<span class="dv">215950</span> <span class="op">-</span> <span class="dv">170050</span>) <span class="op">*</span> <span class="fl">.32</span></span>
-<span id="cb122-43"><a href="#cb122-43" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">-</span> (<span class="dv">215950</span> <span class="op">-</span> <span class="dv">170050</span>)</span>
+<span id="cb122-42"><a href="#cb122-42" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> (<span class="dv">215950</span> <span class="op">-</span> <span class="dv">170050</span>) <span class="op">*</span> <span class="fl">.32</span></span>
+<span id="cb122-43"><a href="#cb122-43" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> untaxed <span class="op">-</span> (<span class="dv">215950</span> <span class="op">-</span> <span class="dv">170050</span>)</span>
 <span id="cb122-44"><a href="#cb122-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-45"><a href="#cb122-45" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;=</span> (<span class="dv">539900</span> <span class="op">-</span> <span class="dv">215950</span>):</span>
-<span id="cb122-46"><a href="#cb122-46" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> x <span class="op">*</span> <span class="fl">.35</span></span>
-<span id="cb122-47"><a href="#cb122-47" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb122-45"><a href="#cb122-45" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> untaxed <span class="op">&lt;=</span> (<span class="dv">539900</span> <span class="op">-</span> <span class="dv">215950</span>):</span>
+<span id="cb122-46"><a href="#cb122-46" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> untaxed <span class="op">*</span> <span class="fl">.35</span></span>
+<span id="cb122-47"><a href="#cb122-47" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb122-48"><a href="#cb122-48" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb122-49"><a href="#cb122-49" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> (<span class="dv">539900</span> <span class="op">-</span> <span class="dv">215950</span>) <span class="op">*</span> <span class="fl">.35</span></span>
-<span id="cb122-50"><a href="#cb122-50" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">-</span> (<span class="dv">539900</span> <span class="op">-</span> <span class="dv">215950</span>)</span>
+<span id="cb122-49"><a href="#cb122-49" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> (<span class="dv">539900</span> <span class="op">-</span> <span class="dv">215950</span>) <span class="op">*</span> <span class="fl">.35</span></span>
+<span id="cb122-50"><a href="#cb122-50" aria-hidden="true" tabindex="-1"></a>  untaxed <span class="op">=</span> untaxed <span class="op">-</span> (<span class="dv">539900</span> <span class="op">-</span> <span class="dv">215950</span>)</span>
 <span id="cb122-51"><a href="#cb122-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb122-52"><a href="#cb122-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-53"><a href="#cb122-53" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb122-54"><a href="#cb122-54" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> y <span class="op">+</span> x <span class="op">*</span> <span class="fl">.37</span></span>
+<span id="cb122-53"><a href="#cb122-53" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> untaxed <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb122-54"><a href="#cb122-54" aria-hidden="true" tabindex="-1"></a>  taxes <span class="op">=</span> taxes <span class="op">+</span> untaxed <span class="op">*</span> <span class="fl">.37</span></span>
 <span id="cb122-55"><a href="#cb122-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb122-56"><a href="#cb122-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb122-57"><a href="#cb122-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-58"><a href="#cb122-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total Tax Rate on $"</span>, income, <span class="st">" in income = "</span>, <span class="bu">round</span>(y<span class="op">/</span>income, <span class="dv">4</span>)<span class="op">*</span><span class="dv">100</span>, <span class="st">"%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb122-58"><a href="#cb122-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total Tauntaxed Rate on $"</span>, income, <span class="st">" in income = "</span>, <span class="bu">round</span>(taxes<span class="op">/</span>income, <span class="dv">4</span>)<span class="op">*</span><span class="dv">100</span>, <span class="st">"%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>Total Tax Rate on $ 200000  in income =  22.12 %</code></pre>
+<pre><code>Total Tauntaxed Rate on $ 200000  in income =  22.12 %</code></pre>
 </div>
 </div>
 </details>
 <p>We will find a better way to represent this calculation once we discuss loops - we can store each bracket’s start and end point in a vector and loop through them. Any time you find yourself copy-pasting code and changing values, you should consider using a loop (or eventually a function) instead.</p>
 </div>
 <!-- https://www.py4e.com/html3/03-conditional -->
+<section id="representing-conditional-statements-as-diagrams" class="level4" data-number="5.3.1.1">
+<h4 data-number="5.3.1.1" class="anchored" data-anchor-id="representing-conditional-statements-as-diagrams"><span class="header-section-number">5.3.1.1</span> Representing Conditional Statements as Diagrams</h4>
+<p>A common way to represent conditional logic is to draw a flow chart diagram.</p>
+<p>In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/flow-chart1.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Program flow diagram outline of a simple if/else statement</figcaption><p></p>
+</figure>
+</div>
+<div class="ex">
+<details>
+<summary>
+Let’s explore using program flow maps for a slightly more complicated problem: The tax bracket example that we used to demonstrate if statement syntax.
+</summary>
+<!-- First, let's start by looking at a graph of the practical implication of taxing things using brackets. This graph shows the amount in each bracket as well as the amount of taxes paid. -->
+<div class="cell">
+
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/tax-brackets.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">The control flow diagram for the code in the previous example</figcaption><p></p>
+</figure>
+</div>
+</details>
+</div>
+</section>
 </section>
 <section id="loops" class="level3" data-number="5.3.2">
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="loops"><span class="header-section-number">5.3.2</span> Loops</h3>
