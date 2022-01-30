@@ -2,58 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://srvanderplas.github.io/Stat151/index.html</loc>
-    <lastmod>2022-01-25T23:43:27.079Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.150Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/1-getting-started.html</loc>
-    <lastmod>2022-01-25T23:43:27.079Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.150Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/2-markdown.html</loc>
-    <lastmod>2022-01-25T23:43:27.079Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.150Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/3-finding-your-way.html</loc>
-    <lastmod>2022-01-25T23:43:27.079Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.154Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/4-data-types.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.158Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/5-vectors.html</loc>
-    <lastmod>2022-01-26T00:34:49.465Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.162Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/data-structures.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.162Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/reading-data.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.166Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/functions.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.166Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/statistics.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.166Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/ttests.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.166Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/linear-modeling.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.166Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/git-github.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.166Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/references.html</loc>
-    <lastmod>2022-01-25T23:43:27.083Z</lastmod>
+    <lastmod>2022-01-30T21:02:52.166Z</lastmod>
+  </url>
+  <url>
+    <loc>https://srvanderplas.github.io/Stat151/Introduction-to-Statistical-Computing.epub</loc>
+    <lastmod>2022-01-30T21:02:51.722Z</lastmod>
   </url>
 </urlset>
