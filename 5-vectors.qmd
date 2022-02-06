@@ -1,4 +1,4 @@
-# Data Structures and Control Structures
+# Vectors, Matrices, Arrays, and Control Structures
 <!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
 <!-- (probably 2 weeks of content) -->
 
@@ -270,6 +270,69 @@ np.array([2, False]) # converted to integers
 </details>
 
 As a reminder, this is an example of **implicit** type conversion - R and python decide what type to use for you, going with the type that doesn't lose data but takes up as little space as possible. 
+
+#### Try it Out! {- .tryitout}
+
+Create a vector of the integers from one to 30. Use logical indexing to pick out only the numbers which are multiples of 3. 
+
+<details><summary>Solution in R</summary>
+
+```{r}
+x <- 1:30
+x [ x %% 3 == 0]
+```
+
+</details>
+
+<details><summary>Solution in python</summary>
+
+```{python}
+import numpy as np
+x = np.array(range(1, 31)) # because python is 0 indexed
+x[ x % 3 == 0]
+```
+
+</details>
+
+Extra challenge: Pick out numbers which are multiples of 2 or 3, but not multiples of 6!
+
+<details><summary>Solution (general)</summary>
+
+This operation is **xor**, a.k.a. exclusive or. That is, X or Y, but not X AND Y. 
+
+We can write xor as `(X OR Y) & !(X AND Y)` -- or we can use a predefined function: `xor()` in R, `^` in python.
+
+</details>
+
+<details><summary>Extra challenge solution (R)</summary>
+
+```{r}
+x <- 1:30
+
+x2 <- x %% 2 == 0 # multiples of 2
+x3 <- x %% 3 == 0 # multiples of 3
+x2xor3 <- xor(x2, x3)
+x2xor3_2 <- (x2 | x3) & !(x2 & x3)
+x[x2xor3]
+x[x2xor3_2]
+```
+
+</details>
+
+<details><summary>Extra challenge solution (python)</summary>
+
+```{python}
+import numpy as np
+x = np.array(range(1, 31))
+
+x2 = x % 2 == 0 # multiples of 2
+x3 = x % 3 == 0 # multiples of 3
+x2xor3 = x2 ^ x3
+
+x[x2xor3]
+```
+
+</details>
 
 ### Matrices
 
@@ -1080,4 +1143,52 @@ In both of the examples above, there are more efficient ways to write a random w
 <!-- https://www.py4e.com/html3/05-iterations -->
 <!-- https://www.datamentor.io/r-programming/break-next/ -->
 
-Sometimes it is useful to control the statements in a loop with a bit more precision. 
+Sometimes it is useful to control the statements in a loop with a bit more precision. You may want to skip over code and proceed directly to the next iteration, or, as demonstrated in the previous section with the `break` statement, it may be useful to exit the loop prematurely. 
+
+![A break statement is used to exit a loop prematurely](images/break-statement.png)
+
+
+![A next (or continue) statement is used to skip the body of the loop and continue to the next iteration](images/next-statement-flow.png)
+
+::: ex
+
+Let's demonstrate the details of next/continue and break statements. 
+
+We can do different things based on whether i is evenly divisible by 3, 5, or both 3 and 5 (thus divisible by 15)
+
+```{r}
+for (i in 1:20) {
+  if (i %% 15 == 0) {
+    print("Exiting now")
+    break
+  } else if (i %% 3 == 0) {    
+    print("Divisible by 3")
+    next
+    print("After the next statement") # this should never execute
+  } else if (i %% 5 == 0) {
+    print("Divisible by 5")
+  } else {
+    print(i)
+  }
+}
+```
+
+```{python}
+for i in range(1, 20):
+  if i%15 == 0:
+    print("Exiting now")
+    break
+  elif i%3 == 0:
+    print("Divisible by 3")
+    continue
+    print("After the next statement") # this should never execute
+  elif i%5 == 0:
+    print("Divisible by 5")
+  else: 
+    print(i)
+
+```
+
+:::
+
+To be quite honest, I haven't really ever needed to use next/continue statements when I'm programming, and I rarely use break statements. However, it's useful to know they exist just in case you come across a problem where you could put either one to use. 
