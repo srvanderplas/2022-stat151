@@ -1,4 +1,4 @@
-# Data and Control Structures
+# Data Structures and Control Structures
 <!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
 <!-- (probably 2 weeks of content) -->
 
@@ -18,7 +18,10 @@ We can combine logical statements using and, or, and not.
 - (X AND Y) requires that both X and Y are true. 
 - (X OR Y) requires that one of X or Y is true. 
 - (NOT X) is true if X is false, and false if X is true. Sometimes called **negation**.    
+
 In R, we use `!` to symbolize NOT, in Python, we use `~` for vector-wise negation (NOT). 
+
+Order of operations dictates that NOT is applied before other operations. So `NOT X AND Y` is read as `(NOT X) AND (Y)`. You must use parentheses to change the way this is interpreted.
 
 <details><summary>Mathematical logic in R</summary>
 
@@ -26,10 +29,10 @@ In R, we use `!` to symbolize NOT, in Python, we use `~` for vector-wise negatio
 x <- c(TRUE, FALSE, TRUE, FALSE)
 y <- c(TRUE, TRUE, FALSE, FALSE)
 
-x & y
-x | y
-!x & y
-x & !y
+x & y # AND
+x | y # OR
+!x & y # NOT X AND Y
+x & !y # X AND NOT Y
 ```
 
 </details>
@@ -59,17 +62,17 @@ x & ~y
 
 We can also represent them with Venn Diagrams.
 
-![Venn Diagram of Set A and Set B](images/SetA and SetB.svg)
-Suppose that we set the convention that ![Shaded regions are TRUE, unshaded regions are FALSE](images/TrueFalse.svg).
+![Venn Diagram of Set A and Set B](images/SetA and SetB.png)
+Suppose that we set the convention that ![Shaded regions are TRUE, unshaded regions are FALSE](images/TrueFalse.png).
 
 We can then illustrate DeMorgan's first law as follows:
 
-![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A OR B (aka NOT (A OR B)) is the same as the region that is outside of (NOT A) and (NOT B)](images/DeMorgan1.svg)
+![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A OR B (aka NOT (A OR B)) is the same as the region that is outside of (NOT A) and (NOT B)](images/DeMorgan1.png)
 
 
 And similarly, DeMorgan's second law: 
 
-![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A AND B (aka NOT (A AND B)) is the same as the region that is outside of (NOT A) OR (NOT B)](images/DeMorgan2.svg)
+![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A AND B (aka NOT (A AND B)) is the same as the region that is outside of (NOT A) OR (NOT B)](images/DeMorgan2.png)
 
 
 ## Data Structures
@@ -259,7 +262,7 @@ import numpy as np
 
 np.array([2, False, 3.1415, "animal"]) # all converted to strings
 
-np.array([2, False, 3.1415]) # converted to numerics
+np.array([2, False, 3.1415]) # converted to floats
 
 np.array([2, False]) # converted to integers
 ```
@@ -523,7 +526,20 @@ Python will throw errors if you mess up the spacing. This is one thing that is v
 
 </details>
 
+<!-- https://www.py4e.com/html3/03-conditional -->
+
+#### Representing Conditional Statements as Diagrams
+
+A common way to represent conditional logic is to draw a flow chart diagram. 
+
+In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point. 
+
+![Program flow diagram outline of a simple if/else statement](images/flow-chart1.png)
+
+
 ::: tryitout
+
+##### Try it out!
 
 The US Tax code has brackets, such that the first \$10,275 of your income is taxed at 10%, anything between \$10,275 and \$41,775 is taxed at 12%, and so on. 
 
@@ -684,15 +700,6 @@ We will find a better way to represent this calculation once we discuss loops - 
 
 :::
 
-<!-- https://www.py4e.com/html3/03-conditional -->
-
-#### Representing Conditional Statements as Diagrams
-
-A common way to represent conditional logic is to draw a flow chart diagram. 
-
-In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point. 
-
-![Program flow diagram outline of a simple if/else statement](images/flow-chart1.svg)
 
 ::: ex
 
@@ -742,16 +749,335 @@ df2 %>%
 
 ```
 
-![The control flow diagram for the code in the previous example](images/tax-brackets.svg)
+![The control flow diagram for the code in the previous example](images/tax-brackets.png)
 </details>
 
 :::
 
 Control flow diagrams can be extremely helpful when figuring out how programs work (and where gaps in your logic are when you're debugging). It can be very helpful to map out your program flow as you're untangling a problem.
 
+
+#### Chaining Conditional Statements: Else-If
+
+In many cases, it can be helpful to have a long chain of conditional statements describing a sequence of alternative statements. 
+
+::: ex
+
+
+For instance, suppose I want to determine what categorical age bracket someone falls into based on their numerical age. All of the bins are mutually exclusive - you can't be in the 25-40 bracket and the 41-55 bracket. 
+
+
+<details><summary>Program Flow Maps of chained conditional statements</summary>
+
+![Program flow map for a series of mutually exclusive categories. If our goal is to take a numeric age variable and create a categorical set of age brackets, such as <18, 18-25, 26-40, 41-55, 56-65, and >65, we can do this with a series of if-else statements chained together. Only one of the bracket assignments is evaluated, so it is important to place the most restrictive condition first.](images/age-category-prog-flow.png)
+
+The important thing to realize when examining this program flow map is that if `age <= 18` is true, then **none of the other conditional statements even get evaluated**. That is, once a statement is true, none of the other statements matter. Because of this, it is important to place the most restrictive statement first.
+
+![Program flow map for a series of mutually exclusive categories, emphasizing that only some statements are evaluated. When age = 40, only (age <= 18), (age <= 25), and (age <= 40) are evaluated conditionally. Of the assignment statements, only bracket = '26-40' is evaluated when age = 40.](images/age-category-prog-flow2.png)
+
+If for some reason you wrote your conditional statements in the wrong order, the wrong label would get assigned:
+
+
+![Program flow map for a series of mutually exclusive categories, with category labels in the wrong order - <40 is evaluated first, and so <= 25 and <= 18 will never be evaluated and the wrong label will be assigned for anything in those categories.](images/age-category-prog-flow3.png)
+
+</details>
+
+In code, we would write this statement using `else-if` (or `elif`) statements. 
+
+<details><summary>R code - if-else chains</summary>
+
+```{r else-if-statements}
+age <- 40 # change this as you will to see how the code works
+
+if (age < 18) {
+  bracket <- "<18"
+} else if (age <= 25) {
+  bracket <- "18-25"
+} else if (age <= 40) {
+  bracket <- "26-40"
+} else if (age <= 55) {
+  bracket <- "41-55" 
+} else if (age <= 65) {
+  bracket <- "56-65"
+} else {
+  bracket <- ">65"
+}
+
+bracket
+```
+
+</details>
+
+
+Python uses `elif` as a shorthand for `else if` statements. As always, indentation/white space in python matters. If you put an extra blank line between two elif statements, then the interpreter will complain. If you don't indent properly, the interpreter will complain. 
+
+<details><summary>python code - elif chains</summary>
+```{python elif-statements}
+age = 40 # change this to see how the code works
+
+if age < 18:
+  bracket = "<18"
+elif age <= 25:
+  bracket = "18-25"
+elif age <= 40:
+  bracket = "26-40"
+elif age <= 55:
+  bracket = "41-55"
+elif age <= 65:
+  bracket = "56-65"
+else:
+  bracket = ">65"
+  
+bracket
+```
+
+</details>
+
+:::
+
 ### Loops
 
 <!-- https://www.py4e.com/html3/05-iterations -->
 
+Often, we write programs which update a variable in a way that the new value of the variable depends on the old value: 
+
+```
+x = x + 1
+```
+
+This means that we add one to the current value of `x`. 
+
+Before we write a statement like this, we have to **initialize** the value of `x` because otherwise, we don't know what value to add one to. 
+
+```
+x = 0
+x = x + 1
+```
+
+We sometimes use the word **increment** to talk about adding one to the value of `x`; **decrement** means subtracting one from the value of `x`. 
+
+A particularly powerful tool for making these types of repetitive changes in programming is the **loop**, which executes statements a certain number of times. Loops can be written in several different ways, but all loops allow for executing a block of code a variable number of times.
+
+#### While Loops
+
+In the previous section, we discussed conditional statements, where a block of code is only executed *if* a logical statement is true.
+
+The simplest type of loop is the **while** loop, which executes a block of code until a statement is no longer true.
+
+![Flow map showing while-loop pseudocode (while x <= N) { # code that changes x in some way} and the program flow map expansion where  we check if x > N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then change x and start over.](images/while-loop-flow.png)
+
+<details><summary>While loops in R</summary>
+
+```{r while-loop-r}
+x <- 0
+
+while (x < 10) { 
+  # Everything in here is executed 
+  # during each iteration of the loop
+  print(x)
+  x <- x + 1
+}
+```
+
+</details>
+
+<details><summary>While loops in python</summary>
+
+```{python while-loop-py}
+x = 0
+
+while x < 10:
+  print(x)
+  x = x + 1
+
+```
+
+</details>
+
+::: tryitout
+
+##### Try it Out! {-}
+
+Write a while loop that verifies that  $$\lim_{N \rightarrow \infty} \prod_{k=1}^N \left(1 + \frac{1}{k^2}\right) = \frac{e^\pi - e^{-\pi}}{2\pi}.$$
+
+Terminate your loop when you get within 0.0001 of $\frac{e^\pi - e^{-\pi}}{2\pi}$. 
+At what value of $k$ is this point reached?
+
+
+Breaking down math notation for code:
+
+- If you are unfamiliar with the notation $\prod_{k=1}^N f(k)$, this is the product of $f(k)$ for $k = 1, 2, ..., N$, $$f(1)\cdot f(2)\cdot ... \cdot f(N)$$
+
+- To evaluate a limit, we just keep increasing $N$ until we get arbitrarily close to the right hand side of the equation. 
+
+In this problem, we can just keep increasing $k$ and keep track of the cumulative product. So we define `k=1`, `prod = 1`, and `ans` before the loop starts. Then, we loop over `k`, multiplying `prod` by $(1 + 1/k^2)$ and then incrementing $k$ by one each time. At each iteration, we test whether `prod` is close enough to `ans` to stop the loop.
+
+
+Note that in python, you will have to import the math library to get the values of pi and the `exp` function. You can refer to these as `math.pi` and `math.exp()` respectively. In R, you will use `pi` and `exp()` - these are available by default without any additional libraries or packages.
+
+<details><summary>Solution (R)</summary>
+
+```{r}
+k <- 1
+prod <- 1
+ans <- (exp(pi) - exp(-pi))/(2*pi)
+delta <- 0.0001
+
+while (abs(prod - ans) >= 0.0001) {
+  prod <- prod * (1 + 1/k^2)
+  k <- k + 1
+}
+
+k
+prod
+ans
+```
+
+</details>
+
+<details><summary>Solution (python)</summary>
+
+```{python}
+import math
+
+k = 1
+prod = 1
+ans = (math.exp(math.pi) - math.exp(-math.pi))/(2*math.pi)
+delta = 0.0001
+
+while abs(prod - ans) >= 0.0001:
+  prod = prod * (1 + k**-2)
+  k = k + 1
+  if k > 500000:
+    break
+
+
+print("At ", k, " iterations, the product is ", prod, "compared to the limit ", ans,".")
+```
+
+</details>
+
+:::
+
+
 #### For Loops
 
+Another common type of loop is a **for** loop. In a for loop, we run the block of code, iterating through a series of values (commonly, one to N, but not always). Generally speaking, for loops are known as **definite** loops because the code inside a for loop is executed a specific number of times. While loops are known as **indefinite** loops because the code within a while loop is evaluated until the condition is falsified, which is not always a known number of times.
+
+
+
+![Flow map showing for-loop pseudocode (for j in 1 to N) { # code} and the program flow map expansion where j starts at 1 and we check if j > N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then increment j and start over.](images/for-loop-flow.png)
+
+<details><summary>for loop in R</summary>
+
+```{r}
+for (i in 1:5 ) {
+  print(i)
+}
+
+```
+
+</details>
+
+<details><summary>for loop in python </summary>
+
+```{python}
+for i in range(5):
+  print(i)
+
+```
+
+By default `range`(5) goes from 0 to 5, the upper bound. When `i = 5` the loop exits. This is because `range(5)` creates a vector `[0, 1, 2, 3, 4]`. 
+</details>
+
+For loops are often run from 1 to N (or 0 to N-1 in python) but in essence, a for loop is run for every value of a vector (which is why loops are included in the same chapter as vectors). 
+
+::: ex
+
+<details><summary>Iterating along a vector in R</summary>
+
+For instance, in R, there is a built-in variable called `month.name`. Type `month.name` into your R console to see what it looks like. If we want to iterate along the values of month.name, we can: 
+
+```{r}
+for (i in month.name)
+  print(i)
+```
+</details>
+
+:::
+
+
+::: ex
+
+<details><summary>Iterating along a list in python</summary>
+In python, we have to define our vector or list to start out with, but that's easy enough:
+
+```{python}
+futurama_crew = ['Fry', 'Leela', 'Bender', 'Amy', 'the Professor', 'Hermes', 'Zoidberg', 'Nibbler']
+for i in futurama_crew:
+  print(i)
+
+```
+</details>
+
+:::
+
+
+::: watch-out
+
+#### Avoiding Infinite Loops
+
+It is very easy to create an **infinite** loop when you are working with while loops. Infinite loops never exit, because the condition is always true. If in the while loop example we decrement x instead of incrementing x, the loop will run forever.
+
+You want to try very hard to avoid ever creating an infinite loop - it can cause your session to crash.
+
+One common way to avoid infinite loops is to create a second variable that just counts how many times the loop has run. If that variable gets over a certain threshold, you exit the loop.
+
+<details><summary>Infinite loop protection in R</summary>
+
+This while loop runs until either x < 10 or n > 50 - so it will run an indeterminate number of times and depends on the random values added to x. Since this process (a 'random walk') could theoretically continue forever, we add the n>50 check to the loop so that we don't tie up the computer for eternity.
+
+```{r infinite-loop-exit-r}
+x <- 0
+n <- 0 # count the number of times the loop runs
+
+while (x < 10) { 
+  print(x)
+  x <- x + rnorm(1) # add a random normal (0, 1) draw each time
+  n <- n + 1
+  if (n > 50) 
+    break # this stops the loop if n > 50
+}
+```
+
+</details>
+
+<details><summary>Infinite loop protection in python</summary>
+
+```{python infinite-loop-exit-py}
+import numpy as np; # for the random normal draw
+
+x = 0
+n = 0 # count the number of times the loop runs
+
+while x < 10:
+  print(x)
+  x = x + np.random.normal(0, 1, 1) # add a random normal (0, 1) draw each time
+  n = n + 1
+  if n > 50:
+    break # this stops the loop if n > 50
+
+```
+
+</details>
+
+In both of the examples above, there are more efficient ways to write a random walk, but we will get to that later. The important thing here is that we want to make sure that our loops don't run for all eternity. 
+
+:::
+
+
+#### Controlling Loops
+<!-- https://www.py4e.com/html3/05-iterations -->
+<!-- https://www.datamentor.io/r-programming/break-next/ -->
+
+Sometimes it is useful to control the statements in a loop with a bit more precision. 
