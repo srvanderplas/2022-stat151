@@ -23,7 +23,6 @@ theta <- seq(0, 4*pi, .01)
 # Define the distance from the origin of the spiral
 # Needs to have the same length as theta
 r <- seq(0, 5, length.out = length(theta))
-
 head(cbind(r, theta))
 ```
 
@@ -35,7 +34,6 @@ Notice how my R code is in separate chunks, and between chunks everything is ann
 # Now define x and y in cartesian coordinates
 x <- r * cos(theta)
 y <- r * sin(theta)
-
 head(cbind(x, y))
 ```
 
@@ -52,7 +50,6 @@ With markdown, I can create nice formatting with simple text -
 ## Second header
 
 > A really nice quote
-
 ### Third header
 
     some code from an unknown language
