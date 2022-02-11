@@ -190,7 +190,7 @@ Python has multiple things that look like vectors, including the `pandas` librar
 ::: ex
 <details><summary>Creating pandas Series in python</summary>
 
-```{python series-pandas}
+```{python series-pandas, error = T}
 import pandas as pd
 digits_pi = pd.Series([3,1,4,1,5,9,2,6,5,3,5])
 
@@ -218,7 +218,7 @@ print(digits_pi)
 
 The Series object has a list of labels in the first printed column, and a list of values in the second. If we want, we can specify the labels manually to use as e.g. plot labels later:
 
-```{python series-pandas2}
+```{python series-pandas2, error = T}
 import pandas as pd
 weekdays = pd.Series(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], index = ['S', 'M', 'T', 'W', 'R', 'F', 'Sat'])
 
