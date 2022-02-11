@@ -15,8 +15,42 @@ This format has two main restrictions:
 
 The picture above shows a data frame of 4 columns, each with a different data type (brick size/hue). The data frame has 12 rows. This picture may look similar to one that we used to show logical indexing in the last chapter, and that is not a coincidence. You can get everything from a data frame that you would get from a collection of 4 separate vectors... but there are advantages to keeping things in a data frame instead. 
 
+## Working with Multiple Vectors
+
+In the previous chapter, we learned how to make different vectors in R, numpy, and pandas. Consider for a moment https://worldpopulationreview.com/states, which lists the population of each state. (I'm going to cheat and read this in using pandas functions we haven't learned yet to demonstrate why this stuff matters.)
+
+```{python read-state-pops}
+import pandas as pd
+
+data = pd.read_html("https://worldpopulationreview.com/states")[0]
+list(data.columns) # get names
+
+# Create a few population series
+population2022 = pd.Series(data['2022 Population'].values, index = data['State'].values)
+population2021 = pd.Series(data['2021 Population'].values, index = data['State'].values)
+population2010 = pd.Series(data['2010 Census'].values, index = data['State'].values)
+```
+
+Suppose that we want to sort each population vector by the population in that year.
+
+```{python read-state-pops2, dependson = 'read-state-pops'}
+population2022 = pd.Series(data['2022 Population'].values, index = data['State'].values).sort_values()
+population2021 = pd.Series(data['2021 Population'].values, index = data['State'].values).sort_values()
+population2010 = pd.Series(data['2010 Census'].values, index = data['State'].values).sort_values()
+
+population2022.head()
+population2021.head()
+population2010.head()
+```
+
+The only problem is that by doing this, we've now lost the ordering that matched across all 3 vectors. Pandas Series are great for this, because they use labels that allow us to reconstitute which value corresponds to which label, but in R or even in numpy arrays, vectors don't inherently come with labels. In these situations, sorting by one value can actually destroy the connection between two vectors!
+
 The primary advantage to data frames is that rows of data are kept together. Since we often think of a row of data as a single observation in a sample, this is an extremely important feature that makes data frames a huge improvement on a collection of vectors of the same length: it's much harder for observations in a single row to get shuffled around and mismatched!
 
-In R, data frames are built in as type `data.frame`. In Python, we will use the `pandas` library, which is conventionally abbreviated `pd`. So before you use any data frames in python, you will need to add the following line to your code: `import pandas as pd`.
+In R, data frames are built in as type `data.frame`, though there are packages that provide other implementations of data frames that have additional features, such as the `tibble` package used in many other common packages.
+
+In Python, we will use the `pandas` library, which is conventionally abbreviated `pd`. So before you use any data frames in python, you will need to add the following line to your code: `import pandas as pd`.
+
+## Creating Data Frames
 
 
