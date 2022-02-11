@@ -1,5 +1,5 @@
 name: Render and Deploy Quarto Book
-  'on': push
+  on: push
 
 jobs:
   quarto-render-and-deploy:
