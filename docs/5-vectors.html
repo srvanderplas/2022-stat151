@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.2.275">
+  <meta name="generator" content="quarto-0.2.232">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Introduction to Statistical Computing - 5&nbsp; Data and Control Structures</title>
+  <title>Introduction to Statistical Computing - 5&nbsp; Data Structures and Control Structures</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -104,38 +104,28 @@
     "collapse-after": 2,
     "panel-placement": "start",
     "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
+    "limit": 20
   }</script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="floating">
+<body>
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and Control Structures</span></h1>
-      <button type="button" class="quarto-btn-toggle btn">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav>
+<header id="quarto-header" class="headroom fixed-top">
+<nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <div class="container-fluid d-flex justify-content-between">
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Structures and Control Structures</span></h1>
+    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</nav>
 </header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-  <div class="pt-lg-2 mt-2 text-left sidebar-header">
+ <!-- /navbar/sidebar -->
+<div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
+<div class="row flex-fill">
+  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
+    <nav class="ms-lg-auto floating overflow-auto">
+  <div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Introduction to Statistical Computing</a> 
         <div class="sidebar-tools-main">
@@ -166,11 +156,12 @@
   </div>
     <div class="px-3 mt-2 flex-shrink-0 align-items-center">
       <div class="sidebar-search">
-      <div id="quarto-search" class="" title="Search"></div>
+      <div id="quarto-search" class="mb-0 " title="Search">
+</div>
       </div>
     </div>
   <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-1">
+  <ul class="list-unstyled mt-1 px-3">
       <li class="sidebar-item">
   <a href="./index.html" class="">Preface</a>
 </li>
@@ -187,7 +178,7 @@
   <a href="./4-data-types.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./5-vectors.html" class="active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and Control Structures</span></a>
+  <a href="./5-vectors.html" class="active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Structures and Control Structures</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./data-structures.html" class=""><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
@@ -216,8 +207,8 @@
   </ul>
   </div>
 </nav>
-<!-- toc -->
-    <nav id="TOC" role="doc-toc" class="sidebar sidebar-toc">
+  </div>
+  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
 <h2 id="toc-title">On this page</h2>
 <ul>
 <li><a href="#mathematical-logic" class="nav-link active" data-scroll-target="#mathematical-logic"> <span class="header-section-number">5.1</span> Mathematical Logic</a>
@@ -237,11 +228,11 @@
 <li><a href="#loops" class="nav-link" data-scroll-target="#loops"> <span class="header-section-number">5.3.2</span> Loops</a></li>
 </ul></li>
 </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/5-vectors.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
-<!-- main -->
-<main class="content">
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/5-vectors.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
+  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
+<main>
 <header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and Control Structures</span></h1>
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Structures and Control Structures</span></h1>
 </header>
 
 <!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
@@ -257,9 +248,10 @@
 <ul>
 <li>(X AND Y) requires that both X and Y are true.</li>
 <li>(X OR Y) requires that one of X or Y is true.</li>
-<li>(NOT X) is true if X is false, and false if X is true. Sometimes called <strong>negation</strong>.<br>
-In R, we use <code>!</code> to symbolize NOT, in Python, we use <code>~</code> for vector-wise negation (NOT).</li>
+<li>(NOT X) is true if X is false, and false if X is true. Sometimes called <strong>negation</strong>.</li>
 </ul>
+<p>In R, we use <code>!</code> to symbolize NOT, in Python, we use <code>~</code> for vector-wise negation (NOT).</p>
+<p>Order of operations dictates that NOT is applied before other operations. So <code>NOT X AND Y</code> is read as <code>(NOT X) AND (Y)</code>. You must use parentheses to change the way this is interpreted.</p>
 <details>
 <summary>
 Mathematical logic in R
@@ -268,19 +260,19 @@ Mathematical logic in R
 <div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&amp;</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&amp;</span> y <span class="co"># AND</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1]  TRUE FALSE FALSE FALSE</code></pre>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">|</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">|</span> y <span class="co"># OR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1]  TRUE  TRUE  TRUE FALSE</code></pre>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>x <span class="sc">&amp;</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>x <span class="sc">&amp;</span> y <span class="co"># NOT X AND Y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] FALSE  TRUE FALSE FALSE</code></pre>
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&amp;</span> <span class="sc">!</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&amp;</span> <span class="sc">!</span>y <span class="co"># X AND NOT Y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] FALSE FALSE  TRUE FALSE</code></pre>
 </div>
@@ -322,18 +314,18 @@ Mathematical logic in python
 <li>NOT(A and B) is equivalent to NOT(A) or NOT(B)</li>
 </ul>
 <p>We can also represent them with Venn Diagrams.</p>
-<p><img src="images/SetA%20and%20SetB.svg" class="img-fluid" alt="Venn Diagram of Set A and Set B"> Suppose that we set the convention that <img src="images/TrueFalse.svg" class="img-fluid" alt="Shaded regions are TRUE, unshaded regions are FALSE">.</p>
+<p><img src="images/SetA%20and%20SetB.png" class="img-fluid" alt="Venn Diagram of Set A and Set B"> Suppose that we set the convention that <img src="images/TrueFalse.png" class="img-fluid" alt="Shaded regions are TRUE, unshaded regions are FALSE">.</p>
 <p>We can then illustrate DeMorgan’s first law as follows:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/DeMorgan1.svg" class="img-fluid figure-img"></p>
+<p><img src="images/DeMorgan1.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">A venn diagram illustration of De Morgan’s laws showing that the region that is outside of the union of A OR B (aka NOT (A OR B)) is the same as the region that is outside of (NOT A) and (NOT B)</figcaption><p></p>
 </figure>
 </div>
 <p>And similarly, DeMorgan’s second law:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/DeMorgan2.svg" class="img-fluid figure-img"></p>
+<p><img src="images/DeMorgan2.png" class="img-fluid figure-img"></p>
 <p></p><figcaption aria-hidden="true" class="figure-caption">A venn diagram illustration of De Morgan’s laws showing that the region that is outside of the union of A AND B (aka NOT (A AND B)) is the same as the region that is outside of (NOT A) OR (NOT B)</figcaption><p></p>
 </figure>
 </div>
@@ -627,7 +619,7 @@ In python
 <div class="cell-output-stdout">
 <pre><code>array(['2', 'False', '3.1415', 'animal'], dtype='&lt;U32')</code></pre>
 </div>
-<div class="sourceCode" id="cb65"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">2</span>, <span class="va">False</span>, <span class="fl">3.1415</span>]) <span class="co"># converted to numerics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">2</span>, <span class="va">False</span>, <span class="fl">3.1415</span>]) <span class="co"># converted to floats</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>array([2.    , 0.    , 3.1415])</code></pre>
 </div>
@@ -997,7 +989,19 @@ If statement in python
 <p>In python, all code grouping is accomplished with spaces instead of with brackets. So in python, we write our if statement as <code>if x &gt; 2:</code> with the colon indicating that what follows is the code to evaluate. The next line is indented with 2 spaces to show that the code on those lines belongs to that if statement. Then, we use the else: statement to provide an alternative set of code to run if the logical condition in the if statement is false. Again, we indent the code under the else statement to show where it “belongs”.</p>
 <p>Python will throw errors if you mess up the spacing. This is one thing that is very annoying about Python… but it’s a consequence of trying to make the code more readable.</p>
 </details>
-<div class="tryitout">
+<!-- https://www.py4e.com/html3/03-conditional -->
+<section id="representing-conditional-statements-as-diagrams" class="level4" data-number="5.3.1.1">
+<h4 data-number="5.3.1.1" class="anchored" data-anchor-id="representing-conditional-statements-as-diagrams"><span class="header-section-number">5.3.1.1</span> Representing Conditional Statements as Diagrams</h4>
+<p>A common way to represent conditional logic is to draw a flow chart diagram.</p>
+<p>In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/flow-chart1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Program flow diagram outline of a simple if/else statement</figcaption><p></p>
+</figure>
+</div>
+<section id="try-it-out" class="level5 tryitout" data-number="5.3.1.1.1">
+<h5 data-number="5.3.1.1.1" class="anchored" data-anchor-id="try-it-out"><span class="header-section-number">5.3.1.1.1</span> Try it out!</h5>
 <p>The US Tax code has brackets, such that the first $10,275 of your income is taxed at 10%, anything between $10,275 and $41,775 is taxed at 12%, and so on.</p>
 <p>Here is the table of tax brackets for single filers in 2022:</p>
 <table class="table">
@@ -1182,18 +1186,7 @@ Solution (python)
 </div>
 </details>
 <p>We will find a better way to represent this calculation once we discuss loops - we can store each bracket’s start and end point in a vector and loop through them. Any time you find yourself copy-pasting code and changing values, you should consider using a loop (or eventually a function) instead.</p>
-</div>
-<!-- https://www.py4e.com/html3/03-conditional -->
-<section id="representing-conditional-statements-as-diagrams" class="level4" data-number="5.3.1.1">
-<h4 data-number="5.3.1.1" class="anchored" data-anchor-id="representing-conditional-statements-as-diagrams"><span class="header-section-number">5.3.1.1</span> Representing Conditional Statements as Diagrams</h4>
-<p>A common way to represent conditional logic is to draw a flow chart diagram.</p>
-<p>In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/flow-chart1.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Program flow diagram outline of a simple if/else statement</figcaption><p></p>
-</figure>
-</div>
+</section>
 <div class="ex">
 <details>
 <summary>
@@ -1203,28 +1196,406 @@ Let’s explore using program flow maps for a slightly more complicated problem:
 <div class="cell">
 
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/tax-brackets.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">The control flow diagram for the code in the previous example</figcaption><p></p>
-</figure>
-</div>
+<img src="images/tax-brackets.png" title="fig:" class="img-fluid" alt="The control flow diagram for the code in the previous example">
 </details>
 </div>
 <p>Control flow diagrams can be extremely helpful when figuring out how programs work (and where gaps in your logic are when you’re debugging). It can be very helpful to map out your program flow as you’re untangling a problem.</p>
+</section>
+<section id="chaining-conditional-statements-else-if" class="level4" data-number="5.3.1.2">
+<h4 data-number="5.3.1.2" class="anchored" data-anchor-id="chaining-conditional-statements-else-if"><span class="header-section-number">5.3.1.2</span> Chaining Conditional Statements: Else-If</h4>
+<p>In many cases, it can be helpful to have a long chain of conditional statements describing a sequence of alternative statements.</p>
+<div class="ex">
+<p>For instance, suppose I want to determine what categorical age bracket someone falls into based on their numerical age. All of the bins are mutually exclusive - you can’t be in the 25-40 bracket and the 41-55 bracket.</p>
+<details>
+<summary>
+Program Flow Maps of chained conditional statements
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/age-category-prog-flow.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Program flow map for a series of mutually exclusive categories. If our goal is to take a numeric age variable and create a categorical set of age brackets, such as &lt;18, 18-25, 26-40, 41-55, 56-65, and &gt;65, we can do this with a series of if-else statements chained together. Only one of the bracket assignments is evaluated, so it is important to place the most restrictive condition first.</figcaption><p></p>
+</figure>
+</div>
+<p>The important thing to realize when examining this program flow map is that if <code>age &lt;= 18</code> is true, then <strong>none of the other conditional statements even get evaluated</strong>. That is, once a statement is true, none of the other statements matter. Because of this, it is important to place the most restrictive statement first.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/age-category-prog-flow2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Program flow map for a series of mutually exclusive categories, emphasizing that only some statements are evaluated. When age = 40, only (age &lt;= 18), (age &lt;= 25), and (age &lt;= 40) are evaluated conditionally. Of the assignment statements, only bracket = ‘26-40’ is evaluated when age = 40.</figcaption><p></p>
+</figure>
+</div>
+<p>If for some reason you wrote your conditional statements in the wrong order, the wrong label would get assigned:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/age-category-prog-flow3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Program flow map for a series of mutually exclusive categories, with category labels in the wrong order - &lt;40 is evaluated first, and so &lt;= 25 and &lt;= 18 will never be evaluated and the wrong label will be assigned for anything in those categories.</figcaption><p></p>
+</figure>
+</div>
+</details>
+<p>In code, we would write this statement using <code>else-if</code> (or <code>elif</code>) statements.</p>
+<details>
+<summary>
+R code - if-else chains
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb124"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">40</span> <span class="co"># change this as you will to see how the code works</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (age <span class="sc">&lt;</span> <span class="dv">18</span>) {</span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>  bracket <span class="ot">&lt;-</span> <span class="st">"&lt;18"</span></span>
+<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&lt;=</span> <span class="dv">25</span>) {</span>
+<span id="cb124-6"><a href="#cb124-6" aria-hidden="true" tabindex="-1"></a>  bracket <span class="ot">&lt;-</span> <span class="st">"18-25"</span></span>
+<span id="cb124-7"><a href="#cb124-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&lt;=</span> <span class="dv">40</span>) {</span>
+<span id="cb124-8"><a href="#cb124-8" aria-hidden="true" tabindex="-1"></a>  bracket <span class="ot">&lt;-</span> <span class="st">"26-40"</span></span>
+<span id="cb124-9"><a href="#cb124-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&lt;=</span> <span class="dv">55</span>) {</span>
+<span id="cb124-10"><a href="#cb124-10" aria-hidden="true" tabindex="-1"></a>  bracket <span class="ot">&lt;-</span> <span class="st">"41-55"</span> </span>
+<span id="cb124-11"><a href="#cb124-11" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&lt;=</span> <span class="dv">65</span>) {</span>
+<span id="cb124-12"><a href="#cb124-12" aria-hidden="true" tabindex="-1"></a>  bracket <span class="ot">&lt;-</span> <span class="st">"56-65"</span></span>
+<span id="cb124-13"><a href="#cb124-13" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb124-14"><a href="#cb124-14" aria-hidden="true" tabindex="-1"></a>  bracket <span class="ot">&lt;-</span> <span class="st">"&gt;65"</span></span>
+<span id="cb124-15"><a href="#cb124-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb124-16"><a href="#cb124-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-17"><a href="#cb124-17" aria-hidden="true" tabindex="-1"></a>bracket</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "26-40"</code></pre>
+</div>
+</div>
+</details>
+<p>Python uses <code>elif</code> as a shorthand for <code>else if</code> statements. As always, indentation/white space in python matters. If you put an extra blank line between two elif statements, then the interpreter will complain. If you don’t indent properly, the interpreter will complain.</p>
+<details>
+<summary>
+python code - elif chains
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb126"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">40</span> <span class="co"># change this to see how the code works</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> age <span class="op">&lt;</span> <span class="dv">18</span>:</span>
+<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a>  bracket <span class="op">=</span> <span class="st">"&lt;18"</span></span>
+<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;=</span> <span class="dv">25</span>:</span>
+<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a>  bracket <span class="op">=</span> <span class="st">"18-25"</span></span>
+<span id="cb126-7"><a href="#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;=</span> <span class="dv">40</span>:</span>
+<span id="cb126-8"><a href="#cb126-8" aria-hidden="true" tabindex="-1"></a>  bracket <span class="op">=</span> <span class="st">"26-40"</span></span>
+<span id="cb126-9"><a href="#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;=</span> <span class="dv">55</span>:</span>
+<span id="cb126-10"><a href="#cb126-10" aria-hidden="true" tabindex="-1"></a>  bracket <span class="op">=</span> <span class="st">"41-55"</span></span>
+<span id="cb126-11"><a href="#cb126-11" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;=</span> <span class="dv">65</span>:</span>
+<span id="cb126-12"><a href="#cb126-12" aria-hidden="true" tabindex="-1"></a>  bracket <span class="op">=</span> <span class="st">"56-65"</span></span>
+<span id="cb126-13"><a href="#cb126-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb126-14"><a href="#cb126-14" aria-hidden="true" tabindex="-1"></a>  bracket <span class="op">=</span> <span class="st">"&gt;65"</span></span>
+<span id="cb126-15"><a href="#cb126-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb126-16"><a href="#cb126-16" aria-hidden="true" tabindex="-1"></a>bracket</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>'26-40'</code></pre>
+</div>
+</div>
+</details>
+</div>
 </section>
 </section>
 <section id="loops" class="level3" data-number="5.3.2">
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="loops"><span class="header-section-number">5.3.2</span> Loops</h3>
 <!-- https://www.py4e.com/html3/05-iterations -->
-<section id="for-loops" class="level4" data-number="5.3.2.1">
-<h4 data-number="5.3.2.1" class="anchored" data-anchor-id="for-loops"><span class="header-section-number">5.3.2.1</span> For Loops</h4>
+<p>Often, we write programs which update a variable in a way that the new value of the variable depends on the old value:</p>
+<pre><code>x = x + 1</code></pre>
+<p>This means that we add one to the current value of <code>x</code>.</p>
+<p>Before we write a statement like this, we have to <strong>initialize</strong> the value of <code>x</code> because otherwise, we don’t know what value to add one to.</p>
+<pre><code>x = 0
+x = x + 1</code></pre>
+<p>We sometimes use the word <strong>increment</strong> to talk about adding one to the value of <code>x</code>; <strong>decrement</strong> means subtracting one from the value of <code>x</code>.</p>
+<p>A particularly powerful tool for making these types of repetitive changes in programming is the <strong>loop</strong>, which executes statements a certain number of times. Loops can be written in several different ways, but all loops allow for executing a block of code a variable number of times.</p>
+<section id="while-loops" class="level4" data-number="5.3.2.1">
+<h4 data-number="5.3.2.1" class="anchored" data-anchor-id="while-loops"><span class="header-section-number">5.3.2.1</span> While Loops</h4>
+<p>In the previous section, we discussed conditional statements, where a block of code is only executed <em>if</em> a logical statement is true.</p>
+<p>The simplest type of loop is the <strong>while</strong> loop, which executes a block of code until a statement is no longer true.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/while-loop-flow.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Flow map showing while-loop pseudocode (while x &lt;= N) { # code that changes x in some way} and the program flow map expansion where we check if x &gt; N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then change x and start over.</figcaption><p></p>
+</figure>
+</div>
+<details>
+<summary>
+While loops in R
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb130"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (x <span class="sc">&lt;</span> <span class="dv">10</span>) { </span>
+<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Everything in here is executed </span></span>
+<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># during each iteration of the loop</span></span>
+<span id="cb130-6"><a href="#cb130-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x)</span>
+<span id="cb130-7"><a href="#cb130-7" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb130-8"><a href="#cb130-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9</code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+While loops in python
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb132"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> x <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(x)</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0
+1
+2
+3
+4
+5
+6
+7
+8
+9</code></pre>
+</div>
+</div>
+</details>
+<section id="try-it-out-1" class="level5 unnumbered tryitout">
+<h5 class="unnumbered anchored" data-anchor-id="try-it-out-1">Try it Out!</h5>
+<p>Write a while loop that verifies that <span class="math display">\[\lim_{N \rightarrow \infty} \prod_{k=1}^N \left(1 + \frac{1}{k^2}\right) = \frac{e^\pi - e^{-\pi}}{2\pi}.\]</span></p>
+<p>Terminate your loop when you get within 0.0001 of <span class="math inline">\(\frac{e^\pi - e^{-\pi}}{2\pi}\)</span>. At what value of <span class="math inline">\(k\)</span> is this point reached?</p>
+<p>Breaking down math notation for code:</p>
+<ul>
+<li><p>If you are unfamiliar with the notation <span class="math inline">\(\prod_{k=1}^N f(k)\)</span>, this is the product of <span class="math inline">\(f(k)\)</span> for <span class="math inline">\(k = 1, 2, ..., N\)</span>, <span class="math display">\[f(1)\cdot f(2)\cdot ... \cdot f(N)\]</span></p></li>
+<li><p>To evaluate a limit, we just keep increasing <span class="math inline">\(N\)</span> until we get arbitrarily close to the right hand side of the equation.</p></li>
+</ul>
+<p>In this problem, we can just keep increasing <span class="math inline">\(k\)</span> and keep track of the cumulative product. So we define <code>k=1</code>, <code>prod = 1</code>, and <code>ans</code> before the loop starts. Then, we loop over <code>k</code>, multiplying <code>prod</code> by <span class="math inline">\((1 + 1/k^2)\)</span> and then incrementing <span class="math inline">\(k\)</span> by one each time. At each iteration, we test whether <code>prod</code> is close enough to <code>ans</code> to stop the loop.</p>
+<p>Note that in python, you will have to import the math library to get the values of pi and the <code>exp</code> function. You can refer to these as <code>math.pi</code> and <code>math.exp()</code> respectively. In R, you will use <code>pi</code> and <code>exp()</code> - these are available by default without any additional libraries or packages.</p>
+<details>
+<summary>
+Solution (R)
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb134"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>prod <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> (<span class="fu">exp</span>(pi) <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>pi))<span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>pi)</span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fl">0.0001</span></span>
+<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="fu">abs</span>(prod <span class="sc">-</span> ans) <span class="sc">&gt;=</span> <span class="fl">0.0001</span>) {</span>
+<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a>  prod <span class="ot">&lt;-</span> prod <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>k<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb134-9"><a href="#cb134-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb134-10"><a href="#cb134-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-11"><a href="#cb134-11" aria-hidden="true" tabindex="-1"></a>k</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 36761</code></pre>
+</div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 3.675978</code></pre>
+</div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>ans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 3.676078</code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+Solution (python)
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb140"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>prod <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>ans <span class="op">=</span> (math.exp(math.pi) <span class="op">-</span> math.exp(<span class="op">-</span>math.pi))<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>math.pi)</span>
+<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> <span class="fl">0.0001</span></span>
+<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">abs</span>(prod <span class="op">-</span> ans) <span class="op">&gt;=</span> <span class="fl">0.0001</span>:</span>
+<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a>  prod <span class="op">=</span> prod <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> k<span class="op">**-</span><span class="dv">2</span>)</span>
+<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a>  k <span class="op">=</span> k <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb140-11"><a href="#cb140-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> k <span class="op">&gt;</span> <span class="dv">500000</span>:</span>
+<span id="cb140-12"><a href="#cb140-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb140-13"><a href="#cb140-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-14"><a href="#cb140-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-15"><a href="#cb140-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"At "</span>, k, <span class="st">" iterations, the product is "</span>, prod, <span class="st">"compared to the limit "</span>, ans,<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>At  36761  iterations, the product is  3.675977910975878 compared to the limit  3.676077910374978 .</code></pre>
+</div>
+</div>
+</details>
+</section>
+</section>
+<section id="for-loops" class="level4" data-number="5.3.2.2">
+<h4 data-number="5.3.2.2" class="anchored" data-anchor-id="for-loops"><span class="header-section-number">5.3.2.2</span> For Loops</h4>
+<p>Another common type of loop is a <strong>for</strong> loop. In a for loop, we run the block of code, iterating through a series of values (commonly, one to N, but not always).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/for-loop-flow.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Flow map showing for-loop pseudocode (for j in 1 to N) { # code} and the program flow map expansion where j starts at 1 and we check if j &gt; N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then increment j and start over.</figcaption><p></p>
+</figure>
+</div>
+<details>
+<summary>
+for loop in R
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb142"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> ) {</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5</code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+for loop in python
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb144"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(i, end <span class="op">=</span> <span class="st">' '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0 1 2 3 4 </code></pre>
+</div>
+</div>
+</details>
+</section>
+<section id="avoiding-infinite-loops" class="level4 watch-out" data-number="5.3.2.3">
+<h4 data-number="5.3.2.3" class="anchored" data-anchor-id="avoiding-infinite-loops"><span class="header-section-number">5.3.2.3</span> Avoiding Infinite Loops</h4>
+<p>It is very easy to create an <strong>infinite</strong> loop when you are working with while loops. Infinite loops never exit, because the condition is always true. If in the above examples we decrement x instead of incrementing x, the loops will run forever.</p>
+<p>You want to try very hard to avoid ever creating an infinite loop - it can cause your session to crash.</p>
+<p>One common way to avoid infinite loops is to create a second variable that just counts how many times the loop has run. If that variable gets over a certain threshold, you exit the loop.</p>
+<details>
+<summary>
+Infinite loop protection in R
+</summary>
+<p>This while loop runs until either x &lt; 10 or n &gt; 50 - so it will run an indeterminate number of times and depends on the random values added to x. Since this process (a ‘random walk’) could theoretically continue forever, we add the n&gt;50 check to the loop so that we don’t tie up the computer for eternity.</p>
+<div class="cell">
+<div class="sourceCode" id="cb146"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># count the number of times the loop runs</span></span>
+<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-4"><a href="#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (x <span class="sc">&lt;</span> <span class="dv">10</span>) { </span>
+<span id="cb146-5"><a href="#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x)</span>
+<span id="cb146-6"><a href="#cb146-6" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1</span>) <span class="co"># add a random normal (0, 1) draw each time</span></span>
+<span id="cb146-7"><a href="#cb146-7" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb146-8"><a href="#cb146-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&gt;</span> <span class="dv">50</span>) </span>
+<span id="cb146-9"><a href="#cb146-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span> <span class="co"># this stops the loop if n &gt; 50</span></span>
+<span id="cb146-10"><a href="#cb146-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0
+[1] 0.9851647
+[1] -0.5848798
+[1] -0.4349694
+[1] 0.6604639
+[1] 1.405645
+[1] 0.8543669
+[1] -0.1687903
+[1] -0.4070948
+[1] 0.1033676
+[1] 0.006014232
+[1] -1.927947
+[1] -1.69911
+[1] 0.7457361
+[1] 0.4827331
+[1] 0.5865628
+[1] -1.004424
+[1] 1.794238
+[1] 1.123505
+[1] 2.570398
+[1] 3.37249
+[1] 4.748614
+[1] 4.932763
+[1] 4.562043
+[1] 5.004172
+[1] 4.363658
+[1] 4.696317
+[1] 4.541952
+[1] 5.318251
+[1] 5.537398
+[1] 4.912524
+[1] 3.65371
+[1] 3.139561
+[1] 3.453528
+[1] 4.298763
+[1] 2.945309
+[1] 2.792987
+[1] 4.396662
+[1] 5.148761
+[1] 5.229845
+[1] 4.312089
+[1] 4.135361
+[1] 3.890559
+[1] 3.890882
+[1] 4.51061
+[1] 3.68678
+[1] 5.052793
+[1] 4.421348
+[1] 4.045535
+[1] 3.417741
+[1] 4.248026</code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary>
+Infinite loop protection in python
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb148"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np<span class="op">;</span> <span class="co"># for the random normal draw</span></span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">0</span> <span class="co"># count the number of times the loop runs</span></span>
+<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> x <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(x)</span>
+<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># add a random normal (0, 1) draw each time</span></span>
+<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>  n <span class="op">=</span> n <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> n <span class="op">&gt;</span> <span class="dv">50</span>:</span>
+<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span> <span class="co"># this stops the loop if n &gt; 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0
+[1.16225728]
+[1.34349458]
+[1.44245558]
+[0.09627963]
+[0.0477593]
+[-0.56002878]
+[0.77340183]
+[0.49859102]
+[2.46714745]
+[1.42075888]
+[2.60817653]
+[2.98244899]
+[2.08107658]
+[1.80933385]
+[2.20029113]
+[3.73660386]
+[3.43818257]
+[5.48299946]
+[6.07687162]
+[7.00098906]
+[7.46754469]
+[7.8926631]
+[6.25773473]
+[6.79413155]
+[8.56785386]</code></pre>
+</div>
+</div>
+</details>
+<p>In both of the examples above, there are more efficient ways to write a random walk, but we will get to that later. The important thing here is that we want to make sure that our loops don’t run for all eternity.</p>
+</section>
 
 
 </section>
 </section>
-</section>
-<section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2>Footnotes</h2>
+<section class="footnotes" role="doc-endnotes"><h2>Footnotes</h2>
 
 <ol>
 <li id="fn1" role="doc-endnote"><p>Throughout this section (and other sections), lego pictures are rendered using https://www.mecabricks.com/en/workshop. It’s a pretty nice tool for building stuff online!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1260,21 +1631,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     e.clearSelection();
   });
   function tippyHover(el, contentFn) {
-    const config = {
+    window.tippy(el, {
       allowHTML: true,
       content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
       placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
+    }); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -1308,8 +1675,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</main> <!-- /main -->
-<nav class="page-navigation">
+</main>
+<div class="page-navigation ">
   <div class="nav-page nav-page-previous">
       <a href="./4-data-types.html">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></span>
@@ -1320,8 +1687,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
-</div> <!-- /content -->
+</div>
+</div> <!-- /main column -->
+</div> <!-- /row -->
+</div> <!-- /container fluid -->
 
 
 </body></html>
