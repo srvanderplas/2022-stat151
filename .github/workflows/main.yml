@@ -58,6 +58,7 @@ jobs:
           # pak::pkg_install("tidyverse/tidyverse")
           # pak::pkg_install("tidyverse/dplyr")
           # pak::pkg_install("tidyverse/tibble")
+          options(renv.download.override = utils::download.file)
           # install.packages("fontawesome")
           renv::restore()
 
