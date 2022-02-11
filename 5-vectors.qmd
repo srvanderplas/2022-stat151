@@ -155,6 +155,9 @@ digits_pi[2]
 digits_pi[0]
 digits_pi[11] 
 
+# multiplication works on the whole vector at once
+digits_pi * 2
+
 # Print out the vector
 print(digits_pi)
 ```
@@ -162,6 +165,7 @@ print(digits_pi)
 </details>
 
 :::
+
 
 We can pull out items in a vector by indexing, but we can also replace specific things as well:
 
@@ -179,6 +183,57 @@ If you're curious about any of these cats, see the footnotes^[[Grumpy cat](https
 
 
 
+#### Series in Pandas 
+
+Python has multiple things that look like vectors, including the `pandas` library's Series structure. A **Series** is a one-dimensional array-like object containing a sequence of values and an associated array of labels (called its index). 
+
+::: ex
+<details><summary>Creating pandas Series in python</summary>
+
+```{python series-pandas}
+import pandas as pd
+digits_pi = pd.Series([3,1,4,1,5,9,2,6,5,3,5])
+
+# Access individual entries
+digits_pi[0]
+digits_pi[1]
+digits_pi[2]
+
+# Python is 0 indexed - a list of 11 things goes from 0 to 10
+digits_pi[0]
+digits_pi[11] 
+
+# logical indexing works here too
+digits_pi[digits_pi > 3]
+# simple multiplication works in a vectorized manner
+# that is, the whole vector is multiplied at once
+digits_pi * 2
+
+# Print out the series
+print(digits_pi)
+```
+
+</details
+:::
+
+The Series object has a list of labels in the first printed column, and a list of values in the second. If we want, we can specify the labels manually to use as e.g. plot labels later:
+
+```{python series-pandas2}
+import pandas as pd
+weekdays = pd.Series(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], index = ['S', 'M', 'T', 'W', 'R', 'F', 'Sat'])
+
+# access individual objs
+weekdays[0]
+weekdays[1]
+weekdays['S']
+weekdays['Sat']
+
+# access the index
+weekdays.index
+weekdays.index[6] = 'Z' # you can't assign things to the index to change it
+
+weekdays
+```
 
 #### Indexing with Logical Vectors
 
