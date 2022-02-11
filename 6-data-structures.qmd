@@ -1,3 +1,22 @@
-# Data Structures
+# Data Frames
 
-data frames in R and Pandas
+<!-- data frames in R and Pandas -->
+
+In the previous chapter, we talked about homogeneous structures: arrangements of data, like vectors and matrices, where every entry in the larger structure has the same type. In this chapter, we'll be talking about the root of most data science analysis projects: the data frame. 
+
+Like an excel spreadsheet, data frames are arrangements of data in columns and rows.
+
+This format has two main restrictions:
+
+- Every entry in each column must have the same data type
+- Every column must have the same number of rows
+
+![A lego data frame of 4 columns and 12 rows. Each column is a separate color hue (data type), with slight variations in the hue of each individual bricks.](images/lego-data-frame.png)
+
+The picture above shows a data frame of 4 columns, each with a different data type (brick size/hue). The data frame has 12 rows. This picture may look similar to one that we used to show logical indexing in the last chapter, and that is not a coincidence. You can get everything from a data frame that you would get from a collection of 4 separate vectors... but there are advantages to keeping things in a data frame instead. 
+
+The primary advantage to data frames is that rows of data are kept together. Since we often think of a row of data as a single observation in a sample, this is an extremely important feature that makes data frames a huge improvement on a collection of vectors of the same length: it's much harder for observations in a single row to get shuffled around and mismatched!
+
+In R, data frames are built in as type `data.frame`. In Python, we will use the `pandas` library, which is conventionally abbreviated `pd`. So before you use any data frames in python, you will need to add the following line to your code: `import pandas as pd`.
+
+
