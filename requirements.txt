@@ -15,7 +15,6 @@ nest-asyncio==1.5.4
 numpy==1.22.1
 packaging==21.3
 Pillow==9.0.0
-pkg_resources==0.0.0
 pyparsing==3.0.7
 pyrsistent==0.18.1
 python-dateutil==2.8.2
