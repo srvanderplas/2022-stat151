@@ -1,7 +1,0 @@
-# Finding your way in R and Python
-
-Hello world
-
-Basic calculations
-
-Getting help
