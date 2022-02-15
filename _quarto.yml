@@ -29,6 +29,7 @@ book:
   toc:
     collapse: section
 bibliography: references.bib
+engine: knitr
 pdf-engine: context
 from: markdown+emoji
 
