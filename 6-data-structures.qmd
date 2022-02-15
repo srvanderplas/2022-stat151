@@ -1,4 +1,4 @@
-# Data Frames
+# Data Structures
 
 ```{r include = F}
 # Need an r chunk to use the R engine, otherwise defaults to 
@@ -6,6 +6,7 @@
 c()
 ```
 
+## Motivation: Working with Multiple Vectors
 <!-- data frames in R and Pandas -->
 
 In the previous chapter, we talked about homogeneous structures: arrangements of data, like vectors and matrices, where every entry in the larger structure has the same type. In this chapter, we'll be talking about the root of most data science analysis projects: the data frame. 
@@ -21,9 +22,13 @@ This format has two main restrictions:
 
 The picture above shows a data frame of 4 columns, each with a different data type (brick size/hue). The data frame has 12 rows. This picture may look similar to one that we used to show logical indexing in the last chapter, and that is not a coincidence. You can get everything from a data frame that you would get from a collection of 4 separate vectors... but there are advantages to keeping things in a data frame instead. 
 
-## Working with Multiple Vectors
 
-In the previous chapter, we learned how to make different vectors in R, numpy, and pandas. Consider for a moment https://worldpopulationreview.com/states, which lists the population of each state. (I'm going to cheat and read this in using pandas functions we haven't learned yet to demonstrate why this stuff matters.)
+In the previous chapter, we learned how to make different vectors in R, numpy, and pandas. Consider for a moment https://worldpopulationreview.com/states, which lists the population of each state. You can find this dataset in CSV form [here](https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/population2022.csv).
+
+::: ex
+
+<details><summary>Multiple vectors in Python</summary>
+(I'm going to cheat and read this in using pandas functions we haven't learned yet to demonstrate why this stuff matters.)
 
 ```{python read-state-pops}
 import pandas as pd
@@ -54,10 +59,162 @@ population2010.head()
 
 The only problem is that by doing this, we've now lost the ordering that matched across all 3 vectors. Pandas Series are great for this, because they use labels that allow us to reconstitute which value corresponds to which label, but in R or even in numpy arrays, vectors don't inherently come with labels. In these situations, sorting by one value can actually destroy the connection between two vectors!
 
+</details>
+
+:::
+
+::: ex
+
+<details><summary>Vector-based analysis in R</summary>
+
+```{r}
+df <- read.csv("https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/population2022.csv")
+
+# Use vectors instead of the data frame
+state <- df$State
+pop2022 <- df$Pop
+pop2021 <- df$Pop2021
+pop2010 <- df$Pop2010
+
+# Create a vector to index population in 2022 in order
+order2022 <- order(pop2022)
+
+# To keep variables together, we have to do things like this:
+head(state[order2022])
+head(pop2022[order2022])
+
+# It makes more sense just to reorder the whole data frame:
+head(df[order2022,])
+```
+
+</details>
+
+:::
+
+
 The primary advantage to data frames is that rows of data are kept together. Since we often think of a row of data as a single observation in a sample, this is an extremely important feature that makes data frames a huge improvement on a collection of vectors of the same length: it's much harder for observations in a single row to get shuffled around and mismatched!
 
-In R, data frames are built in as type `data.frame`, though there are packages that provide other implementations of data frames that have additional features, such as the `tibble` package used in many other common packages.
+In R, data frames are built in as type `data.frame`, though there are packages that provide other implementations of data frames that have additional features, such as the `tibble` package used in many other common packages. We will cover functions from both base R and the `tibble` package in this chapter.
 
 In Python, we will use the `pandas` library, which is conventionally abbreviated `pd`. So before you use any data frames in python, you will need to add the following line to your code: `import pandas as pd`.
 
 ## Creating Data Frames
+
+### From Scratch
+
+If you want to create a data frame "from scratch" in either R or python, the easiest way to do so is to construct a list of vectors.
+
+
+Data sourced from Wikipedia's [List of Oldest dogs](https://en.wikipedia.org/wiki/List_of_individual_dogs#Long-lived_dogs)
+
+::: ex
+
+<display><summary>Creating Data frames from scratch in R</summary>
+
+```{r}
+dog_names <- c("Bluey", "Bramble", "Chanel", "Max")
+dog_ages <- c(29.41, 25, 21, 29.77)
+
+# Using the data.frame function
+data <- data.frame(Name = dog_names, Age = dog_ages)
+data
+
+# Using the tibble function
+library(tibble)
+data <- tibble(Name = dog_names, Age = dog_ages)
+# Notice the difference in how the object is printed...
+data
+
+# Using the tribble function in the tibble package
+data <- tribble(~Name, ~Age,
+                "Bluey", 29.41,
+                "Bramble", 25,
+                "Chanel", 21,
+                "Max", 29.77) 
+# This allows you to write out the data yourself in table format
+# Column Names are indicated by putting ~ before the (bare) column name
+data
+```
+
+</details>
+
+:::
+
+
+::: ex
+
+<display><summary>Creating Data frames from scratch in python</summary>
+
+
+```{python}
+import pandas as pd
+
+# Create a list of lists
+data = [['Bluey', 29.41],
+        ['Bramble', 25],
+        ['Chanel', 21],
+        ['Max', 29.77]]
+        
+data = pd.DataFrame(data, columns = ['Name', 'Age'])
+
+# Create a dict with lists
+data = {'Name': ['Bluey', 'Bramble', 'Chanel', 'Max'],
+        'Age':  [29.41, 25, 21, 29.77]}
+
+data = pd.DataFrame(data)
+```
+
+I am intentionally not discussing dictionaries (dicts) in Python at this point - my goal is to get you  up and running to do data analysis in Python with as little overhead as possible. If you are interested, you can read up on [dicts](https://www.py4e.com/html3/09-dictionaries) in Python 4 Everybody. We will hopefully find time to come back and discuss the finer points of lists, dicts, tuples, and other constructs later in the semester or in a subsequent course.
+
+:::
+
+
+### Reading in Data
+
+One of the easier ways to create a data frame (rather than typing the whole thing in) is to read in data from somewhere else - a file, a table on a webpage, etc. We're not going to go into the finer points of this (you'll get into that in Stat 251, Data Wrangling), but it is important to at least know how to read in relatively nicely formatted data.
+
+One nice source of (relatively neat) data is the [TidyTuesday github repository](https://github.com/rfordatascience/tidytuesday)^[Tidy Tuesday is a collaborative project where the R community gets together and explores a dataset, cleaning it, visualizing it, and generally working to collectively hone R skills together. You can find some very nice YouTube livestreams, as well as lots of examples using the [#tidytuesday twitter tag](https://twitter.com/search?q=%23tidytuesday).]. 
+
+
+In Base R, we can read the data in using the `read.csv` function:
+
+```{r}
+airmen <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv')
+head(airmen)
+```
+
+If we want instead to create a tibble, we can use the `readr` package's `read_csv` function, which is a bit more robust:
+
+```{r}
+library(readr)
+airmen <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv')
+head(airmen)
+```
+
+In `pandas`, we can read the csv using `pd.read_csv`:
+
+```{python}
+import pandas as pd
+
+airmen = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv")
+airmen.head()
+```
+
+## Working with Data Frames
+
+### Indexing
+
+
+### Row and Column Names
+
+
+### Selecting Columns
+
+
+### Filtering Rows
+
+
+### Creating New Columns
+
+
+### Sorting
