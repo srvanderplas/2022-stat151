@@ -28,9 +28,13 @@ book:
   sharing: [twitter, facebook, linkedin]
   toc:
     collapse: section
+
 bibliography: references.bib
+
 engine: knitr
-pdf-engine: context
+
+#pdf-engine: context
+
 from: markdown+emoji
 
 format:
@@ -41,8 +45,8 @@ format:
 
   # pdf:
   #   documentclass: scrreport
-  epub:
-    cover-image: cover.png
+  #epub:
+  #  cover-image: cover.png
 
 editor: visual
 

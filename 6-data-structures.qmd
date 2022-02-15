@@ -1,5 +1,11 @@
 # Data Frames
 
+```{r include = F}
+# Need an r chunk to use the R engine, otherwise defaults to 
+# jupyter even with the flag set in _quarto.yml
+c()
+```
+
 <!-- data frames in R and Pandas -->
 
 In the previous chapter, we talked about homogeneous structures: arrangements of data, like vectors and matrices, where every entry in the larger structure has the same type. In this chapter, we'll be talking about the root of most data science analysis projects: the data frame. 
@@ -55,5 +61,3 @@ In R, data frames are built in as type `data.frame`, though there are packages t
 In Python, we will use the `pandas` library, which is conventionally abbreviated `pd`. So before you use any data frames in python, you will need to add the following line to your code: `import pandas as pd`.
 
 ## Creating Data Frames
-
-
