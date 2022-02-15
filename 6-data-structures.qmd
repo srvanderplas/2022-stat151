@@ -34,6 +34,9 @@ population2010 = pd.Series(data['2010 Census'].values, index = data['State'].val
 Suppose that we want to sort each population vector by the population in that year.
 
 ```{python read-state-pops2, dependson = 'read-state-pops'}
+import pandas as pd
+data = pd.read_html("https://worldpopulationreview.com/states")[0]
+
 population2022 = pd.Series(data['2022 Population'].values, index = data['State'].values).sort_values()
 population2021 = pd.Series(data['2021 Population'].values, index = data['State'].values).sort_values()
 population2010 = pd.Series(data['2010 Census'].values, index = data['State'].values).sort_values()
