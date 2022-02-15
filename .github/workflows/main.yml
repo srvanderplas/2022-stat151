@@ -34,9 +34,8 @@ jobs:
 
       - name: Setup python virtualenv
         run: |
-          reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy"))
+          reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy", "jupyter"))
           reticulate::py_install("testbook", pip = T, pip_options = c("-r requirements.txt", "--no-binary=numpy"))
-          reticulate::py_install("jupyter", pip = T)
         shell: Rscript {0}
 
       - name: "Install curl for Bioconductor"
