@@ -6,6 +6,18 @@
 c()
 ```
 
+## Aside: Data Pipes {-}
+
+Pipes are useful items for moving things from one place to another. In data programming, pipes are operators that let us move data around. In R, we have two primary pipes that are similar (you may see both used if you google for code online). Any R version after 4.1 has a built-in pipe, `|>`; the `tidyverse` libraries use a pipe from the `magrittr` package, `%>%`. 
+
+For right now, it's ok to think of the two pipes as essentially the same (but you can read about the differences [here](https://www.infoworld.com/article/3621369/use-the-new-r-pipe-built-into-r-41.html)). 
+
+Fundamentally, a pipe allows you to take a function `b()` and apply it to `x`, like `b(x)`, but write it as `x |> b()` or `x %>% b()`. This is particularly useful in cases where there are multiple sequential analysis steps, because where in regular notation you have to read the functions from the inside out to understand the sequential steps, with pipes, you have a clear step-by-step list of the order of operations. 
+
+
+In Python, there is a `pipe` function in the Pandas library that works using `.pipe(function)` notation. You can see [this example](https://stackoverflow.com/a/31037901) for more information. From what I've seen reading code online, however, pipes are less commonly used in Python code than they are in R code. That's ok - languages have different conventions, and it is usually best to adopt the convention of the language you're working in so that your code can be read, run, and maintained by others more easily. 
+
+
 ## Motivation: Working with Multiple Vectors
 <!-- data frames in R and Pandas -->
 
@@ -109,7 +121,7 @@ Data sourced from Wikipedia's [List of Oldest dogs](https://en.wikipedia.org/wik
 
 ::: ex
 
-<display><summary>Creating Data frames from scratch in R</summary>
+<details><summary>Creating Data frames from scratch in R</summary>
 
 ```{r}
 dog_names <- c("Bluey", "Bramble", "Chanel", "Max")
@@ -143,7 +155,7 @@ data
 
 ::: ex
 
-<display><summary>Creating Data frames from scratch in python</summary>
+<details><summary>Creating Data frames from scratch in python</summary>
 
 
 ```{python}
@@ -185,7 +197,7 @@ head(airmen)
 
 If we want instead to create a tibble, we can use the `readr` package's `read_csv` function, which is a bit more robust:
 
-```{r}
+```{r read-in-data-r}
 library(readr)
 airmen <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv')
 head(airmen)
@@ -193,7 +205,7 @@ head(airmen)
 
 In `pandas`, we can read the csv using `pd.read_csv`:
 
-```{python}
+```{python read-in-data-python}
 import pandas as pd
 
 airmen = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv")
@@ -202,16 +214,27 @@ airmen.head()
 
 ## Working with Data Frames
 
+### Summaries
+
+Often, we want to know what a data frame contains. R and pandas both have easy summary methods for a data frame:
+
+```{r}
+summary(airmen)
+```
+
+Notice that the type of summary depends on the data type.
+
+```{python}
+airmen.describe()
+```
+
+There are ways to get pandas to describe other types of data that are not numeric, but I haven't completely figured out how they work yet. See the documentation [here](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html) for further details.
+
 ### Indexing
 
 To access a subset of a data frame, we index by `[row, column]` in both languages (though in python we need a helper function tagged on the end of the object):
 
-
-```{python, error = T}
-import pandas as pd
-
-airmen = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv")
-
+```{python pandas-data-frame-indexing, error = T}
 # .iloc allows for integer location-based indexing
 airmen.iloc[0:4,] # leave the space for cols blank to get all columns
 airmen.iloc[0:4,[0, 3, 5]] # include a vector of column indices
@@ -222,10 +245,9 @@ airmen.loc[0:4,'name':'first_name'] # columns between name and first_name
 airmen.loc[0:4,[0,3,5]] # can't use position indexes with .loc
 ```
 
-```{r}
-library(readr)
-airmen <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv')
+This uses a function of pandas we have not previously explored: slicing. Slicing in pandas acts very similar to R's seq method for integers, in that you can set your start and end points and use : between them. However, in python, the last index is the (non-inclusive) endpoint, so 0:3 will give you 0, 1, 2. If you want all columns after a certain index, you can use `x:`, where x is the starting index.
 
+```{r r-data-frame-indexing}
 airmen[1:5, ]
 airmen[1:5, c(1, 4, 6)]
 
@@ -234,7 +256,7 @@ airmen[1:5, c("name", "first_name")]
 
 In R, we can also easily pull out a single column using the `$` method. Note that this gives us a vector (that is, we've lost the connection to the row index).
 
-```{r}
+```{r r-pull-out-column-data-frame}
 airmen$name[1:5]
 
 head(airmen["name"]) # head() just gives us the first few rows
@@ -242,19 +264,17 @@ head(airmen["name"]) # head() just gives us the first few rows
 
 In python, we can also easily pull out a single column:
 
-```{python}
-import pandas as pd
-
-airmen = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv")
-
+```{python pull-out-column-data-frame}
 airmen.name
 airmen['name']
 ```
 
+The `df.column` notation, called **attribute access** only works in some circumstances: where the column name is not the same as a method (e.g. `min`) and is a valid Python identifier (so `df.1` does not work). When attribute access does not work, you can still access the column by name using `df['colname']` (standard indexing). 
 
 ::: learn-more
 
-- [Indexing in python with pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#indexing-integer) (Pandas documentation)
+- [Indexing in python with pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html) (Pandas documentation)    
+This includes good information on which indexing operations are most efficient and recommended for production code.
 
 - [Slicing dataframes in R](https://bookdown.org/ndphillips/YaRrr/slicing-dataframes.html) - The Pirate's Guide to R
 
@@ -263,17 +283,162 @@ airmen['name']
 :::
 
 ### Row and Column Names
+In both R and python, data frames have two sets of names: a set of row names, and a set of column names. In my experience, it is much more common to use column names in R and less common to actually use row names^[More advanced data-frame like structures, such as `tibbles`, actively discourage the use of row names.]; in Python it seems that people tend to use both sets of names frequently. 
 
 
-### Selecting Columns
+#### Row and Column Names in Python
+
+Let's start with column names. Column names can be defined by creating a `Series` object (remember, that's just a fancy name for an indexed vector) and assigning it to the `df.columns` object, where `df` is the name of the data frame.
+
+```{python pandas-column-names, error = T}
+# Get index of column names
+airmen.columns
+
+# We can set the names using simple assignment
+airmen.columns = pd.Series(['Name', 'Last', 'First', 'Graduation_Date', 'Graduation_Rank', 'Class', 'Graduated_From', 'Pilot_Type', 'Hometown', 'State', 'Aerial_Victory_Credits', 'Num_Aerial_Victory_Credits', 'Reported_Lost', 'Reported_Lost_Date', 'Reported_Lost_Location', 'Web_Profile'])
+
+# Now the names are capitalized
+airmen.columns
+```
 
 
-### Filtering Rows
+```{python pandas-row-names, error = T}
+# Get index of row names
+airmen.index # this structure has numeric row names
+# we can access individual rows using the numeric index (iloc)
+airmen.iloc[0]
+# we can also access individual rows using the regular index (loc)
+airmen.loc[0]
+# this doesn't work because the row names are integers
+airmen.loc['Adams, John H., Jr.'] 
+
+# We can set row names using simple assignment
+airmen.index = airmen.name
+
+# Row names are changed
+airmen.index # now the row name index is a string and we can look names up this way
+
+# we can still access individual rows using the numeric index (iloc)
+airmen.iloc[0]
+# we can mo longer access individual rows using the regular index (loc) 
+# with a numeric value
+airmen.loc[0]
+# but because we set the row names to be the individuals actual names, 
+# we can use those in the .loc statement
+airmen.loc['Adams, John H., Jr.'] 
+```
+
+When we select certain rows using the row names, we typically refer to the row names as the **key**. 
+
+::: learn-more
+
+Read more about database keys [here](https://www.learncomputerscienceonline.com/database-keys/) if you are interested. This is material that we will cover in Stat 351, but it may be useful for you now if you are interested in learning to program more efficiently from the start.
+
+:::
+
+#### Row and Column Names in R
+
+In R, column and row names are just normal vectors - no special data types here!
+
+```{r r-column-names}
+names(airmen)
+
+# Set new column names
+names(airmen) <- c('Name', 'Last', 'First', 'Graduation_Date', 'Graduation_Rank', 'Class', 'Graduated_From', 'Pilot_Type', 'Hometown', 'State', 'Aerial_Victory_Credits', 'Num_Aerial_Victory_Credits', 'Reported_Lost', 'Reported_Lost_Date', 'Reported_Lost_Location', 'Web_Profile')
+
+# Using new names
+airmen$Name[1:5]
+```
+
+If we want to set row names in R, we can try the obvious approach:
+```{r r-row-names, error = T}
+rownames(airmen) <- airmen$Name
+```
+
+But this runs into trouble, since we have some duplicate names. We can see which names are duplicates by using the `table` command combined with `sort` and `head` to truncate the output. I'm going to use the `pipe` command, `|>`, to separate these steps. This is equivalent to `head(sort(table(airmen$Name), decreasing = T))` but is much easier to read since it can be read as a "recipe" of steps. 
+
+```{r duplicate-rownames-airmen-r}
+table(airmen$Name) |>
+  sort(decreasing = T) |>
+  head()
+```
+
+R requires rownames to be unique, so we are better off with some other identifier that we don't have here (SSN, military ID number, etc.) that is guaranteed to be unique. Since we don't have that kind of information, we really don't get any advantage by setting the rownames in R.
 
 
 ### Creating New Columns
 
+In both Python and R, it is very easy to add new (derived) columns to a data frame, using methods similar to how you access data from a pre-existing column:
 
-### Sorting
+```{r}
+airmen$initials <- paste0(substr(airmen$First, 1, 1), substr(airmen$Last, 1, 1))
+head(airmen$initials)
+```
 
+```{python}
+airmen['initials'] = airmen['First'].str.slice(0,1) + airmen['Last'].str.slice(0,1)
+airmen['initials'][0:7]
+```
+
+Another way to create new variables in R involves the use of the `dplyr` package. There are at least 2 advantages to using this package for these types of tasks: 
+
+1. There is a consistent way to call each function and engage with the data (this API - application programming interface - is designed around using the pipe, `%>%` discussed above)
+2. You don't have to reference the data frame name and the column name using `df$colname`; instead, you use the function on the data frame and work with "bare" column names inside that function.
+
+```{r}
+library(dplyr)
+
+airmen <- airmen %>%
+  mutate(initials = paste0(substr(First, 1, 1), substr(Last, 1, 1)))
+select(airmen, 1:3, initials) # Select lets us choose to only show some columns
+```
+
+Notice that by running mutate on the data frame, we automatically get a tibble back. 
+
+
+You can do a similar trick with the `.assign` function in pandas, but unlike in R, you still have to reference the dataframe object within the .assign function.
+
+```{python}
+airmen.assign(
+  initials = airmen['First'].str.slice(0,1) + airmen['Last'].str.slice(0,1)
+)
+```
+
+
+### Subsets of Rows
+
+Another major operation commonly performed on data frames is to choose only a certain set of rows, either randomly or using a logical condition. 
+
+In base R, we would use the subset() function:
+
+```{r}
+subset(airmen, Last == "Young")
+```
+
+In python, we use the `.query()` function:
+```{python}
+airmen.query('Last == "Young"')
+```
+
+Note that here, the column name (and logical condition) are in quotes, but you don't have to reference the data frame name.
+
+In `dplyr`, we use the `filter` function:
+```{r}
+airmen %>% 
+  filter(Last == "Young")
+```
+
+We can also sample from a data frame. This can be useful when working with a large dataset, or when simulating to determine how a method performs on some data. For simplicity, I'm going to primarily show you the dplyr and pandas equivalents - it is possible to do this in base R, but it's much easier to do in `dplyr`.
+
+```{r}
+airmen %>% sample_frac(.01)
+airmen %>% sample_n(5)
+```
+
+This is similarly easy in python:
+
+```{python}
+airmen.sample(frac=.01)
+airmen.sample(n = 5)
+```
 
