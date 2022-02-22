@@ -4,6 +4,7 @@
 # Need an r chunk to use the R engine, otherwise defaults to 
 # jupyter even with the flag set in _quarto.yml
 c()
+knitr::opts_chunk$set(collapse = T, message = F)
 ```
 
 ## Aside: Data Pipes {-}
@@ -16,6 +17,39 @@ Fundamentally, a pipe allows you to take a function `b()` and apply it to `x`, l
 
 
 In Python, there is a `pipe` function in the Pandas library that works using `.pipe(function)` notation. You can see [this example](https://stackoverflow.com/a/31037901) for more information. From what I've seen reading code online, however, pipes are less commonly used in Python code than they are in R code. That's ok - languages have different conventions, and it is usually best to adopt the convention of the language you're working in so that your code can be read, run, and maintained by others more easily. 
+
+
+::: tryitout
+
+<details><summary>Use the `rnorm` function in R to generate 100 draws from a standard normal distribution, then use the pipe to calculate the mean.</summary>
+
+```{r, collapse = T}
+library(dplyr) # load the pipe %>%
+
+rnorm(100) %>%
+  mean()
+
+rnorm(100) |> mean()
+```
+
+</details>
+
+<details><summary>Calculate the mean of 100 random normal variables in python.</summary>
+
+
+```{python, collapse = T}
+import numpy as np
+import pandas as pd
+
+nums = pd.Series(np.random.normal(size = 100))
+nums.mean()
+```
+
+The conclusion here is that it's far easier to not use the pipe in python because the `.function` notation that python uses mimics the step-by-step approach of pipes in R even without using the actual pipe function. When you use data frames instead of Series, you *might* start using the pipe, but only in some circumstances.
+
+</details>
+
+:::
 
 
 ## Motivation: Working with Multiple Vectors
@@ -157,7 +191,6 @@ data
 
 <details><summary>Creating Data frames from scratch in python</summary>
 
-
 ```{python}
 import pandas as pd
 
@@ -187,15 +220,20 @@ One of the easier ways to create a data frame (rather than typing the whole thin
 
 One nice source of (relatively neat) data is the [TidyTuesday github repository](https://github.com/rfordatascience/tidytuesday)^[Tidy Tuesday is a collaborative project where the R community gets together and explores a dataset, cleaning it, visualizing it, and generally working to collectively hone R skills together. You can find some very nice YouTube livestreams, as well as lots of examples using the [#tidytuesday twitter tag](https://twitter.com/search?q=%23tidytuesday).]. 
 
+::: ex
 
-In Base R, we can read the data in using the `read.csv` function:
+<details><summary>
+In Base R, we can read the data in using the `read.csv` function</summary>
 
 ```{r}
 airmen <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv')
 head(airmen)
 ```
 
-If we want instead to create a tibble, we can use the `readr` package's `read_csv` function, which is a bit more robust:
+</details>
+
+
+<details><summary>If we want instead to create a tibble, we can use the `readr` package's `read_csv` function, which is a bit more robust.</summary>
 
 ```{r read-in-data-r}
 library(readr)
@@ -203,7 +241,10 @@ airmen <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesda
 head(airmen)
 ```
 
-In `pandas`, we can read the csv using `pd.read_csv`:
+</details>
+
+<details><summary>
+In `pandas`, we can read the csv using `pd.read_csv`</summary>
 
 ```{python read-in-data-python}
 import pandas as pd
@@ -211,6 +252,10 @@ import pandas as pd
 airmen = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-08/airmen.csv")
 airmen.head()
 ```
+
+</details>
+
+:::
 
 ## Working with Data Frames
 
@@ -232,7 +277,9 @@ There are ways to get pandas to describe other types of data that are not numeri
 
 ### Indexing
 
-To access a subset of a data frame, we index by `[row, column]` in both languages (though in python we need a helper function tagged on the end of the object):
+To access a subset of a data frame, we index by `[row, column]` in both languages (though in python we need a helper function tagged on the end of the object).
+
+<details><summary>Indexing in python (lots of output)</summary>
 
 ```{python pandas-data-frame-indexing, error = T}
 # .iloc allows for integer location-based indexing
@@ -247,12 +294,19 @@ airmen.loc[0:4,[0,3,5]] # can't use position indexes with .loc
 
 This uses a function of pandas we have not previously explored: slicing. Slicing in pandas acts very similar to R's seq method for integers, in that you can set your start and end points and use : between them. However, in python, the last index is the (non-inclusive) endpoint, so 0:3 will give you 0, 1, 2. If you want all columns after a certain index, you can use `x:`, where x is the starting index.
 
+</details>
+
+<details><summary>Indexing in R</summary>
+
 ```{r r-data-frame-indexing}
 airmen[1:5, ]
 airmen[1:5, c(1, 4, 6)]
 
 airmen[1:5, c("name", "first_name")]
 ```
+
+</details>
+
 
 In R, we can also easily pull out a single column using the `$` method. Note that this gives us a vector (that is, we've lost the connection to the row index).
 
@@ -283,10 +337,10 @@ This includes good information on which indexing operations are most efficient a
 :::
 
 ### Row and Column Names
+
 In both R and python, data frames have two sets of names: a set of row names, and a set of column names. In my experience, it is much more common to use column names in R and less common to actually use row names^[More advanced data-frame like structures, such as `tibbles`, actively discourage the use of row names.]; in Python it seems that people tend to use both sets of names frequently. 
 
-
-#### Row and Column Names in Python
+<details><summary>Row and Column Names in Python</summary>
 
 Let's start with column names. Column names can be defined by creating a `Series` object (remember, that's just a fancy name for an indexed vector) and assigning it to the `df.columns` object, where `df` is the name of the data frame.
 
@@ -330,13 +384,16 @@ airmen.loc['Adams, John H., Jr.']
 
 When we select certain rows using the row names, we typically refer to the row names as the **key**. 
 
+</details>
+
+
 ::: learn-more
 
 Read more about database keys [here](https://www.learncomputerscienceonline.com/database-keys/) if you are interested. This is material that we will cover in Stat 351, but it may be useful for you now if you are interested in learning to program more efficiently from the start.
 
 :::
 
-#### Row and Column Names in R
+<details><summary> Row and Column Names in R</summary>
 
 In R, column and row names are just normal vectors - no special data types here!
 
@@ -357,7 +414,7 @@ rownames(airmen) <- airmen$Name
 
 But this runs into trouble, since we have some duplicate names. We can see which names are duplicates by using the `table` command combined with `sort` and `head` to truncate the output. I'm going to use the `pipe` command, `|>`, to separate these steps. This is equivalent to `head(sort(table(airmen$Name), decreasing = T))` but is much easier to read since it can be read as a "recipe" of steps. 
 
-```{r duplicate-rownames-airmen-r}
+```{r duplicate-rownames-airmen-r, error = T}
 table(airmen$Name) |>
   sort(decreasing = T) |>
   head()
@@ -365,6 +422,7 @@ table(airmen$Name) |>
 
 R requires rownames to be unique, so we are better off with some other identifier that we don't have here (SSN, military ID number, etc.) that is guaranteed to be unique. Since we don't have that kind of information, we really don't get any advantage by setting the rownames in R.
 
+</details>
 
 ### Creating New Columns
 
@@ -409,36 +467,142 @@ airmen.assign(
 
 Another major operation commonly performed on data frames is to choose only a certain set of rows, either randomly or using a logical condition. 
 
-In base R, we would use the subset() function:
+<details><summary>In base R, we would use the subset() function:</summary>
 
 ```{r}
 subset(airmen, Last == "Young")
 ```
 
-In python, we use the `.query()` function:
+</details>
+
+<details><summary>In python, we use the `.query()` function:</summary>
+
 ```{python}
 airmen.query('Last == "Young"')
 ```
 
 Note that here, the column name (and logical condition) are in quotes, but you don't have to reference the data frame name.
+</details>
 
-In `dplyr`, we use the `filter` function:
+<details><summary>In `dplyr`, we use the `filter` function:</summary>
+
 ```{r}
 airmen %>% 
   filter(Last == "Young")
 ```
 
-We can also sample from a data frame. This can be useful when working with a large dataset, or when simulating to determine how a method performs on some data. For simplicity, I'm going to primarily show you the dplyr and pandas equivalents - it is possible to do this in base R, but it's much easier to do in `dplyr`.
+</details>
+
+We can also sample from a data frame. This can be useful when working with a large dataset, or when simulating to determine how a method performs on some data. 
+
+For simplicity, I'm going to primarily show you the dplyr and pandas equivalents - it is possible to do this in base R, but it's much easier to do in `dplyr`.
+
+<details><summary>Sampling in R</summary>
 
 ```{r}
 airmen %>% sample_frac(.01)
 airmen %>% sample_n(5)
 ```
 
-This is similarly easy in python:
+</details>
+
+<details><summary>Sampling rows is similarly easy in python:</summary>
 
 ```{python}
 airmen.sample(frac=.01)
 airmen.sample(n = 5)
 ```
 
+</details>
+
+
+### Try it (all) Out! {.tryitout}
+
+Let's look at a dataset of dog breed rankings (1 = low, 5 = high) for different traits. We can read in this data using the following code:
+
+```{r}
+breed_traits <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv')
+```
+
+
+```{python}
+breed_traits = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv')
+```
+
+
+Can you complete the following tasks?
+
+1. Pull out any dogs that have "Terrier" in the name.    
+Hint: [Testing with strings in python](https://pandas.pydata.org/pandas-docs/stable/user_guide/text.html#testing-for-strings-that-match-or-contain-a-pattern), [Using `grep` and `grepl` in R](https://www.statology.org/grep-vs-grepl-r/)
+
+2. Create a data frame of all dogs who are 4 or 5 on "Affectionate with Family" and name it good_with_family. Make sure you keep all of the columns in the original data frame.
+
+3. Create a data frame with all variables relating to coat (shedding level, coat type, coat length, grooming frequency) as well as the dog breed. Make sure you keep all rows, but only include the necessary columns.
+
+4. Draw a random sample of 10 dogs from your dataset.
+
+5. Create a new variable, named mess, that is the product of the dog's shedding level and their drooling level. (It's probably a bad idea to multiply categorical variables, but in this case we're going to go with it.) Summarize this numeric variable.
+
+<details><summary>Solutions (R)</summary>
+
+```{r}
+library(dplyr) # data frame manipulations
+library(stringr) # string comparison functions in tidyverse
+
+# 1: Terriers
+terrorists <- breed_traits[grepl("Terrier", breed_traits$Breed),]
+terrorists2 <- breed_traits %>%
+  filter(str_detect(Breed, "Terrier"))
+
+# 2: Good with Family
+good_with_family <- breed_traits[breed_traits$Affectionate.With.Family > 3,]
+good_with_family2 <- breed_traits %>%
+  filter(Affectionate.With.Family > 3)
+
+# 3: Coat variables
+coat <- breed_traits[,c(1, 4:5, 7:8)] # count column by column
+coat2 <- breed_traits %>%
+  select(Breed, matches(c("Coat", "Grooming", "Shedding"))) # tidy way
+coat3 <- breed_traits[,grepl("Coat|Grooming|Shedding|Breed", names(breed_traits))] # match string names
+
+# 4: random sample of 10 dogs
+sample_dogs <- breed_traits[sample(1:nrow(breed_traits), 10),] # base R way
+sample_dogs2 <- breed_traits %>% sample_n(10) # tidy way
+
+# 5: mess
+breed_traits$mess <- breed_traits$Drooling.Level * breed_traits$Shedding.Level
+breed_traits <- breed_traits %>%
+  mutate(mess2 = Drooling.Level*Shedding.Level)
+
+summary(breed_traits$mess)
+breed_traits %>% select(mess2) %>% summary()
+```
+
+</details>
+
+
+<details><summary>Solutions (python) </summary>
+
+```{python}
+# 1: Terriers
+terrorists = breed_traits.loc[breed_traits.Breed.str.match(r".*Terrier.*"),]
+
+# 2: Good with Family
+good_with_family = breed_traits.query("`Affectionate With Family` > 3")
+good_with_family['Affectionate With Family'].min() # just checking
+
+# 3: Coat variables
+coat = breed_traits.loc[:,["Breed", "Shedding Level", "Coat Grooming Frequency", "Coat Type", "Coat Length"]]
+coat2 = breed_traits.iloc[:,breed_traits.columns.str.match(r"Breed|Coat|Shedding")]
+
+# 4: random sample of 10 dogs
+sample_dogs = breed_traits.sample(n = 10)
+
+# 5: mess
+breed_traits['mess'] = breed_traits['Drooling Level'] * breed_traits['Shedding Level']
+breed_traits.mess.describe
+breed_traits.mess.min()
+breed_traits.mess.max()
+```
+
+</details>
