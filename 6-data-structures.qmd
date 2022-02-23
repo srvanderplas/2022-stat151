@@ -211,6 +211,8 @@ data = pd.DataFrame(data)
 
 I am intentionally not discussing dictionaries (dicts) in Python at this point - my goal is to get you  up and running to do data analysis in Python with as little overhead as possible. If you are interested, you can read up on [dicts](https://www.py4e.com/html3/09-dictionaries) in Python 4 Everybody. We will hopefully find time to come back and discuss the finer points of lists, dicts, tuples, and other constructs later in the semester or in a subsequent course.
 
+</details>
+
 :::
 
 
@@ -515,8 +517,9 @@ airmen.sample(n = 5)
 
 </details>
 
+::: tryitout
 
-### Try it (all) Out! {.tryitout}
+### Try it (all) Out! 
 
 Let's look at a dataset of dog breed rankings (1 = low, 5 = high) for different traits. We can read in this data using the following code:
 
@@ -606,3 +609,5 @@ breed_traits.mess.max()
 ```
 
 </details>
+
+:::

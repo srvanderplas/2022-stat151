@@ -112,11 +112,12 @@ pre code {
               0 0 0 10px white;
 }
 
+/*
 .tryitout h1, .tryitout h2, .tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
   margin-top: 0 !important;
   margin-bottom:0 !important;
   color:var(--zomp);
-}
+}*/
 
 .learn-more{
   background-image:url(theme/learnmore.svg);
