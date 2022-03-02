@@ -606,3 +606,33 @@ breed_traits.mess.max()
 ```
 
 </details>
+
+
+## Basic Plotting Examples
+
+Now that you can read data in to R and python and define new variables, you can create plots! We'll focus a bit more on this later in the class, but for now, I'd like to take a few minutes to explain how to make (basic) plots in R (with `ggplot2`) and in python (with `plotnine`, which is a ggplot2 clone). 
+
+Let's work with Historically Black College and University enrollment in this example:
+
+```{r}
+hbcu_all <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-02/hbcu_all.csv')
+
+library(ggplot2)
+```
+
+```{python}
+from plotnine import *
+import pandas as pd
+
+hbcu_all <- pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-02/hbcu_all.csv')
+
+```
+
+ggplot2 and plotnine work with data frames. If you pass a data frame in as the data argument, you can refer to columns in that data with "bare" column names:
+
+```{r}
+
+ggplot(hbcu_all, aes(x = Year, y = `4-year`)) + geom_line() + 
+  ggtitle("4-year HBCU College Enrollment")
+
+```
