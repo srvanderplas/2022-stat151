@@ -650,3 +650,38 @@ ggplot(hbcu_all, aes(x = "Year", y = "4-year")) + geom_line() + \
   ggtitle("4-year HBCU College Enrollment")
 
 ```
+
+
+If your data is in the right format, ggplot2 is very easy to use; if your data aren't formatted neatly, it can be a real pain. If you want to plot multiple lines, you need to either list each variable you want to plot, one by one, or (more likely) you want to get your data into "long form". You don't need to know exactly how this works, but it is helpful to see the difference in the two datasets:
+
+```{r}
+library(tidyr)
+hbcu_long <- pivot_longer(hbcu_all, -Year, names_to = "type", values_to = "value")
+
+head(hbcu_all)
+head(hbcu_long)
+```
+
+```{python}
+hbcu_long = pd.melt(hbcu_all, id_vars = ['Year'], value_vars = hbcu_all.columns[1:11])
+
+```
+
+In the long form of the data, we have a row for each data point (year x measurement type), not for each year.
+
+```{r}
+
+ggplot(hbcu_long, aes(x = Year, y = value, color = type)) + geom_line() +
+  ggtitle("HBCU College Enrollment")
+
+```
+
+
+```{python}
+
+ggplot(hbcu_long, aes(x = "Year", y = "value", color = "variable")) + geom_line() + \
+  ggtitle("HBCU College Enrollment") + \
+  theme(subplots_adjust={'right':0.75}) # This moves the key so it takes up 25% of the area
+
+
+```
