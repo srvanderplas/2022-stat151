@@ -1,7 +1,7 @@
 # Data Structures
 
 ```{r include = F}
-# Need an r chunk to use the R engine, otherwise defaults to 
+# Need an r chunk to use the R engine, otherwise defaults to
 # jupyter even with the flag set in _quarto.yml
 c()
 knitr::opts_chunk$set(collapse = T, message = F)
@@ -9,14 +9,14 @@ knitr::opts_chunk$set(collapse = T, message = F)
 
 ## Aside: Data Pipes {-}
 
-Pipes are useful items for moving things from one place to another. In data programming, pipes are operators that let us move data around. In R, we have two primary pipes that are similar (you may see both used if you google for code online). Any R version after 4.1 has a built-in pipe, `|>`; the `tidyverse` libraries use a pipe from the `magrittr` package, `%>%`. 
+Pipes are useful items for moving things from one place to another. In data programming, pipes are operators that let us move data around. In R, we have two primary pipes that are similar (you may see both used if you google for code online). Any R version after 4.1 has a built-in pipe, `|>`; the `tidyverse` libraries use a pipe from the `magrittr` package, `%>%`.
 
-For right now, it's ok to think of the two pipes as essentially the same (but you can read about the differences [here](https://www.infoworld.com/article/3621369/use-the-new-r-pipe-built-into-r-41.html)). 
+For right now, it's ok to think of the two pipes as essentially the same (but you can read about the differences [here](https://www.infoworld.com/article/3621369/use-the-new-r-pipe-built-into-r-41.html)).
 
-Fundamentally, a pipe allows you to take a function `b()` and apply it to `x`, like `b(x)`, but write it as `x |> b()` or `x %>% b()`. This is particularly useful in cases where there are multiple sequential analysis steps, because where in regular notation you have to read the functions from the inside out to understand the sequential steps, with pipes, you have a clear step-by-step list of the order of operations. 
+Fundamentally, a pipe allows you to take a function `b()` and apply it to `x`, like `b(x)`, but write it as `x |> b()` or `x %>% b()`. This is particularly useful in cases where there are multiple sequential analysis steps, because where in regular notation you have to read the functions from the inside out to understand the sequential steps, with pipes, you have a clear step-by-step list of the order of operations.
 
 
-In Python, there is a `pipe` function in the Pandas library that works using `.pipe(function)` notation. You can see [this example](https://stackoverflow.com/a/31037901) for more information. From what I've seen reading code online, however, pipes are less commonly used in Python code than they are in R code. That's ok - languages have different conventions, and it is usually best to adopt the convention of the language you're working in so that your code can be read, run, and maintained by others more easily. 
+In Python, there is a `pipe` function in the Pandas library that works using `.pipe(function)` notation. You can see [this example](https://stackoverflow.com/a/31037901) for more information. From what I've seen reading code online, however, pipes are less commonly used in Python code than they are in R code. That's ok - languages have different conventions, and it is usually best to adopt the convention of the language you're working in so that your code can be read, run, and maintained by others more easily.
 
 
 ::: tryitout
@@ -55,7 +55,7 @@ The conclusion here is that it's far easier to not use the pipe in python becaus
 ## Motivation: Working with Multiple Vectors
 <!-- data frames in R and Pandas -->
 
-In the previous chapter, we talked about homogeneous structures: arrangements of data, like vectors and matrices, where every entry in the larger structure has the same type. In this chapter, we'll be talking about the root of most data science analysis projects: the data frame. 
+In the previous chapter, we talked about homogeneous structures: arrangements of data, like vectors and matrices, where every entry in the larger structure has the same type. In this chapter, we'll be talking about the root of most data science analysis projects: the data frame.
 
 Like an excel spreadsheet, data frames are arrangements of data in columns and rows.
 
@@ -66,7 +66,7 @@ This format has two main restrictions:
 
 ![A lego data frame of 4 columns and 12 rows. Each column is a separate color hue (data type), with slight variations in the hue of each individual bricks.](images/lego-data-frame.png)
 
-The picture above shows a data frame of 4 columns, each with a different data type (brick size/hue). The data frame has 12 rows. This picture may look similar to one that we used to show logical indexing in the last chapter, and that is not a coincidence. You can get everything from a data frame that you would get from a collection of 4 separate vectors... but there are advantages to keeping things in a data frame instead. 
+The picture above shows a data frame of 4 columns, each with a different data type (brick size/hue). The data frame has 12 rows. This picture may look similar to one that we used to show logical indexing in the last chapter, and that is not a coincidence. You can get everything from a data frame that you would get from a collection of 4 separate vectors... but there are advantages to keeping things in a data frame instead.
 
 
 In the previous chapter, we learned how to make different vectors in R, numpy, and pandas. Consider for a moment https://worldpopulationreview.com/states, which lists the population of each state. You can find this dataset in CSV form [here](https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/population2022.csv).
@@ -176,7 +176,7 @@ data <- tribble(~Name, ~Age,
                 "Bluey", 29.41,
                 "Bramble", 25,
                 "Chanel", 21,
-                "Max", 29.77) 
+                "Max", 29.77)
 # This allows you to write out the data yourself in table format
 # Column Names are indicated by putting ~ before the (bare) column name
 data
@@ -199,7 +199,7 @@ data = [['Bluey', 29.41],
         ['Bramble', 25],
         ['Chanel', 21],
         ['Max', 29.77]]
-        
+
 data = pd.DataFrame(data, columns = ['Name', 'Age'])
 
 # Create a dict with lists
@@ -220,7 +220,7 @@ I am intentionally not discussing dictionaries (dicts) in Python at this point -
 
 One of the easier ways to create a data frame (rather than typing the whole thing in) is to read in data from somewhere else - a file, a table on a webpage, etc. We're not going to go into the finer points of this (you'll get into that in Stat 251, Data Wrangling), but it is important to at least know how to read in relatively nicely formatted data.
 
-One nice source of (relatively neat) data is the [TidyTuesday github repository](https://github.com/rfordatascience/tidytuesday)^[Tidy Tuesday is a collaborative project where the R community gets together and explores a dataset, cleaning it, visualizing it, and generally working to collectively hone R skills together. You can find some very nice YouTube livestreams, as well as lots of examples using the [#tidytuesday twitter tag](https://twitter.com/search?q=%23tidytuesday).]. 
+One nice source of (relatively neat) data is the [TidyTuesday github repository](https://github.com/rfordatascience/tidytuesday)^[Tidy Tuesday is a collaborative project where the R community gets together and explores a dataset, cleaning it, visualizing it, and generally working to collectively hone R skills together. You can find some very nice YouTube livestreams, as well as lots of examples using the [#tidytuesday twitter tag](https://twitter.com/search?q=%23tidytuesday).].
 
 ::: ex
 
@@ -325,11 +325,11 @@ airmen.name
 airmen['name']
 ```
 
-The `df.column` notation, called **attribute access** only works in some circumstances: where the column name is not the same as a method (e.g. `min`) and is a valid Python identifier (so `df.1` does not work). When attribute access does not work, you can still access the column by name using `df['colname']` (standard indexing). 
+The `df.column` notation, called **attribute access** only works in some circumstances: where the column name is not the same as a method (e.g. `min`) and is a valid Python identifier (so `df.1` does not work). When attribute access does not work, you can still access the column by name using `df['colname']` (standard indexing).
 
 ::: learn-more
 
-- [Indexing in python with pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html) (Pandas documentation)    
+- [Indexing in python with pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html) (Pandas documentation)
 This includes good information on which indexing operations are most efficient and recommended for production code.
 
 - [Slicing dataframes in R](https://bookdown.org/ndphillips/YaRrr/slicing-dataframes.html) - The Pirate's Guide to R
@@ -340,7 +340,7 @@ This includes good information on which indexing operations are most efficient a
 
 ### Row and Column Names
 
-In both R and python, data frames have two sets of names: a set of row names, and a set of column names. In my experience, it is much more common to use column names in R and less common to actually use row names^[More advanced data-frame like structures, such as `tibbles`, actively discourage the use of row names.]; in Python it seems that people tend to use both sets of names frequently. 
+In both R and python, data frames have two sets of names: a set of row names, and a set of column names. In my experience, it is much more common to use column names in R and less common to actually use row names^[More advanced data-frame like structures, such as `tibbles`, actively discourage the use of row names.]; in Python it seems that people tend to use both sets of names frequently.
 
 <details><summary>Row and Column Names in Python</summary>
 
@@ -366,7 +366,7 @@ airmen.iloc[0]
 # we can also access individual rows using the regular index (loc)
 airmen.loc[0]
 # this doesn't work because the row names are integers
-airmen.loc['Adams, John H., Jr.'] 
+airmen.loc['Adams, John H., Jr.']
 
 # We can set row names using simple assignment
 airmen.index = airmen.name
@@ -376,15 +376,15 @@ airmen.index # now the row name index is a string and we can look names up this 
 
 # we can still access individual rows using the numeric index (iloc)
 airmen.iloc[0]
-# we can mo longer access individual rows using the regular index (loc) 
+# we can mo longer access individual rows using the regular index (loc)
 # with a numeric value
 airmen.loc[0]
-# but because we set the row names to be the individuals actual names, 
+# but because we set the row names to be the individuals actual names,
 # we can use those in the .loc statement
-airmen.loc['Adams, John H., Jr.'] 
+airmen.loc['Adams, John H., Jr.']
 ```
 
-When we select certain rows using the row names, we typically refer to the row names as the **key**. 
+When we select certain rows using the row names, we typically refer to the row names as the **key**.
 
 </details>
 
@@ -414,7 +414,7 @@ If we want to set row names in R, we can try the obvious approach:
 rownames(airmen) <- airmen$Name
 ```
 
-But this runs into trouble, since we have some duplicate names. We can see which names are duplicates by using the `table` command combined with `sort` and `head` to truncate the output. I'm going to use the `pipe` command, `|>`, to separate these steps. This is equivalent to `head(sort(table(airmen$Name), decreasing = T))` but is much easier to read since it can be read as a "recipe" of steps. 
+But this runs into trouble, since we have some duplicate names. We can see which names are duplicates by using the `table` command combined with `sort` and `head` to truncate the output. I'm going to use the `pipe` command, `|>`, to separate these steps. This is equivalent to `head(sort(table(airmen$Name), decreasing = T))` but is much easier to read since it can be read as a "recipe" of steps.
 
 ```{r duplicate-rownames-airmen-r, error = T}
 table(airmen$Name) |>
@@ -440,7 +440,7 @@ airmen['initials'] = airmen['First'].str.slice(0,1) + airmen['Last'].str.slice(0
 airmen['initials'][0:7]
 ```
 
-Another way to create new variables in R involves the use of the `dplyr` package. There are at least 2 advantages to using this package for these types of tasks: 
+Another way to create new variables in R involves the use of the `dplyr` package. There are at least 2 advantages to using this package for these types of tasks:
 
 1. There is a consistent way to call each function and engage with the data (this API - application programming interface - is designed around using the pipe, `%>%` discussed above)
 2. You don't have to reference the data frame name and the column name using `df$colname`; instead, you use the function on the data frame and work with "bare" column names inside that function.
@@ -453,7 +453,7 @@ airmen <- airmen %>%
 select(airmen, 1:3, initials) # Select lets us choose to only show some columns
 ```
 
-Notice that by running mutate on the data frame, we automatically get a tibble back. 
+Notice that by running mutate on the data frame, we automatically get a tibble back.
 
 
 You can do a similar trick with the `.assign` function in pandas, but unlike in R, you still have to reference the dataframe object within the .assign function.
@@ -467,7 +467,7 @@ airmen.assign(
 
 ### Subsets of Rows
 
-Another major operation commonly performed on data frames is to choose only a certain set of rows, either randomly or using a logical condition. 
+Another major operation commonly performed on data frames is to choose only a certain set of rows, either randomly or using a logical condition.
 
 <details><summary>In base R, we would use the subset() function:</summary>
 
@@ -489,13 +489,13 @@ Note that here, the column name (and logical condition) are in quotes, but you d
 <details><summary>In `dplyr`, we use the `filter` function:</summary>
 
 ```{r}
-airmen %>% 
+airmen %>%
   filter(Last == "Young")
 ```
 
 </details>
 
-We can also sample from a data frame. This can be useful when working with a large dataset, or when simulating to determine how a method performs on some data. 
+We can also sample from a data frame. This can be useful when working with a large dataset, or when simulating to determine how a method performs on some data.
 
 For simplicity, I'm going to primarily show you the dplyr and pandas equivalents - it is possible to do this in base R, but it's much easier to do in `dplyr`.
 
@@ -519,7 +519,7 @@ airmen.sample(n = 5)
 
 ::: tryitout
 
-### Try it (all) Out! 
+### Try it (all) Out!
 
 Let's look at a dataset of dog breed rankings (1 = low, 5 = high) for different traits. We can read in this data using the following code:
 
@@ -535,7 +535,7 @@ breed_traits = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 
 Can you complete the following tasks?
 
-1. Pull out any dogs that have "Terrier" in the name.    
+1. Pull out any dogs that have "Terrier" in the name.
 Hint: [Testing with strings in python](https://pandas.pydata.org/pandas-docs/stable/user_guide/text.html#testing-for-strings-that-match-or-contain-a-pattern), [Using `grep` and `grepl` in R](https://www.statology.org/grep-vs-grepl-r/)
 
 2. Create a data frame of all dogs who are 4 or 5 on "Affectionate with Family" and name it good_with_family. Make sure you keep all of the columns in the original data frame.
@@ -610,11 +610,10 @@ breed_traits.mess.max()
 
 </details>
 
-<<<<<<< HEAD
 
 ## Basic Plotting Examples
 
-Now that you can read data in to R and python and define new variables, you can create plots! We'll focus a bit more on this later in the class, but for now, I'd like to take a few minutes to explain how to make (basic) plots in R (with `ggplot2`) and in python (with `plotnine`, which is a ggplot2 clone). 
+Now that you can read data in to R and python and define new variables, you can create plots! We'll focus a bit more on this later in the class, but for now, I'd like to take a few minutes to explain how to make (basic) plots in R (with `ggplot2`) and in python (with `plotnine`, which is a ggplot2 clone).
 
 Let's work with Historically Black College and University enrollment in this example:
 
@@ -636,10 +635,10 @@ ggplot2 and plotnine work with data frames. If you pass a data frame in as the d
 
 ```{r}
 
-ggplot(hbcu_all, aes(x = Year, y = `4-year`)) + geom_line() + 
+ggplot(hbcu_all, aes(x = Year, y = `4-year`)) + geom_line() +
   ggtitle("4-year HBCU College Enrollment")
 
 ```
-=======
+
 :::
 >>>>>>> cfaf4a0ea04a2604c1f45d8481e3b25f59789cf0
