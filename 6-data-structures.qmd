@@ -610,6 +610,8 @@ breed_traits.mess.max()
 
 </details>
 
+:::
+
 
 ## Basic Plotting Examples
 
@@ -627,11 +629,11 @@ library(ggplot2)
 from plotnine import *
 import pandas as pd
 
-hbcu_all <- pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-02/hbcu_all.csv')
+hbcu_all = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-02/hbcu_all.csv')
 
 ```
 
-ggplot2 and plotnine work with data frames. If you pass a data frame in as the data argument, you can refer to columns in that data with "bare" column names:
+ggplot2 and plotnine work with data frames. If you pass a data frame in as the data argument, you can refer to columns in that data with "bare" column names (you don't have to reference the full data object using `df$name` or `df.name`; you can instead use `name` or `"name"`):
 
 ```{r}
 
@@ -640,5 +642,11 @@ ggplot(hbcu_all, aes(x = Year, y = `4-year`)) + geom_line() +
 
 ```
 
-:::
->>>>>>> cfaf4a0ea04a2604c1f45d8481e3b25f59789cf0
+
+
+```{python}
+
+ggplot(hbcu_all, aes(x = "Year", y = "4-year")) + geom_line() + \
+  ggtitle("4-year HBCU College Enrollment")
+
+```
