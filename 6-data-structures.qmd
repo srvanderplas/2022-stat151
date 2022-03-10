@@ -261,21 +261,34 @@ airmen.head()
 
 ## Working with Data Frames
 
-### Summaries
+### Summaries (part 1)
 
 Often, we want to know what a data frame contains. R and pandas both have easy summary methods for a data frame:
 
 ```{r}
 summary(airmen)
+
+library(skimr) # Fancier summaries
+skim(airmen)
 ```
 
 Notice that the type of summary depends on the data type.
 
 ```{python}
-airmen.describe()
+# All variables - strings are summarized with NaNs
+airmen.describe(include = 'all')
+
+# Only summarize numeric variables
+airmen.describe(include = [np.number])
+
+# Only summarize string variables (objects)
+airmen.describe(include = ['O'])
+
+# Get counts of how many NAs in each column
+airmen.info(show_counts=True)
 ```
 
-There are ways to get pandas to describe other types of data that are not numeric, but I haven't completely figured out how they work yet. See the documentation [here](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html) for further details.
+In pandas, you will typically want to separate out .describe() calls for numeric and non-numeric columns. Another handy function in pandas is .info(), which you can use to show the number of non-NA values. This is particularly useful in sparse datasets where there may be a LOT of missing values and you may want to find out which columns have useful information for more than just a few rows.
 
 ### Indexing
 
@@ -518,6 +531,116 @@ airmen.sample(n = 5)
 </details>
 
 ::: tryitout
+
+### Summaries (part 2)
+
+Using subsets of rows and columns, we can also create summaries of data frames that are more customized to what we want. This is particularly powerful when we combine it with material we learned in the previous chapter: for loops.
+
+::: note
+
+There are more efficient ways to generate summaries than what I will show you here, but it's important to see how for loops might apply to this use case before we talk about ways to do this using e.g. the `dplyr` package in R. This will help you understand what those more efficient functions are doing "under the hood".
+
+:::
+
+If we want to create a data frame that has one row for each unique value of a variable in our source data, we can iterate through the data taking subsets and creating a set of summary variables that are customized to our problem.
+
+Suppose we want to take the `airmen` data and calculate the total number of aerial victory credits from each state. 
+
+::: ex
+
+We start out with the following game plan:
+
+1. Create an empty summary dataset. We plan for the result to have one row for each state.
+
+2. Iterate through the states in the dataset
+
+3. For each state, subset the data within the loop to get only values from that state
+
+4. Calculate the total number of aerial victory credits
+
+5. Add a row to the summary dataset with the values from the state
+
+6. Exit the loop
+
+We want to check and make sure that the reported aerial victory credit count is what we're expecting:
+
+```{r}
+table(airmen$Num_Aerial_Victory_Credits, useNA = 'ifany')
+```
+
+```{python}
+airmen['Num_Aerial_Victory_Credits'].value_counts()
+```
+
+<details><summary>Creating a summary dataset in R with a loop</summary>
+
+```{r}
+# Create an empty data frame to store the results
+state_victories <- data.frame(State = NULL, total_victory_credits = NULL)
+
+for (i in unique(airmen$State)) {
+  # Get a subset of the data with only airmen from the selected state
+  state_sub <- filter(airmen, State == i)
+  
+  victory_credits <- sum(state_sub$Num_Aerial_Victory_Credits)
+  
+  # Append our row for this state onto the summary data frame
+  state_victories <- rbind(
+    state_victories, 
+    data.frame(State = i, total_victory_credits = victory_credits)
+  )
+  
+}
+
+state_victories %>%
+  arrange(desc(total_victory_credits)) # Sort in descending order
+
+```
+
+</details>
+
+<details><summary>Creating a summary dataset in python with a loop</summary>
+
+```{python}
+# Create an empty data frame to store the results
+state_victories = pd.DataFrame(columns = ['state', 'total_victory_credits'])
+
+for i in airmen.State.unique():
+  # Get a subset of the data with only airmen from the selected state
+  state_sub = airmen.loc[airmen.State == i]
+  
+  victory_credits = state_sub['Num_Aerial_Victory_Credits'].sum()
+  
+  state_victories.loc[i] = [i, victory_credits]
+
+state_victories. \
+sort_values(["total_victory_credits"], ascending = False). \
+iloc[1:10,]
+# Putting slashes at the end of the line here allows me to separate
+# the operations into steps, rather like using a pipe in R
+# It only works if nothing is after the \ though, so 
+# I have to put the comment below the code instead of inline
+```
+
+Writing this code from scratch, not knowing Python that well, required the following google queries and pages:
+
+- **python summary table**: https://pbpython.com/sidetable.html (I didn't use sidetable, but I did use the pandas code here that shows how to use `.value_counts()`)
+
+- **create an empty pandas dataframe**: [Query result](https://www.geeksforgeeks.org/how-to-create-an-empty-dataframe-and-append-rows-columns-to-it-in-pandas/). I used Method 3.
+
+- **unique values in python**: [Query result (not helpful)](https://www.geeksforgeeks.org/python-get-unique-values-list/). This worked for numpy but not for pandas series/dataframe columns.
+
+- **pandas column unique values**: [Query result (helpful)](https://www.statology.org/pandas-unique-values-in-column/)
+
+- **pandas sort decreasing**: [Query result](https://www.adamsmith.haus/python/answers/how-to-sort-a-pandas-dataframe-in-descending-order-in-python)
+
+Because I outlined my steps above, though, I could figure out pretty easily how to google for exactly what I needed at each step. Writing out the steps ahead of time, and knowing how to work using data frames and row-by-row operations helps with googling solutions that work!
+
+</details>
+
+:::
+
+
 
 ### Try it (all) Out!
 
