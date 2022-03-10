@@ -1,0 +1,19 @@
+Package: stat151book
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("Susan", "Vanderplas", email = "srvander@iastate.edu", 
+            role = c("aut", "cre"),
+            comment = c(ORCID = "0000-0002-3803-0972")),    
+Description: Book for Stat 151 at UNL
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Depends: R (>= 3.6)
+Imports: xml2 (>= 1.2.0),
+         readr (>= 1.1.1),
+         dplyr (>= 0.8.3),
+Remotes: github::hadley/emo
+
