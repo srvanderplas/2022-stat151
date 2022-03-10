@@ -530,7 +530,6 @@ airmen.sample(n = 5)
 
 </details>
 
-::: tryitout
 
 ### Summaries (part 2)
 
@@ -641,6 +640,7 @@ Because I outlined my steps above, though, I could figure out pretty easily how 
 :::
 
 
+::: tryitout
 
 ### Try it (all) Out!
 
