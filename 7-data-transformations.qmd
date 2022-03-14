@@ -247,6 +247,7 @@ In order to move from wide format to long format, we need to specify at least 2 
 For most simple cases, if we have 2 of these 3 things, the pivot operation will go on as planned. Sadly, python and R require different defaults for which things are necessary, even if the fundamental operation is the same in each language.
 
 
+<!-- https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot.html -->
 
 <details><summary>In R, wide-to-long conversions are performed using `pivot_longer()`</summary>
 
@@ -310,36 +311,25 @@ Because wide-to-long transformations end up combining values from several column
 
 Now, let's look at a "real data" example using HIV case data from the World Health Organization.  ([download page here](https://apps.who.int/gho/data/view.main.22500A?lang=en)).
 <details><summary>WHO HIV data set up</summary>
+
 ```{r rw-hiv-data-R}
 url <- "https://apps.who.int/gho/athena/data/xmart.csv?target=GHO/HIV_0000000026,SDGHIV&profile=crosstable&filter=COUNTRY:*;REGION:*;AGEGROUP:-&x-sideaxis=COUNTRY&x-topaxis=GHO;YEAR;SEX&x-collapse=true"
 
 # create colnames in shorter form
-hiv <- read_csv(url, na = "No data", ) %>%
+hiv <- read.csv(url, na = "No data", ) %>%
   select(-2) # get rid of only column that has raw totals
 
 # work with the names to make them shorter and more readable
-# otherwise, they're too long for SAS
 newnames <- names(hiv)  %>%
+  # Remove extra details
   str_remove("New HIV infections \\(per 1000 uninfected population\\); ") %>%
+  # replace year;sex format with something more readable
   str_replace_all("(\\d{4}); (Male|Female|Both)( sexes)?", "Rate_\\1_\\2")
 hiv <- set_names(hiv, newnames) %>%
   # transliterate - get rid of non-ascii characters, replace w/ closest equiv
-  mutate(Country = iconv(Country, to="ASCII//TRANSLIT"))
-
-write_csv(hiv, path = "data/who_hiv.csv", na = '.') # make it easy for SAS
+  mutate(Country = iconv(Country, to = "ASCII//TRANSLIT"))
 ```
-Since I've cheated a bit to make this easier to read in using SAS... hopefully that will be uneventful. 
-```{r read-hiv-data-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
-libname classdat "sas/";
 
-filename fileloc 'data/who_hiv.csv';
-PROC IMPORT  datafile = fileloc out=classdat.hiv REPLACE
-DBMS = csv; /* comma delimited file */
-GUESSINGROWS=500;
-GETNAMES = YES;
-RUN;
-
-```
 </details>
 
 <details><summary>Original Data Structure (WHO HIV data)</summary>
@@ -407,52 +397,6 @@ hiv_tidy
 <details><summary>Wide-to-long transformation in SAS (WHO HIV data) </summary>
 I've thoroughly commented the code below to hopefully make the logical steps clear. 
 
-```{r sas-transpose-hiv-clean, error = T, warning = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
-libname classdat "sas/";
-
-PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
-(rename=(col1=rate)) /* "values_to" in tidyr speak */
-NAME = key;          /* "names_to" in tidyr speak */
-/* specify notsorted unless you know your data are sorted */
-  BY Country NOTSORTED; 
-/* variables to transpose - just list start and end, with -- in between  */
-  VAR Rate_2018_Both--Rate_1990_Female; 
-RUN;
-
-title 'Intermediate result'; 
-PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
-
-/* Data step to clean up */
-DATA classdat.hivtidy;
-  SET classdat.hivtidy ;
-/* Create group and year variables from key */
-  group = scan(key,3,"_");
-  year = input(scan(key, 2, "_"), 4.);
-  
-/* just get rid of the less than sign */
-  rate = PRXCHANGE("s/&lt;//", -1, rate);
-  rate = PRXCHANGE("s/[\[\]-]//", -1, rate);
-  
-/* Create 3 columns for the 3 values - est, lb, ub */
-  length v1-v3 4.2; /* define format */
-  array v(3) $; /* create a 3 column array to store values in */
-  do i = 1 to dim(v);
-    v[i]=scan(rate, i, ' '); /* get values from each row of rate */
-  end;
-  
-  rename v1 = est v2 = lb v3 = ub; /* rename things to be pretty */
-  
-/* get rid of extra vars */
-  drop _name_ i key rate;
-RUN;
-
-title 'Final result'; 
-PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
-
-```
-```{r sas-reset-title, include = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
-title;
-```
 </details>
 
 #### Try it out {- .tryitout}
@@ -503,55 +447,7 @@ filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
 ```
 </details>
 
-<details><summary>SAS solution</summary>
-```{r sas-tryitout-surveillance-cleaning, fig.path = "image/", collectcode=T,include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
-ODS HTML style=HTMLblue;
-```
-```{sashtml measles-bangladesh-sas, fig.path = "image/", collectcode=T, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
-libname classdat "sas/";
 
-filename fileloc 'data/who_disease_incidence.csv';
-PROC IMPORT  datafile = fileloc out=classdat.who_disease REPLACE
-DBMS = csv; /* comma delimited file */
-GUESSINGROWS=500;
-GETNAMES = YES;
-RUN;
-
-/* Sort your data by the variables you want as the ID variables */
-PROC SORT DATA=classdat.who_disease OUT=who_dis_tmp;
-BY Disease Cname;
-RUN;
-
-PROC TRANSPOSE DATA = who_dis_tmp OUT = classdat.disease_long;
-BY Disease Cname; /* Same variable order as used to sort */
-VAR _2018--_1980; /* variables to transpose */
-RUN;
-
-title 'Intermediate result 1'; 
-PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
-
-/* Data step to clean up */
-DATA classdat.disease_long;
-SET classdat.disease_long (rename=col1=cases);
-year = input(scan(_name_,1,"_"), 4.);
-drop _name_;
-RUN;
-
-title 'Final result'; 
-PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
-
-PROC SQL;
-CREATE TABLE bangladesh AS
-SELECT * FROM classdat.disease_long WHERE (Cname = "Bangladesh") & (Disease = "measles");
-
-title 'Measles in Bangladesh'; 
-ODS GRAPHICS ON;
-PROC SGPLOT DATA=bangladesh;
-SERIES X = year Y = cases;
-RUN;
-ODS GRAPHICS OFF;
-```
-</details>
 
 ### Wider
 
@@ -570,39 +466,7 @@ table2 %>%
   pivot_wider(names_from = type, values_from = count)
 ```
 </details>
-<details><summary>In SAS, we use PROC TRANSPOSE again</summary>
-```{r pivot-wider-proc-transpose, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
-DATA table2;
-input country $12. year  type$12. count 12.;
-datalines;
-Afghanistan  1999 cases              745
-Afghanistan  1999 population    19987071
-Afghanistan  2000 cases             2666
-Afghanistan  2000 population    20595360
-Brazil       1999 cases            37737
-Brazil       1999 population   172006362
-Brazil       2000 cases            80488
-Brazil       2000 population   174504898
-China        1999 cases           212258
-China        1999 population  1272915272
-China        2000 cases           213766
-China        2000 population  1280428583
-;
 
-PROC TRANSPOSE DATA=table2 out=table2tmp;
-ID type; /* Equivalent to names_from */
-BY country year;  /* The combination of BY variables defines a row */
-VAR count; /* Equivalent to values_from */
-RUN;
-
-PROC PRINT DATA=table2tmp;
-RUN;
-```
-</summary>
-
-::: warning
-If you don't sort your data properly before PROC TRANSPOSE in SAS, you may get a result that has an unexpected shape. SAS works rowwise (compared to R's column-wise operations) so the row order actually matters in SAS (it generally doesn't matter much in R). 
-:::
 
 Returning to our WHO HIV example, we might want our data to look like this:
 
@@ -655,25 +519,6 @@ hiv_tidy %>%
   pivot_wider(names_from = group, values_from = value)
 ```
 </details>
-<details><summary>WHO HIV Data: long-to-wide in SAS</summary>
-In SAS, we can do the pivot operations in one step, but we have to sort everything first. 
-```{r long-to-wide-hiv-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
-libname classdat "sas/";
-
-PROC SORT DATA = classdat.hivtidy;
-BY Country year group;
-RUN;
-
-PROC TRANSPOSE DATA = classdat.hivtidy OUT = hivtmp name = measure;
-BY Country year;
-VAR est lb ub;
-ID group;
-RUN;
-
-PROC PRINT data=hivtmp(obs=5);
-RUN;
-```
-</details>
 
 #### Try it out {- .tryitout}
 Use the long-format data you have from the previous Try It Out section (WHO Disease Incidence). Reshape this data into a "wide" format such that each disease is shown in a separate column. 
@@ -693,43 +538,6 @@ who_disease_wide %>%
   filter(Country %in% c("Guatemala", "Central African Republic (the)", "Pakistan")) %>%
   select(Country, year, polio) %>%
   ggplot(aes(x = year, y = polio, color = Country)) + geom_line()
-```
-</details>
-
-<details><summary>SAS solution</summary>
-```{r tryitout-disease-wide-sas-setup, fig.path = "image/", collectcode=T,include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
-ODS HTML style=HTMLblue;
-```
-```{r tryitout-disease-wide-sas, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts,  error = T}
-libname classdat "sas/";
-
-PROC SORT DATA = classdat.disease_long OUT = dis_long;
-BY Cname year; /* Variables we want to define rows of data */
-RUN;
-
-PROC TRANSPOSE DATA = dis_long OUT = classdat.disease_wide;
-ID Disease; /* Variable we want to name columns of data */
-VAR cases; /* Variable we want to be the values in each column */
-BY Cname year; /* These define a single row */
-RUN;
-
-title 'Polio incidence'; 
-PROC SGPLOT DATA=classdat.disease_wide 
-/* We can use a where clause in the DATA statement, if we want */
-  (WHERE=(Cname in ("Mexico", "Guatemala", "Pakistan")));
-/* Specify the colors to use for lines */
-styleattrs datacontrastcolors= (green orange purple);
-/* Map variables to axes */
-SERIES X = year Y = polio / 
-  /* Color lines by Country */
-  GROUP = Cname
-  /* Give the color mapping a name so you can modify its legend */
-  name = "a"
-  /* Make lines thicker so they are visible */
-  lineattrs=(thickness = 3);
-/* Change the legend title and what it is showing (line color) */
-KEYLEGEND "a" / title = "Country" type = linecolor;
-RUN;
 ```
 </details>
 
