@@ -1,0 +1,736 @@
+# Data Transformations
+
+```{r data-transform-setup, include = F}
+# Need an r chunk to use the R engine, otherwise defaults to
+# jupyter even with the flag set in _quarto.yml
+c()
+knitr::opts_chunk$set(collapse = T, message = F)
+```
+
+
+> Happy families are all alike; every unhappy family is unhappy in its own way. - Leo Tolstoy
+
+> Tidy datasets are all alike, but every messy dataset is messy in its own way. - Hadley Wickham
+
+
+Most of the time, data does not come in a format suitable for analysis. Spreadsheets are generally optimized for data *viewing*, rather than for statistical analysis - they may be laid out so that there are multiple observations in a single row (e.g., commonly a year's worth of data, with monthly observations in each column).
+
+Unfortunately, this type of data structure is not usually useful to us when we analyze or visualize the data.
+
+
+## Identifying the problem: Messy data
+
+```{r tidy-package-setup, message = F, warning = F}
+library(dplyr) # Data wrangling
+library(tidyr) # Data rearranging
+library(tibble) # data table
+```
+
+These datasets all display the same data: TB cases documented by the WHO in Afghanistan, Brazil, and China, between 1999 and 2000. There are 4 variables: country, year, cases, and population, but each table has a different layout.
+
+```{r tidy1, echo = F}
+knitr::kable(table1, caption = "Table 1")
+```
+
+Here, each observation is a single row, each variable is a column, and everything is nicely arranged for e.g. regression or statistical analysis. We can easily compute another measure, such as cases per 100,000 population, by taking cases/population * 100000 (this would define a new column).
+
+
+```{r tidy2, echo = F}
+knitr::kable(table2, caption = "Table 2")
+```
+
+Here, we have 4 columns again, but we now have 12 rows: one of the columns is an indicator of which of two numerical observations is recorded in that row; a second column stores the value. This form of the data is more easily plotted in e.g. ggplot2, if we want to show lines for both cases and population, but computing per capita cases would be much more difficult in this form than in the arrangement in table 1.
+
+
+In this form, we have two tables - one for population, and one for cases. Each year's observations are in a separate column. This format is often found in separate sheets of an excel workbook. To work with this data, we'll need to transform each table so that there is a column indicating which year an observation is from, and then merge the two tables together by country and year.
+
+
+```{r tidy3, echo = F}
+knitr::kable(table3, caption = "Table 3")
+```
+
+This form has only 3 columns, because the rate variable (which is a character) stores both the case count and the population. We can't do *anything* with this format as it stands, because we can't do math on data stored as characters. However, this form might be easier to read and record for a human being.
+
+
+```{r tidy4, echo = F}
+knitr::kable(table4a, caption = "Table 4a")
+knitr::kable(table4b, caption = "Table 4b")
+```
+
+```{r tidy5, echo = F}
+knitr::kable(table5, caption = "Table 5")
+```
+
+Table 5 is very similar to table 3, but the year has been separated into two columns - century, and year. This is more common with year, month, and day in separate columns  (or date and time in separate columns), often to deal with the fact that spreadsheets don't always handle dates the way you'd hope they would.
+
+
+These variations highlight the principles which can be said to define a tidy dataset:
+1. Each variable must have its own column
+2. Each observation must have its own row
+3. Each value must have its own cell
+
+<div class="tryitout">
+
+### Try it out {-}
+Go back through the 5 tables and determine whether each table is tidy, and if it is not, which rule or rules it violates. Figure out what you would have to do in order to compute a standardized TB infection rate per 100,000 people.
+
+<details><summary>Solution</summary>
+
+1. table1 - this is tidy data. Computing a standardized infection rate is as simple as creating the variable rate = cases/population*100,000.
+
+2. table2 - each variable does not have its own column (so a single year's observation of one country actually has 2 rows). Computing a standardized infection rate requires moving cases and population so that each variable has its own column, and then you can proceed using the process in 1.
+
+3. table3 - each value does not have its own cell (and each variable does not have its own column). In Table 3, you'd have to separate the numerator and denominator of each cell, convert each to a numeric variable, and then you could proceed as in 1.
+
+4. table4a and table 4b - there are multiple observations in each row because there is not a column for year. To compute the rate, you'd need to "stack" the two columns in each table into a single column, add a year column that is 1999, 1999, 1999, 2000, 2000, 2000, and then merge the two tables. Then you could proceed as in 1.
+
+5. table 5 - each variable does not have its own column (there are two columns for year, in addition to the issues noted in table3). Computing the rate would be similar to table 3; the year issues aren't actually a huge deal unless you plot them, at which point 99 will seem to be bigger than 00 (so you'd need to combine the two year columns together first).
+
+</details>
+
+</div>
+
+It is actually impossible to have a table that violates only one of the rules of tidy data - you have to violate at least two. So a simpler way to state the rules might be:
+
+1. Each dataset goes into its own table
+2. Each variable gets its own column
+
+By the end of this course, you should have the skills to "tidy" each of these tables.
+
+## Pivot operations
+
+It's fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren't necessarily the most friendly for analysis. 
+
+![Image showing wide format and long format tables containing the same data. Image from https://github.com/kelseygonzalez/tidyexplain.](https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/master/images/static/png/original-dfs-tidy.png)
+
+The two operations we'll learn here are wide -> long and long -> wide. 
+
+![GIF showing the transition from wide format to long format and back using pivot_wider and pivot_longer commands. Image from https://github.com/kelseygonzalez/tidyexplain.](https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/wider_longer/images/tidyr-pivot_wider_longer.gif)
+
+This animation uses the R functions pivot_wider() and pivot_longer() [Animation source](https://github.com/kelseygonzalez/tidyexplain/tree/wider_longer), but the concept is the same in both R and python. 
+
+### Longer
+
+In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable. 
+
+Tables 4a and 4b are good examples of data which is in "wide" form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.  
+
+```{r longer-pivot-demo}
+table4a
+table4b
+```
+
+The solution to this is to rearrange the data into "long form": to take the columns which contain values and "stack" them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn't being stacked (e.g. country, in both the example above and the image below). 
+
+```{r tidyr-pivot-longer-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_longer operation looks like in practice."}
+knitr::include_graphics("images/tidyr_pivot_longer.png")
+```
+
+Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we'll have tidy(er) data. 
+
+#### Manual Method {.ex}
+
+We can do the wide-to-long transition manually, and doing so is actually instructive.
+
+Consider the following table of average daily temperatures observed in Lincoln, NE in January 2022. This data is recorded in human-friendly form, in the approximate shape of a calendar. Each week has its own row, and each day has its own column.
+
+![Initial data table](images/manual-wide-to-long-table.png)
+
+Open up the [spreadsheet](data/2022-temperatures-lincoln.xlsx) containing this table on your computer and let's work through converting it to long format together. 
+
+<details><summary>
+To convert this data to long format, the first thing we need to do is create a new column: Day_of_Week
+</summary>
+
+![Adding Day_of_Week column](images/manual-wide-to-long-table-1.png)
+
+</details>
+
+<details><summary>
+Then, we need to create a temperature column to hold the daily average temperature values.
+</summary>
+
+![Adding Temperature column](images/manual-wide-to-long-table-2.png)
+</details>
+
+<details><summary>
+Now that we have the 3 columns our data will fit into set up, we can start moving data over.
+</summary>
+
+First, we will repeat Sunday for each of the first 5 rows in Column B, copying the values from column D into the Temperature column (Column C). Once that is done, we delete the Sunday column from our dataset to prevent duplication.
+
+![Copying Sunday into Column B](images/manual-wide-to-long-table-3.png)
+
+![Copying Temperature into Column C](images/manual-wide-to-long-table-4.png)
+
+![Deleting data to prevent duplication](images/manual-wide-to-long-table-5.png)
+
+</details>
+
+<details><summary>
+Duplicating repeated data and moving Monday data over
+</summary>
+We then duplicate the 5 week values, so that we can move another column of data over into our long format table.
+
+![Duplicating Week 1-5 values](images/manual-wide-to-long-table-6.png)
+
+![Copying Monday into Column B](images/manual-wide-to-long-table-7.png)
+
+![Copying Temperature into Column C](images/manual-wide-to-long-table-8.png)
+
+![Deleting data to prevent duplication](images/manual-wide-to-long-table-9.png)
+
+</details>
+
+
+<details><summary>
+Duplicating repeated data and moving Tuesday data over
+</summary>
+We then duplicate the 5 week values, so that we can move another column of data over into our long format table.
+
+![Duplicating Week 1-5 values](images/manual-wide-to-long-table-10.png)
+
+![Copying Tuesday into Column B](images/manual-wide-to-long-table-11.png)
+
+![Copying Temperature into Column C](images/manual-wide-to-long-table-12.png)
+
+![Deleting data to prevent duplication](images/manual-wide-to-long-table-13.png)
+
+</details>
+
+<details><summary>
+Repeat these steps for each additional column
+</summary>
+
+
+![Wednesday data](images/manual-wide-to-long-table-14.png)
+
+![Thursday data](images/manual-wide-to-long-table-15.png)
+
+This process is repeated for the additional days, resulting in a final data set that looks like this:
+
+![Final (long) data set](images/manual-wide-to-long-table-16.png)
+
+</details>
+
+<details><summary>
+Arranging the data for plotting
+</summary>
+
+To do something useful with this data, we might want to sort by Week number to get a chronological ordering of the temperature values:
+
+![Sorted by Week](images/manual-wide-to-long-table-17.png)
+
+We could even add a new variable, Day_of_Year, which would make it much easier to plot. We have data starting January 1, so in this case, the day component of the date is also the day of the year.
+
+![Adding Day of Year](images/manual-wide-to-long-table-18.png)
+
+![Plotting the Data](images/manual-wide-to-long-table-19.png)
+
+</details>
+
+You may at this point be wondering why we don't just do this operation by hand... and it's because copy-paste isn't reproducible. I can't guarantee that whomever did the copy-paste operation clicked on the correct cell in the spreadsheet, selected the correct values, and so on. But when I run the same code on the same file, I can be much more certain that I'll get the same results.
+
+(Also, it takes forever to do the copy-paste operations manually, and I'm sure you have better ways to use your valuable time!)
+
+#### Computational Approach
+
+In order to move from wide format to long format, we need to specify at least 2 of 3 possible quantities:
+
+1. The values to keep to determine rows (the key)    
+![The values determine which rows are unique](images/pivot-specification-key.png)
+2. The columns to merge into "long" form, where the column names are stored as a new variable    
+![The column names are turned into values of a new "label" column](images/pivot-specification-columns.png)
+3. The values of interest    
+![The value of interest is transformed into a new (long) single column](images/pivot-specification-values.png)
+
+For most simple cases, if we have 2 of these 3 things, the pivot operation will go on as planned. Sadly, python and R require different defaults for which things are necessary, even if the fundamental operation is the same in each language.
+
+
+
+<details><summary>In R, wide-to-long conversions are performed using `pivot_longer()`</summary>
+
+```{r tidyr-pivot-longer-demo2}
+tba <- table4a %>% 
+  pivot_longer(-country, names_to = "year", values_to = "cases")
+tbb <- table4b %>% 
+  pivot_longer(-country, names_to = "year", values_to = "population")
+
+# To get the tidy data, we join the two together
+# merging by country and year
+left_join(tba, tbb, by = c("country", "year")) %>%
+  # make year numeric b/c it's dumb not to
+  mutate(year = as.numeric(year))
+
+```
+
+The columns are moved to a variable with the name passed to the argument "names_to" (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument "values_to" (again, hopefully easy to remember). 
+
+We identify ID variables (variables which we don't want to pivot) by not including them in the pivot statement. We can do this in one of two ways:
+
+- select only variables we want to pivot: `pivot_longer(table4a, cols = `1999`:`2000`, names_to = "year", values_to = "cases")`
+- select variables we don't want to pivot, using `-` to remove them. (see above, where `-country` excludes country from the pivot operation)
+
+Which option is easier depends how many things you're pivoting (and how the columns are structured). 
+
+If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form. 
+
+```{r tidyr-pivot-longer-id}
+# Create ID columns
+table4a.x <- table4a %>% mutate(id = "cases")
+table4b.x <- table4b %>% mutate(id = "population")
+# Create one table
+table4 <- bind_rows(table4a.x, table4b.x)
+
+table4_long <- table4 %>%
+  # rearrange columns
+  select(country, id, `1999`, `2000`) %>%
+  # Don't pivot country or id
+  pivot_longer(-c(country:id), names_to = "year", values_to = "count")
+
+# Intermediate fully-long form
+table4_long
+
+# make wider, with case and population columns
+table4_tidy <- table4_long %>%
+  pivot_wider(names_from = id, values_from = count)
+
+table4_tidy
+```
+
+</details>
+
+It's not too complicated -- and it definitely beats doing that operation by hand, even for short, simple tables. You can imagine how messy the cut/copy/paste job would be in Excel. 
+
+It takes some getting used to, but once you get a feel for how to do these transpose operations, you'll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output. 
+
+::: warning
+Because wide-to-long transformations end up combining values from several columns into a single column, you can run into issues with type conversions that happen implicitly. If you try to `pivot_longer()` using a character column mixed in with numeric columns, your "value" column will be converted to a character automatically. 
+:::
+
+Now, let's look at a "real data" example using HIV case data from the World Health Organization.  ([download page here](https://apps.who.int/gho/data/view.main.22500A?lang=en)).
+<details><summary>WHO HIV data set up</summary>
+```{r rw-hiv-data-R}
+url <- "https://apps.who.int/gho/athena/data/xmart.csv?target=GHO/HIV_0000000026,SDGHIV&profile=crosstable&filter=COUNTRY:*;REGION:*;AGEGROUP:-&x-sideaxis=COUNTRY&x-topaxis=GHO;YEAR;SEX&x-collapse=true"
+
+# create colnames in shorter form
+hiv <- read_csv(url, na = "No data", ) %>%
+  select(-2) # get rid of only column that has raw totals
+
+# work with the names to make them shorter and more readable
+# otherwise, they're too long for SAS
+newnames <- names(hiv)  %>%
+  str_remove("New HIV infections \\(per 1000 uninfected population\\); ") %>%
+  str_replace_all("(\\d{4}); (Male|Female|Both)( sexes)?", "Rate_\\1_\\2")
+hiv <- set_names(hiv, newnames) %>%
+  # transliterate - get rid of non-ascii characters, replace w/ closest equiv
+  mutate(Country = iconv(Country, to="ASCII//TRANSLIT"))
+
+write_csv(hiv, path = "data/who_hiv.csv", na = '.') # make it easy for SAS
+```
+Since I've cheated a bit to make this easier to read in using SAS... hopefully that will be uneventful. 
+```{r read-hiv-data-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
+libname classdat "sas/";
+
+filename fileloc 'data/who_hiv.csv';
+PROC IMPORT  datafile = fileloc out=classdat.hiv REPLACE
+DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
+GETNAMES = YES;
+RUN;
+
+```
+</details>
+
+<details><summary>Original Data Structure (WHO HIV data)</summary>
+```{r hiv-data-structure}
+hiv %>%
+  # Only look at 1st 6 cols, because there are too many
+  select(1:6) %>%
+  head()
+```
+Here, the column names (except for the first column) contain information about both group (Male, Female, total) and year. If we want to plot values over time, we're not going to have much fun. 
+</details>
+
+Thinking through the logical steps before writing the code can be helpful - even sketching out what you expect the data to (roughly) look like at each stage. 
+
+Current data observations: 
+
+- Our column names contain the year and the group (Both, Male, Female)
+- Our values contain estimates with a confidence interval - so est (LB, UB)
+    - Some intervals have `&lt;`, which is HTML code for `<`. We'll need to get rid of those.
+
+
+Our final dataset should look like this:
+
+Country | group | year | est | lb | ub
+------- | ----- | ---- | --- | -- | --
+narnia  | both  | 2020 | 0.3 | 0.2 | 0.4
+
+(give or take column order, capitalization, and/or reality)
+
+From this, our steps are:
+
+1. Transpose the data - all columns except Country (our BY variable)
+2. Separate the (what was column names) variable into group and year variables
+    - convert year to numeric
+3. Separate the (what was column values) variable into EST, LB, and UB columns
+    - Remove `&lt;` from the variable so that it's readable as numeric
+    - Remove `[`, `]` and `-` from the variable so that the values are separated by spaces
+    - Read each value into a separate column that's  numeric
+    - Rename the columns
+4. Clean up any extra variables hanging around.
+
+Now that we have a plan, lets execute that plan
+
+
+<details><summary>Wide-to-long transformation in R  (WHO HIV data)</summary>
+```{r hiv-tidyr}
+hiv_tidier <- hiv %>%
+  pivot_longer(-Country, names_to = "key", values_to = "rate")
+hiv_tidier
+```
+From this point, it's pretty easy to use things we've used in the past (regular expressions, separate, extract)
+
+```{r hiv-tidyr-separate-mutate-extract}
+ hiv_tidy <- hiv_tidier %>%
+  # Split the key into Rate (don't keep), year, and group (F, M, Both)
+  separate(key, into = c(NA, "year", "group"), sep = "_", convert = T) %>%
+  # Fix the HTML sign for less than - we could remove it as well
+  mutate(rate = str_replace_all(rate, "&lt;", "<")) %>%
+  # Split the rate into estimate, lower bound, and upper bound
+  extract(rate, into = c("est", "lb", "ub"), regex = "([\\d\\.]{1,}) .([<\\d\\.]{1,}) - ([<\\d\\.]{1,}).", remove = T)
+hiv_tidy
+```
+</details>
+
+<details><summary>Wide-to-long transformation in SAS (WHO HIV data) </summary>
+I've thoroughly commented the code below to hopefully make the logical steps clear. 
+
+```{r sas-transpose-hiv-clean, error = T, warning = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
+libname classdat "sas/";
+
+PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
+(rename=(col1=rate)) /* "values_to" in tidyr speak */
+NAME = key;          /* "names_to" in tidyr speak */
+/* specify notsorted unless you know your data are sorted */
+  BY Country NOTSORTED; 
+/* variables to transpose - just list start and end, with -- in between  */
+  VAR Rate_2018_Both--Rate_1990_Female; 
+RUN;
+
+title 'Intermediate result'; 
+PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
+
+/* Data step to clean up */
+DATA classdat.hivtidy;
+  SET classdat.hivtidy ;
+/* Create group and year variables from key */
+  group = scan(key,3,"_");
+  year = input(scan(key, 2, "_"), 4.);
+  
+/* just get rid of the less than sign */
+  rate = PRXCHANGE("s/&lt;//", -1, rate);
+  rate = PRXCHANGE("s/[\[\]-]//", -1, rate);
+  
+/* Create 3 columns for the 3 values - est, lb, ub */
+  length v1-v3 4.2; /* define format */
+  array v(3) $; /* create a 3 column array to store values in */
+  do i = 1 to dim(v);
+    v[i]=scan(rate, i, ' '); /* get values from each row of rate */
+  end;
+  
+  rename v1 = est v2 = lb v3 = ub; /* rename things to be pretty */
+  
+/* get rid of extra vars */
+  drop _name_ i key rate;
+RUN;
+
+title 'Final result'; 
+PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
+
+```
+```{r sas-reset-title, include = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
+title;
+```
+</details>
+
+#### Try it out {- .tryitout}
+In the next section, we'll be using the WHO surveillance of disease incidence data ([link](https://www.who.int/immunization/monitoring_surveillance/data/en/) - 3.1, [Excel link](http://www.who.int/entity/immunization/monitoring_surveillance/data/incidence_series.xls))
+
+It will require some preprocessing before it's suitable for a demonstration. I'll do some of it, but in this section, you're going to do the rest :)
+
+```{r tryitout-who-surveillance}
+library(readxl)
+library(purrr) # This uses the map() function as a replacement for for loops. 
+# It's pretty sweet
+
+sheets <- excel_sheets("data/incidence_series.xls")
+sheets <- sheets[-c(1, length(sheets))] # get rid of 1st and last sheet name
+
+# This command says "for each sheet, read in the excel file with that sheet name"
+# map_df means paste them all together into a single data frame
+disease_incidence <- map_df(sheets, ~read_xls(path ="data/incidence_series.xls", sheet = .))
+
+# Alternately, we could write a loop:
+disease_incidence2 <- tibble() # Blank data frame
+for(i in 1:length(sheets)) {
+  disease_incidence2 <- bind_rows(
+    disease_incidence2, 
+    read_xls(path = "data/incidence_series.xls", sheet = sheets[i])
+  )
+}
+
+# export for SAS (and R, if you want)
+write_csv(disease_incidence, path = "data/who_disease_incidence.csv", na = ".")
+```
+Download the exported data [here](data/who_disease_incidence.csv) and import it into SAS and R. Transform it into long format, so that there is a year column. You should end up with a table that has dimensions of approximately 6 columns and 83,000 rows (or something close to that). 
+
+Can you make a line plot of cases of measles in Bangladesh over time?
+
+<details><summary>R solution</summary>
+```{r tryitout-surveillance-cleaning}
+who_disease <- read_csv("data/who_disease_incidence.csv", na = ".")
+
+who_disease_long <- who_disease %>%
+  pivot_longer(matches("\\d{4}"), names_to = "year", values_to = "cases") %>%
+  rename(Country = Cname) %>%
+  mutate(Disease = str_replace(Disease, "CRS", "Congenital Rubella"),
+         year = as.numeric(year))
+
+filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
+  ggplot(aes(x = year, y = cases)) + geom_line()
+```
+</details>
+
+<details><summary>SAS solution</summary>
+```{r sas-tryitout-surveillance-cleaning, fig.path = "image/", collectcode=T,include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
+ODS HTML style=HTMLblue;
+```
+```{sashtml measles-bangladesh-sas, fig.path = "image/", collectcode=T, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
+libname classdat "sas/";
+
+filename fileloc 'data/who_disease_incidence.csv';
+PROC IMPORT  datafile = fileloc out=classdat.who_disease REPLACE
+DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
+GETNAMES = YES;
+RUN;
+
+/* Sort your data by the variables you want as the ID variables */
+PROC SORT DATA=classdat.who_disease OUT=who_dis_tmp;
+BY Disease Cname;
+RUN;
+
+PROC TRANSPOSE DATA = who_dis_tmp OUT = classdat.disease_long;
+BY Disease Cname; /* Same variable order as used to sort */
+VAR _2018--_1980; /* variables to transpose */
+RUN;
+
+title 'Intermediate result 1'; 
+PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
+
+/* Data step to clean up */
+DATA classdat.disease_long;
+SET classdat.disease_long (rename=col1=cases);
+year = input(scan(_name_,1,"_"), 4.);
+drop _name_;
+RUN;
+
+title 'Final result'; 
+PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
+
+PROC SQL;
+CREATE TABLE bangladesh AS
+SELECT * FROM classdat.disease_long WHERE (Cname = "Bangladesh") & (Disease = "measles");
+
+title 'Measles in Bangladesh'; 
+ODS GRAPHICS ON;
+PROC SGPLOT DATA=bangladesh;
+SERIES X = year Y = cases;
+RUN;
+ODS GRAPHICS OFF;
+```
+</details>
+
+### Wider
+
+While it's very common to need to transform data into a longer format, it's not that uncommon to need to do the reverse operation. When an observation is scattered across multiple rows, your data is too long and needs to be made wider again.  
+
+Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be "tidy" - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows. 
+
+
+```{r pivot-wider-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_wider operation looks like in practice."}
+knitr::include_graphics("image/tidyr_pivot_wider.png")
+```
+
+<details><summary>In R, long-to-wide conversion operations are performed using `pivot_wider()`</summary>
+```{r pivot-wider-demo}
+table2 %>%
+  pivot_wider(names_from = type, values_from = count)
+```
+</details>
+<details><summary>In SAS, we use PROC TRANSPOSE again</summary>
+```{r pivot-wider-proc-transpose, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
+DATA table2;
+input country $12. year  type$12. count 12.;
+datalines;
+Afghanistan  1999 cases              745
+Afghanistan  1999 population    19987071
+Afghanistan  2000 cases             2666
+Afghanistan  2000 population    20595360
+Brazil       1999 cases            37737
+Brazil       1999 population   172006362
+Brazil       2000 cases            80488
+Brazil       2000 population   174504898
+China        1999 cases           212258
+China        1999 population  1272915272
+China        2000 cases           213766
+China        2000 population  1280428583
+;
+
+PROC TRANSPOSE DATA=table2 out=table2tmp;
+ID type; /* Equivalent to names_from */
+BY country year;  /* The combination of BY variables defines a row */
+VAR count; /* Equivalent to values_from */
+RUN;
+
+PROC PRINT DATA=table2tmp;
+RUN;
+```
+</summary>
+
+::: warning
+If you don't sort your data properly before PROC TRANSPOSE in SAS, you may get a result that has an unexpected shape. SAS works rowwise (compared to R's column-wise operations) so the row order actually matters in SAS (it generally doesn't matter much in R). 
+:::
+
+Returning to our WHO HIV example, we might want our data to look like this:
+
+Country | year | measurement | Both | Male | Female
+------- | ---- | ----------- | ---- | ---- | ------
+Afghanistan | 2018 | est | .02 | .03 | .01
+ | 2018 | lb | .01 | .02 | .01
+ | 2018 | ub | .04 | .06 | .03
+ 
+As a reminder, the data currently looks like this: 
+```{r data-view-hiv}
+hiv_tidy
+```
+ 
+::: tryitout
+
+Think through the steps you'd need to take to get the data into this form. Sketch out any intermediate state your data will need to go through.
+
+:::
+
+<details><summary>WHO HIV Data: long-to-wide steps</summary>
+1. We need est, lb, and ub in long form first, so we need to use a wide-to-long (pivot_longer) transpose operation.
+    - names_to = "measure"
+    - values_to = "value"
+    - BY variables: Country, year, group
+    - pivot variables (VAR in SAS): est, lb, ub
+
+2. We need group to be 3 columns: Both, Male, and Female. So we need to use a long-to-wide (pivot_wider) transpose operation. 
+    - By variables: Country, year, measure (so we'll need to sort in SAS)
+    - ID variable: group
+    - VAR variable: value
+    
+The intermediate form of the data will look like this:
+
+Country | year | group | measure | value
+------ | ---- | ---- | ----- | -----
+Afghanistan | 2018 | Both | est | 0.02
+Afghanistan | 2018 | Both | lb | 0.01
+Afghanistan | 2018 | Both | ub | 0.04
+Afghanistan | 2018 | Male | est | 0.03
+
+</details>
+
+<details><summary>WHO HIV Data: long-to-wide in R</summary>
+```{r long-to-wide-hiv-R}
+hiv_tidy %>%
+  pivot_longer(est:ub, names_to = "measure", values_to = "value") %>%
+  # Take the opportunity to transform everything to numeric at once...
+  mutate(value = parse_number(value)) %>%
+  pivot_wider(names_from = group, values_from = value)
+```
+</details>
+<details><summary>WHO HIV Data: long-to-wide in SAS</summary>
+In SAS, we can do the pivot operations in one step, but we have to sort everything first. 
+```{r long-to-wide-hiv-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
+libname classdat "sas/";
+
+PROC SORT DATA = classdat.hivtidy;
+BY Country year group;
+RUN;
+
+PROC TRANSPOSE DATA = classdat.hivtidy OUT = hivtmp name = measure;
+BY Country year;
+VAR est lb ub;
+ID group;
+RUN;
+
+PROC PRINT data=hivtmp(obs=5);
+RUN;
+```
+</details>
+
+#### Try it out {- .tryitout}
+Use the long-format data you have from the previous Try It Out section (WHO Disease Incidence). Reshape this data into a "wide" format such that each disease is shown in a separate column. 
+
+Before you start: 
+- Which variable(s) will uniquely identify a row in your output data?
+- Which variable(s) will be used to create column names?
+
+Can you create a plot of polio cases over time for your 3 favorite countries?
+
+<details><summary>R solution</summary>
+```{r tryitout-disease-wide-R}
+who_disease_wide <- who_disease_long %>%
+  pivot_wider(id_cols = c(Country, year), names_from = Disease, values_from = cases)
+
+who_disease_wide %>%
+  filter(Country %in% c("Guatemala", "Central African Republic (the)", "Pakistan")) %>%
+  select(Country, year, polio) %>%
+  ggplot(aes(x = year, y = polio, color = Country)) + geom_line()
+```
+</details>
+
+<details><summary>SAS solution</summary>
+```{r tryitout-disease-wide-sas-setup, fig.path = "image/", collectcode=T,include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
+ODS HTML style=HTMLblue;
+```
+```{r tryitout-disease-wide-sas, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts,  error = T}
+libname classdat "sas/";
+
+PROC SORT DATA = classdat.disease_long OUT = dis_long;
+BY Cname year; /* Variables we want to define rows of data */
+RUN;
+
+PROC TRANSPOSE DATA = dis_long OUT = classdat.disease_wide;
+ID Disease; /* Variable we want to name columns of data */
+VAR cases; /* Variable we want to be the values in each column */
+BY Cname year; /* These define a single row */
+RUN;
+
+title 'Polio incidence'; 
+PROC SGPLOT DATA=classdat.disease_wide 
+/* We can use a where clause in the DATA statement, if we want */
+  (WHERE=(Cname in ("Mexico", "Guatemala", "Pakistan")));
+/* Specify the colors to use for lines */
+styleattrs datacontrastcolors= (green orange purple);
+/* Map variables to axes */
+SERIES X = year Y = polio / 
+  /* Color lines by Country */
+  GROUP = Cname
+  /* Give the color mapping a name so you can modify its legend */
+  name = "a"
+  /* Make lines thicker so they are visible */
+  lineattrs=(thickness = 3);
+/* Change the legend title and what it is showing (line color) */
+KEYLEGEND "a" / title = "Country" type = linecolor;
+RUN;
+```
+</details>
+
+Congratulations! You now know how to reshape your data into all sorts of different formats. Use this knowledge wisely. 

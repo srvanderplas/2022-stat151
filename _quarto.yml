@@ -14,6 +14,7 @@ book:
     - 4-data-types.qmd
     - 5-vectors.qmd
     - 6-data-structures.qmd
+    - 7-data-transformations.qmd
     - reading-data.qmd
     - functions.qmd
     - statistics.qmd
