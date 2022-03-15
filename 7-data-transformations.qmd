@@ -277,6 +277,39 @@ We identify ID variables (variables which we don't want to pivot) by not includi
 Which option is easier depends how many things you're pivoting (and how the columns are structured). 
 </details>
 
+<details><summary>Some notes on selecting variables in R</summary>
+Note: These details really only apply to the `tidyverse` - a series of R packages including `dplyr` and `tidyr`, among others.
+
+There are many different ways you can select variables in tidyverse functions:
+
+- a character vector of column names passed to helper functions `all_of` and `any_of`. `all_of` will throw an error if something in the vector is missing, `any_of` will select anything that matches an entry in the vector but won't error out if it doesn't find some variable.
+
+- Using a pattern, such as `starts_with`, `ends_with`, `contains`, `matches`, and `num_range`. These functions take a single character string as an argument and select all columns that match the character string in the way indicated by the function name.
+
+- `everything` matches all variables
+
+- `last_col` matches the last column
+
+You can also use logical operators `!` (taking the complement), `&` and `|` (and/or), `c()` to combine selections, and `:` to select a range of consecutive variables.
+
+```{r iris-selection-demo}
+data(iris)
+
+library(tidyselect) # this is the library with all of the functions described above
+# it is automatically loaded with dplyr, tidyr, etc.
+
+head(iris)
+iris %>% select(matches("Sepal"))
+iris %>% select(!matches("Sepal"))
+iris %>% select(ends_with("Width"))
+
+iris %>% select(Sepal.Length:Petal.Length)
+```
+
+These selection helpers can be extremely useful when choosing columns to pivot.
+
+</details>
+
 <details><summary>Conversion using wide-to-long and merge/join statements in Python</summary>
 A similar operation can be done  in python using pd.melt. Think of "melting" your data down from a metal object to a liquid. (There actually used to be an R package that used cast/melt as the terms for pivot wider/longer, but it has been superseded by pivot_wider and pivot_longer syntax).
 
@@ -413,4 +446,58 @@ pd.pivot(table2, index = ['country', 'year'], columns = 'type', values = 'count'
 # We can get rid of the index by adding a .reset_index() to the end of the command
 pd.pivot(table2, index = ['country', 'year'], columns = 'type', values = 'count').reset_index()
 ```
+</details>
+
+### Try it out! {- .tryitout}
+
+Let's work with the dog breed traits data to see if we can get it into long format and then back into wide format based on some specific criteria. 
+
+```{r dog-breeds-data-r}
+breed_traits <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv') %>%
+  # There's something funky with the spaces in this data frame... so make them ASCII
+  # (this fixes the encoding issues)
+  mutate(Breed = iconv(Breed, to = "ASCII//translit"))
+```
+
+```{python dog-breeds-data-py}
+breed_traits = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv')
+
+breed_traits[breed_traits.Breed == 'Russell Terriers']
+
+breed_traits.Breed[10]
+```
+
+You may remember that the breed trait data includes a number of 1-5 numeric variables indicating score on various dimensions such as affection, shedding, openness, and playfulness. 
+
+**Task 1**: Take all of the 1-5 numeric variables in the dataset and make a long-format dataset. **Choose 5 breeds of your choice**. Then, using your dataset, plot each breed's score, with each dimension as a separate facet. 
+
+Your code in ggplot2 would look something like this:
+
+```{r, eval = F}
+ggplot(long_data, aes(x = breed, y = value)) + geom_col() + facet_wrap(~variable)
+```
+
+And in plotnine, it would look something like this:
+
+```{python, eval = F}
+from plotnine import *
+ggplot(long_data, aes(x = "breed", y = "value")) + geom_col() + facet_wrap('variable')
+```
+
+
+<details><summary>R solution</summary>
+
+```{r tryitout-solution-r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+breed_traits %>%
+  filter(gsub(" ", '', Breed) %in% c("Beagles", "Dachshunds", "Samoyeds", "RussellTerriers", "LhasaApsos")) %>%
+  # Remove variables that aren't 1-5
+  pivot_longer(-c(Breed, Coat.Type, Coat.Length), names_to = "Trait", values_to = "value") %>%
+  ggplot(aes(x = Breed, y = value)) + geom_col() + facet_wrap(~Trait)
+
+```
+
 </details>
