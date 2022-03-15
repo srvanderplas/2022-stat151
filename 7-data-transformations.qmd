@@ -239,8 +239,10 @@ In order to move from wide format to long format, we need to specify at least 2 
 
 1. The values to keep to determine rows (the key)    
 ![The values determine which rows are unique](images/pivot-specification-key.png)
+
 2. The columns to merge into "long" form, where the column names are stored as a new variable    
 ![The column names are turned into values of a new "label" column](images/pivot-specification-columns.png)
+
 3. The values of interest    
 ![The value of interest is transformed into a new (long) single column](images/pivot-specification-values.png)
 
@@ -249,7 +251,7 @@ For most simple cases, if we have 2 of these 3 things, the pivot operation will 
 
 <!-- https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot.html -->
 
-<details><summary>In R, wide-to-long conversions are performed using `pivot_longer()`</summary>
+<details><summary>Conversion using wide-to-long and merge/join statements in R</summary>
 
 ```{r tidyr-pivot-longer-demo2}
 tba <- table4a %>% 
@@ -273,6 +275,38 @@ We identify ID variables (variables which we don't want to pivot) by not includi
 - select variables we don't want to pivot, using `-` to remove them. (see above, where `-country` excludes country from the pivot operation)
 
 Which option is easier depends how many things you're pivoting (and how the columns are structured). 
+</details>
+
+<details><summary>Conversion using wide-to-long and merge/join statements in Python</summary>
+A similar operation can be done  in python using pd.melt. Think of "melting" your data down from a metal object to a liquid. (There actually used to be an R package that used cast/melt as the terms for pivot wider/longer, but it has been superseded by pivot_wider and pivot_longer syntax).
+
+As in R, we identify the variables that we DON'T want to pivot, but in python syntax, these are called id_vars. Then, as in R, we need to specify the names of the columns we want to have at the end. In Python, we also have to specify value variables: variables that we will be pivoting (so we specify both those we are pivoting and those we aren't). Remember, id_vars are variables that we would copy-paste over and over with each set of variables in the manual pivot operation, where value_vars are the set of columns we want to combine into variable:value pairs. 
+
+```{python pivot-longer-demo-python}
+import pandas as pd
+table4a = r.table4a # get variable from R within python
+table4b = r.table4b
+
+tba = pd.melt(table4a, id_vars = ['country'], 
+                       value_vars = ['1999', '2000'], 
+                       var_name = 'year', 
+                       value_name = 'cases')
+tbb = pd.melt(table4a, id_vars = ['country'], 
+                       value_vars = ['1999', '2000'], 
+                       var_name = 'year', 
+                       value_name = 'population')
+
+final = pd.merge(tba, tbb, on= ['country', 'year'])
+# convert year to numeric from string
+final["year"] = pd.to_numeric(final["year"])
+
+final
+```
+
+</details>
+
+
+<details><summary>Conversion using new variables, appending tables, and wide-to-long statements in R</summary>
 
 If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form. 
 
@@ -301,9 +335,50 @@ table4_tidy
 
 </details>
 
-It's not too complicated -- and it definitely beats doing that operation by hand, even for short, simple tables. You can imagine how messy the cut/copy/paste job would be in Excel. 
 
-It takes some getting used to, but once you get a feel for how to do these transpose operations, you'll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output. 
+<details><summary>Conversion using new variables, appending tables, and wide-to-long statements in Python</summary>
+
+If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form. 
+
+```{python pivot-longer-id-python}
+# Create ID columns
+table4a_x = r.table4a.assign(id= "cases")
+table4b_x = r.table4b.assign(id = "population")
+
+# Create one table
+table4 = pd.concat([table4a_x, table4b_x])
+table4
+
+table4_long = pd.melt(table4, 
+                      id_vars = ['country', 'id'], 
+                      value_vars = ['1999', '2000'], 
+                      var_name = 'year')
+
+# Intermediate fully-long form
+table4_long
+
+# make wider, with case and population columns
+# Index is the columns we want to keep that ID a unique combination of variables
+# Columns are the columns that become new labels
+# There should be a single value for each combination of index and the column variable(s)
+table4_tidy = pd.pivot(table4_long, 
+                       index = ['country', 'year'],  
+                       columns = ['id'], 
+                       values = 'value')
+
+table4_tidy
+
+table4_tidy.reset_index() # to remove the index if you want the normal data table
+```
+
+We will talk more about long-to-wide pivot operations below. For now, it's enough to know that the long-to-wide operation can be useful in getting your data into tidy form.
+
+</details>
+
+
+Transitioning from wide data to long data isn't too complicated in most situations -- and it definitely beats doing that operation by hand, even for short, simple tables. 
+
+It takes some getting used to, but once you get a feel for how to do these operations, you'll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output. 
 
 ::: warning
 Because wide-to-long transformations end up combining values from several columns into a single column, you can run into issues with type conversions that happen implicitly. If you try to `pivot_longer()` using a character column mixed in with numeric columns, your "value" column will be converted to a character automatically. 
@@ -328,3 +403,14 @@ table2 %>%
 ```
 </details>
 
+
+<details><summary>In python, long-to-wide conversion operations are performed using `pd.pivot()`</summary>
+```{python pivot-wider-demo-python}
+table2 = r.table2
+
+pd.pivot(table2, index = ['country', 'year'], columns = 'type', values = 'count')
+
+# We can get rid of the index by adding a .reset_index() to the end of the command
+pd.pivot(table2, index = ['country', 'year'], columns = 'type', values = 'count').reset_index()
+```
+</details>
