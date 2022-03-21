@@ -460,11 +460,9 @@ breed_traits <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidy
 ```
 
 ```{python dog-breeds-data-py}
+from unidecode import unidecode # Change unicode characters to ascii
 breed_traits = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv')
-
-breed_traits[breed_traits.Breed == 'Russell Terriers']
-
-breed_traits.Breed[10]
+breed_traits.Breed = breed_traits["Breed"].transform(unidecode)
 ```
 
 You may remember that the breed trait data includes a number of 1-5 numeric variables indicating score on various dimensions such as affection, shedding, openness, and playfulness. 
@@ -474,14 +472,20 @@ You may remember that the breed trait data includes a number of 1-5 numeric vari
 Your code in ggplot2 would look something like this:
 
 ```{r, eval = F}
-ggplot(long_data, aes(x = breed, y = value)) + geom_col() + facet_wrap(~variable)
+ggplot(long_data, aes(x = breed, y = value)) + 
+  geom_col() + 
+  facet_wrap(~variable) + 
+  coord_flip()
 ```
 
 And in plotnine, it would look something like this:
 
 ```{python, eval = F}
 from plotnine import *
-ggplot(long_data, aes(x = "breed", y = "value")) + geom_col() + facet_wrap('variable')
+ggplot(long_data, aes(x = "breed", y = "value")) + 
+  geom_col() + 
+  facet_wrap('variable') +
+  coord_flip()
 ```
 
 
@@ -492,12 +496,143 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-breed_traits %>%
-  filter(gsub(" ", '', Breed) %in% c("Beagles", "Dachshunds", "Samoyeds", "RussellTerriers", "LhasaApsos")) %>%
+my_breeds <- breed_traits %>%
+  filter(Breed %in% c("Beagles", "Dachshunds", "Samoyeds", "Russell Terriers", "Lhasa Apsos")) %>%
   # Remove variables that aren't 1-5
-  pivot_longer(-c(Breed, Coat.Type, Coat.Length), names_to = "Trait", values_to = "value") %>%
-  ggplot(aes(x = Breed, y = value)) + geom_col() + facet_wrap(~Trait)
+  pivot_longer(-c(Breed, Coat.Type, Coat.Length), names_to = "Trait", values_to = "value") 
 
+my_breeds %>%
+  ggplot(aes(x = Breed, y = value)) + geom_col() + facet_wrap(~Trait) + 
+  coord_flip()
+
+```
+
+</details>
+
+
+
+<details><summary>python solution</summary>
+
+```{python tryitout-solution-python}
+from plotnine import *
+
+breed_list = ["Beagles", "Dachshunds", "Samoyeds", "Russell Terriers", "Lhasa Apsos"]
+my_breeds = breed_traits.loc[breed_traits.Breed.isin(breed_list)].\
+              melt(id_vars = ['Breed', 'Coat Type', 'Coat Length'], 
+                   value_name = 'value',
+                   var_name = 'Trait')
+               
+ggplot(my_breeds, aes(x = "Breed", y = "value")) + geom_col() + facet_wrap("Trait") + coord_flip()
+
+```
+
+</details>
+
+
+**Task 2**: Using your data from the previous task, determine which traits are 5 = good and which traits are 5 = bad (This may not be the same list for everyone!). Create a new variable in the data frame that encodes this information. There are several ways to do this task in R and in Python, so see if you can find a way that works for you.
+
+
+<details><summary>R solution</summary>
+
+```{r tryitout2-solution-r}
+good_traits <- c("Affectionate.With.Family", "Good.With.Young.Children", "Good.With.Other.Dogs", "Openness.To.Strangers", "Playfulness.Level", "Adaptability.Level", "Trainability.Level")
+
+my_breeds <- my_breeds %>%
+  mutate(trait_type = ifelse(Trait %in% good_traits, "Good", "Bad"))
+```
+
+</details>
+
+
+
+<details><summary>python solution</summary>
+
+```{python tryitout2-solution-python}
+import numpy as np
+
+good_traits = ["Affectionate With Family", "Good With Young Children", "Good With Other Dogs", "Openness To Strangers", "Playfulness Level", "Adaptability Level", "Trainability Level"]
+
+# https://stackoverflow.com/questions/19913659/pandas-conditional-creation-of-a-series-dataframe-column
+
+my_breeds["trait_type"] = np.where(my_breeds["Trait"].isin(good_traits), 'Good', 'Bad')
+```
+
+</details>
+
+**Task 3**: Using your data from the previous task, summarize your data so that you calculate the average score for good and bad traits for each dog breed. For each Breed, your solution should have two rows: one for good traits, one for bad traits. It may help to sketch out what a solution should look like for each Breed before you begin.
+
+
+<details><summary>R solution</summary>
+
+```{r tryitout3-solution-r}
+summary_traits = data.frame()
+
+for (i in unique(my_breeds$Breed)) {
+  sub_df <- filter(my_breeds, Breed == i)
+  sub_df_good <- filter(sub_df, trait_type == "Good")
+  sub_df_bad <- filter(sub_df, trait_type == "Bad")
+  summary_traits <- rbind(
+    summary_traits, 
+    data.frame(Breed = i, 
+               trait_type = c("Good", "Bad"), 
+               average = c(mean(sub_df_good$value, na.rm = T), mean(sub_df_bad$value)))
+  )
+  
+}
+
+summary_traits
+```
+
+</details>
+
+
+
+<details><summary>python solution</summary>
+
+```{python tryitout3-solution-python}
+summary_traits = pd.DataFrame()
+
+for i in np.unique(my_breeds.Breed):
+  sub_df = my_breeds.loc[my_breeds.Breed == i]
+  sub_df_good = sub_df.loc[sub_df.trait_type == "Good"]
+  sub_df_bad = sub_df.loc[sub_df.trait_type == "Bad"]
+  
+  summary_traits = pd.concat([
+    summary_traits, 
+    pd.DataFrame({'Breed': [i, i], 'trait_type': ["Good", "Bad"], 
+    'average': [sub_df_good.value.mean(), sub_df_bad.value.mean()]})
+    ]
+  )
+
+# Reset index so it shows the row number
+summary_traits = summary_traits.reset_index().drop(['index'], axis = 1)
+summary_traits
+```
+
+</details>
+
+
+**Task 4**: Pivot your summary data frame from long to wide to get an overall summary of the good and bad for each of your 5 breeds. Plot the good score on the x axis, the bad score on the y axis, and use the breed name as the label. Use `geom_label` instead of `geom_point`.
+
+<details><summary>R solution</summary>
+
+```{r tryitout4-solution-r}
+summary_traits %>%
+  pivot_wider(id_cols = 1, names_from = 2, values_from = 3) %>%
+  ggplot(aes(x = Good, y = Bad, label = Breed)) + geom_label()
+```
+
+</details>
+
+
+
+<details><summary>python solution</summary>
+
+```{python tryitout4-solution-python}
+tmp = summary_traits.pivot(index = "Breed", columns = 'trait_type', values = 'average')
+tmp["Breed"] = tmp.index # Need to recreate the Breed column
+
+ggplot(tmp, aes(x = "Good", y = "Bad", label = "Breed")) + geom_label()
 ```
 
 </details>
