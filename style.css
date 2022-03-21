@@ -101,7 +101,7 @@ pre code {
               0 0 0 10px white;
 }
 
-.tryitout {
+section.tryitout {
   background-size:5% auto;
   padding:5px 5px 5px 6%;
   min-width:99%;
@@ -110,6 +110,12 @@ pre code {
   background-color: var(--zomp-bg);
   box-shadow: 0 0 0 1px var(--zomp),
               0 0 0 10px white;
+}
+
+.tryitout > h3, .tryitout > h4, .tryitout > h5 {
+  color: var(--zomp);
+  margin-top: 0 !important;
+  margin-bottom:0 !important;
 }
 
 /*
