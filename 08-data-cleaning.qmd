@@ -1,0 +1,27 @@
+# Data Summaries and Data Cleaning
+
+In this chapter, we'll talk a bit about different operations you may need to do in order to clean your data up and get it into the form you want.
+
+## Data Summaries
+
+We've talked before about using for loops to create summaries of your data, as in [this example](#summaries-part-2). 
+
+In may cases, however, it is easier to use a slightly different mechanism to work with groups of data. What do I mean by groups of data? Let's do the operation in lego first.
+
+![A lego "data frame" with two columns: green 1x2s and purple/pink 1x4s.](images/lego-ungrouped-data-frame.png)
+
+![We can "group" the data frame by the different shades of 1x2 lego pieces](images/lego-grouped-data-frame.png)
+
+![We can then compute a summary variable for the group, picking out e.g. the most "intense" shade in the purple/pink column.](images/lego-grouped-data-frame-summary.png)
+
+![Looking only at the summary, we could then ungroup our data and return to a regular data frame... only this time, we have a summary, with one row for each different value of the green column](images/lego-grouped-summary.png)
+
+## Merging Tables
+
+
+
+## Working with Text
+
+
+## Working with Dates/Times
+
