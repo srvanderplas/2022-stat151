@@ -16,6 +16,8 @@ In may cases, however, it is easier to use a slightly different mechanism to wor
 
 ![Looking only at the summary, we could then ungroup our data and return to a regular data frame... only this time, we have a summary, with one row for each different value of the green column](images/lego-grouped-summary.png)
 
+In R/tidyverse syntax, we would use the `group_by` function to group a dataframe by a variable, and then we would use `mutate` or `summarize` to create our new column(s). `mutate` would be used if we want to have the same number of rows in our output as we had in the input, while `summarize` would create one row per group.
+
 ## Merging Tables
 
 
