@@ -1,3 +1,0 @@
-# Reading in Data
-
-External data files - csv, excel, etc.
