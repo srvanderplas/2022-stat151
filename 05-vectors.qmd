@@ -1,29 +1,36 @@
 # Vectors, Matrices, Arrays, and Control Structures
+
 <!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->
+
 <!-- (probably 2 weeks of content) -->
 
 <!-- Lego pictures made with https://www.mecabricks.com/en/workshop -->
 
 This chapter introduces some of the most important tools for working with data: vectors, matrices, loops, and if statements. It would be nice to gradually introduce each one of these topics separately, but they tend to go together, especially when you're talking about programming in the context of data processing.
 
-
 ## Mathematical Logic
 
-Before we start talking about data structures and control structures, though, we're going to take a minute to review some concepts from mathematical logic. This will be useful for both data structures and control structures, so stick with me for a few minutes. 
-
+Before we start talking about data structures and control structures, though, we're going to take a minute to review some concepts from mathematical logic. This will be useful for both data structures and control structures, so stick with me for a few minutes.
 
 ### And, Or, and Not
-We can combine logical statements using and, or, and not. 
 
-- (X AND Y) requires that both X and Y are true. 
-- (X OR Y) requires that one of X or Y is true. 
-- (NOT X) is true if X is false, and false if X is true. Sometimes called **negation**.    
+We can combine logical statements using and, or, and not.
 
-In R, we use `!` to symbolize NOT, in Python, we use `~` for vector-wise negation (NOT). 
+-   (X AND Y) requires that both X and Y are true.
+-   (X OR Y) requires that one of X or Y is true.
+-   (NOT X) is true if X is false, and false if X is true. Sometimes called **negation**.
+
+In R, we use `!` to symbolize NOT, in Python, we use `~` for vector-wise negation (NOT).
 
 Order of operations dictates that NOT is applied before other operations. So `NOT X AND Y` is read as `(NOT X) AND (Y)`. You must use parentheses to change the way this is interpreted.
 
-<details><summary>Mathematical logic in R</summary>
+<details>
+
+<summary>
+
+Mathematical logic in R
+
+</summary>
 
 ```{r}
 x <- c(TRUE, FALSE, TRUE, FALSE)
@@ -37,8 +44,13 @@ x & !y # X AND NOT Y
 
 </details>
 
+<details>
 
-<details><summary>Mathematical logic in python</summary>
+<summary>
+
+Mathematical logic in python
+
+</summary>
 
 ```{python}
 import numpy as np
@@ -57,63 +69,63 @@ x & ~y
 
 [De Morgan's Laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) are a set of rules for how to combine logical statements. You can represent them in a number of ways:
 
-- NOT(A or B) is equivalent to NOT(A) and NOT(B)
-- NOT(A and B) is equivalent to NOT(A) or NOT(B)
+-   NOT(A or B) is equivalent to NOT(A) and NOT(B)
+-   NOT(A and B) is equivalent to NOT(A) or NOT(B)
 
 We can also represent them with Venn Diagrams.
 
-![Venn Diagram of Set A and Set B](images/SetA and SetB.png)
-Suppose that we set the convention that ![Shaded regions are TRUE, unshaded regions are FALSE](images/TrueFalse.png).
+![Venn Diagram of Set A and Set B](images/SetA%20and%20SetB.png) Suppose that we set the convention that ![Shaded regions are TRUE, unshaded regions are FALSE](images/TrueFalse.png).
 
 We can then illustrate DeMorgan's first law as follows:
 
 ![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A OR B (aka NOT (A OR B)) is the same as the region that is outside of (NOT A) and (NOT B)](images/DeMorgan1.png)
 
-
-And similarly, DeMorgan's second law: 
+And similarly, DeMorgan's second law:
 
 ![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A AND B (aka NOT (A AND B)) is the same as the region that is outside of (NOT A) OR (NOT B)](images/DeMorgan2.png)
-
 
 ## Data Structures
 
 In the previous chapter, we discussed 4 different data types: strings/characters, numeric/double/floats, integers, and logical/booleans. As you might imagine, things are about to get more complicated.
 
-Data **structures** are more complicated arrangements of information. 
+Data **structures** are more complicated arrangements of information.
 
-  | Homogeneous | Heterogeneous
--- | ---- | ----
-1D | vector | list
-2D | matrix | data frame
-N-D | array | 
+| Homogeneous | Heterogeneous |            |
+|-------------|---------------|------------|
+| 1D          | vector        | list       |
+| 2D          | matrix        | data frame |
+| N-D         | array         |            |
 
 ### Vectors
 
-A **vector** is a one-dimensional column of homogeneous data. Homogeneous means that every element in a vector has the same data type. 
+A **vector** is a one-dimensional column of homogeneous data. Homogeneous means that every element in a vector has the same data type.
 
-We can have vectors of any data type and length we want^[Throughout this section (and other sections), lego pictures are rendered using https://www.mecabricks.com/en/workshop. It's a pretty nice tool for building stuff online!]: 
-![vectors of different data types](images/lego-set-of-vectors.png)
+We can have vectors of any data type and length we want[^vectors-1]: ![vectors of different data types](images/lego-set-of-vectors.png)
 
+[^vectors-1]: Throughout this section (and other sections), lego pictures are rendered using https://www.mecabricks.com/en/workshop. It's a pretty nice tool for building stuff online!
 
 <!-- ![vector of purple 1x3 legos](images/lego-1x3-vector.png) -->
-
-
 
 #### Indexing by Location
 
 Each element in a vector has an **index** - an integer telling you what the item's position within the vector is. I'm going to demonstrate indices with the string vector
 
-R | Python
---- | ---
-1-indexed language | 0-indexed language
-Count elements as 1, 2, 3, 4, ..., N  | Count elements as 0, 1, 2, 3, , ..., N-1
-![R lego vector, labeled with numbers 1-12](images/lego-1x3-vector-R.png) | ![Python lego vector, labeled with numbers 0-11](images/lego-1x3-vector-python.png)
-
+| R                                                                         | Python                                                                              |
+|----------------------------------|--------------------------------------|
+| 1-indexed language                                                        | 0-indexed language                                                                  |
+| Count elements as 1, 2, 3, 4, ..., N                                      | Count elements as 0, 1, 2, 3, , ..., N-1                                            |
+| ![R lego vector, labeled with numbers 1-12](images/lego-1x3-vector-R.png) | ![Python lego vector, labeled with numbers 0-11](images/lego-1x3-vector-python.png) |
 
 In R, we create vectors with the `c()` function, which stands for "concatenate" - basically, we stick a bunch of objects into a row.
 
 ::: ex
-<details><summary>Creating vectors in R</summary>
+<details>
+
+<summary>
+
+Creating vectors in R
+
+</summary>
 
 ```{r vector-creation-r}
 digits_pi <- c(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
@@ -132,14 +144,20 @@ digits_pi
 ```
 
 </details>
-
 :::
 
-In python, we create vectors using the `array` function in the numpy module. To add a python module, we use the syntax `import <name> as <nickname>`. Many modules have conventional (and very short) nicknames - for `numpy`, we will use `np` as the nickname.
-Any functions we reference in the `numpy` module will then be called using `np.fun_name()` so that python knows where to find them.^[A similar system exists in R libraries, but R doesn't handle multiple libraries having the same function names well, which leads to all sorts of confusion. At least python is explicit about it.]
+In python, we create vectors using the `array` function in the numpy module. To add a python module, we use the syntax `import <name> as <nickname>`. Many modules have conventional (and very short) nicknames - for `numpy`, we will use `np` as the nickname. Any functions we reference in the `numpy` module will then be called using `np.fun_name()` so that python knows where to find them.[^vectors-2]
+
+[^vectors-2]: A similar system exists in R libraries, but R doesn't handle multiple libraries having the same function names well, which leads to all sorts of confusion. At least python is explicit about it.
 
 ::: ex
-<details><summary>Creating vectors in python</summary>
+<details>
+
+<summary>
+
+Creating vectors in python
+
+</summary>
 
 ```{python vector-creation-python, error = T}
 import numpy as np
@@ -163,9 +181,7 @@ print(digits_pi)
 ```
 
 </details>
-
 :::
-
 
 We can pull out items in a vector by indexing, but we can also replace specific things as well:
 
@@ -179,16 +195,22 @@ favorite_cats[2] <- "Nyan Cat"
 favorite_cats
 ```
 
-If you're curious about any of these cats, see the footnotes^[[Grumpy cat](https://www.grumpycats.com/), [Garfield](https://www.garfield.com/), [Nyan cat](https://en.wikipedia.org/wiki/Nyan_Cat). Jorts and Jean: [The initial post](https://www.reddit.com/r/AmItheAsshole/comments/rfwgmc/aita_for_perpetuating_ethnic_stereotypes_about/) and the [update](https://www.reddit.com/user/throwawayorangecat/comments/rgi000/update_aita_for_perpetuating_stereotypes_about/) (both are worth a read because the story is hilarious). The cats also have a [Twitter account](https://twitter.com/JortsTheCat) where they promote workers rights.].
+If you're curious about any of these cats, see the footnotes[^vectors-3].
 
+[^vectors-3]: [Grumpy cat](https://www.grumpycats.com/), [Garfield](https://www.garfield.com/), [Nyan cat](https://en.wikipedia.org/wiki/Nyan_Cat). Jorts and Jean: [The initial post](https://www.reddit.com/r/AmItheAsshole/comments/rfwgmc/aita_for_perpetuating_ethnic_stereotypes_about/) and the [update](https://www.reddit.com/user/throwawayorangecat/comments/rgi000/update_aita_for_perpetuating_stereotypes_about/) (both are worth a read because the story is hilarious). The cats also have a [Twitter account](https://twitter.com/JortsTheCat) where they promote workers rights.
 
+#### Series in Pandas
 
-#### Series in Pandas 
-
-Python has multiple things that look like vectors, including the `pandas` library's Series structure. A **Series** is a one-dimensional array-like object containing a sequence of values and an associated array of labels (called its index). 
+Python has multiple things that look like vectors, including the `pandas` library's Series structure. A **Series** is a one-dimensional array-like object containing a sequence of values and an associated array of labels (called its index).
 
 ::: ex
-<details><summary>Creating pandas Series in python</summary>
+<details>
+
+<summary>
+
+Creating pandas Series in python
+
+</summary>
 
 ```{python series-pandas, error = T}
 import pandas as pd
@@ -213,6 +235,7 @@ digits_pi * 2
 print(digits_pi)
 ```
 
+````{=html}
 </details
 :::
 
@@ -251,7 +274,14 @@ Note that for logical indexing to work properly, the logical index must be the s
 
 ::: ex
 
-<details><summary>Indexing with logical vectors in R</summary>
+<details>
+````
+
+<summary>
+
+Indexing with logical vectors in R
+
+</summary>
 
 ```{r logical-vector-indexing-r}
 # Define a character vector
@@ -273,7 +303,13 @@ weekdays[school_days] # print out all school days
 
 </details>
 
-<details><summary>Indexing with logical vectors in python</summary>
+<details>
+
+<summary>
+
+Indexing with logical vectors in python
+
+</summary>
 
 ```{python logical-vector-indexing-python}
 import numpy as np;
@@ -292,14 +328,19 @@ animals[~good_pets] # equivalent to using bad_pets
 ```
 
 </details>
-
 :::
 
 #### Reviewing Types
 
 As vectors are a collection of things of a single type, what happens if we try to make a vector with differently-typed things?
 
-<details><summary>In R</summary>
+<details>
+
+<summary>
+
+In R
+
+</summary>
 
 ```{r vector-type-conversion-r}
 c(2L, FALSE, 3.1415, "animal") # all converted to strings
@@ -308,9 +349,16 @@ c(2L, FALSE, 3.1415) # converted to numerics
 
 c(2L, FALSE) # converted to integers
 ```
+
 </details>
 
-<details><summary>In python</summary>
+<details>
+
+<summary>
+
+In python
+
+</summary>
 
 ```{python vector-type-conversion-python}
 import numpy as np
@@ -324,13 +372,19 @@ np.array([2, False]) # converted to integers
 
 </details>
 
-As a reminder, this is an example of **implicit** type conversion - R and python decide what type to use for you, going with the type that doesn't lose data but takes up as little space as possible. 
+As a reminder, this is an example of **implicit** type conversion - R and python decide what type to use for you, going with the type that doesn't lose data but takes up as little space as possible.
 
-#### Try it Out! {- .tryitout}
+#### Try it Out! {.unnumbered .tryitout}
 
-Create a vector of the integers from one to 30. Use logical indexing to pick out only the numbers which are multiples of 3. 
+Create a vector of the integers from one to 30. Use logical indexing to pick out only the numbers which are multiples of 3.
 
-<details><summary>Solution in R</summary>
+<details>
+
+<summary>
+
+Solution in R
+
+</summary>
 
 ```{r}
 x <- 1:30
@@ -339,7 +393,13 @@ x [ x %% 3 == 0]
 
 </details>
 
-<details><summary>Solution in python</summary>
+<details>
+
+<summary>
+
+Solution in python
+
+</summary>
 
 ```{python}
 import numpy as np
@@ -351,15 +411,27 @@ x[ x % 3 == 0]
 
 Extra challenge: Pick out numbers which are multiples of 2 or 3, but not multiples of 6!
 
-<details><summary>Solution (general)</summary>
+<details>
 
-This operation is **xor**, a.k.a. exclusive or. That is, X or Y, but not X AND Y. 
+<summary>
+
+Solution (general)
+
+</summary>
+
+This operation is **xor**, a.k.a. exclusive or. That is, X or Y, but not X AND Y.
 
 We can write xor as `(X OR Y) & !(X AND Y)` -- or we can use a predefined function: `xor()` in R, `^` in python.
 
 </details>
 
-<details><summary>Extra challenge solution (R)</summary>
+<details>
+
+<summary>
+
+Extra challenge solution (R)
+
+</summary>
 
 ```{r}
 x <- 1:30
@@ -374,7 +446,13 @@ x[x2xor3_2]
 
 </details>
 
-<details><summary>Extra challenge solution (python)</summary>
+<details>
+
+<summary>
+
+Extra challenge solution (python)
+
+</summary>
 
 ```{python}
 import numpy as np
@@ -391,13 +469,18 @@ x[x2xor3]
 
 ### Matrices
 
-A **matrix** is the next step after a vector - it's a set of values arranged in a two-dimensional, rectangular format. 
+A **matrix** is the next step after a vector - it's a set of values arranged in a two-dimensional, rectangular format.
 
 ![lego depiction of a 3-row, 4-column matrix of 2x2 red-colored blocks](images/lego-2x2-matrix.png)
 
 ::: ex
+<details>
 
-<details><summary>Creating matrices in R</summary>
+<summary>
+
+Creating matrices in R
+
+</summary>
 
 ```{r matrix-r}
 # Minimal matrix in R: take a vector, 
@@ -417,8 +500,15 @@ diag(rep(1, times = 4))
 
 </details>
 
-<details><summary>Creating matrices in python</summary>
-In python, matrices are just a special case of a class called `ndarray` - n-dimensional arrays. 
+<details>
+
+<summary>
+
+Creating matrices in python
+
+</summary>
+
+In python, matrices are just a special case of a class called `ndarray` - n-dimensional arrays.
 
 ```{python}
 import numpy as np
@@ -438,24 +528,26 @@ np.reshape(range(0,12), (3,4), order = 'F')
 In python, we create 2-dimensional arrays (aka matrices) either by creating a list of rows to join together or by reshaping a 1-dimensional array. The trick with reshaping the 1-dimensional array is the order argument: 'F' stands for "Fortran-like" and 'C' stands for "C-like"... so to go by column, you use 'F' and to go by row, you use 'C'. Totally intuitive, right?
 
 </details>
-
 :::
-
 
 This class comes before linear algebra in the required course sequence, so most of the problems we're going to work on will not require much in the way of matrix or array operations. For now, you need the following:
 
-- Know that matrices exist and what they are (2-dimensional arrays of numbers)
-- Understand how they are indexed (because it is extremely similar to data frames that we'll work with in the next chapter) 
-- Be aware that there are lots of functions that depend on matrix operations at their core (including linear regression)
-
+-   Know that matrices exist and what they are (2-dimensional arrays of numbers)
+-   Understand how they are indexed (because it is extremely similar to data frames that we'll work with in the next chapter)
+-   Be aware that there are lots of functions that depend on matrix operations at their core (including linear regression)
 
 #### Indexing in Matrices
 
-Both R and python use [row, column] to index matrices. To extract the bottom-left element of a 3x4 matrix in R, we would use [3,1] to get to the third row and first column entry; in python, we would use [2,0] (remember that Python is 0-indexed).
+Both R and python use \[row, column\] to index matrices. To extract the bottom-left element of a 3x4 matrix in R, we would use \[3,1\] to get to the third row and first column entry; in python, we would use \[2,0\] (remember that Python is 0-indexed).
 
 ::: ex
-<details><summary>
-As with vectors, you can replace elements in a matrix using assignment.</summary>
+<details>
+
+<summary>
+
+As with vectors, you can replace elements in a matrix using assignment.
+
+</summary>
 
 ```{r}
 my_mat <- matrix(1:12, nrow = 3, byrow = T)
@@ -484,16 +576,18 @@ my_mat
 
 There are a number of matrix operations that we need to know for basic programming purposes:
 
-- scalar multiplication
-$$c*\textbf{X} = c * \left[\begin{array}{cc} x_{1,1} & x_{1, 2}\\x_{2,1} & x_{2,2}\end{array}\right] = \left[\begin{array}{cc} c*x_{1,1} & c*x_{1, 2}\\c*x_{2,1} & c*x_{2,2}\end{array}\right]$$
-- transpose - flip the matrix across the left top -> right bottom diagonal.
-$$t(\textbf{X}) = \left[\begin{array}{cc} x_{1,1} & x_{1, 2}\\x_{2,1} & x_{2,2}\end{array}\right]^T = \left[\begin{array}{cc} x_{1,1} & x_{2,1}\\x_{1,2} & x_{2,2}\end{array}\right]$$
-- matrix multiplication (dot product) - you will learn more about this in linear algebra, but here's a preview. [Here is a better explanation of the cross product](https://www.mathsisfun.com/algebra/matrix-multiplying.html) 
-$$\textbf{X}*\textbf{Y} = \left[\begin{array}{cc} x_{1,1} & x_{1, 2}\\x_{2,1} & x_{2,2}\end{array}\right] * \left[\begin{array}{cc} y_{1,1} \\y_{2,1} \end{array}\right] = \left[\begin{array}{c}x_{1,1}*y_{1,1} + x_{1,2}*y_{2,1} \\x_{2, 1}*y_{1,1} + x_{2,2}*y_{2,1}\end{array}\right]$$
-Note that matrix multiplication depends on having matrices of compatible dimensions. If you have two matrices of dimension $(a \times b)$ and $(c \times d)$, then $b$ must be equal to $c$ for the multiplication to work, and your result will be $(a \times d)$.
+-   scalar multiplication $$c*\textbf{X} = c * \left[\begin{array}{cc} x_{1,1} & x_{1, 2}\\x_{2,1} & x_{2,2}\end{array}\right] = \left[\begin{array}{cc} c*x_{1,1} & c*x_{1, 2}\\c*x_{2,1} & c*x_{2,2}\end{array}\right]$$
+-   transpose - flip the matrix across the left top -\> right bottom diagonal. $$t(\textbf{X}) = \left[\begin{array}{cc} x_{1,1} & x_{1, 2}\\x_{2,1} & x_{2,2}\end{array}\right]^T = \left[\begin{array}{cc} x_{1,1} & x_{2,1}\\x_{1,2} & x_{2,2}\end{array}\right]$$
+-   matrix multiplication (dot product) - you will learn more about this in linear algebra, but here's a preview. [Here is a better explanation of the cross product](https://www.mathsisfun.com/algebra/matrix-multiplying.html) $$\textbf{X}*\textbf{Y} = \left[\begin{array}{cc} x_{1,1} & x_{1, 2}\\x_{2,1} & x_{2,2}\end{array}\right] * \left[\begin{array}{cc} y_{1,1} \\y_{2,1} \end{array}\right] = \left[\begin{array}{c}x_{1,1}*y_{1,1} + x_{1,2}*y_{2,1} \\x_{2, 1}*y_{1,1} + x_{2,2}*y_{2,1}\end{array}\right]$$ Note that matrix multiplication depends on having matrices of compatible dimensions. If you have two matrices of dimension $(a \times b)$ and $(c \times d)$, then $b$ must be equal to $c$ for the multiplication to work, and your result will be $(a \times d)$.
 
 ::: ex
-<details><summary>Matrix operations in R</summary>
+<details>
+
+<summary>
+
+Matrix operations in R
+
+</summary>
 
 ```{r, results = 'show'}
 x <- matrix(c(1, 2, 3, 4), nrow = 2, byrow = T)
@@ -513,7 +607,13 @@ x %*% y
 
 </details>
 
-<details><summary>Matrix operations in python</summary>
+<details>
+
+<summary>
+
+Matrix operations in python
+
+</summary>
 
 ```{python}
 import numpy as np
@@ -539,7 +639,13 @@ np.dot(x, y)
 
 Arrays are a generalized n-dimensional version of a vector: all elements have the same type, and they are indexed using square brackets in both R and python: `[dim1, dim2, dim3, ...]`
 
-<details><summary>I don't think you will need to create 3+ dimensional arrays in this class, but if you want to try it out, here is some code.</summary>
+<details>
+
+<summary>
+
+I don't think you will need to create 3+ dimensional arrays in this class, but if you want to try it out, here is some code.
+
+</summary>
 
 ```{r}
 array(1:8, dim = c(2,2,2))
@@ -555,46 +661,49 @@ np.array([[[1,2],[3,4]],[[5,6], [7,8]]])
 
 </details>
 
-
 ## Control Structures
 
-Control structures are statements in a program that determine when code is evaluated (and how many times it might be evaluated). There are two main types of control structures: if-statements and loops. 
+Control structures are statements in a program that determine when code is evaluated (and how many times it might be evaluated). There are two main types of control structures: if-statements and loops.
 
 Before we start on the types of control structures, let's get in the right mindset. We're all used to "if-then" logic, and use it in everyday conversation, but computers require another level of specificity when you're trying to provide instructions.
 
 Check out this video of the classic "make a peanut butter sandwich instructions challenge":
 
-<iframe width="773" height="435" src="https://www.youtube.com/embed/Ct-lOOUqmyY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="773" height="435" src="https://www.youtube.com/embed/Ct-lOOUqmyY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>
 
 Here's another example:
 
 !['If you're done being pedantic, we should get dinner.' 'You did it again!' 'No, I didn't.'](https://imgs.xkcd.com/comics/conditionals.png)
 
-
-The key takeaways from these bits of media are that you should read this section with a focus on exact precision - state *exactly* what you mean, and the computer will do what you say. If you instead expect the computer to get what you mean, you're going to have a bad time. 
-
+The key takeaways from these bits of media are that you should read this section with a focus on exact precision - state *exactly* what you mean, and the computer will do what you say. If you instead expect the computer to get what you mean, you're going to have a bad time.
 
 ### Conditional Statements
 
-Conditional statements determine if code is evaluated. 
+Conditional statements determine if code is evaluated.
 
-They look like this: 
+They look like this:
 
-```
-if (condition)
-  then
-    (thing to do)
-  else
-    (other thing to do)
-```
+    if (condition)
+      then
+        (thing to do)
+      else
+        (other thing to do)
 
 The else (other thing to do) part may be omitted.
 
-When this statement is read by the computer, the computer checks to see if condition is true or false. If the condition is true, then (thing to do) is also run. If the condition is false, then (other thing to do) is run instead. 
+When this statement is read by the computer, the computer checks to see if condition is true or false. If the condition is true, then (thing to do) is also run. If the condition is false, then (other thing to do) is run instead.
 
 Let's try this out:
 
-<details><summary>If statement in R</summary>
+<details>
+
+<summary>
+
+If statement in R
+
+</summary>
 
 ```{r}
 x <- 3
@@ -624,7 +733,13 @@ So while the 2nd version of the code technically works, the first version with t
 
 </details>
 
-<details><summary>If statement in python</summary>
+<details>
+
+<summary>
+
+If statement in python
+
+</summary>
 
 ```{python}
 x = 3
@@ -638,7 +753,7 @@ else:
 print("x =", x, "; y =", y)
 ```
 
-In python, all code grouping is accomplished with spaces instead of with brackets. So in python, we write our if statement as `if x > 2:` with the colon indicating that what follows is the code to evaluate. The next line is indented with 2 spaces to show that the code on those lines belongs to that if statement. Then, we use the else: statement to provide an alternative set of code to run if the logical condition in the if statement is false. Again, we indent the code under the else statement to show where it "belongs". 
+In python, all code grouping is accomplished with spaces instead of with brackets. So in python, we write our if statement as `if x > 2:` with the colon indicating that what follows is the code to evaluate. The next line is indented with 2 spaces to show that the code on those lines belongs to that if statement. Then, we use the else: statement to provide an alternative set of code to run if the logical condition in the if statement is false. Again, we indent the code under the else statement to show where it "belongs".
 
 Python will throw errors if you mess up the spacing. This is one thing that is very annoying about Python... but it's a consequence of trying to make the code more readable.
 
@@ -648,38 +763,42 @@ Python will throw errors if you mess up the spacing. This is one thing that is v
 
 #### Representing Conditional Statements as Diagrams
 
-A common way to represent conditional logic is to draw a flow chart diagram. 
+A common way to represent conditional logic is to draw a flow chart diagram.
 
-In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point. 
+In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point.
 
 ![Program flow diagram outline of a simple if/else statement](images/flow-chart1.png)
 
-
 ::: tryitout
-
 ##### Try it out!
 
-The US Tax code has brackets, such that the first \$10,275 of your income is taxed at 10%, anything between \$10,275 and \$41,775 is taxed at 12%, and so on. 
+The US Tax code has brackets, such that the first \$10,275 of your income is taxed at 10%, anything between \$10,275 and \$41,775 is taxed at 12%, and so on.
 
 Here is the table of tax brackets for single filers in 2022:
 
-rate | Income
---- | ---
-10%	| \$0 to \$10,275	
-12%	| \$10,275 to \$41,775
-22% | \$41,775 to \$89,075
-24% |	\$89,075 to \$170,050
-32% |	\$170,050 to \$215,950
-35% | \$215,950 to \$539,900
-37% | \$539,900 or more
+| rate | Income                 |
+|------|------------------------|
+| 10%  | \$0 to \$10,275        |
+| 12%  | \$10,275 to \$41,775   |
+| 22%  | \$41,775 to \$89,075   |
+| 24%  | \$89,075 to \$170,050  |
+| 32%  | \$170,050 to \$215,950 |
+| 35%  | \$215,950 to \$539,900 |
+| 37%  | \$539,900 or more      |
 
-Note: For the purposes of this problem, we're ignoring the personal exemption and the standard deduction, so we're already simplifying the tax code. 
+Note: For the purposes of this problem, we're ignoring the personal exemption and the standard deduction, so we're already simplifying the tax code.
 
-Write a set of if statements that assess someone's income and determine what their overall tax rate is. 
+Write a set of if statements that assess someone's income and determine what their overall tax rate is.
 
 Hint: You may want to keep track of how much of the income has already been taxed in a variable and what the total tax accumulation is in another variable.
 
-<details><summary>Solution (R)</summary>
+<details>
+
+<summary>
+
+Solution (R)
+
+</summary>
 
 ```{r}
 # Start with total income
@@ -748,8 +867,13 @@ print(paste("Total Tax Rate on $", income, " in income = ", round(y/income, 4)*1
 
 </details>
 
-<details><summary>Solution (python)</summary>
+<details>
 
+<summary>
+
+Solution (python)
+
+</summary>
 
 ```{python}
 # Start with total income
@@ -815,14 +939,16 @@ print("Total Tauntaxed Rate on $", income, " in income = ", round(taxes/income, 
 </details>
 
 We will find a better way to represent this calculation once we discuss loops - we can store each bracket's start and end point in a vector and loop through them. Any time you find yourself copy-pasting code and changing values, you should consider using a loop (or eventually a function) instead.
-
 :::
 
-
 ::: ex
+<details>
 
-<details><summary>
-Let's explore using program flow maps for a slightly more complicated problem: The tax bracket example that we used to demonstrate if statement syntax.</summary>
+<summary>
+
+Let's explore using program flow maps for a slightly more complicated problem: The tax bracket example that we used to demonstrate if statement syntax.
+
+</summary>
 
 <!-- First, let's start by looking at a graph of the practical implication of taxing things using brackets. This graph shows the amount in each bracket as well as the amount of taxes paid. -->
 
@@ -868,41 +994,48 @@ df2 %>%
 ```
 
 ![The control flow diagram for the code in the previous example](images/tax-brackets.png)
-</details>
 
+</details>
 :::
 
 Control flow diagrams can be extremely helpful when figuring out how programs work (and where gaps in your logic are when you're debugging). It can be very helpful to map out your program flow as you're untangling a problem.
 
-
 #### Chaining Conditional Statements: Else-If
 
-In many cases, it can be helpful to have a long chain of conditional statements describing a sequence of alternative statements. 
+In many cases, it can be helpful to have a long chain of conditional statements describing a sequence of alternative statements.
 
 ::: ex
+For instance, suppose I want to determine what categorical age bracket someone falls into based on their numerical age. All of the bins are mutually exclusive - you can't be in the 25-40 bracket and the 41-55 bracket.
 
+<details>
 
-For instance, suppose I want to determine what categorical age bracket someone falls into based on their numerical age. All of the bins are mutually exclusive - you can't be in the 25-40 bracket and the 41-55 bracket. 
+<summary>
 
+Program Flow Maps of chained conditional statements
 
-<details><summary>Program Flow Maps of chained conditional statements</summary>
+</summary>
 
-![Program flow map for a series of mutually exclusive categories. If our goal is to take a numeric age variable and create a categorical set of age brackets, such as <18, 18-25, 26-40, 41-55, 56-65, and >65, we can do this with a series of if-else statements chained together. Only one of the bracket assignments is evaluated, so it is important to place the most restrictive condition first.](images/age-category-prog-flow.png)
+![Program flow map for a series of mutually exclusive categories. If our goal is to take a numeric age variable and create a categorical set of age brackets, such as \<18, 18-25, 26-40, 41-55, 56-65, and \>65, we can do this with a series of if-else statements chained together. Only one of the bracket assignments is evaluated, so it is important to place the most restrictive condition first.](images/age-category-prog-flow.png)
 
 The important thing to realize when examining this program flow map is that if `age <= 18` is true, then **none of the other conditional statements even get evaluated**. That is, once a statement is true, none of the other statements matter. Because of this, it is important to place the most restrictive statement first.
 
-![Program flow map for a series of mutually exclusive categories, emphasizing that only some statements are evaluated. When age = 40, only (age <= 18), (age <= 25), and (age <= 40) are evaluated conditionally. Of the assignment statements, only bracket = '26-40' is evaluated when age = 40.](images/age-category-prog-flow2.png)
+![Program flow map for a series of mutually exclusive categories, emphasizing that only some statements are evaluated. When age = 40, only (age \<= 18), (age \<= 25), and (age \<= 40) are evaluated conditionally. Of the assignment statements, only bracket = '26-40' is evaluated when age = 40.](images/age-category-prog-flow2.png)
 
 If for some reason you wrote your conditional statements in the wrong order, the wrong label would get assigned:
 
-
-![Program flow map for a series of mutually exclusive categories, with category labels in the wrong order - <40 is evaluated first, and so <= 25 and <= 18 will never be evaluated and the wrong label will be assigned for anything in those categories.](images/age-category-prog-flow3.png)
+![Program flow map for a series of mutually exclusive categories, with category labels in the wrong order - \<40 is evaluated first, and so \<= 25 and \<= 18 will never be evaluated and the wrong label will be assigned for anything in those categories.](images/age-category-prog-flow3.png)
 
 </details>
 
-In code, we would write this statement using `else-if` (or `elif`) statements. 
+In code, we would write this statement using `else-if` (or `elif`) statements.
 
-<details><summary>R code - if-else chains</summary>
+<details>
+
+<summary>
+
+R code - if-else chains
+
+</summary>
 
 ```{r else-if-statements}
 age <- 40 # change this as you will to see how the code works
@@ -926,10 +1059,16 @@ bracket
 
 </details>
 
+Python uses `elif` as a shorthand for `else if` statements. As always, indentation/white space in python matters. If you put an extra blank line between two elif statements, then the interpreter will complain. If you don't indent properly, the interpreter will complain.
 
-Python uses `elif` as a shorthand for `else if` statements. As always, indentation/white space in python matters. If you put an extra blank line between two elif statements, then the interpreter will complain. If you don't indent properly, the interpreter will complain. 
+<details>
 
-<details><summary>python code - elif chains</summary>
+<summary>
+
+python code - elif chains
+
+</summary>
+
 ```{python elif-statements}
 age = 40 # change this to see how the code works
 
@@ -950,29 +1089,24 @@ bracket
 ```
 
 </details>
-
 :::
 
 ### Loops
 
 <!-- https://www.py4e.com/html3/05-iterations -->
 
-Often, we write programs which update a variable in a way that the new value of the variable depends on the old value: 
+Often, we write programs which update a variable in a way that the new value of the variable depends on the old value:
 
-```
-x = x + 1
-```
+    x = x + 1
 
-This means that we add one to the current value of `x`. 
+This means that we add one to the current value of `x`.
 
-Before we write a statement like this, we have to **initialize** the value of `x` because otherwise, we don't know what value to add one to. 
+Before we write a statement like this, we have to **initialize** the value of `x` because otherwise, we don't know what value to add one to.
 
-```
-x = 0
-x = x + 1
-```
+    x = 0
+    x = x + 1
 
-We sometimes use the word **increment** to talk about adding one to the value of `x`; **decrement** means subtracting one from the value of `x`. 
+We sometimes use the word **increment** to talk about adding one to the value of `x`; **decrement** means subtracting one from the value of `x`.
 
 A particularly powerful tool for making these types of repetitive changes in programming is the **loop**, which executes statements a certain number of times. Loops can be written in several different ways, but all loops allow for executing a block of code a variable number of times.
 
@@ -982,9 +1116,15 @@ In the previous section, we discussed conditional statements, where a block of c
 
 The simplest type of loop is the **while** loop, which executes a block of code until a statement is no longer true.
 
-![Flow map showing while-loop pseudocode (while x <= N) { # code that changes x in some way} and the program flow map expansion where  we check if x > N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then change x and start over.](images/while-loop-flow.png)
+![Flow map showing while-loop pseudocode (while x \<= N) { \# code that changes x in some way} and the program flow map expansion where we check if x \> N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then change x and start over.](images/while-loop-flow.png)
 
-<details><summary>While loops in R</summary>
+<details>
+
+<summary>
+
+While loops in R
+
+</summary>
 
 ```{r while-loop-r}
 x <- 0
@@ -999,7 +1139,13 @@ while (x < 10) {
 
 </details>
 
-<details><summary>While loops in python</summary>
+<details>
+
+<summary>
+
+While loops in python
+
+</summary>
 
 ```{python while-loop-py}
 x = 0
@@ -1013,27 +1159,29 @@ while x < 10:
 </details>
 
 ::: tryitout
+##### Try it Out! {.unnumbered}
 
-##### Try it Out! {-}
+Write a while loop that verifies that $$\lim_{N \rightarrow \infty} \prod_{k=1}^N \left(1 + \frac{1}{k^2}\right) = \frac{e^\pi - e^{-\pi}}{2\pi}.$$
 
-Write a while loop that verifies that  $$\lim_{N \rightarrow \infty} \prod_{k=1}^N \left(1 + \frac{1}{k^2}\right) = \frac{e^\pi - e^{-\pi}}{2\pi}.$$
-
-Terminate your loop when you get within 0.0001 of $\frac{e^\pi - e^{-\pi}}{2\pi}$. 
-At what value of $k$ is this point reached?
-
+Terminate your loop when you get within 0.0001 of $\frac{e^\pi - e^{-\pi}}{2\pi}$. At what value of $k$ is this point reached?
 
 Breaking down math notation for code:
 
-- If you are unfamiliar with the notation $\prod_{k=1}^N f(k)$, this is the product of $f(k)$ for $k = 1, 2, ..., N$, $$f(1)\cdot f(2)\cdot ... \cdot f(N)$$
+-   If you are unfamiliar with the notation $\prod_{k=1}^N f(k)$, this is the product of $f(k)$ for $k = 1, 2, ..., N$, $$f(1)\cdot f(2)\cdot ... \cdot f(N)$$
 
-- To evaluate a limit, we just keep increasing $N$ until we get arbitrarily close to the right hand side of the equation. 
+-   To evaluate a limit, we just keep increasing $N$ until we get arbitrarily close to the right hand side of the equation.
 
 In this problem, we can just keep increasing $k$ and keep track of the cumulative product. So we define `k=1`, `prod = 1`, and `ans` before the loop starts. Then, we loop over `k`, multiplying `prod` by $(1 + 1/k^2)$ and then incrementing $k$ by one each time. At each iteration, we test whether `prod` is close enough to `ans` to stop the loop.
 
-
 Note that in python, you will have to import the math library to get the values of pi and the `exp` function. You can refer to these as `math.pi` and `math.exp()` respectively. In R, you will use `pi` and `exp()` - these are available by default without any additional libraries or packages.
 
-<details><summary>Solution (R)</summary>
+<details>
+
+<summary>
+
+Solution (R)
+
+</summary>
 
 ```{r}
 k <- 1
@@ -1053,7 +1201,13 @@ ans
 
 </details>
 
-<details><summary>Solution (python)</summary>
+<details>
+
+<summary>
+
+Solution (python)
+
+</summary>
 
 ```{python}
 import math
@@ -1074,19 +1228,21 @@ print("At ", k, " iterations, the product is ", prod, "compared to the limit ", 
 ```
 
 </details>
-
 :::
-
 
 #### For Loops
 
 Another common type of loop is a **for** loop. In a for loop, we run the block of code, iterating through a series of values (commonly, one to N, but not always). Generally speaking, for loops are known as **definite** loops because the code inside a for loop is executed a specific number of times. While loops are known as **indefinite** loops because the code within a while loop is evaluated until the condition is falsified, which is not always a known number of times.
 
+![Flow map showing for-loop pseudocode (for j in 1 to N) { \# code} and the program flow map expansion where j starts at 1 and we check if j \> N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then increment j and start over.](images/for-loop-flow.png)
 
+<details>
 
-![Flow map showing for-loop pseudocode (for j in 1 to N) { # code} and the program flow map expansion where j starts at 1 and we check if j > N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then increment j and start over.](images/for-loop-flow.png)
+<summary>
 
-<details><summary>for loop in R</summary>
+for loop in R
+
+</summary>
 
 ```{r}
 for (i in 1:5 ) {
@@ -1097,7 +1253,13 @@ for (i in 1:5 ) {
 
 </details>
 
-<details><summary>for loop in python </summary>
+<details>
+
+<summary>
+
+for loop in python
+
+</summary>
 
 ```{python}
 for i in range(5):
@@ -1105,29 +1267,40 @@ for i in range(5):
 
 ```
 
-By default `range`(5) goes from 0 to 5, the upper bound. When `i = 5` the loop exits. This is because `range(5)` creates a vector `[0, 1, 2, 3, 4]`. 
+By default `range`(5) goes from 0 to 5, the upper bound. When `i = 5` the loop exits. This is because `range(5)` creates a vector `[0, 1, 2, 3, 4]`.
+
 </details>
 
-For loops are often run from 1 to N (or 0 to N-1 in python) but in essence, a for loop is run for every value of a vector (which is why loops are included in the same chapter as vectors). 
+For loops are often run from 1 to N (or 0 to N-1 in python) but in essence, a for loop is run for every value of a vector (which is why loops are included in the same chapter as vectors).
 
 ::: ex
+<details>
 
-<details><summary>Iterating along a vector in R</summary>
+<summary>
 
-For instance, in R, there is a built-in variable called `month.name`. Type `month.name` into your R console to see what it looks like. If we want to iterate along the values of month.name, we can: 
+Iterating along a vector in R
+
+</summary>
+
+For instance, in R, there is a built-in variable called `month.name`. Type `month.name` into your R console to see what it looks like. If we want to iterate along the values of month.name, we can:
 
 ```{r}
 for (i in month.name)
   print(i)
 ```
-</details>
 
+</details>
 :::
 
-
 ::: ex
+<details>
 
-<details><summary>Iterating along a list in python</summary>
+<summary>
+
+Iterating along a list in python
+
+</summary>
+
 In python, we have to define our vector or list to start out with, but that's easy enough:
 
 ```{python}
@@ -1136,13 +1309,11 @@ for i in futurama_crew:
   print(i)
 
 ```
-</details>
 
+</details>
 :::
 
-
 ::: watch-out
-
 #### Avoiding Infinite Loops
 
 It is very easy to create an **infinite** loop when you are working with while loops. Infinite loops never exit, because the condition is always true. If in the while loop example we decrement x instead of incrementing x, the loop will run forever.
@@ -1151,9 +1322,15 @@ You want to try very hard to avoid ever creating an infinite loop - it can cause
 
 One common way to avoid infinite loops is to create a second variable that just counts how many times the loop has run. If that variable gets over a certain threshold, you exit the loop.
 
-<details><summary>Infinite loop protection in R</summary>
+<details>
 
-This while loop runs until either x < 10 or n > 50 - so it will run an indeterminate number of times and depends on the random values added to x. Since this process (a 'random walk') could theoretically continue forever, we add the n>50 check to the loop so that we don't tie up the computer for eternity.
+<summary>
+
+Infinite loop protection in R
+
+</summary>
+
+This while loop runs until either x \< 10 or n \> 50 - so it will run an indeterminate number of times and depends on the random values added to x. Since this process (a 'random walk') could theoretically continue forever, we add the n\>50 check to the loop so that we don't tie up the computer for eternity.
 
 ```{r infinite-loop-exit-r}
 x <- 0
@@ -1170,7 +1347,13 @@ while (x < 10) {
 
 </details>
 
-<details><summary>Infinite loop protection in python</summary>
+<details>
+
+<summary>
+
+Infinite loop protection in python
+
+</summary>
 
 ```{python infinite-loop-exit-py}
 import numpy as np; # for the random normal draw
@@ -1189,25 +1372,23 @@ while x < 10:
 
 </details>
 
-In both of the examples above, there are more efficient ways to write a random walk, but we will get to that later. The important thing here is that we want to make sure that our loops don't run for all eternity. 
-
+In both of the examples above, there are more efficient ways to write a random walk, but we will get to that later. The important thing here is that we want to make sure that our loops don't run for all eternity.
 :::
 
-
 #### Controlling Loops
+
 <!-- https://www.py4e.com/html3/05-iterations -->
+
 <!-- https://www.datamentor.io/r-programming/break-next/ -->
 
-Sometimes it is useful to control the statements in a loop with a bit more precision. You may want to skip over code and proceed directly to the next iteration, or, as demonstrated in the previous section with the `break` statement, it may be useful to exit the loop prematurely. 
+Sometimes it is useful to control the statements in a loop with a bit more precision. You may want to skip over code and proceed directly to the next iteration, or, as demonstrated in the previous section with the `break` statement, it may be useful to exit the loop prematurely.
 
 ![A break statement is used to exit a loop prematurely](images/break-statement.png)
-
 
 ![A next (or continue) statement is used to skip the body of the loop and continue to the next iteration](images/next-statement-flow.png)
 
 ::: ex
-
-Let's demonstrate the details of next/continue and break statements. 
+Let's demonstrate the details of next/continue and break statements.
 
 We can do different things based on whether i is evenly divisible by 3, 5, or both 3 and 5 (thus divisible by 15)
 
@@ -1243,7 +1424,6 @@ for i in range(1, 20):
     print(i)
 
 ```
-
 :::
 
-To be quite honest, I haven't really ever needed to use next/continue statements when I'm programming, and I rarely use break statements. However, it's useful to know they exist just in case you come across a problem where you could put either one to use. 
+To be quite honest, I haven't really ever needed to use next/continue statements when I'm programming, and I rarely use break statements. However, it's useful to know they exist just in case you come across a problem where you could put either one to use.

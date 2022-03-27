@@ -8,18 +8,15 @@ book:
   date: "Spring 2022"
   chapters:
     - index.qmd
-    - 1-getting-started.qmd
-    - 2-markdown.qmd
-    - 3-finding-your-way.qmd
-    - 4-data-types.qmd
-    - 5-vectors.qmd
-    - 6-data-structures.qmd
-    - 7-data-transformations.qmd
-    - reading-data.qmd
+    - 01-getting-started.qmd
+    - 02-markdown.qmd
+    - 03-finding-your-way.qmd
+    - 04-data-types.qmd
+    - 05-vectors.qmd
+    - 06-data-structures.qmd
+    - 07-data-transformations.qmd
+    - 08-data-cleaning.qmd
     - functions.qmd
-    - statistics.qmd
-    - ttests.qmd
-    - linear-modeling.qmd
     - git-github.qmd
     - references.qmd
   site-url: https://srvanderplas.github.io/Stat151/
