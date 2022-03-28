@@ -1,3 +1,8 @@
+---
+execute:
+  freeze: auto  # re-render only when source changes
+---
+
 # Data Transformations
 
 ```{r data-transform-setup, include = F}
@@ -7,16 +12,13 @@ c()
 knitr::opts_chunk$set(collapse = T, message = F)
 ```
 
-
 > Happy families are all alike; every unhappy family is unhappy in its own way. - Leo Tolstoy
 
 > Tidy datasets are all alike, but every messy dataset is messy in its own way. - Hadley Wickham
 
-
 Most of the time, data does not come in a format suitable for analysis. Spreadsheets are generally optimized for data *viewing*, rather than for statistical analysis - they may be laid out so that there are multiple observations in a single row (e.g., commonly a year's worth of data, with monthly observations in each column).
 
 Unfortunately, this type of data structure is not usually useful to us when we analyze or visualize the data.
-
 
 ## Identifying the problem: Messy data
 
@@ -32,8 +34,7 @@ These datasets all display the same data: TB cases documented by the WHO in Afgh
 knitr::kable(table1, caption = "Table 1")
 ```
 
-Here, each observation is a single row, each variable is a column, and everything is nicely arranged for e.g. regression or statistical analysis. We can easily compute another measure, such as cases per 100,000 population, by taking cases/population * 100000 (this would define a new column).
-
+Here, each observation is a single row, each variable is a column, and everything is nicely arranged for e.g. regression or statistical analysis. We can easily compute another measure, such as cases per 100,000 population, by taking cases/population \* 100000 (this would define a new column).
 
 ```{r tidy2, echo = F}
 knitr::kable(table2, caption = "Table 2")
@@ -41,16 +42,13 @@ knitr::kable(table2, caption = "Table 2")
 
 Here, we have 4 columns again, but we now have 12 rows: one of the columns is an indicator of which of two numerical observations is recorded in that row; a second column stores the value. This form of the data is more easily plotted in e.g. ggplot2, if we want to show lines for both cases and population, but computing per capita cases would be much more difficult in this form than in the arrangement in table 1.
 
-
 In this form, we have two tables - one for population, and one for cases. Each year's observations are in a separate column. This format is often found in separate sheets of an excel workbook. To work with this data, we'll need to transform each table so that there is a column indicating which year an observation is from, and then merge the two tables together by country and year.
-
 
 ```{r tidy3, echo = F}
 knitr::kable(table3, caption = "Table 3")
 ```
 
 This form has only 3 columns, because the rate variable (which is a character) stores both the case count and the population. We can't do *anything* with this format as it stands, because we can't do math on data stored as characters. However, this form might be easier to read and record for a human being.
-
 
 ```{r tidy4, echo = F}
 knitr::kable(table4a, caption = "Table 4a")
@@ -61,73 +59,77 @@ knitr::kable(table4b, caption = "Table 4b")
 knitr::kable(table5, caption = "Table 5")
 ```
 
-Table 5 is very similar to table 3, but the year has been separated into two columns - century, and year. This is more common with year, month, and day in separate columns  (or date and time in separate columns), often to deal with the fact that spreadsheets don't always handle dates the way you'd hope they would.
-
+Table 5 is very similar to table 3, but the year has been separated into two columns - century, and year. This is more common with year, month, and day in separate columns (or date and time in separate columns), often to deal with the fact that spreadsheets don't always handle dates the way you'd hope they would.
 
 These variations highlight the principles which can be said to define a tidy dataset:
 
-1. Each variable must have its own column
-2. Each observation must have its own row
-3. Each value must have its own cell
+1.  Each variable must have its own column
+2.  Each observation must have its own row
+3.  Each value must have its own cell
 
-<div class="tryitout">
+::: tryitout
+### Try it out {.unnumbered}
 
-### Try it out {-}
 Go back through the 5 tables and determine whether each table is tidy, and if it is not, which rule or rules it violates. Figure out what you would have to do in order to compute a standardized TB infection rate per 100,000 people.
 
-<details><summary>Solution</summary>
+<details>
 
-1. table1 - this is tidy data. Computing a standardized infection rate is as simple as creating the variable rate = cases/population*100,000.
+<summary>
 
-2. table2 - each variable does not have its own column (so a single year's observation of one country actually has 2 rows). Computing a standardized infection rate requires moving cases and population so that each variable has its own column, and then you can proceed using the process in 1.
+Solution
 
-3. table3 - each value does not have its own cell (and each variable does not have its own column). In Table 3, you'd have to separate the numerator and denominator of each cell, convert each to a numeric variable, and then you could proceed as in 1.
+</summary>
 
-4. table4a and table 4b - there are multiple observations in each row because there is not a column for year. To compute the rate, you'd need to "stack" the two columns in each table into a single column, add a year column that is 1999, 1999, 1999, 2000, 2000, 2000, and then merge the two tables. Then you could proceed as in 1.
+1.  table1 - this is tidy data. Computing a standardized infection rate is as simple as creating the variable rate = cases/population\*100,000.
 
-5. table 5 - each variable does not have its own column (there are two columns for year, in addition to the issues noted in table3). Computing the rate would be similar to table 3; the year issues aren't actually a huge deal unless you plot them, at which point 99 will seem to be bigger than 00 (so you'd need to combine the two year columns together first).
+2.  table2 - each variable does not have its own column (so a single year's observation of one country actually has 2 rows). Computing a standardized infection rate requires moving cases and population so that each variable has its own column, and then you can proceed using the process in 1.
+
+3.  table3 - each value does not have its own cell (and each variable does not have its own column). In Table 3, you'd have to separate the numerator and denominator of each cell, convert each to a numeric variable, and then you could proceed as in 1.
+
+4.  table4a and table 4b - there are multiple observations in each row because there is not a column for year. To compute the rate, you'd need to "stack" the two columns in each table into a single column, add a year column that is 1999, 1999, 1999, 2000, 2000, 2000, and then merge the two tables. Then you could proceed as in 1.
+
+5.  table 5 - each variable does not have its own column (there are two columns for year, in addition to the issues noted in table3). Computing the rate would be similar to table 3; the year issues aren't actually a huge deal unless you plot them, at which point 99 will seem to be bigger than 00 (so you'd need to combine the two year columns together first).
 
 </details>
-
-</div>
+:::
 
 It is actually impossible to have a table that violates only one of the rules of tidy data - you have to violate at least two. So a simpler way to state the rules might be:
 
-1. Each dataset goes into its own table
-2. Each variable gets its own column
+1.  Each dataset goes into its own table
+2.  Each variable gets its own column
 
 By the end of this course, you should have the skills to "tidy" each of these tables.
 
 ## Pivot operations
 
-It's fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren't necessarily the most friendly for analysis. 
+It's fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren't necessarily the most friendly for analysis.
 
 ![Image showing wide format and long format tables containing the same data. Image from https://github.com/kelseygonzalez/tidyexplain.](https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/master/images/static/png/original-dfs-tidy.png)
 
-The two operations we'll learn here are wide -> long and long -> wide. 
+The two operations we'll learn here are wide -\> long and long -\> wide.
 
 ![GIF showing the transition from wide format to long format and back using pivot_wider and pivot_longer commands. Image from https://github.com/kelseygonzalez/tidyexplain.](https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/wider_longer/images/tidyr-pivot_wider_longer.gif)
 
-This animation uses the R functions pivot_wider() and pivot_longer() [Animation source](https://github.com/kelseygonzalez/tidyexplain/tree/wider_longer), but the concept is the same in both R and python. 
+This animation uses the R functions pivot_wider() and pivot_longer() [Animation source](https://github.com/kelseygonzalez/tidyexplain/tree/wider_longer), but the concept is the same in both R and python.
 
 ### Longer
 
-In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable. 
+In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable.
 
-Tables 4a and 4b are good examples of data which is in "wide" form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.  
+Tables 4a and 4b are good examples of data which is in "wide" form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.
 
 ```{r longer-pivot-demo}
 table4a
 table4b
 ```
 
-The solution to this is to rearrange the data into "long form": to take the columns which contain values and "stack" them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn't being stacked (e.g. country, in both the example above and the image below). 
+The solution to this is to rearrange the data into "long form": to take the columns which contain values and "stack" them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn't being stacked (e.g. country, in both the example above and the image below).
 
 ```{r tidyr-pivot-longer-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_longer operation looks like in practice."}
 knitr::include_graphics("images/tidyr_pivot_longer.png")
 ```
 
-Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we'll have tidy(er) data. 
+Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we'll have tidy(er) data.
 
 #### Manual Method {.ex}
 
@@ -137,25 +139,38 @@ Consider the following table of average daily temperatures observed in Lincoln, 
 
 ![Initial data table](images/manual-wide-to-long-table.png)
 
-Open up the [spreadsheet](data/2022-temperatures-lincoln.xlsx) containing this table on your computer and let's work through converting it to long format together. 
+Open up the [spreadsheet](data/2022-temperatures-lincoln.xlsx) containing this table on your computer and let's work through converting it to long format together.
 
-<details><summary>
+<details>
+
+<summary>
+
 To convert this data to long format, the first thing we need to do is create a new column: Day_of_Week
+
 </summary>
 
 ![Adding Day_of_Week column](images/manual-wide-to-long-table-1.png)
 
 </details>
 
-<details><summary>
+<details>
+
+<summary>
+
 Then, we need to create a temperature column to hold the daily average temperature values.
+
 </summary>
 
 ![Adding Temperature column](images/manual-wide-to-long-table-2.png)
+
 </details>
 
-<details><summary>
+<details>
+
+<summary>
+
 Now that we have the 3 columns our data will fit into set up, we can start moving data over.
+
 </summary>
 
 First, we will repeat Sunday for each of the first 5 rows in Column B, copying the values from column D into the Temperature column (Column C). Once that is done, we delete the Sunday column from our dataset to prevent duplication.
@@ -168,9 +183,14 @@ First, we will repeat Sunday for each of the first 5 rows in Column B, copying t
 
 </details>
 
-<details><summary>
+<details>
+
+<summary>
+
 Duplicating repeated data and moving Monday data over
+
 </summary>
+
 We then duplicate the 5 week values, so that we can move another column of data over into our long format table.
 
 ![Duplicating Week 1-5 values](images/manual-wide-to-long-table-6.png)
@@ -183,10 +203,14 @@ We then duplicate the 5 week values, so that we can move another column of data 
 
 </details>
 
+<details>
 
-<details><summary>
+<summary>
+
 Duplicating repeated data and moving Tuesday data over
+
 </summary>
+
 We then duplicate the 5 week values, so that we can move another column of data over into our long format table.
 
 ![Duplicating Week 1-5 values](images/manual-wide-to-long-table-10.png)
@@ -199,10 +223,13 @@ We then duplicate the 5 week values, so that we can move another column of data 
 
 </details>
 
-<details><summary>
-Repeat these steps for each additional column
-</summary>
+<details>
 
+<summary>
+
+Repeat these steps for each additional column
+
+</summary>
 
 ![Wednesday data](images/manual-wide-to-long-table-14.png)
 
@@ -214,8 +241,12 @@ This process is repeated for the additional days, resulting in a final data set 
 
 </details>
 
-<details><summary>
+<details>
+
+<summary>
+
 Arranging the data for plotting
+
 </summary>
 
 To do something useful with this data, we might want to sort by Week number to get a chronological ordering of the temperature values:
@@ -238,21 +269,26 @@ You may at this point be wondering why we don't just do this operation by hand..
 
 In order to move from wide format to long format, we need to specify at least 2 of 3 possible quantities:
 
-1. The values to keep to determine rows (the key)    
-![The values determine which rows are unique](images/pivot-specification-key.png)
+1.  The values to keep to determine rows (the key)\
+    ![The values determine which rows are unique](images/pivot-specification-key.png)
 
-2. The columns to merge into "long" form, where the column names are stored as a new variable    
-![The column names are turned into values of a new "label" column](images/pivot-specification-columns.png)
+2.  The columns to merge into "long" form, where the column names are stored as a new variable\
+    ![The column names are turned into values of a new "label" column](images/pivot-specification-columns.png)
 
-3. The values of interest    
-![The value of interest is transformed into a new (long) single column](images/pivot-specification-values.png)
+3.  The values of interest\
+    ![The value of interest is transformed into a new (long) single column](images/pivot-specification-values.png)
 
 For most simple cases, if we have 2 of these 3 things, the pivot operation will go on as planned. Sadly, python and R require different defaults for which things are necessary, even if the fundamental operation is the same in each language.
 
-
 <!-- https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot.html -->
 
-<details><summary>Conversion using wide-to-long and merge/join statements in R</summary>
+<details>
+
+<summary>
+
+Conversion using wide-to-long and merge/join statements in R
+
+</summary>
 
 ```{r tidyr-pivot-longer-demo2}
 tba <- table4a %>% 
@@ -268,28 +304,36 @@ left_join(tba, tbb, by = c("country", "year")) %>%
 
 ```
 
-The columns are moved to a variable with the name passed to the argument "names_to" (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument "values_to" (again, hopefully easy to remember). 
+The columns are moved to a variable with the name passed to the argument "names_to" (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument "values_to" (again, hopefully easy to remember).
 
 We identify ID variables (variables which we don't want to pivot) by not including them in the pivot statement. We can do this in one of two ways:
 
-- select only variables we want to pivot: `pivot_longer(table4a, cols = `1999`:`2000`, names_to = "year", values_to = "cases")`
-- select variables we don't want to pivot, using `-` to remove them. (see above, where `-country` excludes country from the pivot operation)
+-   select only variables we want to pivot: `pivot_longer(table4a, cols =`1999`:`2000`, names_to = "year", values_to = "cases")`
+-   select variables we don't want to pivot, using `-` to remove them. (see above, where `-country` excludes country from the pivot operation)
 
-Which option is easier depends how many things you're pivoting (and how the columns are structured). 
+Which option is easier depends how many things you're pivoting (and how the columns are structured).
+
 </details>
 
-<details><summary>Some notes on selecting variables in R</summary>
+<details>
+
+<summary>
+
+Some notes on selecting variables in R
+
+</summary>
+
 Note: These details really only apply to the `tidyverse` - a series of R packages including `dplyr` and `tidyr`, among others.
 
 There are many different ways you can select variables in tidyverse functions:
 
-- a character vector of column names passed to helper functions `all_of` and `any_of`. `all_of` will throw an error if something in the vector is missing, `any_of` will select anything that matches an entry in the vector but won't error out if it doesn't find some variable.
+-   a character vector of column names passed to helper functions `all_of` and `any_of`. `all_of` will throw an error if something in the vector is missing, `any_of` will select anything that matches an entry in the vector but won't error out if it doesn't find some variable.
 
-- Using a pattern, such as `starts_with`, `ends_with`, `contains`, `matches`, and `num_range`. These functions take a single character string as an argument and select all columns that match the character string in the way indicated by the function name.
+-   Using a pattern, such as `starts_with`, `ends_with`, `contains`, `matches`, and `num_range`. These functions take a single character string as an argument and select all columns that match the character string in the way indicated by the function name.
 
-- `everything` matches all variables
+-   `everything` matches all variables
 
-- `last_col` matches the last column
+-   `last_col` matches the last column
 
 You can also use logical operators `!` (taking the complement), `&` and `|` (and/or), `c()` to combine selections, and `:` to select a range of consecutive variables.
 
@@ -311,10 +355,17 @@ These selection helpers can be extremely useful when choosing columns to pivot.
 
 </details>
 
-<details><summary>Conversion using wide-to-long and merge/join statements in Python</summary>
-A similar operation can be done  in python using pd.melt. Think of "melting" your data down from a metal object to a liquid. (There actually used to be an R package that used cast/melt as the terms for pivot wider/longer, but it has been superseded by pivot_wider and pivot_longer syntax).
+<details>
 
-As in R, we identify the variables that we DON'T want to pivot, but in python syntax, these are called id_vars. Then, as in R, we need to specify the names of the columns we want to have at the end. In Python, we also have to specify value variables: variables that we will be pivoting (so we specify both those we are pivoting and those we aren't). Remember, id_vars are variables that we would copy-paste over and over with each set of variables in the manual pivot operation, where value_vars are the set of columns we want to combine into variable:value pairs. 
+<summary>
+
+Conversion using wide-to-long and merge/join statements in Python
+
+</summary>
+
+A similar operation can be done in python using pd.melt. Think of "melting" your data down from a metal object to a liquid. (There actually used to be an R package that used cast/melt as the terms for pivot wider/longer, but it has been superseded by pivot_wider and pivot_longer syntax).
+
+As in R, we identify the variables that we DON'T want to pivot, but in python syntax, these are called id_vars. Then, as in R, we need to specify the names of the columns we want to have at the end. In Python, we also have to specify value variables: variables that we will be pivoting (so we specify both those we are pivoting and those we aren't). Remember, id_vars are variables that we would copy-paste over and over with each set of variables in the manual pivot operation, where value_vars are the set of columns we want to combine into variable:value pairs.
 
 ```{python pivot-longer-demo-python}
 import pandas as pd
@@ -339,10 +390,15 @@ final
 
 </details>
 
+<details>
 
-<details><summary>Conversion using new variables, appending tables, and wide-to-long statements in R</summary>
+<summary>
 
-If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form. 
+Conversion using new variables, appending tables, and wide-to-long statements in R
+
+</summary>
+
+If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form.
 
 ```{r tidyr-pivot-longer-id}
 # Create ID columns
@@ -369,10 +425,15 @@ table4_tidy
 
 </details>
 
+<details>
 
-<details><summary>Conversion using new variables, appending tables, and wide-to-long statements in Python</summary>
+<summary>
 
-If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form. 
+Conversion using new variables, appending tables, and wide-to-long statements in Python
+
+</summary>
+
+If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form.
 
 ```{python pivot-longer-id-python}
 # Create ID columns
@@ -409,36 +470,47 @@ We will talk more about long-to-wide pivot operations below. For now, it's enoug
 
 </details>
 
+Transitioning from wide data to long data isn't too complicated in most situations -- and it definitely beats doing that operation by hand, even for short, simple tables.
 
-Transitioning from wide data to long data isn't too complicated in most situations -- and it definitely beats doing that operation by hand, even for short, simple tables. 
-
-It takes some getting used to, but once you get a feel for how to do these operations, you'll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output. 
+It takes some getting used to, but once you get a feel for how to do these operations, you'll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output.
 
 ::: warning
-Because wide-to-long transformations end up combining values from several columns into a single column, you can run into issues with type conversions that happen implicitly. If you try to `pivot_longer()` using a character column mixed in with numeric columns, your "value" column will be converted to a character automatically. 
+Because wide-to-long transformations end up combining values from several columns into a single column, you can run into issues with type conversions that happen implicitly. If you try to `pivot_longer()` using a character column mixed in with numeric columns, your "value" column will be converted to a character automatically.
 :::
-
 
 ### Wider
 
-While it's very common to need to transform data into a longer format, it's not that uncommon to need to do the reverse operation. When an observation is scattered across multiple rows, your data is too long and needs to be made wider again.  
+While it's very common to need to transform data into a longer format, it's not that uncommon to need to do the reverse operation. When an observation is scattered across multiple rows, your data is too long and needs to be made wider again.
 
-Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be "tidy" - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows. 
-
+Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be "tidy" - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows.
 
 ```{r pivot-wider-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_wider operation looks like in practice."}
 knitr::include_graphics("images/tidyr_pivot_wider.png")
 ```
 
-<details><summary>In R, long-to-wide conversion operations are performed using `pivot_wider()`</summary>
+<details>
+
+<summary>
+
+In R, long-to-wide conversion operations are performed using `pivot_wider()`
+
+</summary>
+
 ```{r pivot-wider-demo}
 table2 %>%
   pivot_wider(names_from = type, values_from = count)
 ```
+
 </details>
 
+<details>
 
-<details><summary>In python, long-to-wide conversion operations are performed using `pd.pivot()`</summary>
+<summary>
+
+In python, long-to-wide conversion operations are performed using `pd.pivot()`
+
+</summary>
+
 ```{python pivot-wider-demo-python}
 table2 = r.table2
 
@@ -447,11 +519,12 @@ pd.pivot(table2, index = ['country', 'year'], columns = 'type', values = 'count'
 # We can get rid of the index by adding a .reset_index() to the end of the command
 pd.pivot(table2, index = ['country', 'year'], columns = 'type', values = 'count').reset_index()
 ```
+
 </details>
 
-### Try it out! {- .tryitout}
+### Try it out! {.unnumbered .tryitout}
 
-Let's work with the dog breed traits data to see if we can get it into long format and then back into wide format based on some specific criteria. 
+Let's work with the dog breed traits data to see if we can get it into long format and then back into wide format based on some specific criteria.
 
 ```{r dog-breeds-data-r}
 breed_traits <- read.csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv') %>%
@@ -466,9 +539,9 @@ breed_traits = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 breed_traits.Breed = breed_traits["Breed"].transform(unidecode)
 ```
 
-You may remember that the breed trait data includes a number of 1-5 numeric variables indicating score on various dimensions such as affection, shedding, openness, and playfulness. 
+You may remember that the breed trait data includes a number of 1-5 numeric variables indicating score on various dimensions such as affection, shedding, openness, and playfulness.
 
-**Task 1**: Take all of the 1-5 numeric variables in the dataset and make a long-format dataset. **Choose 5 breeds of your choice**. Then, using your dataset, plot each breed's score, with each dimension as a separate facet. 
+**Task 1**: Take all of the 1-5 numeric variables in the dataset and make a long-format dataset. **Choose 5 breeds of your choice**. Then, using your dataset, plot each breed's score, with each dimension as a separate facet.
 
 Your code in ggplot2 would look something like this:
 
@@ -489,8 +562,13 @@ ggplot(long_data, aes(x = "breed", y = "value")) +
   coord_flip()
 ```
 
+<details>
 
-<details><summary>R solution</summary>
+<summary>
+
+R solution
+
+</summary>
 
 ```{r tryitout-solution-r}
 library(ggplot2)
@@ -510,9 +588,13 @@ my_breeds %>%
 
 </details>
 
+<details>
 
+<summary>
 
-<details><summary>python solution</summary>
+python solution
+
+</summary>
 
 ```{python tryitout-solution-python}
 from plotnine import *
@@ -529,11 +611,15 @@ ggplot(my_breeds, aes(x = "Breed", y = "value")) + geom_col() + facet_wrap("Trai
 
 </details>
 
-
 **Task 2**: Using your data from the previous task, determine which traits are 5 = good and which traits are 5 = bad (This may not be the same list for everyone!). Create a new variable in the data frame that encodes this information. There are several ways to do this task in R and in Python, so see if you can find a way that works for you.
 
+<details>
 
-<details><summary>R solution</summary>
+<summary>
+
+R solution
+
+</summary>
 
 ```{r tryitout2-solution-r}
 good_traits <- c("Affectionate.With.Family", "Good.With.Young.Children", "Good.With.Other.Dogs", "Openness.To.Strangers", "Playfulness.Level", "Adaptability.Level", "Trainability.Level")
@@ -544,9 +630,13 @@ my_breeds <- my_breeds %>%
 
 </details>
 
+<details>
 
+<summary>
 
-<details><summary>python solution</summary>
+python solution
+
+</summary>
 
 ```{python tryitout2-solution-python}
 import numpy as np
@@ -562,8 +652,13 @@ my_breeds["trait_type"] = np.where(my_breeds["Trait"].isin(good_traits), 'Good',
 
 **Task 3**: Using your data from the previous task, summarize your data so that you calculate the average score for good and bad traits for each dog breed. For each Breed, your solution should have two rows: one for good traits, one for bad traits. It may help to sketch out what a solution should look like for each Breed before you begin.
 
+<details>
 
-<details><summary>R solution</summary>
+<summary>
+
+R solution
+
+</summary>
 
 ```{r tryitout3-solution-r}
 summary_traits = data.frame()
@@ -586,9 +681,13 @@ summary_traits
 
 </details>
 
+<details>
 
+<summary>
 
-<details><summary>python solution</summary>
+python solution
+
+</summary>
 
 ```{python tryitout3-solution-python}
 summary_traits = pd.DataFrame()
@@ -612,10 +711,15 @@ summary_traits
 
 </details>
 
-
 **Task 4**: Pivot your summary data frame from long to wide to get an overall summary of the good and bad for each of your 5 breeds. Plot the good score on the x axis, the bad score on the y axis, and use the breed name as the label. Use `geom_label` instead of `geom_point`.
 
-<details><summary>R solution</summary>
+<details>
+
+<summary>
+
+R solution
+
+</summary>
 
 ```{r tryitout4-solution-r}
 summary_traits %>%
@@ -625,9 +729,13 @@ summary_traits %>%
 
 </details>
 
+<details>
 
+<summary>
 
-<details><summary>python solution</summary>
+python solution
+
+</summary>
 
 ```{python tryitout4-solution-python}
 tmp = summary_traits.pivot(index = "Breed", columns = 'trait_type', values = 'average')

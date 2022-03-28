@@ -1,25 +1,30 @@
+---
+execute:
+  freeze: auto  # re-render only when source changes
+---
+
 # Basic Data Types
 
 ## Values and Types
 
 Let's start this section with some basic vocabulary.
 
--  a **value** is a basic unit of stuff that a program works with, like `1`, `2`, `"Hello, World"`, and so on.
--  values have **types** - `2` is an integer, `"Hello, World"` is a string (it contains a "string" of letters). Strings are in quotation marks to let us know that they are not variable names.
+-   a **value** is a basic unit of stuff that a program works with, like `1`, `2`, `"Hello, World"`, and so on.
+-   values have **types** - `2` is an integer, `"Hello, World"` is a string (it contains a "string" of letters). Strings are in quotation marks to let us know that they are not variable names.
 
 In both R and python, there are some very basic data types:
 
--  **logical** or **boolean** - FALSE/TRUE or 0/1 values. Sometimes, boolean is shortened to **bool**
+-   **logical** or **boolean** - FALSE/TRUE or 0/1 values. Sometimes, boolean is shortened to **bool**
 
--  **integer** - whole numbers (positive or negative)
+-   **integer** - whole numbers (positive or negative)
 
--  **double** or **float** or **numeric**- decimal numbers.
+-   **double** or **float** or **numeric**- decimal numbers.
 
-    -  **float** is short for floating-point value.
-    -  **double** is a floating-point value with more precision ("double precision").[^data-types-1]
-    -  R uses the name **numeric** to indicate a decimal value, regardless of precision.
+    -   **float** is short for floating-point value.
+    -   **double** is a floating-point value with more precision ("double precision").[^data-types-1]
+    -   R uses the name **numeric** to indicate a decimal value, regardless of precision.
 
--  **character** or **string** - holds text, usually enclosed in quotes.
+-   **character** or **string** - holds text, usually enclosed in quotes.
 
 [^data-types-1]: This means that doubles take up more memory but can store more decimal places. You don't need to worry about this much in R, and only a little in Python, but in older and more precise languages such as C/C++/Java, the difference between floats and doubles can be important.
 
@@ -74,10 +79,10 @@ We can then use the variables - do numerical computations, evaluate whether a pr
 
 ### Valid Names
 
-> There are only two hard things in Computer Science: cache invalidation and naming things.    
--- Phil Karlton
+> There are only two hard things in Computer Science: cache invalidation and naming things.\
+> -- Phil Karlton
 
-Object names must start with a letter and can only contain letters, numbers, `_`, and `.` in R. In Python, object names must start with a letter and can consist of letters, numbers, and `_` (that is, `.` is not a valid character in a Python variable name). While it is technically fine to use uppercase variable names in Python, it's recommended that you use lowercase names for variables (you'll see why later). 
+Object names must start with a letter and can only contain letters, numbers, `_`, and `.` in R. In Python, object names must start with a letter and can consist of letters, numbers, and `_` (that is, `.` is not a valid character in a Python variable name). While it is technically fine to use uppercase variable names in Python, it's recommended that you use lowercase names for variables (you'll see why later).
 
 What happens if we try to create a variable name that isn't valid?
 
@@ -88,14 +93,14 @@ What happens if we try to create a variable name that isn't valid?
 ```{python invalid-variable-name-py, eval = F}
 1st_thing <- "check your variable names!"
 ```
-Note: Run the above chunk in your python window - the book won't compile if I set it to evaluate `r emo::ji("sad")`. It generates an error of `SyntaxError: invalid syntax (<string>, line 1)`
 
+Note: Run the above chunk in your python window - the book won't compile if I set it to evaluate `r emo::ji("sad")`. It generates an error of `SyntaxError: invalid syntax (<string>, line 1)`
 
 ```{python invalid-variable-name-py2, error = T}
 second.thing <- "this isn't valid"
 ```
 
-In both languages, starting a variable name with a number will get you an error message that lets you know that something isn't right - "unexpected symbol" in R and "invalid syntax" in python. 
+In both languages, starting a variable name with a number will get you an error message that lets you know that something isn't right - "unexpected symbol" in R and "invalid syntax" in python.
 
 In python, trying to have a `.` in a variable name gets a more interesting error: "<first part> is not defined". This is because in python, some objects have components and methods that can be accessed with `.`. We'll get into this more later, but there is a good reason for python's restriction about not using `.` in variable names.
 
@@ -107,10 +112,10 @@ Naming things is difficult! When you name variables, try to make the names descr
 
 There are a few different conventions for naming things that may be useful:
 
-- `some_people_use_snake_case`, where words are separated by underscores
-- `somePeopleUseCamelCase`, where words are appended but anything after the first word is capitalized (leading to words with humps like a camel). 
-- `some.people.use.periods` (in R, obviously this doesn't work in python)
-- A few people mix conventions with `variables_thatLookLike.this` and they are almost universally hated `r emo::ji("evil")`
+-   `some_people_use_snake_case`, where words are separated by underscores
+-   `somePeopleUseCamelCase`, where words are appended but anything after the first word is capitalized (leading to words with humps like a camel).
+-   `some.people.use.periods` (in R, obviously this doesn't work in python)
+-   A few people mix conventions with `variables_thatLookLike.this` and they are almost universally hated `r emo::ji("evil")`
 
 As long as you pick ONE naming convention and don't mix-and-match, you'll be fine. It will be easier to remember what you named your variables (or at least guess) and you'll have fewer moments where you have to go scrolling through your script file looking for a variable you named.
 
@@ -118,20 +123,20 @@ As long as you pick ONE naming convention and don't mix-and-match, you'll be fin
 
 We talked about values and types above, but skipped over a few details because we didn't know enough about variables. It's now time to come back to those details.
 
-What happens when we have an integer and a numeric type and we add them together? Hopefully, you don't have to think too hard about what the result of `2 + 3.5` is, but this is a bit more complicated for a computer for two reasons: storage, and arithmetic. 
+What happens when we have an integer and a numeric type and we add them together? Hopefully, you don't have to think too hard about what the result of `2 + 3.5` is, but this is a bit more complicated for a computer for two reasons: storage, and arithmetic.
 
 In days of yore, programmers had to deal with memory allocation - when declaring a variable, the programmer had to explicitly define what type the variable was. This tended to look something like the code chunk below:
 
-```
-int a = 1
-double b = 3.14159
-```
+    int a = 1
+    double b = 3.14159
 
-Typically, an integer would take up 32 bits of memory, and a double would take up 64 bits, so doubles used 2x the memory that integers did. Both R and python are **dynamically typed**, which means you don't have to deal with any of the trouble of declaring what your variables will hold - the computer automatically figures out how much memory to use when you run the code. So we can avoid the discussion of memory allocation and types because we're using higher-level languages that handle that stuff for us^[In some ways, this is like the difference between an automatic and a manual transmission - you have fewer things to worry about, but you also don't know what's going on under the hood nearly as well]. 
+Typically, an integer would take up 32 bits of memory, and a double would take up 64 bits, so doubles used 2x the memory that integers did. Both R and python are **dynamically typed**, which means you don't have to deal with any of the trouble of declaring what your variables will hold - the computer automatically figures out how much memory to use when you run the code. So we can avoid the discussion of memory allocation and types because we're using higher-level languages that handle that stuff for us[^data-types-2].
+
+[^data-types-2]: In some ways, this is like the difference between an automatic and a manual transmission - you have fewer things to worry about, but you also don't know what's going on under the hood nearly as well
 
 But the discussion of types isn't something we can completely avoid, because we still have to figure out what to do when we do operations on things of two different types - even if memory isn't a concern, we still have to figure out the arithmetic question.
 
-So let's see what happens with a couple of examples, just to get a feel for **type conversion** (aka **type casting** or **type coercion**), which is the process of changing an expression from one data type to another. 
+So let's see what happens with a couple of examples, just to get a feel for **type conversion** (aka **type casting** or **type coercion**), which is the process of changing an expression from one data type to another.
 
 ```{r}
 mode(2L + 3.14159) # add 2 and pi
@@ -139,7 +144,7 @@ mode(2L + TRUE) # add integer 2 and TRUE
 mode(TRUE + FALSE) # add TRUE and FALSE
 ```
 
-In R, all of the examples above are 'numeric' - basically, a catch-all class for things that are in some way, shape, or form numbers. Integers and decimal numbers are both numeric, but so are logicals (because they can be represented as 0 or 1). 
+In R, all of the examples above are 'numeric' - basically, a catch-all class for things that are in some way, shape, or form numbers. Integers and decimal numbers are both numeric, but so are logicals (because they can be represented as 0 or 1).
 
 ```{python}
 type(2 + 3.14159)
@@ -149,27 +154,24 @@ type(True + False)
 
 In python, by contrast, anything without a decimal point is converted into an integer - essentially, python tries to minimize memory used without losing data. So it will never convert a float into an integer implicitly - if you want Python to do that, you'll have to tell it to do so directly.
 
-You may be asking yourself at this point why this matters, and that's a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become *very* important at that point, because we'll have to know how R and python both handle type conversions. 
-
+You may be asking yourself at this point why this matters, and that's a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become *very* important at that point, because we'll have to know how R and python both handle type conversions.
 
 ::: tryitout
 ### In class activity {.unnumbered}
 
 Do a bit of experimentation - what happens when you try to add a string and a number? Which types are automatically converted to other types? Fill in the following table in your notes:
 
-Adding a ___ and a ___ produces a ___:
+Adding a \_\_\_ and a \_\_\_ produces a \_\_\_:
 
- | Logical | Integer | Decimal | String
---- | ------- | ------- | ------- | ------
-Logical | | | |
-Integer | | | | 
-Decimal | | | |
-String | | | |
-
+| Logical | Integer | Decimal | String |     |
+|---------|---------|---------|--------|-----|
+| Logical |         |         |        |     |
+| Integer |         |         |        |     |
+| Decimal |         |         |        |     |
+| String  |         |         |        |     |
 :::
 
-
-Above, we looked at automatic type conversions, but in many cases, we also may want to convert variables manually, specifying exactly what type we'd like them to be. A common application for this in data analysis is when there are "*" or "." or other indicators in an otherwise numeric column of a spreadsheet that indicate missing data: when this data is read in, the whole column is usually read in as character data. So we need to know how to tell R and python that we want our string to be treated as a number, or vice-versa.
+Above, we looked at automatic type conversions, but in many cases, we also may want to convert variables manually, specifying exactly what type we'd like them to be. A common application for this in data analysis is when there are "\*" or "." or other indicators in an otherwise numeric column of a spreadsheet that indicate missing data: when this data is read in, the whole column is usually read in as character data. So we need to know how to tell R and python that we want our string to be treated as a number, or vice-versa.
 
 In R, we can explicitly convert a variable's type using `as.XXX()` functions, where XXX is the type you want to convert to (`as.numeric`, `as.integer`, `as.logical`, `as.character`, etc.).
 
@@ -193,26 +195,25 @@ x + y
 x + float(y)
 ```
 
-
 ## Operators and Functions
 
-In addition to variables, **functions** are extremely important in programming. 
+In addition to variables, **functions** are extremely important in programming.
 
-Let's first start with a special class of functions called operators. You're probably familiar with operators as in arithmetic expressions: +, -, /, *, and so on.
+Let's first start with a special class of functions called operators. You're probably familiar with operators as in arithmetic expressions: +, -, /, \*, and so on.
 
 Here are a few of the most important ones:
 
-Operation | R symbol | Python symbol
---- | --- | ---
-Addition | `+` | `+`
-Subtraction | `-` | `-`
-Multiplication | `*` | `*`
-Division | `/` | `/`
-Integer Division | `%/%` | `//`
-Modular Division | `%%` | `%`
-Exponentiation | `^` | `**`
+| Operation        | R symbol | Python symbol |
+|------------------|----------|---------------|
+| Addition         | `+`      | `+`           |
+| Subtraction      | `-`      | `-`           |
+| Multiplication   | `*`      | `*`           |
+| Division         | `/`      | `/`           |
+| Integer Division | `%/%`    | `//`          |
+| Modular Division | `%%`     | `%`           |
+| Exponentiation   | `^`      | `**`          |
 
-Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B. So `14 %/% 3` in R would be 4, and `14 %% 3` in R would be 2. 
+Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B. So `14 %/% 3` in R would be 4, and `14 %% 3` in R would be 2.
 
 ```{r}
 14 %/% 3
@@ -224,8 +225,7 @@ Note that integer division is the whole number answer to A/B, and modular divisi
 14 % 3
 ```
 
-Note that these operands are all intended for scalar operations (operations on a single number) - vectorized versions, such as matrix multiplication, are somewhat more complicated (and different between R and python). 
-
+Note that these operands are all intended for scalar operations (operations on a single number) - vectorized versions, such as matrix multiplication, are somewhat more complicated (and different between R and python).
 
 ### Order of Operations
 
@@ -243,7 +243,6 @@ Both R and Python operate under the same mathematical rules of precedence that y
 3*1**3
 ```
 
-
 ### String Operations in Python
 
 Python has some additional operators that work on strings. In R, you will have to use functions to perform these operations, as R does not have string operators.
@@ -257,25 +256,28 @@ In Python, `+` will **concatenate** (stick together) two strings, and multiplyin
 
 ### Functions
 
-**Functions** are sets of instructions that take **arguments** and **return** values. Strictly speaking, operators (like those above) are a special type of functions -- but we aren't going to get into that now. 
+**Functions** are sets of instructions that take **arguments** and **return** values. Strictly speaking, operators (like those above) are a special type of functions -- but we aren't going to get into that now.
 
-We're also not going to talk about how to create our own functions just yet. Instead, I'm going to show you how to _use_ functions. 
+We're also not going to talk about how to create our own functions just yet. Instead, I'm going to show you how to *use* functions.
 
-It may be helpful at this point to print out the [R reference card](files/Short-refcard.pdf)^[From https://cran.r-project.org/doc/contrib/Short-refcard.pdf] and the [Python reference card](files/Python3_reference_cheat_sheet.pdf)^[From http://sixthresearcher.com/wp-content/uploads/2016/12/Python3_reference_cheat_sheet.pdf]. These cheat sheets contain useful functions for a variety of tasks in each language. 
+It may be helpful at this point to print out the [R reference card](files/Short-refcard.pdf)[^data-types-3] and the [Python reference card](files/Python3_reference_cheat_sheet.pdf)[^data-types-4]. These cheat sheets contain useful functions for a variety of tasks in each language.
 
-**Methods** are a special type of function that operate on a specific variable type. In Python, methods are applied using the syntax `variable.method_name()`. So, you can get the length of a string variable `my_string` using `my_string.length()`. 
+[^data-types-3]: From https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 
-R has methods too, but they are invoked differently. In R, you would get the length of a string variable using `length(my_string)`. 
+[^data-types-4]: From http://sixthresearcher.com/wp-content/uploads/2016/12/Python3_reference_cheat_sheet.pdf
+
+**Methods** are a special type of function that operate on a specific variable type. In Python, methods are applied using the syntax `variable.method_name()`. So, you can get the length of a string variable `my_string` using `my_string.length()`.
+
+R has methods too, but they are invoked differently. In R, you would get the length of a string variable using `length(my_string)`.
 
 Right now, it is not really necessary to know too much more about functions than this: you can invoke a function by passing in arguments, and the function will do a task and return the value.
-
 
 ::: tryitout
 ### In class activity {.unnumbered}
 
-Try out some of the functions mentioned on the R and Python cheatsheets. 
+Try out some of the functions mentioned on the R and Python cheatsheets.
 
 Can you figure out how to define a list or vector of numbers? If so, can you use a function to calculate the maximum value?
 
-Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings? 
+Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings?
 :::

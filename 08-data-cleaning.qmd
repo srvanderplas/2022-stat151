@@ -1,3 +1,9 @@
+---
+engine: knitr
+execute:
+  freeze: auto  # re-render only when source changes
+---
+
 # Data Summaries and Data Cleaning
 
 In this chapter, we'll talk a bit about different operations you may need to do in order to clean your data up and get it into the form you want.
@@ -12,12 +18,14 @@ We know how to work on one table at a time, creating new variables, editing old 
 <details><summary>Example: Primary School Organization</summary>
 
 Each individual has certain characteristics: 
+
 - full_name
 - gender
 - birth date
 - ID number
 
 Each student has specific characteristics:
+
 - ID number 
 - parent name
 - parent phone number
@@ -25,6 +33,7 @@ Each student has specific characteristics:
 - Class ID
 
 Teachers may also have additional information:
+
 - ID number
 - Class ID
 - employment start date
@@ -32,6 +41,7 @@ Teachers may also have additional information:
 - compensation level
 
 There are also fields like grades, which occur for each student in each class, but multiple times  a year. 
+
 - ID number
 - Student ID
 - Class ID
@@ -42,6 +52,7 @@ There are also fields like grades, which occur for each student in each class, b
 - comment
 
 And for teachers, there are employment records on a yearly basis
+
 - ID number
 - Employee ID
 - year
@@ -49,12 +60,14 @@ And for teachers, there are employment records on a yearly basis
 - comment
 
 But each class also has characteristics that describe the whole class as a unit: 
+
 - location ID
 - class ID
 - meeting time
 - grade level
 
 Each location might also have some logistical information attached:
+
 - location ID
 - room number
 - building
@@ -65,7 +78,8 @@ Each location might also have some logistical information attached:
 ![Primary School Database Schema](images/PrimarySchoolExample.png)
 <!-- <a href="https://dbdiagram.io/embed/5ef387179ea313663b3b048e">Link to diagram of the database</a> -->
 
-We could go on, but you can see that this data is hierarchical, but also relational: 
+We could go on, but you can see that this data is hierarchical, but also relational:
+
 - each class has both a teacher and a set of students
 - each class is held in a specific location that has certain equipment
 
@@ -78,19 +92,20 @@ But, relational data also means we have to put in some work when we have a quest
 - get any students that are assigned that Class ID - specifically, get their ID number
 - append the results from teachers and students so that there is a list of all individuals in the class
 - look through the "individual data" table to find any individuals with matching ID numbers, and keep those individuals' birth days. 
+
 </details>
 
 Table joins allow us to combine information stored in different tables, keeping certain information (the stuff we need) while discarding extraneous information. 
 
 There are 3 main types of table joins:
 
-- Filtering joins, which remove rows from a table based on whether or not there is a matching row in another table (but the columns in the original table don't change)    
+- **Filtering joins**, which remove rows from a table based on whether or not there is a matching row in another table (but the columns in the original table don't change)    
 Ex: finding all teachers or students who have class ClassID
 
-- Set operations, which treat observations as set elements (e.g. union, intersection, etc.)    
+- **Set operations**, which treat observations as set elements (e.g. union, intersection, etc.)    
 Ex: taking the union of all student and teacher IDs to get a list of individual IDs
 
-- Mutating joins, which add columns from one table to matching rows in another table    
+- **Mutating joins**, which add columns from one table to matching rows in another table    
 Ex: adding birthday to the table of all individuals in a class
 
 **keys** are values that are found in multiple tables that can be used to connect the tables. A key (or set of keys) uniquely identify an observation. A **primary key** identifies an observation in its own table. A **foreign key** identifies an observation in another table.
@@ -196,7 +211,7 @@ Let's start out by joining the two datasets together. Note that we'll need to sp
 
 <details><summary>R solution</summary>
 ```{r}
-lego_fulljoin <- full_join(sets, themes, by = c("theme_id"= "id"))
+lego_fulljoin <- full_join(sets, themes, by = c("theme_id" = "id"))
 head(lego_fulljoin)
 ```
 </details>
@@ -212,6 +227,7 @@ lego_fulljoin.head()
 Try that approach - if you have the same name for the columns that you intend to join on (and no other common names) then it's easier to do the join and to understand what is happening. Try it out with the lego sets to see which approach you prefer.
 
 <details><summary>R solution</summary>
+
 ```{r}
 sets_rn <- sets %>%
   rename(set_name = name)
@@ -220,6 +236,7 @@ themes_rn <- themes %>%
 lego_fulljoin <- full_join(sets_rn, themes_rn)
 head(lego_fulljoin)
 ```
+
 </details>
 
 <details><summary>Python solution</summary>
@@ -233,6 +250,7 @@ themes_rn = themes.rename(columns = {'id': 'theme_id', 'parent_id':'theme_parent
 lego_fulljoin = pd.merge(sets_rn, themes_rn, how = "outer")
 lego_fulljoin.head()
 ```
+
 </details>
 
 **Which type of join?**
@@ -240,10 +258,12 @@ In some cases, we might prefer to use a different type of join. If our goal is t
 
 
 <details><summary>R solution</summary>
+
 ```{r}
 lego_data <- left_join(sets_rn, themes_rn)
 head(lego_data)
 ```
+
 </details>
 
 <details><summary>Python solution</summary>
@@ -252,6 +272,7 @@ head(lego_data)
 lego_data = pd.merge(sets_rn, themes_rn, how = "left")
 lego_data.head()
 ```
+
 </details>
 
 **Using Your Data**
@@ -270,6 +291,7 @@ lego_data %>%
   filter(theme_parent_id == 147) %>%
   ggplot(aes(x = year, y = num_parts)) + geom_jitter()
 ```
+
 </details>
 
 <details><summary>Python solution</summary>
@@ -280,6 +302,7 @@ from plotnine import *
 dinos = lego_data.loc[lego_data["theme_name"].str.contains("Jurassic")]
 ggplot(dinos, aes(x = "year", y = "num_parts")) + geom_jitter()
 ```
+
 </details>
 
 

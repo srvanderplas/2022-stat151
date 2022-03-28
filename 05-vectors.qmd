@@ -1,3 +1,8 @@
+---
+execute:
+  freeze: auto  # re-render only when source changes
+---
+
 # Vectors, Matrices, Arrays, and Control Structures
 
 <!-- Vectors, Matrices, and Numpy arrays. Logical indexing. For loops. -->

@@ -1,3 +1,8 @@
+---
+execute:
+  freeze: auto  # re-render only when source changes
+---
+
 # Data Structures
 
 ```{r data-structures-setup, include = F}
