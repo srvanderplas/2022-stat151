@@ -112,7 +112,7 @@ section.tryitout {
               0 0 0 10px white;
 }
 
-.tryitout > h3, .tryitout > h4, .tryitout > h5 {
+.tryitout > h3, .tryitout > h4, .tryitout > h5, .tryitout > h6 {
   color: var(--zomp);
   margin-top: 0 !important;
   margin-bottom:0 !important;
@@ -125,11 +125,18 @@ section.tryitout {
   color:var(--zomp);
 }*/
 
-.learn-more{
+
+section.learn-more{
   background-image:url(theme/learnmore.svg);
   box-shadow: 0 0 0 1px var(--cadet-blue),
               0 0 0 10px white;
   min-height:6em;
+}
+
+.learn-more > h3, .learn-more  > h4, .learn-more > h5 , .learn-more > h6 {
+  color: var(--cadet-blue);
+  margin-top: 0 !important;
+  margin-bottom:0 !important;
 }
 
 .note {
