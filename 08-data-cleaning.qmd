@@ -15,6 +15,8 @@ Sometimes, we have two tables that we want to join together by a certain variabl
 
 We know how to work on one table at a time, creating new variables, editing old variables, and even reformatting the table using wide and long format, but data doesn't always come organized in one table at a time. Instead, some data may be organized relationally - that is, certain aspects of the data apply to a group of data points, and certain aspects apply to individual data points, and there are relationships between individuals that have to be documented. 
 
+::: ex
+
 <details><summary>Example: Primary School Organization</summary>
 
 Each individual has certain characteristics: 
@@ -94,6 +96,8 @@ But, relational data also means we have to put in some work when we have a quest
 - look through the "individual data" table to find any individuals with matching ID numbers, and keep those individuals' birth days. 
 
 </details>
+
+:::
 
 Table joins allow us to combine information stored in different tables, keeping certain information (the stuff we need) while discarding extraneous information. 
 
@@ -305,7 +309,6 @@ ggplot(dinos, aes(x = "year", y = "num_parts")) + geom_jitter()
 
 </details>
 
-
 ## Data Summaries
 
 We've talked before about using for loops to create summaries of your data, as in [this example](#summaries-part-2). 
@@ -338,6 +341,7 @@ sets %>%
   summarize(n = n(), mean_pieces = mean(num_parts)) %>%
   ggplot(aes(x = year, y = mean_pieces, size = n)) + geom_point()
 ```
+
 ```{python}
 tmp = sets.groupby("year", as_index = False).agg(
   mean_pieces = pd.NamedAgg('num_parts', 'mean'),
@@ -350,6 +354,250 @@ ggplot(tmp, aes(x = "year", y = "mean_pieces", size = "n")) + geom_point()
 
 ## Working with Text
 
+Nearly always, when multiple variables are stored in a single column, they are stored as character variables. There are many different "levels" of working with strings in programming, from simple find-and-replaced of fixed (constant) strings to regular expressions, which are extremely powerful (and extremely complicated). 
 
-## Working with Dates/Times
+> Some people, when confronted with a problem, think “I know, I’ll use regular expressions.” Now they have two problems. - Jamie Zawinski
 
+![Alternately, the xkcd version of the above quote](https://imgs.xkcd.com/comics/perl_problems.png)
+
+
+### Basic String Operations
+
+The tidyverse package to deal with strings is [`stringr`](https://stringr.tidyverse.org/). The functions in stringr take the form of `str_XXX` where XXX is a verb. So `str_split()`, `str_replace()`, `str_remove()`, `str_to_lower()` all should make some sense.
+
+The corresponding python library is `re`, short for regular expression. Pandas also includes some functionality from this package in (partially) vectorized form.
+
+::: ex
+
+```{r readr-college-data, eval = F, include = F}
+library(readr)
+library(magrittr)
+library(dplyr)
+
+college_data <- read_csv("https://ed-public-download.app.cloud.gov/downloads/Most-Recent-Cohorts-All-Data-Elements.csv") 
+college_data2 <- college_data %>%
+  select(UNITID, INSTNM, CITY, STABBR, ZIP, ACCREDAGENCY, INSTURL, PREDDEG, MAIN, NUMBRANCH, HIGHDEG, CONTROL, ST_FIPS, LOCALE, LATITUDE, LONGITUDE) %>%
+  mutate(PREDDEG = factor(PREDDEG, levels = 0:4, labels = c("Not classified", "Predominantely certificate-degree granting", "Predominantely associate's-degree granting", "Predominantly bachelor's-degree granting", "Entirely graduate-degree granting")),
+         MAIN = factor(MAIN, levels = 0:1, labels = c("Not main campus", "main campus")),
+         HIGHDEG = factor(HIGHDEG, levels = 0:4, labels = c("Non-degree granting", "Certificate", "Associate", "Bachelors", "Graduate")),
+         CONTROL = factor(CONTROL, levels = 1:3, labels = c("Public", "Private Non Profit", "Private For Profit"))) %>%
+  mutate(ST_FIPS = as.character(ST_FIPS)) 
+write_csv(college_data2, "data/College_Data_Abbrev.csv")
+
+
+college_fips <- read_csv("data/CollegeFips.csv", col_names = F) %>%
+  set_names(c("ST_FIPS", "State")) %>%
+  mutate_all(as.character)
+
+college_data2 %>% select(STABBR, ST_FIPS) %>%
+  unique() %>%
+  left_join(college_fips) %>%
+  write_csv("data/College_FIPS_Abbr.csv")
+
+college_data2 <- left_join(college_data2, college_fips)
+write_csv(college_data2, "data/College_Data_Abbrev.csv", na = '.')
+```
+
+For this example, we'll use a subset of the US Department of Education College Scorecard data. [Documentation](https://collegescorecard.ed.gov/data/documentation/), [Data](https://collegescorecard.ed.gov/data/). I've selected a few columns from the institution-level data available on the College Scorecard site. 
+
+<details><summary>Let's take a look (Read in the data)</summary>
+
+```{r summary-college-data}
+library(readr)
+college <- read_csv("https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/College_Data_Abbrev.csv", guess_max = 5000, na = '.')
+str(college)
+```
+
+```{python summary-college-data-py}
+import pandas as pd
+college = pd.read_csv("https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/College_Data_Abbrev.csv", na_values = '.')
+```
+
+</details>
+
+
+<details><summary>What proportion of the schools operating in each state have the state's name in the school name?</summary>
+
+We'll use `str_detect()` to look for the state name in the college name. 
+
+```{r string-ops, fig.width = 4, fig.height = 8, out.width = 4}
+library(stringr) # string processing
+
+# Outside the pipe
+str_detect(college$INSTNM, pattern = college$State)[1:10]
+
+# Using the pipe and mutate:
+college <- college %>%
+  mutate(uses_st_name = str_detect(INSTNM, State))
+
+library(ggplot2) # graphs and charts
+# By state - percentage of institution names
+college %>%
+  group_by(State) %>%
+  summarize(pct_uses_st_name = mean(uses_st_name), n = n()) %>%
+  filter(n > 5) %>% # only states/territories with at least 5 schools
+  # Reorder state factor level by percentage that uses state name
+  mutate(State = reorder(State, -pct_uses_st_name)) %>%
+  ggplot(data = ., aes(x = State, y = pct_uses_st_name)) + 
+  geom_col() + coord_flip() + 
+  geom_text(aes(y = 1, label = paste("Total Schools:", n)), hjust = 1)
+```
+
+This example turned out to be way more complicated in Python than I was anticipating, mostly because unlike R, python string operations aren't vectorized over both the string and the pattern you're searching for. So this example uses a few tricks (like apply + lambda functions) that we haven't talked about yet.
+
+```{python string-ops-py, fig.width = 4, fig.height = 8, out.width = 4, error = T}
+import re # regular expressions
+
+# This doesn't work because str.contains doesn't take a vector of patterns
+# college["INSTNM"].str.contains(college["State"])[1:10]
+
+# This is a function that we create
+# We'll cover functions in the next chapter
+# but for now, I've used this so that the code is a little more readable...
+
+def str_detect(x, y):
+  # Ensure x and y aren't null/NaN
+  null_vals = pd.isna(x) or pd.isna(y)
+  # If they aren't null, then search x for pattern y and return the result
+  if not null_vals:
+    return bool(re.search(y, x))
+  # If there are null/na values, return False
+  else:
+    return False
+
+# We then create a new variable by using our function on each row individually
+college = college.assign(uses_st_name = college.apply(lambda row: str_detect(row.INSTNM, row.State), axis = 1))
+
+# Then we aggregate
+college_names = college.groupby("State", as_index = False).agg(
+  pct_uses_st_name = pd.NamedAgg('uses_st_name', 'mean'),
+  n = pd.NamedAgg('uses_st_name', 'count')
+)
+
+# Sorting by percent using state name
+college_names = college_names.loc[college_names.n > 5].\
+  sort_values('pct_uses_st_name', axis = 0)
+
+# Creating a label variable
+college_names['label'] = "Total Schools: " + college_names['n'].astype(str)
+
+# Sorting states and enforcing that order - like making a factor in R
+state_list = college_names.State.unique().tolist()
+college_names.State = pd.Categorical(college_names.State, categories = state_list)
+
+from plotnine import * # graphs and charts
+# By state - percentage of institution names
+ggplot(data = college_names) + \
+geom_text(aes(x = "State", y = 1, label = 'label'), ha='right') + \
+geom_col(aes(x = "State", y = "pct_uses_st_name")) + coord_flip()
+```
+
+</details>
+
+:::
+
+I'm not going to get into regular expressions in this class, but if you do want more power to understand how to work with strings, that's an excellent skill to pick up. 
+
+
+### Joining and Splitting Variables
+
+There's another string-related task that is fairly commonly encountered: separating variables into two different columns (as in Table 3 in the previous chapter).
+
+```{r tidy-separate-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what separating variables means for data set operations."}
+knitr::include_graphics("images/tidyr_separate.png")
+```
+
+<details><summary>Separating Variables in R</summary>
+
+We can use `str_extract()` if we want, but it's actually faster to use `separate()`, which is part of the `tidyr` package. There is also `extract()`, which is another `tidyr` function that uses regular expressions and capture groups to split variables up. 
+
+```{r separate-demo}
+library(dplyr)
+library(tidyr)
+
+table3 %>%
+  separate(col = rate, into = c("cases", "population"), sep = "/", remove = F)
+```
+
+
+
+I've left the rate column in the original data frame just to make it easy to compare and verify that yes, it worked. 
+
+`separate()` will also take a full on regular expression if you want to capture only parts of a string to put into new columns. 
+</details>
+
+<details><summary>Separating Variables in python</summary>
+
+In python, we can do a similar observation, but one convention of python that is very useful here is that we can do a multiple-assign on the left hand side.
+
+
+```{python separate-demo-py}
+table3 = r.table3
+
+table3[["cases", "population"]] = table3["rate"].str.split("/", expand = True)
+table3
+```
+
+We use `col.str.split()` to split the column, `expand = True` indicates that we want separate columns, and then by including two things on the left hand side, we can store each column into its own new value.
+
+</details>
+
+And, of course, there is a complementary operation, which is when it's necessary to join two columns to get a useable data value. 
+
+```{r tidyr-unite-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what uniting variables means for data set operations."}
+knitr::include_graphics("images/tidyr_unite.png")
+```
+
+<details><summary>Joining Variables in R</summary>
+`separate()` has a complement, `unite()`, which is useful for handling situations like in table5:
+
+```{r tidyr-unite-demo}
+table5 %>%
+  unite(col = "year", century:year, sep = '') %>%
+  separate(col = rate, into = c("cases", "population"), sep = "/")
+```
+
+Note that separate and unite both work with character variables - it's not necessarily true that you'll always be working with character formats when you need to do these operations. For instance, it's relatively common to need to separate dates into year, month, and day as separate columns (or to join them together). 
+
+Of course, it's much easier just to do a similar two-step operation (we have to convert to numeric variables to do math)
+
+```{r tidyr-unite-mutate}
+table5 %>%
+  mutate(year = as.numeric(century)*100 + as.numeric(year)) %>% 
+  select(-century)
+```
+
+(Handy shortcut functions in `dplyr` don't completely remove the need to think).
+
+</details>
+
+
+<details><summary>Joining Variables in python</summary>
+
+
+```{python unite-demo-python}
+r.table5.assign(year = r.table5.century + r.table5.year) # String concatenation
+```
+
+In python, we can join character values using `+`, so it's an even simpler process. Of course, as in R, it may be better to do a two-step operation to convert to numeric variables. Unlike in R, you can do the string concatenation process first and then convert to numeric variables without having to think too much.
+
+
+```{python unite-mutate-py}
+tmp = r.table5.assign(year = r.table5.century + r.table5.year)
+
+tmp.\
+assign(year = tmp.year.astype(int)).\
+drop("century", axis = 1)
+```
+
+</details>
+
+
+
+### Additional String Manipulation Information {- .learn-more}
+
+String manipulation
+
+- [R4DS chapter - strings](https://r4ds.had.co.nz/strings.html)
+- [PCRE tester](https://regex101.com/)
+- [R regex tester](https://spannbaueradam.shinyapps.io/r_regex_tester/) - has a short timeout period and will disconnect you if you're idle too long. But you can also clone the repo  [here](https://github.com/AdamSpannbauer/r_regex_tester_app) and run it locally. 
