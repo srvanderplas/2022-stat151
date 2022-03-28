@@ -1,0 +1,7 @@
+^renv$
+^renv\.lock$
+^requirements\.txt$
+^\.github/workflows$
+^LICENSE\.md$
+^.*\.Rproj$
+^\.Rproj\.user$

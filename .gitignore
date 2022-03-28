@@ -2,5 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
-
 /.quarto/
+_freeze
+demo
+docs
+*_cache/
+*_files/
