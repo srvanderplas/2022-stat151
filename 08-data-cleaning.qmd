@@ -2,11 +2,294 @@
 
 In this chapter, we'll talk a bit about different operations you may need to do in order to clean your data up and get it into the form you want.
 
+## Merging Tables
+
+Sometimes, we have two tables that we want to join together by a certain variable.
+
+
+We know how to work on one table at a time, creating new variables, editing old variables, and even reformatting the table using wide and long format, but data doesn't always come organized in one table at a time. Instead, some data may be organized relationally - that is, certain aspects of the data apply to a group of data points, and certain aspects apply to individual data points, and there are relationships between individuals that have to be documented. 
+
+<details><summary>Example: Primary School Organization</summary>
+
+Each individual has certain characteristics: 
+- full_name
+- gender
+- birth date
+- ID number
+
+Each student has specific characteristics:
+- ID number 
+- parent name
+- parent phone number
+- medical information
+- Class ID
+
+Teachers may also have additional information:
+- ID number
+- Class ID
+- employment start date
+- education level
+- compensation level
+
+There are also fields like grades, which occur for each student in each class, but multiple times  a year. 
+- ID number
+- Student ID
+- Class ID
+- year
+- term number
+- subject
+- grade
+- comment
+
+And for teachers, there are employment records on a yearly basis
+- ID number
+- Employee ID
+- year
+- rating
+- comment
+
+But each class also has characteristics that describe the whole class as a unit: 
+- location ID
+- class ID
+- meeting time
+- grade level
+
+Each location might also have some logistical information attached:
+- location ID
+- room number
+- building
+- number of seats
+- AV equipment
+
+
+![Primary School Database Schema](images/PrimarySchoolExample.png)
+<!-- <a href="https://dbdiagram.io/embed/5ef387179ea313663b3b048e">Link to diagram of the database</a> -->
+
+We could go on, but you can see that this data is hierarchical, but also relational: 
+- each class has both a teacher and a set of students
+- each class is held in a specific location that has certain equipment
+
+It would be silly to store this information in a single table (though it probably can be done) because all of the teacher information would be duplicated for each student in each class; all of the student's individual info would be duplicated for each grade. There would be a lot of wasted storage space and the tables would be much more confusing as well. 
+
+But, relational data also means we have to put in some work when we have a question that requires information from multiple tables. Suppose we want a list of all of the birthdays in a certain class. We would need to take the following steps: 
+
+- get the Class ID
+- get any teachers that are assigned that Class ID - specifically, get their ID number
+- get any students that are assigned that Class ID - specifically, get their ID number
+- append the results from teachers and students so that there is a list of all individuals in the class
+- look through the "individual data" table to find any individuals with matching ID numbers, and keep those individuals' birth days. 
+</details>
+
+Table joins allow us to combine information stored in different tables, keeping certain information (the stuff we need) while discarding extraneous information. 
+
+There are 3 main types of table joins:
+
+- Filtering joins, which remove rows from a table based on whether or not there is a matching row in another table (but the columns in the original table don't change)    
+Ex: finding all teachers or students who have class ClassID
+
+- Set operations, which treat observations as set elements (e.g. union, intersection, etc.)    
+Ex: taking the union of all student and teacher IDs to get a list of individual IDs
+
+- Mutating joins, which add columns from one table to matching rows in another table    
+Ex: adding birthday to the table of all individuals in a class
+
+**keys** are values that are found in multiple tables that can be used to connect the tables. A key (or set of keys) uniquely identify an observation. A **primary key** identifies an observation in its own table. A **foreign key** identifies an observation in another table.
+
+We're primarily going to focus on mutating joins, as filtering joins can be accomplished by ... filtering ... rather than by table joins. Feel free to read through the other types of joins [here](https://r4ds.had.co.nz/relational-data.html#filtering-joins)
+
+<details><summary>Animating different types of joins</summary>
+Note: all of these animations are stolen from https://github.com/gadenbuie/tidyexplain.
+
+If we start with two tables, x and y, 
+
+![](images/dplyr-original-dfs.png)
+
+```{r}
+library(dplyr) # Must load this library to do these joins
+x <- data.frame(c1 = 1:3, cx = c("x1", "x2", "x3"))
+y <- data.frame(c1 = c(1, 2, 4), cy = c("y1", "y2", "y4"))
+```
+
+```{python}
+import pandas as pd # must load pandas to do joins
+x = r.x
+y = r.y
+```
+
+
+We can do a filtering `inner_join` to keep only rows which are in both tables (but we keep all columns)
+
+![](images/dplyr-inner-join.gif)
+
+```{r}
+inner_join(x, y)
+```
+
+```{python}
+pd.merge(x, y) # by default, merge uses inner join
+```
+
+But what if we want to keep all of the rows in x? We would do a `left_join`
+
+![](images/dplyr-left-join.gif)
+
+If there are multiple matches in the y table, though, we might have to duplicate rows in x. This is still a left join, just a more complicated one. 
+
+![](images/dplyr-left-join-extra.gif)
+```{r}
+left_join(x, y)
+```
+
+```{python}
+pd.merge(x, y, how = "left")
+```
+
+
+If we wanted to keep all of the rows in y, we would do a `right_join`: 
+
+![](images/dplyr-right-join.gif)
+
+(or, we could do a left join with y and x, but... either way is fine).
+
+```{r}
+right_join(x, y)
+```
+
+```{python}
+pd.merge(x, y, how = "right")
+```
+
+And finally, if we want to keep all of the rows, we'd do a `full_join` (referred to as an "outer join" in pandas):
+
+![](images/dplyr-full-join.gif)
+
+```{r}
+full_join(x, y)
+```
+
+```{python}
+pd.merge(x, y, how = "outer")
+```
+
+You can find other animations corresponding to filtering joins and set operations  [here](https://github.com/gadenbuie/tidyexplain)
+
+</details>
+
+### Try it out {.tryitout -}
+
+[Rebrickable.com](https://rebrickable.com/downloads/) maintains a database of Lego sets, parts, and other data, available for download. You can download the data yourself, or you can use the tables I've downloaded and included: [sets](data/sets.csv) and [themes](data/themes.csv)
+
+```{r}
+sets <- read.csv("https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/sets.csv")
+themes <- read.csv("https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/themes.csv")
+```
+
+```{python}
+import pandas as pd
+sets = pd.read_csv("https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/sets.csv")
+themes = pd.read_csv("https://raw.githubusercontent.com/srvanderplas/Stat151/main/data/themes.csv")
+```
+
+Let's start out by joining the two datasets together. Note that we'll need to specify which columns to join by in both R and pandas. In R, we'll need to use `by = c(left_col = right_col)` to specify the column names in the left and right data frames. In pandas, we'll need to use arguments `left_on = 'left_col'` and `right_on = 'right_col'`. 
+
+**First, let's try a full/outer join.**
+
+<details><summary>R solution</summary>
+```{r}
+lego_fulljoin <- full_join(sets, themes, by = c("theme_id"= "id"))
+head(lego_fulljoin)
+```
+</details>
+
+<details><summary>Python solution</summary>
+```{python}
+lego_fulljoin = pd.merge(sets, themes, left_on = "theme_id", right_on = "id", how = "outer")
+lego_fulljoin.head()
+```
+</details>
+
+**Sometimes, it's easier to rename the columns before merging.**
+Try that approach - if you have the same name for the columns that you intend to join on (and no other common names) then it's easier to do the join and to understand what is happening. Try it out with the lego sets to see which approach you prefer.
+
+<details><summary>R solution</summary>
+```{r}
+sets_rn <- sets %>%
+  rename(set_name = name)
+themes_rn <- themes %>%
+  rename(theme_name = name, theme_id = id, theme_parent_id = parent_id)
+lego_fulljoin <- full_join(sets_rn, themes_rn)
+head(lego_fulljoin)
+```
+</details>
+
+<details><summary>Python solution</summary>
+To do this, I consulted [stackoverflow](https://stackoverflow.com/questions/11346283/renaming-column-names-in-pandas)
+
+```{python}
+sets_rn = sets # copy the dataset
+sets_rn = sets_rn.rename(columns = {'name':'set_name'})
+themes_rn = themes.rename(columns = {'id': 'theme_id', 'parent_id':'theme_parent_id', 'name' :'theme_name'})
+
+lego_fulljoin = pd.merge(sets_rn, themes_rn, how = "outer")
+lego_fulljoin.head()
+```
+</details>
+
+**Which type of join?**
+In some cases, we might prefer to use a different type of join. If our goal is to add the context of theme information to the set data, we might not care about themes that don't have corresponding sets in our data. Can you determine what type of join is appropriate here?
+
+
+<details><summary>R solution</summary>
+```{r}
+lego_data <- left_join(sets_rn, themes_rn)
+head(lego_data)
+```
+</details>
+
+<details><summary>Python solution</summary>
+
+```{python}
+lego_data = pd.merge(sets_rn, themes_rn, how = "left")
+lego_data.head()
+```
+</details>
+
+**Using Your Data**
+Pick a theme you're interested in, and plot the number of pieces in the sets of that theme over time.
+
+
+<details><summary>R solution</summary>
+I want to look at Pirates sets. We can see that there are 3 generations of main "Pirates" theme sets, but there is a parent theme that contains all of them. So let's filter the full dataset on that parent id.
+
+```{r}
+library(ggplot2)
+themes %>%
+  filter(grepl("Pirates", name))
+
+lego_data %>%
+  filter(theme_parent_id == 147) %>%
+  ggplot(aes(x = year, y = num_parts)) + geom_jitter()
+```
+</details>
+
+<details><summary>Python solution</summary>
+In this case, let's look at any sets that have a theme name containing "Jurassic" (Park, World, etc.)
+
+```{python}
+from plotnine import *
+dinos = lego_data.loc[lego_data["theme_name"].str.contains("Jurassic")]
+ggplot(dinos, aes(x = "year", y = "num_parts")) + geom_jitter()
+```
+</details>
+
+
 ## Data Summaries
 
 We've talked before about using for loops to create summaries of your data, as in [this example](#summaries-part-2). 
 
-In may cases, however, it is easier to use a slightly different mechanism to work with groups of data. What do I mean by groups of data? Let's do the operation in lego first.
+In may cases, however, it is easier to use a slightly different mechanism to work with groups of data. What do I mean by groups of data? When we used loops, the variable we "group by" is the variable controlling the loop. 
+
+<details><summary>Summarizing data with Lego</summary>
 
 ![A lego "data frame" with two columns: green 1x2s and purple/pink 1x4s.](images/lego-ungrouped-data-frame.png)
 
@@ -16,11 +299,31 @@ In may cases, however, it is easier to use a slightly different mechanism to wor
 
 ![Looking only at the summary, we could then ungroup our data and return to a regular data frame... only this time, we have a summary, with one row for each different value of the green column](images/lego-grouped-summary.png)
 
+</details>
+
 In R/tidyverse syntax, we would use the `group_by` function to group a dataframe by a variable, and then we would use `mutate` or `summarize` to create our new column(s). `mutate` would be used if we want to have the same number of rows in our output as we had in the input, while `summarize` would create one row per group.
 
-## Merging Tables
+In python syntax, we use `groupby` to group the DataFrame by a variable, and then we use `.agg` to aggregate. The function `pd.NamedAgg(column, function)` allows us to explicitly state that we want to use function `function` on column `column`, and assign that result to a new variable.
 
+::: ex
 
+Suppose we want to summarize the lego set data by year, computing the number of sets and the mean number of pieces per set. We'll take the data set we generate and plot the number of pieces, with point size scaled to show the number of sets released that year.
+
+```{r}
+sets %>%
+  group_by(year) %>%
+  summarize(n = n(), mean_pieces = mean(num_parts)) %>%
+  ggplot(aes(x = year, y = mean_pieces, size = n)) + geom_point()
+```
+```{python}
+tmp = sets.groupby("year", as_index = False).agg(
+  mean_pieces = pd.NamedAgg('num_parts', 'mean'),
+  n = pd.NamedAgg('num_parts', 'count'))
+ggplot(tmp, aes(x = "year", y = "mean_pieces", size = "n")) + geom_point()
+
+```
+
+:::
 
 ## Working with Text
 
