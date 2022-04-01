@@ -85,6 +85,10 @@ pre code {
   background-color: var(--orange-red-bg);
   box-shadow: 0 0 0 1px var(--orange-red);
 }
+.ex .panel-tabset {
+  background-color: white;
+  box-shadow: 0 0 0 1px var(--orange-red);
+}
 
 .my-opinion{
   background-image:url(theme/comment.svg);
@@ -118,6 +122,10 @@ section.tryitout {
   margin-bottom:0 !important;
 }
 
+.tryitout .panel-tabset {
+  background-color: white;
+  box-shadow: 0 0 0 1px var(--zomp);
+}
 /*
 .tryitout h1, .tryitout h2, .tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
   margin-top: 0 !important;

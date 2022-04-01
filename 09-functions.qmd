@@ -1,0 +1,404 @@
+---
+engine: knitr
+execute:
+  freeze: auto  # re-render only when source changes
+---
+
+# Functions
+
+A **function** is a set of actions that we group together and name. Throughout this course, you've used a bunch of different functions in R and python that are built into the language or added through packages: `mean`, `ggplot`, `length`, `print`. In this chapter, we'll be writing our own functions.
+
+## When to write a function?
+
+If you've written the same code (with a few minor changes, like variable names) more than twice, you should probably write a function instead. There are a few benefits to this rule:
+
+1. Your code stays neater (and shorter), so it is easier to read, understand, and maintain.
+
+2. If you need to fix the code because of errors, you only have to do it in one place.
+
+3. You can re-use code in other files by keeping functions you need regularly in a file (or if you're really awesome, in your own package!)
+
+4. If you name your functions well, your code becomes easier to understand thanks to grouping a set of actions under a descriptive function name.
+
+
+::: learn-more
+There is some extensive material on this subject in [R for Data Science on functions](https://r4ds.had.co.nz/functions.html). If you want to really understand how functions work in R, that is a good place to go.
+:::
+
+
+::: ex
+
+This example is modified from R for Data Science [@wickham2016r, Chapter 19]. 
+
+What does this code do? Does it work as intended?
+
+::: {.panel-tabset}
+
+### R {-}
+
+```{r function-copy-paste-error}
+df <- tibble::tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+df$a <- (df$a - min(df$a, na.rm = TRUE)) / 
+  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+df$b <- (df$b - min(df$b, na.rm = TRUE)) / 
+  (max(df$b, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+df$c <- (df$c - min(df$c, na.rm = TRUE)) / 
+  (max(df$c, na.rm = TRUE) - min(df$c, na.rm = TRUE))
+df$d <- (df$d - min(df$d, na.rm = TRUE)) / 
+  (max(df$d, na.rm = TRUE) - min(df$d, na.rm = TRUE))
+```
+
+### Python
+
+```{python}
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+  'a': np.random.randn(10), 
+  'b': np.random.randn(10), 
+  'c': np.random.randn(10), 
+  'd': np.random.randn(10)})
+
+df.a = (df.a - min(df.a))/(max(df.a) - min(df.a))
+df.b = (df.b - min(df.b))/(max(df.b) - min(df.a))
+df.c = (df.c - min(df.c))/(max(df.c) - min(df.c))
+df.d = (df.d - min(df.d))/(max(df.d) - min(df.d))
+```
+
+:::
+
+The code rescales a set of variables to have a range from 0 to 1. But, because of the copy-pasting, the code's author made a mistake and forgot to change an `a` to `b`. 
+
+Writing a function to rescale a variable would prevent this type of copy-paste error.
+
+To write a function, we first analyze the code to determine how many inputs it has
+
+::: {.panel-tabset}
+
+### R {-}
+
+```{r}
+df$a <- (df$a - min(df$a, na.rm = TRUE)) / 
+  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+```
+
+This code has only one input: `df$a`. 
+
+### Python {-}
+
+```{python}
+
+df.a = (df.a - min(df.a))/(max(df.a) - min(df.a))
+
+```
+
+
+This code has only one input: `df.a` 
+
+:::
+
+
+To convert the code into a function, we first rewrite it using general names
+
+::: {.panel-tabset}
+
+### R {-}
+
+In this case, it might help to replace `df$a` with `x`.
+
+```{r}
+x <- df$a 
+
+(x - min(x, na.rm = TRUE)) / 
+  (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+```
+
+### Python {-}
+
+In this case, it might help to replace `df.a` with `x`.
+
+```{python}
+x = df.a
+
+(x - min(x))/(max(x) - min(x))
+
+```
+
+:::
+
+Then, we make it a bit easier to read, removing duplicate computations if possible (for instance, computing `min` two times).
+
+
+::: {.panel-tabset}
+
+### R {-}
+
+In R, we can use the `range` function, which computes the maximum and minimum at the same time and returns the result as `c(min, max)`
+
+```{r}
+rng <- range(x, na.rm = T)
+
+(x - rng[1])/(rng[2] - rng[1])
+```
+
+### Python {-}
+
+In python, `range` is the equivalent of `seq()` in R, so we are better off just using `min` and `max`. 
+
+```{python}
+x = df.a
+
+
+xmin, xmax = [x.min(), x.max()]
+(x - xmin)/(xmax - xmin)
+
+```
+
+:::
+Finally, we turn this code into a function
+
+::: {.panel-tabset}
+
+### R {-}
+
+```{r}
+rescale01 <- function(x) {
+  rng <- range(x, na.rm = T)
+  (x - rng[1])/(rng[2] - rng[1])
+}
+
+rescale01(df$a)
+```
+
+- The name of the function, `rescale01`, describes what the function does - it rescales the data to between 0 and 1. 
+- The function takes one **argument**, named `x`; any references to this value within the function will use `x` as the name. This allows us to use the function on `df$a`, `df$b`, `df$c`, and so on, with `x` as a placeholder name for the data we're working on at the moment.
+- The code that actually does what your function is supposed to do goes in the **body** of the function, between `{` and `}` (this is true in R, in python, there are different conventions, but the same principle applies)
+- The function **returns** the last value computed: in this case, `(x - rng[1])/(rng[2]-rng[1])`. You can make this explicit by adding a `return()` statement around that calculation.
+
+### Python {-}
+
+```{python}
+def rescale01(x):
+  xmin, xmax = [x.min(), x.max()]
+  return (x - xmin)/(xmax - xmin)
+
+rescale01(df.a)
+```
+
+- The name of the function, `rescale01`, describes what the function does - it rescales the data to between 0 and 1. 
+- The function takes one **argument**, named `x`; any references to this value within the function will use `x` as the name. This allows us to use the function on `df.a`, `df.b`, `df.c`, and so on, with `x` as a placeholder name for the data we're working on at the moment.
+- The code that actually does what your function is supposed to do goes in the **body** of the function, indented relative to the line with `def: function_name():`. At the end of the function, you should have a blank line with no spaces or tabs.
+
+- The function **returns** the value it is told to `return`: in this case, `(x - xmin)/(xmax - xmin)`. In Python, you must `return` a value if you want the function to perform a computation. ^[This is not strictly true, you can of course use pass-by-reference, but we will not be covering that in this class as we are strictly dealing with the bare minimum of learning how to write a function here.]
+
+:::
+
+The process for creating a function is important: first, you figure out how to do the thing you want to do. Then, you simplify the code as much as possible. Only at the end of that process do you create an actual function.
+
+:::
+
+
+## Syntax
+
+![R and python syntax for defining functions. Portions of the command that indicate the function name, function scope, and return statement are highlighted in each block.](images/Annotating_function_syntax.png)
+
+In R, functions are defined as other variables, using `<-`, but we specify the arguments a function takes by using the `function()` statement. The contents of the function are contained within `{` and `}`. If the function returns a value, a `return()` statement can be used; alternately, if there is no return statement, the last computation in the function will be returned.
+
+In python, functions are defined using the `def` command, with the function name, parentheses, and the function arguments to follow. The first line of the function definition ends with a `:`, and all subsequent lines of the function are indented (this is how python knows where the end of the function is). A python function return statement is `return <value>`, with no parentheses needed.
+
+Note that in python, the `return` statement is not optional. It is not uncommon to have python functions that don't return anything; in R, this is a bit less common, for reasons we won't get into here.
+
+## Arguments and Parameters
+
+An **argument** is the name for the object you pass into a function.
+
+A **parameter** is the name for the object once it is inside the function (or the name of the thing as defined in the function).
+
+::: ex
+
+Let's examine the difference between arguments and parameters by writing a function that takes a puppy's name and returns "<name> is a good pup!".
+
+:::: {.panel-tabset}
+
+#### R {-}
+
+```{r}
+dog <- "Eddie"
+
+goodpup <- function(name) {
+  paste(name, "is a good pup!")
+}
+
+goodpup(dog)
+```
+
+In this example R function, when we call `goodpup(dog)`, `dog` is the argument. `name` is the parameter. 
+
+#### Python {-}
+
+```{python}
+dog = "Eddie"
+
+def goodpup(name):
+  return name + " is a good pup!"
+
+goodpup(dog)
+```
+
+In this example python function, when we call `goodpup(dog)`, `dog` is the argument. `name` is the parameter. 
+
+::::
+
+What is happening inside the computer's memory as `goodpup` runs?
+
+![A sketch of the execution of the program `goodpup`, showing that `name` is only defined within the local environment that is created while `goodpup` is running. We can never access `name` in our global environment.](images/function_argument_parameters.png)
+
+
+:::
+
+This is why the distinction between **arguments** and **parameters** matters. Parameters are only accessible while inside of the function - and in that local environment, we need to call the object by the parameter name, not the name we use outside the function (the argument name). 
+
+We can even call a function with an argument that isn't defined outside of the function call: `goodpup("Tesla")` produces "`r goodpup("Tesla")`". Here, I do not have a variable storing the string "Tesla", but I can make the function run anyways. So "Tesla" here is an argument to `goodpup` but it is not a variable in my environment.
+
+This is a confusing set of concepts and it's ok if you only just sort of get what I'm trying to explain here. Hopefully it will become more clear as you write more code.
+
+### Try it out {- .tryitout}
+
+For each of the following blocks of code, identify the function name, function arguments, parameter names, and return statements. When the function is called, see if you can predict what the output will be.
+
+::: {.panel-tabset}
+
+### Function 1 {-}
+```{python function-predict-1}
+
+def hello_world():
+  print("Hello World")
+
+```
+
+```{python function-predict-1-call, eval = F}
+hello_world()
+```
+
+### Answer {-}
+
+- Function name: `hello_world`
+- Function parameters: none
+- Function arguments: none
+- Function output: 
+
+```{python function-predict1-results}
+hello_world()
+```
+
+:::
+
+
+::: {.panel-tabset}
+
+### Function 2 {-}
+
+```{r function-predict-2}
+
+my_mean <- function(x) {
+  censor_x <- sample(x, size = length(x) - 2, replace = F)
+  mean(censor_x)
+}
+
+```
+
+```{r function-predict-2-call, eval = F}
+set.seed(3420523)
+my_mean(1:10)
+```
+
+### Answer {-}
+
+- Function name: `my_mean`
+- Function parameters: x
+- Function arguments: 1:10
+- Function output: (varies each time the function is run unless you set the seed)
+
+```{r function-predict2-results}
+set.seed(3420523)
+my_mean(1:10)
+```
+
+:::
+
+### Named Arguments and Parameter Order
+
+In the examples above, you didn't have to worry about what order parameters were passed into the function, because there were 0 and 1 parameters, respectively. But what happens when we have a function with multiple parameters?
+
+::: {.panel-tabset}
+
+#### R 
+
+```{r}
+
+divide <- function(x, y) {
+  x / y
+}
+
+```
+
+#### Python
+```{python}
+
+def divide(x, y):
+  return x / y
+
+```
+
+:::
+
+In this function, the order of the parameters matters! `divide(3, 6)` does not produce the same result as `divide(6, 3)`. As you might imagine, this can quickly get confusing as the number of parameters in the function increases.
+
+In this case, it can be simpler to use the parameter names when you pass in arguments.
+
+::: {.panel-tabset}
+
+#### R 
+
+```{r}
+divide(3, 6)
+
+divide(x = 3, y = 6)
+
+divide(y = 6, x = 3)
+
+divide(6, 3)
+
+divide(x = 6, y = 3)
+
+divide(y = 3, x = 6)
+
+```
+
+#### Python
+
+```{python}
+divide(3, 6)
+
+divide(x = 3, y = 6)
+
+divide(y = 6, x = 3)
+
+divide(6, 3)
+
+divide(x = 6, y = 3)
+
+divide(y = 3, x = 6)
+
+```
+
+:::
+
+As you can see, the order of the arguments doesn't much matter, as long as you use named arguments, but if you don't name your arguments, the order very much matters.

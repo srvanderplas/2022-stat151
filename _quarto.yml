@@ -16,7 +16,7 @@ book:
     - 06-data-structures.qmd
     - 07-data-transformations.qmd
     - 08-data-cleaning.qmd
-    - functions.qmd
+    - 09-functions.qmd
     - git-github.qmd
     - references.qmd
   site-url: https://srvanderplas.github.io/Stat151/
