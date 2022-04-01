@@ -402,3 +402,9 @@ divide(y = 3, x = 6)
 :::
 
 As you can see, the order of the arguments doesn't much matter, as long as you use named arguments, but if you don't name your arguments, the order very much matters.
+
+
+## Scope
+
+## Debugging
+
