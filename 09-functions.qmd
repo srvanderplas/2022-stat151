@@ -406,5 +406,215 @@ As you can see, the order of the arguments doesn't much matter, as long as you u
 
 ## Scope
 
+When talking about functions, for the first time we start to confront a critical concept in programming, which is scope. **Scope** is the part of the program where the name you've given a variable is valid - that is, where you can use a variable.
+
+What do I mean by the part of a program? The **lexical scope** is the portion of the code (the set of lines of code) where the name is valid.
+
+The concept of scope is best demonstrated through a series of examples, so in the rest of this section, I'll show you some examples of how scope works and the concepts that help you figure out what "scope" actually means in practice.
+
+
+### Name Masking
+
+Scope is most clearly demonstrated when we use the same variable name inside and outside a function. Note that this is 1) bad programming practice, and 2) fairly easily avoided if you can make your names even slightly more creative than `a`, `b`, and so on. But, for the purposes of demonstration, I hope you'll forgive my lack of creativity in this area so that you can see how name masking works.
+
+::: ex
+
+What does this function return, 10 or 20? 
+
+::: panel-tabset
+
+#### Pseudocode
+
+```
+a = 10
+
+myfun = function() {
+  a = 20
+  return a
+}
+
+myfun()
+```
+
+#### Sketch
+
+![A sketch of the global environment as well as the environment within `myfun()`. Because `a=20` inside `myfun()`, when we call `myfun()`, we get the value of `a` within that environment, instead of within the global environment.](images/function-scope.png)
+
+#### R
+
+```{r}
+a <- 10
+
+myfun <- function() {
+  a <- 20
+  a
+}
+
+myfun()
+
+```
+
+#### Python
+
+```{python}
+
+a = 10
+
+def myfun():
+  a = 20
+  return a
+
+myfun()
+```
+
+:::
+
+:::
+
+The lexical scope of the function is the area that is between the braces (in R) or the indented region (in python). Outside the function, `a` has the value of 10, but inside the function, `a` has the value of 20. So when we call `myfun()`, we get 20, because the scope of `myfun` is the **local context** where `a` is evaluated, and the value of `a` in that environment dominates.
+
+This is an example of **name masking**, where names defined inside of a function mask names defined outside of a function.
+
+
+### Environments and Scope
+
+Another principle of scoping is that if you call a function and then call the same function again, the function's environment is re-created each time. Each function call is unrelated to the next function call when the function is defined using local variables.
+
+::: ex
+
+::: panel-tabset
+
+#### Pseudocode
+
+```
+myfun = function() {
+  if a is not defined
+    a = 1
+  else
+    a = a + 1
+}
+
+myfun()
+myfun()
+
+```
+
+What does this output?
+
+#### Sketch
+
+![When we define myfun, we create a template for an environment with variables and code to excecute. Each time `myfun()` is called, that template is used to create a new environment. This prevents successive calls to `myfun()` from affecting each other -- which means `a = 1` every time.](images/function-scope-environment.png)
+
+
+#### R
+
+```{r}
+myfun <- function() {
+  if (!exists("aa")) {
+    aa <- 1
+  } else {
+    aa <- aa + 1
+  }
+  return(aa)
+}
+
+myfun()
+myfun()
+```
+
+#### Python
+
+```{python}
+def myfun():
+  try: aa
+  except NameError: aa = 1
+  else: aa = aa + 1
+  return aa
+
+myfun()
+myfun()
+```
+
+Note that the `try` command here is used to handle the case where a doesn't exist. If there is a NameError (which will happen if `aa` is not defined) then we define `aa = 1`, if there is not a NameError, then `aa = aa + 1`. 
+
+This is necessary because [Python does not have a built-in way to test if a variable exists before it is used](https://www.oreilly.com/library/view/python-cookbook/0596001673/ch17s02.html).
+
+:::
+
+:::
+
+### Dynamic Lookup
+
+Scoping determines where to look for values -- when, however, is determined by the sequence of steps in the code. When a function is called, the **calling environment** (the global environment or set of environments at the time the function is called) determines what values are used. 
+
+If an object doesn't exist in the function's environment, the global environment will be searched next; if there is no object in the global environment, the program will error out. This behavior, combined with changes in the calling environment over time, can mean that the output of a function can change based on objects outside of the function.
+
+::: ex
+
+::: panel-tabset
+
+#### Pseudocode
+
+```
+myfun = function() x + 1
+
+x = 14
+
+myfun()
+
+x = 20
+
+myfun()
+
+```
+
+What will the output be of this code?
+
+#### Sketch
+
+![The state of the global environment at the time the function is called (that is, the state of the calling environment) can change the results of the function](images/function-scope-calling-environment.png)
+
+
+#### R
+
+```{r}
+myfun <- function() {
+  x + 1
+}
+
+x <- 14
+
+myfun()
+
+x <- 20
+
+myfun()
+```
+
+#### Python
+
+```{python}
+
+def myfun():
+  return x + 1
+
+
+x = 14
+
+myfun()
+
+x = 20
+
+myfun()
+
+```
+
+:::
+
+:::
+
+
+
+
 ## Debugging
 
