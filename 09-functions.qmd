@@ -22,9 +22,12 @@ If you've written the same code (with a few minor changes, like variable names) 
 
 
 ::: learn-more
+
 There is some extensive material on this subject in [R for Data Science on functions](https://r4ds.had.co.nz/functions.html). If you want to really understand how functions work in R, that is a good place to go.
+
 :::
 
+<br/>
 
 ::: ex
 
@@ -339,7 +342,7 @@ In the examples above, you didn't have to worry about what order parameters were
 
 ::: {.panel-tabset}
 
-#### R 
+#### R  {-}
 
 ```{r}
 
@@ -349,7 +352,7 @@ divide <- function(x, y) {
 
 ```
 
-#### Python
+#### Python {-}
 ```{python}
 
 def divide(x, y):
@@ -365,7 +368,7 @@ In this case, it can be simpler to use the parameter names when you pass in argu
 
 ::: {.panel-tabset}
 
-#### R 
+#### R  {-}
 
 ```{r}
 divide(3, 6)
@@ -382,7 +385,7 @@ divide(y = 3, x = 6)
 
 ```
 
-#### Python
+#### Python {-}
 
 ```{python}
 divide(3, 6)
@@ -408,6 +411,8 @@ As you can see, the order of the arguments doesn't much matter, as long as you u
 
 When talking about functions, for the first time we start to confront a critical concept in programming, which is scope. **Scope** is the part of the program where the name you've given a variable is valid - that is, where you can use a variable.
 
+> A variable is only available from inside the region it is created.
+
 What do I mean by the part of a program? The **lexical scope** is the portion of the code (the set of lines of code) where the name is valid.
 
 The concept of scope is best demonstrated through a series of examples, so in the rest of this section, I'll show you some examples of how scope works and the concepts that help you figure out what "scope" actually means in practice.
@@ -423,7 +428,7 @@ What does this function return, 10 or 20?
 
 ::: panel-tabset
 
-#### Pseudocode
+#### Pseudocode {-}
 
 ```
 a = 10
@@ -436,11 +441,11 @@ myfun = function() {
 myfun()
 ```
 
-#### Sketch
+#### Sketch {-}
 
 ![A sketch of the global environment as well as the environment within `myfun()`. Because `a=20` inside `myfun()`, when we call `myfun()`, we get the value of `a` within that environment, instead of within the global environment.](images/function-scope.png)
 
-#### R
+#### R {-}
 
 ```{r}
 a <- 10
@@ -454,7 +459,7 @@ myfun()
 
 ```
 
-#### Python
+#### Python {-}
 
 ```{python}
 
@@ -484,7 +489,7 @@ Another principle of scoping is that if you call a function and then call the sa
 
 ::: panel-tabset
 
-#### Pseudocode
+#### Pseudocode {-}
 
 ```
 myfun = function() {
@@ -501,12 +506,12 @@ myfun()
 
 What does this output?
 
-#### Sketch
+#### Sketch {-}
 
 ![When we define myfun, we create a template for an environment with variables and code to excecute. Each time `myfun()` is called, that template is used to create a new environment. This prevents successive calls to `myfun()` from affecting each other -- which means `a = 1` every time.](images/function-scope-environment.png)
 
 
-#### R
+#### R {-}
 
 ```{r}
 myfun <- function() {
@@ -522,7 +527,7 @@ myfun()
 myfun()
 ```
 
-#### Python
+#### Python {-}
 
 ```{python}
 def myfun():
@@ -553,7 +558,7 @@ If an object doesn't exist in the function's environment, the global environment
 
 ::: panel-tabset
 
-#### Pseudocode
+#### Pseudocode {-}
 
 ```
 myfun = function() x + 1
@@ -570,12 +575,12 @@ myfun()
 
 What will the output be of this code?
 
-#### Sketch
+#### Sketch {-}
 
 ![The state of the global environment at the time the function is called (that is, the state of the calling environment) can change the results of the function](images/function-scope-calling-environment.png)
 
 
-#### R
+#### R {-}
 
 ```{r}
 myfun <- function() {
@@ -591,7 +596,7 @@ x <- 20
 myfun()
 ```
 
-#### Python
+#### Python {-}
 
 ```{python}
 
@@ -613,8 +618,272 @@ myfun()
 
 :::
 
+### Try It Out {.tryitout}
 
+What does the following function return? Make a prediction, then run the code yourself. 
+(Taken from [@wickham_advanced_2015, Chapter 6])
+
+::: panel-tabset
+
+##### R code {-}
+
+```{r, eval = F}
+f <- function(x) {
+  f <- function(x) {
+    f <- function() {
+      x ^ 2
+    }
+    f() + 1
+  }
+  f(x) * 2
+}
+f(10)
+```
+
+##### R solution {-}
+
+```{r}
+f <- function(x) {
+  f <- function(x) {
+    f <- function() {
+      x ^ 2
+    }
+    f() + 1
+  }
+  f(x) * 2
+}
+f(10)
+```
+
+##### Python code {-}
+
+```{python, eval = F}
+def f(x):
+  def f(x):
+    def f():
+      return x ^ 2
+    return f() + 1
+  return f(x) * 2
+
+f(10)
+```
+
+##### Python solution {-}
+
+
+```{python}
+def f(x):
+  def f(x):
+    def f():
+      return x ** 2
+    return f() + 1
+  return f(x) * 2
+
+f(10)
+```
+
+:::
 
 
 ## Debugging
 
+Now that you're writing functions, it's time to talk a bit about debugging techniques. This is a lifelong topic - as you become a more advanced programmer, you will need to develop more advanced debugging skills as well (because you'll become more adept at screwing things up). 
+
+![The faces of debugging (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/blob/master/other-stats-artwork/debugging.jpg?raw=true)
+
+
+Let's start with the basics: print debugging.
+
+### Print Debugging
+
+This technique is basically exactly what it sounds like. You insert a ton of print statements to give you an idea of what is happening at each step of the function.
+
+Let's try it out on the previous try it out example (see what I did there?)
+
+::: ex
+
+Note that I've modified the code slightly so that we store the value into `retval` and then return it later - this allows us to see the code execution without calling functions twice (which would make the print output a bit more confusing). 
+
+::: panel-tabset
+
+#### R 
+
+```{r}
+f <- function(x) {
+  print ("Entering Outer Function")
+  print (sprintf("x = %0.2f", x))
+  f <- function(x) {
+    print ("Entering Middle Function")
+    print (sprintf("x = %0.2f", x))
+    f <- function() {
+      print ("Entering Inner Function")
+      print (sprintf("x = %0.2f", x))
+      print (sprintf("Inner Function: Returning %0.2f", x^2))
+      x ^ 2
+    }
+    retval <- f() + 1
+    print (sprintf("Middle Function: Returning %0.2f", retval))
+    retval
+  }
+  retval <- f(x) * 2
+  print (sprintf("Outer Function: Returning %0.2f", retval))
+  retval
+}
+f(10)
+```
+
+#### Python solution
+
+```{python}
+def f(x):
+  print("Entering Outer function, x = " + str(x))
+  def f(x):
+    print("Entering Middle function, x = " + str(x))
+    def f():
+      print("Entering Inner function, x = " + str(x))
+      print("Inner Function: Returning " + str(x ** 2))
+      return x ** 2
+    
+    retval = f() + 1
+    print("Middle Function: Returning " + str(retval))
+    return retval
+  
+  retval = f(x) * 2
+  print("Outer Function: Returning " + str(retval))
+  return retval
+
+f(10)
+```
+
+Note that Python has a `logging` module that may make it easier to print out things (and to filter the debug print statements from other reasonable program output.) You can see an example of this on [Rosetta Code](https://rosettacode.org/wiki/Print_debugging_statement#Python).
+
+:::
+
+:::
+
+
+### General Debugging Strategies
+
+> Debugging: Being the detective in a crime movie where you are also the murderer. - some t-shirt I saw once
+
+The overall process is well described in [Advanced R](https://adv-r.hadley.nz/debugging.html) by H. Wickham^[the 0th step is from the 1st edition, the remaining steps are from the 2nd.]; I've copied it here because it's such a succinct distillation of the process, but I've adapted some of the explanations to this class rather than the original context of package development. 
+
+0. Realize that you have a bug
+
+1. **Google!** In R you can automate this with the `errorist` and `searcher` packages. In SAS, if the error message isn't that clear you'll find a SAS forum page where someone else has made the same mistake - I can almost guarantee it. 
+
+2. **Make the error repeatable**: This makes it easier to figure out what the error is, faster to iterate, and easier to ask for help.
+    - Use binary search (remove 1/2 of the code, see if the error occurs, if not go to the other 1/2 of the code. Repeat until you've isolated the error.)
+    - Generate the error faster - use a minimal test dataset, if possible, so that you can ask for help easily and run code faster. This is worth the investment if you've been debugging the same error for a while. 
+    - Note which inputs *don't* generate the bug -- this negative "data" is helpful when asking for help.
+
+3. **Figure out where it is**. Debuggers may help with this, but you can also use the [scientific method](http://web.mit.edu/6.031/www/fa17/classes/13-debugging/#find_the_bug_using_the_scientific_method) to explore the code, or the tried-and-true method of using lots of `print()` statements.
+
+4. **Fix it and test it**. The goal with tests is to ensure that the same error doesn't pop back up in a future version of your code. Generate an example that will test for the error, and add it to your documentation. 
+
+
+There are several other general strategies for debugging:
+
+- Retype (from scratch) your code    
+This works well if it's a short function or a couple of lines of code, but it's less useful if you have a big script full of code to debug. However, it does sometimes fix really silly typos that are hard to spot, like having typed `<--` instead of `<-` in R and then wondering why your answers are negative. 
+
+- Visualize your data as it moves through the program. This may be done using `print()` statements, or the debugger, or some other strategy depending on your application.
+
+- Tracing statements. Again, this is part of `print()` debugging, but these messages indicate progress - "got into function x", "returning from function y", and so on. 
+
+- Rubber ducking. Have you ever tried to explain a problem you're having to someone else, only to have a moment of insight and "oh, never mind"? Rubber ducking outsources the problem to a nonjudgmental entity, such as a rubber duck^[Some people use cats, but I find that they don't meet the nonjudgmental criteria. Of course, they're equally judgmental whether your code works or not, so maybe that works if you're a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you're upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.]. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you've found the problem. [A more thorough explanation can be found at gitduck.com](https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/). 
+
+```{r duck-cape, fig.cap = "You may find it helpful to procure a rubber duck expert for each language you work in. I use color-your-own rubber ducks to endow my ducks with certain language expertise. Other people use plain rubber ducks and give them capes.", out.width = '50%', echo = F}
+knitr::include_graphics("image/rubber_duck_cape.png")
+```
+
+Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that's well-known enough that it has its [own t-shirt](image/99bugs_shirt.png), in addition to an [xkcd comic](https://xkcd.com/1739/). At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea. 
+
+
+These next two sections are included as FYI, but you don't have to read them just now. They're important, but not urgent, if that makes sense.
+
+<details><summary>
+
+### Dividing Problems into Smaller Parts
+
+</summary>
+
+> “Divide each difficulty into as many parts as is feasible and necessary to resolve it.” -René Descartes, Discourse on Method 
+
+In programming, as in life, big, general problems are very hard to solve effectively. Instead, the goal is to break a problem down into smaller pieces that may actually be solveable. 
+
+We'll start with a non-programming example:
+
+::: ex
+
+1. **General problem statement** : "I'm exhausted all the time"    
+Ok, so this is a problem that many of us have from time to time (or all the time). If we get a little bit more specific at outlining the problem, though, we can sometimes get a bit more insight into how to solve it.
+
+2. **Specific problem statement**: "I wake up in the morning and I don't have any energy to do anything. I want to go back to sleep, but I have too much to do to actually give in and sleep. I spend my days worrying about how I'm going to get all of the things on my to-do list done, and then I lie awake at night thinking about how many things there are to do tomorrow. I don't have time for hobbies or exercise, so I drink a lot of coffee instead to make it through the day."    
+This is a much more specific list of issues, and some of these issues are actually things we can approach separately.
+
+3. **Separating things into solvable problems:**    
+Moving through the list above, we can isolate a few issues. Some of these issues are undoubtedly related to each other, but we can approach them separately (for the most part).
+    1. Poor quality sleep (tired in the morning, lying awake at night)
+    2. Too many things to do (to-do list)
+    3. Chemical solutions to low energy (coffee during the day)
+    4. Anxiety about completing tasks (worrying, insomnia)
+    5. Lack of personal time for hobbies or exercise
+
+
+4. **Brainstorm Solutions:**
+    1. Get a check-up to rule out any other issues that could cause sleep quality degradation - depression, anxiety, sleep apnea, thyroid conditions, etc.
+        - Ask the doctor about taking melatonin supplements for a short time to ensure that sleep starts off well (note, don't take medical advice from a stats textbook!)
+    2. Reformat your to-do list:
+        - Set time limits for things on the to-do list 
+        - Break the to-do list into smaller, manageable tasks that can be accomplished within a relatively short interval - such as an hour
+        - Sort the to-do list by priority and level of "fun" so that each day has a few hard tasks and a couple of easy/fun tasks. Do the hard tasks first, and use the easy/fun tasks as a reward.
+    3. Set a time limit for caffeine (e.g. no coffee after noon) so that caffeine doesn't contribute to poor quality sleep
+    4. Address anxiety with medication (from 1), scheduled time for mindfulness meditation, and/or self-care activities
+    5. Scheduling time for exercise/hobbies
+        - scheduling exercise in the morning to take advantage of the endorphins generated by working out
+        - scheduling hobbies in the evening to reward yourself for a day's work and wind down work well before bedtime
+        
+5. **Approach each sub-problem separately**    
+When the sub-problem has a viable solution, move on to the next sub-problem. Don't try to tackle everything at once. Here, that might look like this list, where each step is taken separately and you give each thing a few days to see how it affects your sleep quality. In programming, of course, this list would perhaps be a bit more sequential, but real life is messy and the results take a while to populate.
+
+  - [1] Make the doctor's appointment.
+  - [5] While waiting for the appointment, schedule exercise early in the day and hobbies later in the day to create a "no-work" period before bedtime.
+  - [1] Go to the doctor's appointment, follow up with any concerns.
+      - [1] If doctor approves, start taking melatonin according to directions
+  - [2] Work on reformatting the to-do list into manageable chunks. Schedule time to complete chunks using your favorite planning method.
+  - [4] If anxiety is still an issue after following up with the doctor, add some mindfulness meditation or self-care to the schedule in the mornings or evenings.
+  - [3] If sleep quality is still an issue, set a time limit for caffeine
+  - [2] Revise your to-do list and try a different tactic if what you were trying didn't work.
+:::
+
+[Here's another example](https://forge.medium.com/the-500-year-old-piece-of-advice-that-will-change-your-life-1e580f115731) of how to break down a real-world personal problem in programming/debugging style.
+
+</details>
+
+<details><summary>
+
+
+### Minimal Working (or Reproducible) Examples
+
+</summary>
+If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
+
+![The reprex R package will help you make a reproducible example (drawing by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reprex.png)
+
+So, with that said, there are numerous resources for writing what's called a "minimal working example", "reproducible example" (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example).
+
+The goal is to reproduce the error message with information that is 
+
+- **minimal** - as little code as possible to still reproduce the problem
+- **complete** - everything necessary to reproduce the issue is contained in the description/question
+- **reproducible** - test the code you provide to reproduce the problem. 
+
+You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you'd hope to see if the code were working. 
+
+Other resources:
+- [reprex package: Do's and Don'ts](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html)
+- [How to use the reprex package](https://reprex.tidyverse.org/articles/articles/learn-reprex.html) - vignette with videos from Jenny Bryan
+- [reprex magic - Vignette adapted from a blog post by Nick Tierney](https://reprex.tidyverse.org/articles/articles/magic-reprex.html)
+
+</details>
