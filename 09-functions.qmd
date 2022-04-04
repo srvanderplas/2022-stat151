@@ -439,7 +439,7 @@ add(3, 4)
 
 In Python, the easiest way to handle errors is to use a try statement, which operates rather like an if statement: if the statement executes, then we're good to go; if not, we can use `except` to handle different types of errors. The `else` clause is there to handle anything that needs to happen if the statement in the `try` clause executes without any errors.
 
-```{python}
+```{python, error = T}
 
 def add(x, y):
   x + y
