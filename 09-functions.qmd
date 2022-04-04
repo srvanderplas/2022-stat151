@@ -732,7 +732,7 @@ f <- function(x) {
 f(10)
 ```
 
-#### Python solution
+#### Python
 
 ```{python}
 def f(x):
@@ -770,7 +770,7 @@ The overall process is well described in [Advanced R](https://adv-r.hadley.nz/de
 
 0. Realize that you have a bug
 
-1. **Google!** In R you can automate this with the `errorist` and `searcher` packages. In SAS, if the error message isn't that clear you'll find a SAS forum page where someone else has made the same mistake - I can almost guarantee it. 
+1. **Google!** In R you can automate this with the `errorist` and `searcher` packages, but general Googling the error + the programming language + any packages you think are causing the issue is a good strategy.
 
 2. **Make the error repeatable**: This makes it easier to figure out what the error is, faster to iterate, and easier to ask for help.
     - Use binary search (remove 1/2 of the code, see if the error occurs, if not go to the other 1/2 of the code. Repeat until you've isolated the error.)
@@ -866,9 +866,11 @@ When the sub-problem has a viable solution, move on to the next sub-problem. Don
 ### Minimal Working (or Reproducible) Examples
 
 </summary>
-If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
+If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and the people who developed NumPy and Pandas browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
 
 ![The reprex R package will help you make a reproducible example (drawing by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reprex.png)
+
+There is also a [reprexpy](https://reprexpy.readthedocs.io/en/latest/) package in python, but it doesn't have nearly as nice of an illustration to go with it. 
 
 So, with that said, there are numerous resources for writing what's called a "minimal working example", "reproducible example" (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example).
 
@@ -884,5 +886,6 @@ Other resources:
 - [reprex package: Do's and Don'ts](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html)
 - [How to use the reprex package](https://reprex.tidyverse.org/articles/articles/learn-reprex.html) - vignette with videos from Jenny Bryan
 - [reprex magic - Vignette adapted from a blog post by Nick Tierney](https://reprex.tidyverse.org/articles/articles/magic-reprex.html)
+- [reprexpy package](https://reprexpy.readthedocs.io/en/latest/)
 
 </details>
