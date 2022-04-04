@@ -793,9 +793,8 @@ This works well if it's a short function or a couple of lines of code, but it's 
 
 - Rubber ducking. Have you ever tried to explain a problem you're having to someone else, only to have a moment of insight and "oh, never mind"? Rubber ducking outsources the problem to a nonjudgmental entity, such as a rubber duck^[Some people use cats, but I find that they don't meet the nonjudgmental criteria. Of course, they're equally judgmental whether your code works or not, so maybe that works if you're a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you're upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.]. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you've found the problem. [A more thorough explanation can be found at gitduck.com](https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/). 
 
-```{r duck-cape, fig.cap = "You may find it helpful to procure a rubber duck expert for each language you work in. I use color-your-own rubber ducks to endow my ducks with certain language expertise. Other people use plain rubber ducks and give them capes.", out.width = '50%', echo = F}
-knitr::include_graphics("image/rubber_duck_cape.png")
-```
+![You may find it helpful to procure a rubber duck expert for each language you work in. I use color-your-own rubber ducks to endow my ducks with certain language expertise. Other people use plain rubber ducks and give them capes.](images/rubber_duck_cape.png)
+
 
 Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that's well-known enough that it has its [own t-shirt](image/99bugs_shirt.png), in addition to an [xkcd comic](https://xkcd.com/1739/). At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea. 
 
