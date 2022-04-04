@@ -48,6 +48,9 @@ jobs:
           pak::pkg_install("hadley/emo")
           pak::pkg_install("rstudio/fontawesome")
           pak::pkg_install("tidyverse/dplyr")
+          pak::pkg_install("tidyverse/readr")
+          pak::pkg_install("tidyverse/tidyr")
+          pak::pkg_install("tidyverse/ggplot2")
           options(renv.download.override = utils::download.file)
           renv::activate()
         shell: Rscript {0}
