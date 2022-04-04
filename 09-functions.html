@@ -345,8 +345,8 @@
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.4431000 0.5609926 0.3396644 0.2826590 0.9294969 0.0000000 0.7031280
- [8] 0.7488365 0.3801635 1.0000000</code></pre>
+<pre><code> [1] 0.63687958 0.32947830 0.46515226 0.67807643 0.96173144 0.00000000
+ [7] 0.70847906 1.00000000 0.30353639 0.08412576</code></pre>
 </div>
 </div>
 </div>
@@ -357,16 +357,16 @@
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> <span class="bu">min</span>(x))<span class="op">/</span>(<span class="bu">max</span>(x) <span class="op">-</span> <span class="bu">min</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.418306
-1    0.214333
-2    1.000000
-3    0.000000
-4    0.636654
-5    0.260488
-6    0.462366
-7    0.342412
-8    0.323509
-9    0.705101
+<pre><code>0    0.651443
+1    0.666581
+2    0.567101
+3    0.690560
+4    0.000000
+5    0.576237
+6    0.363609
+7    0.842676
+8    1.000000
+9    0.359344
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -384,8 +384,8 @@ Name: a, dtype: float64</code></pre>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> rng[<span class="dv">1</span>])<span class="sc">/</span>(rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.4431000 0.5609926 0.3396644 0.2826590 0.9294969 0.0000000 0.7031280
- [8] 0.7488365 0.3801635 1.0000000</code></pre>
+<pre><code> [1] 0.63687958 0.32947830 0.46515226 0.67807643 0.96173144 0.00000000
+ [7] 0.70847906 1.00000000 0.30353639 0.08412576</code></pre>
 </div>
 </div>
 </div>
@@ -398,16 +398,16 @@ Name: a, dtype: float64</code></pre>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>xmin, xmax <span class="op">=</span> [x.<span class="bu">min</span>(), x.<span class="bu">max</span>()]</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> xmin)<span class="op">/</span>(xmax <span class="op">-</span> xmin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.418306
-1    0.214333
-2    1.000000
-3    0.000000
-4    0.636654
-5    0.260488
-6    0.462366
-7    0.342412
-8    0.323509
-9    0.705101
+<pre><code>0    0.651443
+1    0.666581
+2    0.567101
+3    0.690560
+4    0.000000
+5    0.576237
+6    0.363609
+7    0.842676
+8    1.000000
+9    0.359344
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -427,8 +427,8 @@ Name: a, dtype: float64</code></pre>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rescale01</span>(df<span class="sc">$</span>a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.4431000 0.5609926 0.3396644 0.2826590 0.9294969 0.0000000 0.7031280
- [8] 0.7488365 0.3801635 1.0000000</code></pre>
+<pre><code> [1] 0.63687958 0.32947830 0.46515226 0.67807643 0.96173144 0.00000000
+ [7] 0.70847906 1.00000000 0.30353639 0.08412576</code></pre>
 </div>
 </div>
 <ul>
@@ -446,16 +446,16 @@ Name: a, dtype: float64</code></pre>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rescale01(df.a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.418306
-1    0.214333
-2    1.000000
-3    0.000000
-4    0.636654
-5    0.260488
-6    0.462366
-7    0.342412
-8    0.323509
-9    0.705101
+<pre><code>0    0.651443
+1    0.666581
+2    0.567101
+3    0.690560
+4    0.000000
+5    0.576237
+6    0.363609
+7    0.842676
+8    1.000000
+9    0.359344
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
