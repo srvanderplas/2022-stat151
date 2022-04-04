@@ -406,6 +406,69 @@ divide(y = 3, x = 6)
 
 As you can see, the order of the arguments doesn't much matter, as long as you use named arguments, but if you don't name your arguments, the order very much matters.
 
+## Input Validation
+
+When you write a function, you often assume that your parameters will be of a certain type. But you can't guarantee that the person using your function knows that they need a certain type of input. In these cases, it's best to **validate** your function input.
+
+::: ex
+
+::: panel-tabset
+
+### R
+
+In R, you can use `stopifnot()` to check for certain essential conditions. If you want to provide a more illuminating error message, you can check your conditions using `if()` and then use `stop("better error message")` in the body of the if statement. 
+
+```{r, error = T}
+add <- function(x, y) {
+  x + y
+}
+
+add("tmp", 3)
+
+add <- function(x, y) {
+  stopifnot(is.numeric(x))
+  stopifnot(is.numeric(y))
+  x + y
+}
+
+add("tmp", 3)
+add(3, 4)
+```
+
+### Python
+
+In Python, the easiest way to handle errors is to use a try statement, which operates rather like an if statement: if the statement executes, then we're good to go; if not, we can use `except` to handle different types of errors. The `else` clause is there to handle anything that needs to happen if the statement in the `try` clause executes without any errors.
+
+```{python}
+
+def add(x, y):
+  x + y
+
+add("tmp", 3)
+
+def add(x, y):
+  try:
+    return x + y
+  except TypeError:
+    print("x and y must be add-able")
+  else:
+    # We should never get here, because the try clause has a return statement
+    print("Else clause?")
+  return
+
+add("tmp", 3)
+add(3, 4)
+
+```
+
+You can read more about error handling in Python [here](https://docs.python.org/3/tutorial/errors.html)
+
+:::
+
+:::
+
+Input validation is one aspect of **defensive programming** - programming in such a way that you try to ensure that your programs don't error out due to unexpected bugs by anticipating ways your programs might be misunderstood or misused. If you're interested, Wikipedia has [more about defensive programming](https://en.wikipedia.org/wiki/Defensive_programming).
+
 
 ## Scope
 
