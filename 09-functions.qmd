@@ -862,7 +862,7 @@ This works well if it's a short function or a couple of lines of code, but it's 
 Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that's well-known enough that it has its [own t-shirt](image/99bugs_shirt.png), in addition to an [xkcd comic](https://xkcd.com/1739/). At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea. 
 
 
-::: note-that
+::: note
 
 These next two sections are included as FYI, but you don't have to read them just now. They're important, but not urgent, if that makes sense.
 
