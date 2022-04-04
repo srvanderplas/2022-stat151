@@ -9,7 +9,6 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_PAT: ${{ secrets.GH_PAT }}
       GITHUB_PAT: ${{ secrets.GH_PAT }}
-      RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v2
@@ -38,29 +37,32 @@ jobs:
           reticulate::py_install("testbook", pip = T, pip_options = c("-r requirements.txt", "--no-binary=numpy"))
         shell: Rscript {0}
 
-      - name: "Install curl for Bioconductor"
+      - name: Set RENV_PATHS_ROOT
+        shell: bash
         run: |
-          # sudo apt -y install libcurl4-openssl-dev
+          echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
 
-      - name: "Install R Packages: Cache packages"
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
-
-      - name: "Install R Packages: Restore packages"
-        shell: Rscript {0}
+      - name: Install and activate renv
         run: |
           pak::pkg_install("rstudio/renv")
           pak::pkg_install("hadley/emo")
-          # pak::pkg_install("tidyverse/tidyverse")
-          # pak::pkg_install("tidyverse/dplyr")
-          # pak::pkg_install("tidyverse/tibble")
           options(renv.download.override = utils::download.file)
-          # install.packages("fontawesome")
-          renv::restore()
+          renv::activate()
+        shell: Rscript {0}
+
+      - name: Get R and OS version
+        id: get-version
+        run: |
+          cat("##[set-output name=os-version;]", sessionInfo()$running, "\n", sep = "")
+          cat("##[set-output name=r-version;]", R.Version()$version.string, sep = "")
+        shell: Rscript {0}
+
+      - name: Restore Renv package cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{ inputs.cache-version }}-${{ hashFiles('renv.lock') }}
+          restore-keys: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{inputs.cache-version }}-
 
       - name: "Install Quarto and render"
         uses: pommevilla/quarto-render@main
