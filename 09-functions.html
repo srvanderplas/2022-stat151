@@ -345,8 +345,8 @@
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.63687958 0.32947830 0.46515226 0.67807643 0.96173144 0.00000000
- [7] 0.70847906 1.00000000 0.30353639 0.08412576</code></pre>
+<pre><code> [1] 0.1811058 0.3157861 0.6382695 0.9422397 1.0000000 0.4289496 0.0000000
+ [8] 0.9332686 0.7149353 0.9589531</code></pre>
 </div>
 </div>
 </div>
@@ -357,16 +357,16 @@
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> <span class="bu">min</span>(x))<span class="op">/</span>(<span class="bu">max</span>(x) <span class="op">-</span> <span class="bu">min</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.651443
-1    0.666581
-2    0.567101
-3    0.690560
-4    0.000000
-5    0.576237
-6    0.363609
-7    0.842676
-8    1.000000
-9    0.359344
+<pre><code>0    0.720723
+1    1.000000
+2    0.281224
+3    0.695951
+4    0.714084
+5    0.318775
+6    0.000000
+7    0.734353
+8    0.737324
+9    0.164970
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -384,8 +384,8 @@ Name: a, dtype: float64</code></pre>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> rng[<span class="dv">1</span>])<span class="sc">/</span>(rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.63687958 0.32947830 0.46515226 0.67807643 0.96173144 0.00000000
- [7] 0.70847906 1.00000000 0.30353639 0.08412576</code></pre>
+<pre><code> [1] 0.1811058 0.3157861 0.6382695 0.9422397 1.0000000 0.4289496 0.0000000
+ [8] 0.9332686 0.7149353 0.9589531</code></pre>
 </div>
 </div>
 </div>
@@ -398,16 +398,16 @@ Name: a, dtype: float64</code></pre>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>xmin, xmax <span class="op">=</span> [x.<span class="bu">min</span>(), x.<span class="bu">max</span>()]</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> xmin)<span class="op">/</span>(xmax <span class="op">-</span> xmin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.651443
-1    0.666581
-2    0.567101
-3    0.690560
-4    0.000000
-5    0.576237
-6    0.363609
-7    0.842676
-8    1.000000
-9    0.359344
+<pre><code>0    0.720723
+1    1.000000
+2    0.281224
+3    0.695951
+4    0.714084
+5    0.318775
+6    0.000000
+7    0.734353
+8    0.737324
+9    0.164970
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -427,8 +427,8 @@ Name: a, dtype: float64</code></pre>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rescale01</span>(df<span class="sc">$</span>a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.63687958 0.32947830 0.46515226 0.67807643 0.96173144 0.00000000
- [7] 0.70847906 1.00000000 0.30353639 0.08412576</code></pre>
+<pre><code> [1] 0.1811058 0.3157861 0.6382695 0.9422397 1.0000000 0.4289496 0.0000000
+ [8] 0.9332686 0.7149353 0.9589531</code></pre>
 </div>
 </div>
 <ul>
@@ -446,16 +446,16 @@ Name: a, dtype: float64</code></pre>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rescale01(df.a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.651443
-1    0.666581
-2    0.567101
-3    0.690560
-4    0.000000
-5    0.576237
-6    0.363609
-7    0.842676
-8    1.000000
-9    0.359344
+<pre><code>0    0.720723
+1    1.000000
+2    0.281224
+3    0.695951
+4    0.714084
+5    0.318775
+6    0.000000
+7    0.734353
+8    0.737324
+9    0.164970
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -1174,13 +1174,12 @@ This works well if it’s a short function or a couple of lines of code, but it�
 </figure>
 </div>
 <p>Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that’s well-known enough that it has its <a href="image/99bugs_shirt.png">own t-shirt</a>, in addition to an <a href="https://xkcd.com/1739/">xkcd comic</a>. At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea.</p>
+<div class="note">
 <p>These next two sections are included as FYI, but you don’t have to read them just now. They’re important, but not urgent, if that makes sense.</p>
-<details>
-<summary>
-</summary></details></section>
+</div>
+</section>
 <section id="dividing-problems-into-smaller-parts" class="level3" data-number="9.6.3">
 <h3 data-number="9.6.3" class="anchored" data-anchor-id="dividing-problems-into-smaller-parts"><span class="header-section-number">9.6.3</span> Dividing Problems into Smaller Parts</h3>
-
 <blockquote class="blockquote">
 <p>“Divide each difficulty into as many parts as is feasible and necessary to resolve it.” -René Descartes, Discourse on Method</p>
 </blockquote>
@@ -1238,13 +1237,9 @@ When the sub-problem has a viable solution, move on to the next sub-problem. Don
 </ul>
 </div>
 <p><a href="https://forge.medium.com/the-500-year-old-piece-of-advice-that-will-change-your-life-1e580f115731">Here’s another example</a> of how to break down a real-world personal problem in programming/debugging style.</p>
-
-<details>
-<summary>
-</summary></details></section>
+</section>
 <section id="minimal-working-or-reproducible-examples" class="level3" data-number="9.6.4">
 <h3 data-number="9.6.4" class="anchored" data-anchor-id="minimal-working-or-reproducible-examples"><span class="header-section-number">9.6.4</span> Minimal Working (or Reproducible) Examples</h3>
-
 <p>If all else has failed, and you can’t figure out what is causing your error, it’s probably time to ask for help. If you have a friend or buddy that knows the language you’re working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you’re asking people who are much more knowledgeable about the topic - members of R core and the people who developed NumPy and Pandas browse stackoverflow and may drop in and help you out. Under those circumstances, it’s better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1262,7 +1257,6 @@ When the sub-problem has a viable solution, move on to the next sub-problem. Don
 </ul>
 <p>You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you’d hope to see if the code were working.</p>
 <p>Other resources: - <a href="https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html">reprex package: Do’s and Don’ts</a> - <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html">How to use the reprex package</a> - vignette with videos from Jenny Bryan - <a href="https://reprex.tidyverse.org/articles/articles/magic-reprex.html">reprex magic - Vignette adapted from a blog post by Nick Tierney</a> - <a href="https://reprexpy.readthedocs.io/en/latest/">reprexpy package</a></p>
-
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
