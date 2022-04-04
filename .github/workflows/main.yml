@@ -46,9 +46,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv2-${{ hashFiles('**/renv.lock') }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ${{ runner.os }}-renv2-
+            ${{ runner.os }}-renv-
 
       - name: "Install R Packages: Restore packages"
         shell: Rscript {0}
