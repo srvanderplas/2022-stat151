@@ -864,11 +864,8 @@ Do not be surprised if, in the process of debugging, you encounter new bugs. Thi
 
 These next two sections are included as FYI, but you don't have to read them just now. They're important, but not urgent, if that makes sense.
 
-<details><summary>
-
 ### Dividing Problems into Smaller Parts
 
-</summary>
 
 > “Divide each difficulty into as many parts as is feasible and necessary to resolve it.” -René Descartes, Discourse on Method 
 
@@ -921,14 +918,9 @@ When the sub-problem has a viable solution, move on to the next sub-problem. Don
 
 [Here's another example](https://forge.medium.com/the-500-year-old-piece-of-advice-that-will-change-your-life-1e580f115731) of how to break down a real-world personal problem in programming/debugging style.
 
-</details>
-
-<details><summary>
-
 
 ### Minimal Working (or Reproducible) Examples
 
-</summary>
 If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and the people who developed NumPy and Pandas browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
 
 ![The reprex R package will help you make a reproducible example (drawing by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reprex.png)
@@ -950,5 +942,3 @@ Other resources:
 - [How to use the reprex package](https://reprex.tidyverse.org/articles/articles/learn-reprex.html) - vignette with videos from Jenny Bryan
 - [reprex magic - Vignette adapted from a blog post by Nick Tierney](https://reprex.tidyverse.org/articles/articles/magic-reprex.html)
 - [reprexpy package](https://reprexpy.readthedocs.io/en/latest/)
-
-</details>
