@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.2.232">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Introduction to Statistical Computing - 7&nbsp; Data Transformations</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="./">
+  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="site_libs/quarto-search/fuse.min.js"></script>
+  <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./08-data-cleaning.html" rel="next">
+  <link href="./06-data-structures.html" rel="prev">
+  <script src="site_libs/quarto-html/quarto.js"></script>
+  <script src="site_libs/quarto-html/popper.min.js"></script>
+  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="site_libs/quarto-html/anchor.min.js"></script>
+  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 2,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20
+  }</script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+<header id="quarto-header" class="headroom fixed-top">
+<nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <div class="container-fluid d-flex justify-content-between">
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Transformations</span></h1>
+    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</nav>
+</header>
+ <!-- /navbar/sidebar -->
+<div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
+<div class="row flex-fill">
+  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
+    <nav class="ms-lg-auto floating overflow-auto">
+  <div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Statistical Computing</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/srvanderplas/Stat151" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+  </div>
+    <div class="px-3 mt-2 flex-shrink-0 align-items-center">
+      <div class="sidebar-search">
+      <div id="quarto-search" class="mb-0 " title="Search">
+</div>
+      </div>
+    </div>
+  <div class="sidebar-menu-container"> 
+  <ul class="list-unstyled mt-1 px-3">
+      <li class="sidebar-item">
+  <a href="./index.html" class="">Preface</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./01-getting-started.html" class=""><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./02-markdown.html" class=""><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./03-finding-your-way.html" class=""><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./04-data-types.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./05-vectors.html" class=""><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors, Matrices, Arrays, and Control Structures</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./06-data-structures.html" class=""><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./07-data-transformations.html" class="active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Transformations</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./08-data-cleaning.html" class=""><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Summaries and Data Cleaning</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./09-functions.html" class=""><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./git-github.html" class=""><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">git-github.html</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./references.html" class="">References</a>
+</li>
+  </ul>
+  </div>
+</nav>
+  </div>
+  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#identifying-the-problem-messy-data" class="nav-link active" data-scroll-target="#identifying-the-problem-messy-data"> <span class="header-section-number">7.1</span> Identifying the problem: Messy data</a>
+<ul class="collapse">
+<li><a href="#try-it-out" class="nav-link" data-scroll-target="#try-it-out">Try it out</a></li>
+</ul></li>
+<li><a href="#pivot-operations" class="nav-link" data-scroll-target="#pivot-operations"> <span class="header-section-number">7.2</span> Pivot operations</a>
+<ul class="collapse">
+<li><a href="#longer" class="nav-link" data-scroll-target="#longer"> <span class="header-section-number">7.2.1</span> Longer</a></li>
+<li><a href="#wider" class="nav-link" data-scroll-target="#wider"> <span class="header-section-number">7.2.2</span> Wider</a></li>
+<li><a href="#try-it-out-1" class="nav-link" data-scroll-target="#try-it-out-1">Try it out!</a></li>
+</ul></li>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/07-data-transformations.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
+  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
+<main>
+<header id="title-block-header">
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Transformations</span></h1>
+</header>
+
+<blockquote class="blockquote">
+<p>Happy families are all alike; every unhappy family is unhappy in its own way. - Leo Tolstoy</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Tidy datasets are all alike, but every messy dataset is messy in its own way. - Hadley Wickham</p>
+</blockquote>
+<p>Most of the time, data does not come in a format suitable for analysis. Spreadsheets are generally optimized for data <em>viewing</em>, rather than for statistical analysis - they may be laid out so that there are multiple observations in a single row (e.g., commonly a year’s worth of data, with monthly observations in each column).</p>
+<p>Unfortunately, this type of data structure is not usually useful to us when we analyze or visualize the data.</p>
+<section id="identifying-the-problem-messy-data" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="identifying-the-problem-messy-data"><span class="header-section-number">7.1</span> Identifying the problem: Messy data</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># Data wrangling</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) <span class="co"># Data rearranging</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble) <span class="co"># data table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These datasets all display the same data: TB cases documented by the WHO in Afghanistan, Brazil, and China, between 1999 and 2000. There are 4 variables: country, year, cases, and population, but each table has a different layout.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table">
+<caption>Table 1</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">cases</th>
+<th style="text-align: right;">population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: right;">745</td>
+<td style="text-align: right;">19987071</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">2666</td>
+<td style="text-align: right;">20595360</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: right;">37737</td>
+<td style="text-align: right;">172006362</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">80488</td>
+<td style="text-align: right;">174504898</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: right;">212258</td>
+<td style="text-align: right;">1272915272</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">213766</td>
+<td style="text-align: right;">1280428583</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Here, each observation is a single row, each variable is a column, and everything is nicely arranged for e.g.&nbsp;regression or statistical analysis. We can easily compute another measure, such as cases per 100,000 population, by taking cases/population * 100000 (this would define a new column).</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table">
+<caption>Table 2</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">cases</td>
+<td style="text-align: right;">745</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">population</td>
+<td style="text-align: right;">19987071</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">cases</td>
+<td style="text-align: right;">2666</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">population</td>
+<td style="text-align: right;">20595360</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">cases</td>
+<td style="text-align: right;">37737</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">population</td>
+<td style="text-align: right;">172006362</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">cases</td>
+<td style="text-align: right;">80488</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">population</td>
+<td style="text-align: right;">174504898</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">cases</td>
+<td style="text-align: right;">212258</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">population</td>
+<td style="text-align: right;">1272915272</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">cases</td>
+<td style="text-align: right;">213766</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">population</td>
+<td style="text-align: right;">1280428583</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Here, we have 4 columns again, but we now have 12 rows: one of the columns is an indicator of which of two numerical observations is recorded in that row; a second column stores the value. This form of the data is more easily plotted in e.g.&nbsp;ggplot2, if we want to show lines for both cases and population, but computing per capita cases would be much more difficult in this form than in the arrangement in table 1.</p>
+<p>In this form, we have two tables - one for population, and one for cases. Each year’s observations are in a separate column. This format is often found in separate sheets of an excel workbook. To work with this data, we’ll need to transform each table so that there is a column indicating which year an observation is from, and then merge the two tables together by country and year.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table">
+<caption>Table 3</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">745/19987071</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">2666/20595360</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">37737/172006362</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">80488/174504898</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">212258/1272915272</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">213766/1280428583</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This form has only 3 columns, because the rate variable (which is a character) stores both the case count and the population. We can’t do <em>anything</em> with this format as it stands, because we can’t do math on data stored as characters. However, this form might be easier to read and record for a human being.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table">
+<caption>Table 4a</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">1999</th>
+<th style="text-align: right;">2000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">745</td>
+<td style="text-align: right;">2666</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">37737</td>
+<td style="text-align: right;">80488</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">212258</td>
+<td style="text-align: right;">213766</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="table">
+<caption>Table 4b</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">1999</th>
+<th style="text-align: right;">2000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">19987071</td>
+<td style="text-align: right;">20595360</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">172006362</td>
+<td style="text-align: right;">174504898</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1272915272</td>
+<td style="text-align: right;">1280428583</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table">
+<caption>Table 5</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">country</th>
+<th style="text-align: left;">century</th>
+<th style="text-align: left;">year</th>
+<th style="text-align: left;">rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: left;">19</td>
+<td style="text-align: left;">99</td>
+<td style="text-align: left;">745/19987071</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">00</td>
+<td style="text-align: left;">2666/20595360</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: left;">19</td>
+<td style="text-align: left;">99</td>
+<td style="text-align: left;">37737/172006362</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">00</td>
+<td style="text-align: left;">80488/174504898</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: left;">19</td>
+<td style="text-align: left;">99</td>
+<td style="text-align: left;">212258/1272915272</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">00</td>
+<td style="text-align: left;">213766/1280428583</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Table 5 is very similar to table 3, but the year has been separated into two columns - century, and year. This is more common with year, month, and day in separate columns (or date and time in separate columns), often to deal with the fact that spreadsheets don’t always handle dates the way you’d hope they would.</p>
+<p>These variations highlight the principles which can be said to define a tidy dataset:</p>
+<ol type="1">
+<li>Each variable must have its own column</li>
+<li>Each observation must have its own row</li>
+<li>Each value must have its own cell</li>
+</ol>
+<section id="try-it-out" class="level3 unnumbered tryitout">
+<h3 class="unnumbered anchored" data-anchor-id="try-it-out">Try it out</h3>
+<p>Go back through the 5 tables and determine whether each table is tidy, and if it is not, which rule or rules it violates. Figure out what you would have to do in order to compute a standardized TB infection rate per 100,000 people.</p>
+<details>
+<summary>
+<p>Solution</p>
+</summary>
+<ol type="1">
+<li><p>table1 - this is tidy data. Computing a standardized infection rate is as simple as creating the variable rate = cases/population*100,000.</p></li>
+<li><p>table2 - each variable does not have its own column (so a single year’s observation of one country actually has 2 rows). Computing a standardized infection rate requires moving cases and population so that each variable has its own column, and then you can proceed using the process in 1.</p></li>
+<li><p>table3 - each value does not have its own cell (and each variable does not have its own column). In Table 3, you’d have to separate the numerator and denominator of each cell, convert each to a numeric variable, and then you could proceed as in 1.</p></li>
+<li><p>table4a and table 4b - there are multiple observations in each row because there is not a column for year. To compute the rate, you’d need to “stack” the two columns in each table into a single column, add a year column that is 1999, 1999, 1999, 2000, 2000, 2000, and then merge the two tables. Then you could proceed as in 1.</p></li>
+<li><p>table 5 - each variable does not have its own column (there are two columns for year, in addition to the issues noted in table3). Computing the rate would be similar to table 3; the year issues aren’t actually a huge deal unless you plot them, at which point 99 will seem to be bigger than 00 (so you’d need to combine the two year columns together first).</p></li>
+</ol>
+</details>
+</section>
+<p>It is actually impossible to have a table that violates only one of the rules of tidy data - you have to violate at least two. So a simpler way to state the rules might be:</p>
+<ol type="1">
+<li>Each dataset goes into its own table</li>
+<li>Each variable gets its own column</li>
+</ol>
+<p>By the end of this course, you should have the skills to “tidy” each of these tables.</p>
+</section>
+<section id="pivot-operations" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="pivot-operations"><span class="header-section-number">7.2</span> Pivot operations</h2>
+<p>It’s fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren’t necessarily the most friendly for analysis.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/master/images/static/png/original-dfs-tidy.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Image showing wide format and long format tables containing the same data. Image from https://github.com/kelseygonzalez/tidyexplain.</figcaption><p></p>
+</figure>
+</div>
+<p>The two operations we’ll learn here are wide -&gt; long and long -&gt; wide.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/wider_longer/images/tidyr-pivot_wider_longer.gif" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">GIF showing the transition from wide format to long format and back using pivot_wider and pivot_longer commands. Image from https://github.com/kelseygonzalez/tidyexplain.</figcaption><p></p>
+</figure>
+</div>
+<p>This animation uses the R functions pivot_wider() and pivot_longer() <a href="https://github.com/kelseygonzalez/tidyexplain/tree/wider_longer">Animation source</a>, but the concept is the same in both R and python.</p>
+<section id="longer" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="longer"><span class="header-section-number">7.2.1</span> Longer</h3>
+<p>In many cases, the data come in what we might call “wide” form - some of the column names are not names of variables, but instead, are themselves values of another variable.</p>
+<p>Tables 4a and 4b are good examples of data which is in “wide” form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>table4a</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   country     `1999` `2000`</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Afghanistan    745   2666</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Brazil       37737  80488</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 China       212258 213766</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>table4b</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 3</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   country         `1999`     `2000`</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="do">## * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Afghanistan   19987071   20595360</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Brazil       172006362  174504898</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 China       1272915272 1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The solution to this is to rearrange the data into “long form”: to take the columns which contain values and “stack” them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn’t being stacked (e.g.&nbsp;country, in both the example above and the image below).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center" width="50%">
+<figure class="figure">
+<p><img src="images/tidyr_pivot_longer.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">A visual representation of what the pivot_longer operation looks like in practice.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we’ll have tidy(er) data.</p>
+<section id="manual-method" class="level4 ex" data-number="7.2.1.1">
+<h4 class="ex anchored" data-number="7.2.1.1" data-anchor-id="manual-method"><span class="header-section-number">7.2.1.1</span> Manual Method</h4>
+<p>We can do the wide-to-long transition manually, and doing so is actually instructive.</p>
+<p>Consider the following table of average daily temperatures observed in Lincoln, NE in January 2022. This data is recorded in human-friendly form, in the approximate shape of a calendar. Each week has its own row, and each day has its own column.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Initial data table</figcaption><p></p>
+</figure>
+</div>
+<p>Open up the <a href="data/2022-temperatures-lincoln.xlsx">spreadsheet</a> containing this table on your computer and let’s work through converting it to long format together.</p>
+<details>
+<summary>
+<p>To convert this data to long format, the first thing we need to do is create a new column: Day_of_Week</p>
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Adding Day_of_Week column</figcaption><p></p>
+</figure>
+</div>
+</details>
+<details>
+<summary>
+<p>Then, we need to create a temperature column to hold the daily average temperature values.</p>
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Adding Temperature column</figcaption><p></p>
+</figure>
+</div>
+</details>
+<details>
+<summary>
+<p>Now that we have the 3 columns our data will fit into set up, we can start moving data over.</p>
+</summary>
+<p>First, we will repeat Sunday for each of the first 5 rows in Column B, copying the values from column D into the Temperature column (Column C). Once that is done, we delete the Sunday column from our dataset to prevent duplication.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Copying Sunday into Column B</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Copying Temperature into Column C</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-5.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Deleting data to prevent duplication</figcaption><p></p>
+</figure>
+</div>
+</details>
+<details>
+<summary>
+<p>Duplicating repeated data and moving Monday data over</p>
+</summary>
+<p>We then duplicate the 5 week values, so that we can move another column of data over into our long format table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-6.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Duplicating Week 1-5 values</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-7.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Copying Monday into Column B</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-8.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Copying Temperature into Column C</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-9.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Deleting data to prevent duplication</figcaption><p></p>
+</figure>
+</div>
+</details>
+<details>
+<summary>
+<p>Duplicating repeated data and moving Tuesday data over</p>
+</summary>
+<p>We then duplicate the 5 week values, so that we can move another column of data over into our long format table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-10.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Duplicating Week 1-5 values</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-11.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Copying Tuesday into Column B</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-12.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Copying Temperature into Column C</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-13.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Deleting data to prevent duplication</figcaption><p></p>
+</figure>
+</div>
+</details>
+<details>
+<summary>
+<p>Repeat these steps for each additional column</p>
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-14.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Wednesday data</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-15.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Thursday data</figcaption><p></p>
+</figure>
+</div>
+<p>This process is repeated for the additional days, resulting in a final data set that looks like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-16.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Final (long) data set</figcaption><p></p>
+</figure>
+</div>
+</details>
+<details>
+<summary>
+<p>Arranging the data for plotting</p>
+</summary>
+<p>To do something useful with this data, we might want to sort by Week number to get a chronological ordering of the temperature values:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-17.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Sorted by Week</figcaption><p></p>
+</figure>
+</div>
+<p>We could even add a new variable, Day_of_Year, which would make it much easier to plot. We have data starting January 1, so in this case, the day component of the date is also the day of the year.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-18.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Adding Day of Year</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/manual-wide-to-long-table-19.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Plotting the Data</figcaption><p></p>
+</figure>
+</div>
+</details>
+<p>You may at this point be wondering why we don’t just do this operation by hand… and it’s because copy-paste isn’t reproducible. I can’t guarantee that whomever did the copy-paste operation clicked on the correct cell in the spreadsheet, selected the correct values, and so on. But when I run the same code on the same file, I can be much more certain that I’ll get the same results.</p>
+<p>(Also, it takes forever to do the copy-paste operations manually, and I’m sure you have better ways to use your valuable time!)</p>
+</section>
+<section id="computational-approach" class="level4" data-number="7.2.1.2">
+<h4 data-number="7.2.1.2" class="anchored" data-anchor-id="computational-approach"><span class="header-section-number">7.2.1.2</span> Computational Approach</h4>
+<p>In order to move from wide format to long format, we need to specify at least 2 of 3 possible quantities:</p>
+<ol type="1">
+<li><p>The values to keep to determine rows (the key)<br>
+<img src="images/pivot-specification-key.png" class="img-fluid" alt="The values determine which rows are unique"></p></li>
+<li><p>The columns to merge into “long” form, where the column names are stored as a new variable<br>
+<img src="images/pivot-specification-columns.png" class="img-fluid" alt="The column names are turned into values of a new “label” column"></p></li>
+<li><p>The values of interest<br>
+<img src="images/pivot-specification-values.png" class="img-fluid" alt="The value of interest is transformed into a new (long) single column"></p></li>
+</ol>
+<p>For most simple cases, if we have 2 of these 3 things, the pivot operation will go on as planned. Sadly, python and R require different defaults for which things are necessary, even if the fundamental operation is the same in each language.</p>
+<!-- https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot.html -->
+<details>
+<summary>
+<p>Conversion using wide-to-long and merge/join statements in R</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tba <span class="ot">&lt;-</span> table4a <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>country, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"cases"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tbb <span class="ot">&lt;-</span> table4b <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>country, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"population"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># To get the tidy data, we join the two together</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># merging by country and year</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(tba, tbb, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make year numeric b/c it's dumb not to</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(year))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 4</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   country      year  cases population</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Afghanistan  1999    745   19987071</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Afghanistan  2000   2666   20595360</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Brazil       1999  37737  172006362</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Brazil       2000  80488  174504898</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 China        1999 212258 1272915272</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 China        2000 213766 1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The columns are moved to a variable with the name passed to the argument “names_to” (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument “values_to” (again, hopefully easy to remember).</p>
+<p>We identify ID variables (variables which we don’t want to pivot) by not including them in the pivot statement. We can do this in one of two ways:</p>
+<ul>
+<li>select only variables we want to pivot: <code>pivot_longer(table4a, cols =</code>1999<code>:</code>2000<code>, names_to = "year", values_to = "cases")</code></li>
+<li>select variables we don’t want to pivot, using <code>-</code> to remove them. (see above, where <code>-country</code> excludes country from the pivot operation)</li>
+</ul>
+<p>Which option is easier depends how many things you’re pivoting (and how the columns are structured).</p>
+</details>
+<details>
+<summary>
+<p>Some notes on selecting variables in R</p>
+</summary>
+<p>Note: These details really only apply to the <code>tidyverse</code> - a series of R packages including <code>dplyr</code> and <code>tidyr</code>, among others.</p>
+<p>There are many different ways you can select variables in tidyverse functions:</p>
+<ul>
+<li><p>a character vector of column names passed to helper functions <code>all_of</code> and <code>any_of</code>. <code>all_of</code> will throw an error if something in the vector is missing, <code>any_of</code> will select anything that matches an entry in the vector but won’t error out if it doesn’t find some variable.</p></li>
+<li><p>Using a pattern, such as <code>starts_with</code>, <code>ends_with</code>, <code>contains</code>, <code>matches</code>, and <code>num_range</code>. These functions take a single character string as an argument and select all columns that match the character string in the way indicated by the function name.</p></li>
+<li><p><code>everything</code> matches all variables</p></li>
+<li><p><code>last_col</code> matches the last column</p></li>
+</ul>
+<p>You can also use logical operators <code>!</code> (taking the complement), <code>&amp;</code> and <code>|</code> (and/or), <code>c()</code> to combine selections, and <code>:</code> to select a range of consecutive variables.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyselect) <span class="co"># this is the library with all of the functions described above</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># it is automatically loaded with dplyr, tidyr, etc.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1          5.1         3.5          1.4         0.2  setosa</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2          4.9         3.0          1.4         0.2  setosa</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3          4.7         3.2          1.3         0.2  setosa</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 4          4.6         3.1          1.5         0.2  setosa</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 5          5.0         3.6          1.4         0.2  setosa</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 6          5.4         3.9          1.7         0.4  setosa</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"Sepal"</span>))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">##     Sepal.Length Sepal.Width</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 1            5.1         3.5</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 2            4.9         3.0</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 3            4.7         3.2</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 4            4.6         3.1</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 5            5.0         3.6</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 6            5.4         3.9</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 7            4.6         3.4</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 8            5.0         3.4</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 9            4.4         2.9</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 10           4.9         3.1</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 11           5.4         3.7</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 12           4.8         3.4</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 13           4.8         3.0</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 14           4.3         3.0</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 15           5.8         4.0</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 16           5.7         4.4</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 17           5.4         3.9</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 18           5.1         3.5</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 19           5.7         3.8</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 20           5.1         3.8</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="do">## 21           5.4         3.4</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 22           5.1         3.7</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="do">## 23           4.6         3.6</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 24           5.1         3.3</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 25           4.8         3.4</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 26           5.0         3.0</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 27           5.0         3.4</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 28           5.2         3.5</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="do">## 29           5.2         3.4</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="do">## 30           4.7         3.2</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="do">## 31           4.8         3.1</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="do">## 32           5.4         3.4</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="do">## 33           5.2         4.1</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="do">## 34           5.5         4.2</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="do">## 35           4.9         3.1</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 36           5.0         3.2</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="do">## 37           5.5         3.5</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="do">## 38           4.9         3.6</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="do">## 39           4.4         3.0</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="do">## 40           5.1         3.4</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="do">## 41           5.0         3.5</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="do">## 42           4.5         2.3</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="do">## 43           4.4         3.2</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="do">## 44           5.0         3.5</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="do">## 45           5.1         3.8</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="do">## 46           4.8         3.0</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="do">## 47           5.1         3.8</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="do">## 48           4.6         3.2</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="do">## 49           5.3         3.7</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="do">## 50           5.0         3.3</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="do">## 51           7.0         3.2</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="do">## 52           6.4         3.2</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="do">## 53           6.9         3.1</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="do">## 54           5.5         2.3</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="do">## 55           6.5         2.8</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="do">## 56           5.7         2.8</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="do">## 57           6.3         3.3</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="do">## 58           4.9         2.4</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="do">## 59           6.6         2.9</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="do">## 60           5.2         2.7</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="do">## 61           5.0         2.0</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="do">## 62           5.9         3.0</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="do">## 63           6.0         2.2</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="do">## 64           6.1         2.9</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="do">## 65           5.6         2.9</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="do">## 66           6.7         3.1</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="do">## 67           5.6         3.0</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="do">## 68           5.8         2.7</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="do">## 69           6.2         2.2</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="do">## 70           5.6         2.5</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="do">## 71           5.9         3.2</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="do">## 72           6.1         2.8</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="do">## 73           6.3         2.5</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="do">## 74           6.1         2.8</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="do">## 75           6.4         2.9</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="do">## 76           6.6         3.0</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="do">## 77           6.8         2.8</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="do">## 78           6.7         3.0</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="do">## 79           6.0         2.9</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="do">## 80           5.7         2.6</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a><span class="do">## 81           5.5         2.4</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="do">## 82           5.5         2.4</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="do">## 83           5.8         2.7</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="do">## 84           6.0         2.7</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a><span class="do">## 85           5.4         3.0</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="do">## 86           6.0         3.4</span></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a><span class="do">## 87           6.7         3.1</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="do">## 88           6.3         2.3</span></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="do">## 89           5.6         3.0</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="do">## 90           5.5         2.5</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a><span class="do">## 91           5.5         2.6</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="do">## 92           6.1         3.0</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="do">## 93           5.8         2.6</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="do">## 94           5.0         2.3</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="do">## 95           5.6         2.7</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="do">## 96           5.7         3.0</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="do">## 97           5.7         2.9</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="do">## 98           6.2         2.9</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a><span class="do">## 99           5.1         2.5</span></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="do">## 100          5.7         2.8</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a><span class="do">## 101          6.3         3.3</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a><span class="do">## 102          5.8         2.7</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a><span class="do">## 103          7.1         3.0</span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a><span class="do">## 104          6.3         2.9</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="do">## 105          6.5         3.0</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="do">## 106          7.6         3.0</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="do">## 107          4.9         2.5</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="do">## 108          7.3         2.9</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="do">## 109          6.7         2.5</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="do">## 110          7.2         3.6</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="do">## 111          6.5         3.2</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a><span class="do">## 112          6.4         2.7</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="do">## 113          6.8         3.0</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="do">## 114          5.7         2.5</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="do">## 115          5.8         2.8</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="do">## 116          6.4         3.2</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="do">## 117          6.5         3.0</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="do">## 118          7.7         3.8</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="do">## 119          7.7         2.6</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="do">## 120          6.0         2.2</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="do">## 121          6.9         3.2</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="do">## 122          5.6         2.8</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a><span class="do">## 123          7.7         2.8</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="do">## 124          6.3         2.7</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="do">## 125          6.7         3.3</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a><span class="do">## 126          7.2         3.2</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a><span class="do">## 127          6.2         2.8</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a><span class="do">## 128          6.1         3.0</span></span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a><span class="do">## 129          6.4         2.8</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a><span class="do">## 130          7.2         3.0</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a><span class="do">## 131          7.4         2.8</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a><span class="do">## 132          7.9         3.8</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a><span class="do">## 133          6.4         2.8</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a><span class="do">## 134          6.3         2.8</span></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a><span class="do">## 135          6.1         2.6</span></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a><span class="do">## 136          7.7         3.0</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a><span class="do">## 137          6.3         3.4</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a><span class="do">## 138          6.4         3.1</span></span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a><span class="do">## 139          6.0         3.0</span></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="do">## 140          6.9         3.1</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a><span class="do">## 141          6.7         3.1</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a><span class="do">## 142          6.9         3.1</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a><span class="do">## 143          5.8         2.7</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a><span class="do">## 144          6.8         3.2</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a><span class="do">## 145          6.7         3.3</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="do">## 146          6.7         3.0</span></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="do">## 147          6.3         2.5</span></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a><span class="do">## 148          6.5         3.0</span></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a><span class="do">## 149          6.2         3.4</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="do">## 150          5.9         3.0</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">!</span><span class="fu">matches</span>(<span class="st">"Sepal"</span>))</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="do">##     Petal.Length Petal.Width    Species</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a><span class="do">## 1            1.4         0.2     setosa</span></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a><span class="do">## 2            1.4         0.2     setosa</span></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a><span class="do">## 3            1.3         0.2     setosa</span></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a><span class="do">## 4            1.5         0.2     setosa</span></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a><span class="do">## 5            1.4         0.2     setosa</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a><span class="do">## 6            1.7         0.4     setosa</span></span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a><span class="do">## 7            1.4         0.3     setosa</span></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a><span class="do">## 8            1.5         0.2     setosa</span></span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a><span class="do">## 9            1.4         0.2     setosa</span></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a><span class="do">## 10           1.5         0.1     setosa</span></span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a><span class="do">## 11           1.5         0.2     setosa</span></span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a><span class="do">## 12           1.6         0.2     setosa</span></span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a><span class="do">## 13           1.4         0.1     setosa</span></span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a><span class="do">## 14           1.1         0.1     setosa</span></span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a><span class="do">## 15           1.2         0.2     setosa</span></span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a><span class="do">## 16           1.5         0.4     setosa</span></span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a><span class="do">## 17           1.3         0.4     setosa</span></span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a><span class="do">## 18           1.4         0.3     setosa</span></span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a><span class="do">## 19           1.7         0.3     setosa</span></span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a><span class="do">## 20           1.5         0.3     setosa</span></span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a><span class="do">## 21           1.7         0.2     setosa</span></span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a><span class="do">## 22           1.5         0.4     setosa</span></span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a><span class="do">## 23           1.0         0.2     setosa</span></span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a><span class="do">## 24           1.7         0.5     setosa</span></span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a><span class="do">## 25           1.9         0.2     setosa</span></span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a><span class="do">## 26           1.6         0.2     setosa</span></span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a><span class="do">## 27           1.6         0.4     setosa</span></span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a><span class="do">## 28           1.5         0.2     setosa</span></span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a><span class="do">## 29           1.4         0.2     setosa</span></span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a><span class="do">## 30           1.6         0.2     setosa</span></span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a><span class="do">## 31           1.6         0.2     setosa</span></span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a><span class="do">## 32           1.5         0.4     setosa</span></span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a><span class="do">## 33           1.5         0.1     setosa</span></span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a><span class="do">## 34           1.4         0.2     setosa</span></span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a><span class="do">## 35           1.5         0.2     setosa</span></span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a><span class="do">## 36           1.2         0.2     setosa</span></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a><span class="do">## 37           1.3         0.2     setosa</span></span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a><span class="do">## 38           1.4         0.1     setosa</span></span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a><span class="do">## 39           1.3         0.2     setosa</span></span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a><span class="do">## 40           1.5         0.2     setosa</span></span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a><span class="do">## 41           1.3         0.3     setosa</span></span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a><span class="do">## 42           1.3         0.3     setosa</span></span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a><span class="do">## 43           1.3         0.2     setosa</span></span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a><span class="do">## 44           1.6         0.6     setosa</span></span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a><span class="do">## 45           1.9         0.4     setosa</span></span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a><span class="do">## 46           1.4         0.3     setosa</span></span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a><span class="do">## 47           1.6         0.2     setosa</span></span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a><span class="do">## 48           1.4         0.2     setosa</span></span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a><span class="do">## 49           1.5         0.2     setosa</span></span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a><span class="do">## 50           1.4         0.2     setosa</span></span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a><span class="do">## 51           4.7         1.4 versicolor</span></span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a><span class="do">## 52           4.5         1.5 versicolor</span></span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a><span class="do">## 53           4.9         1.5 versicolor</span></span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a><span class="do">## 54           4.0         1.3 versicolor</span></span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a><span class="do">## 55           4.6         1.5 versicolor</span></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a><span class="do">## 56           4.5         1.3 versicolor</span></span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a><span class="do">## 57           4.7         1.6 versicolor</span></span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a><span class="do">## 58           3.3         1.0 versicolor</span></span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a><span class="do">## 59           4.6         1.3 versicolor</span></span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a><span class="do">## 60           3.9         1.4 versicolor</span></span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a><span class="do">## 61           3.5         1.0 versicolor</span></span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a><span class="do">## 62           4.2         1.5 versicolor</span></span>
+<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a><span class="do">## 63           4.0         1.0 versicolor</span></span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a><span class="do">## 64           4.7         1.4 versicolor</span></span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a><span class="do">## 65           3.6         1.3 versicolor</span></span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a><span class="do">## 66           4.4         1.4 versicolor</span></span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a><span class="do">## 67           4.5         1.5 versicolor</span></span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a><span class="do">## 68           4.1         1.0 versicolor</span></span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a><span class="do">## 69           4.5         1.5 versicolor</span></span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a><span class="do">## 70           3.9         1.1 versicolor</span></span>
+<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a><span class="do">## 71           4.8         1.8 versicolor</span></span>
+<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a><span class="do">## 72           4.0         1.3 versicolor</span></span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a><span class="do">## 73           4.9         1.5 versicolor</span></span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a><span class="do">## 74           4.7         1.2 versicolor</span></span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a><span class="do">## 75           4.3         1.3 versicolor</span></span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a><span class="do">## 76           4.4         1.4 versicolor</span></span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a><span class="do">## 77           4.8         1.4 versicolor</span></span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a><span class="do">## 78           5.0         1.7 versicolor</span></span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a><span class="do">## 79           4.5         1.5 versicolor</span></span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a><span class="do">## 80           3.5         1.0 versicolor</span></span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a><span class="do">## 81           3.8         1.1 versicolor</span></span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a><span class="do">## 82           3.7         1.0 versicolor</span></span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a><span class="do">## 83           3.9         1.2 versicolor</span></span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a><span class="do">## 84           5.1         1.6 versicolor</span></span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a><span class="do">## 85           4.5         1.5 versicolor</span></span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a><span class="do">## 86           4.5         1.6 versicolor</span></span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a><span class="do">## 87           4.7         1.5 versicolor</span></span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a><span class="do">## 88           4.4         1.3 versicolor</span></span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a><span class="do">## 89           4.1         1.3 versicolor</span></span>
+<span id="cb4-257"><a href="#cb4-257" aria-hidden="true" tabindex="-1"></a><span class="do">## 90           4.0         1.3 versicolor</span></span>
+<span id="cb4-258"><a href="#cb4-258" aria-hidden="true" tabindex="-1"></a><span class="do">## 91           4.4         1.2 versicolor</span></span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a><span class="do">## 92           4.6         1.4 versicolor</span></span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a><span class="do">## 93           4.0         1.2 versicolor</span></span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a><span class="do">## 94           3.3         1.0 versicolor</span></span>
+<span id="cb4-262"><a href="#cb4-262" aria-hidden="true" tabindex="-1"></a><span class="do">## 95           4.2         1.3 versicolor</span></span>
+<span id="cb4-263"><a href="#cb4-263" aria-hidden="true" tabindex="-1"></a><span class="do">## 96           4.2         1.2 versicolor</span></span>
+<span id="cb4-264"><a href="#cb4-264" aria-hidden="true" tabindex="-1"></a><span class="do">## 97           4.2         1.3 versicolor</span></span>
+<span id="cb4-265"><a href="#cb4-265" aria-hidden="true" tabindex="-1"></a><span class="do">## 98           4.3         1.3 versicolor</span></span>
+<span id="cb4-266"><a href="#cb4-266" aria-hidden="true" tabindex="-1"></a><span class="do">## 99           3.0         1.1 versicolor</span></span>
+<span id="cb4-267"><a href="#cb4-267" aria-hidden="true" tabindex="-1"></a><span class="do">## 100          4.1         1.3 versicolor</span></span>
+<span id="cb4-268"><a href="#cb4-268" aria-hidden="true" tabindex="-1"></a><span class="do">## 101          6.0         2.5  virginica</span></span>
+<span id="cb4-269"><a href="#cb4-269" aria-hidden="true" tabindex="-1"></a><span class="do">## 102          5.1         1.9  virginica</span></span>
+<span id="cb4-270"><a href="#cb4-270" aria-hidden="true" tabindex="-1"></a><span class="do">## 103          5.9         2.1  virginica</span></span>
+<span id="cb4-271"><a href="#cb4-271" aria-hidden="true" tabindex="-1"></a><span class="do">## 104          5.6         1.8  virginica</span></span>
+<span id="cb4-272"><a href="#cb4-272" aria-hidden="true" tabindex="-1"></a><span class="do">## 105          5.8         2.2  virginica</span></span>
+<span id="cb4-273"><a href="#cb4-273" aria-hidden="true" tabindex="-1"></a><span class="do">## 106          6.6         2.1  virginica</span></span>
+<span id="cb4-274"><a href="#cb4-274" aria-hidden="true" tabindex="-1"></a><span class="do">## 107          4.5         1.7  virginica</span></span>
+<span id="cb4-275"><a href="#cb4-275" aria-hidden="true" tabindex="-1"></a><span class="do">## 108          6.3         1.8  virginica</span></span>
+<span id="cb4-276"><a href="#cb4-276" aria-hidden="true" tabindex="-1"></a><span class="do">## 109          5.8         1.8  virginica</span></span>
+<span id="cb4-277"><a href="#cb4-277" aria-hidden="true" tabindex="-1"></a><span class="do">## 110          6.1         2.5  virginica</span></span>
+<span id="cb4-278"><a href="#cb4-278" aria-hidden="true" tabindex="-1"></a><span class="do">## 111          5.1         2.0  virginica</span></span>
+<span id="cb4-279"><a href="#cb4-279" aria-hidden="true" tabindex="-1"></a><span class="do">## 112          5.3         1.9  virginica</span></span>
+<span id="cb4-280"><a href="#cb4-280" aria-hidden="true" tabindex="-1"></a><span class="do">## 113          5.5         2.1  virginica</span></span>
+<span id="cb4-281"><a href="#cb4-281" aria-hidden="true" tabindex="-1"></a><span class="do">## 114          5.0         2.0  virginica</span></span>
+<span id="cb4-282"><a href="#cb4-282" aria-hidden="true" tabindex="-1"></a><span class="do">## 115          5.1         2.4  virginica</span></span>
+<span id="cb4-283"><a href="#cb4-283" aria-hidden="true" tabindex="-1"></a><span class="do">## 116          5.3         2.3  virginica</span></span>
+<span id="cb4-284"><a href="#cb4-284" aria-hidden="true" tabindex="-1"></a><span class="do">## 117          5.5         1.8  virginica</span></span>
+<span id="cb4-285"><a href="#cb4-285" aria-hidden="true" tabindex="-1"></a><span class="do">## 118          6.7         2.2  virginica</span></span>
+<span id="cb4-286"><a href="#cb4-286" aria-hidden="true" tabindex="-1"></a><span class="do">## 119          6.9         2.3  virginica</span></span>
+<span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a><span class="do">## 120          5.0         1.5  virginica</span></span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a><span class="do">## 121          5.7         2.3  virginica</span></span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a><span class="do">## 122          4.9         2.0  virginica</span></span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a><span class="do">## 123          6.7         2.0  virginica</span></span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a><span class="do">## 124          4.9         1.8  virginica</span></span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a><span class="do">## 125          5.7         2.1  virginica</span></span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a><span class="do">## 126          6.0         1.8  virginica</span></span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a><span class="do">## 127          4.8         1.8  virginica</span></span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a><span class="do">## 128          4.9         1.8  virginica</span></span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a><span class="do">## 129          5.6         2.1  virginica</span></span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a><span class="do">## 130          5.8         1.6  virginica</span></span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a><span class="do">## 131          6.1         1.9  virginica</span></span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a><span class="do">## 132          6.4         2.0  virginica</span></span>
+<span id="cb4-300"><a href="#cb4-300" aria-hidden="true" tabindex="-1"></a><span class="do">## 133          5.6         2.2  virginica</span></span>
+<span id="cb4-301"><a href="#cb4-301" aria-hidden="true" tabindex="-1"></a><span class="do">## 134          5.1         1.5  virginica</span></span>
+<span id="cb4-302"><a href="#cb4-302" aria-hidden="true" tabindex="-1"></a><span class="do">## 135          5.6         1.4  virginica</span></span>
+<span id="cb4-303"><a href="#cb4-303" aria-hidden="true" tabindex="-1"></a><span class="do">## 136          6.1         2.3  virginica</span></span>
+<span id="cb4-304"><a href="#cb4-304" aria-hidden="true" tabindex="-1"></a><span class="do">## 137          5.6         2.4  virginica</span></span>
+<span id="cb4-305"><a href="#cb4-305" aria-hidden="true" tabindex="-1"></a><span class="do">## 138          5.5         1.8  virginica</span></span>
+<span id="cb4-306"><a href="#cb4-306" aria-hidden="true" tabindex="-1"></a><span class="do">## 139          4.8         1.8  virginica</span></span>
+<span id="cb4-307"><a href="#cb4-307" aria-hidden="true" tabindex="-1"></a><span class="do">## 140          5.4         2.1  virginica</span></span>
+<span id="cb4-308"><a href="#cb4-308" aria-hidden="true" tabindex="-1"></a><span class="do">## 141          5.6         2.4  virginica</span></span>
+<span id="cb4-309"><a href="#cb4-309" aria-hidden="true" tabindex="-1"></a><span class="do">## 142          5.1         2.3  virginica</span></span>
+<span id="cb4-310"><a href="#cb4-310" aria-hidden="true" tabindex="-1"></a><span class="do">## 143          5.1         1.9  virginica</span></span>
+<span id="cb4-311"><a href="#cb4-311" aria-hidden="true" tabindex="-1"></a><span class="do">## 144          5.9         2.3  virginica</span></span>
+<span id="cb4-312"><a href="#cb4-312" aria-hidden="true" tabindex="-1"></a><span class="do">## 145          5.7         2.5  virginica</span></span>
+<span id="cb4-313"><a href="#cb4-313" aria-hidden="true" tabindex="-1"></a><span class="do">## 146          5.2         2.3  virginica</span></span>
+<span id="cb4-314"><a href="#cb4-314" aria-hidden="true" tabindex="-1"></a><span class="do">## 147          5.0         1.9  virginica</span></span>
+<span id="cb4-315"><a href="#cb4-315" aria-hidden="true" tabindex="-1"></a><span class="do">## 148          5.2         2.0  virginica</span></span>
+<span id="cb4-316"><a href="#cb4-316" aria-hidden="true" tabindex="-1"></a><span class="do">## 149          5.4         2.3  virginica</span></span>
+<span id="cb4-317"><a href="#cb4-317" aria-hidden="true" tabindex="-1"></a><span class="do">## 150          5.1         1.8  virginica</span></span>
+<span id="cb4-318"><a href="#cb4-318" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"Width"</span>))</span>
+<span id="cb4-319"><a href="#cb4-319" aria-hidden="true" tabindex="-1"></a><span class="do">##     Sepal.Width Petal.Width</span></span>
+<span id="cb4-320"><a href="#cb4-320" aria-hidden="true" tabindex="-1"></a><span class="do">## 1           3.5         0.2</span></span>
+<span id="cb4-321"><a href="#cb4-321" aria-hidden="true" tabindex="-1"></a><span class="do">## 2           3.0         0.2</span></span>
+<span id="cb4-322"><a href="#cb4-322" aria-hidden="true" tabindex="-1"></a><span class="do">## 3           3.2         0.2</span></span>
+<span id="cb4-323"><a href="#cb4-323" aria-hidden="true" tabindex="-1"></a><span class="do">## 4           3.1         0.2</span></span>
+<span id="cb4-324"><a href="#cb4-324" aria-hidden="true" tabindex="-1"></a><span class="do">## 5           3.6         0.2</span></span>
+<span id="cb4-325"><a href="#cb4-325" aria-hidden="true" tabindex="-1"></a><span class="do">## 6           3.9         0.4</span></span>
+<span id="cb4-326"><a href="#cb4-326" aria-hidden="true" tabindex="-1"></a><span class="do">## 7           3.4         0.3</span></span>
+<span id="cb4-327"><a href="#cb4-327" aria-hidden="true" tabindex="-1"></a><span class="do">## 8           3.4         0.2</span></span>
+<span id="cb4-328"><a href="#cb4-328" aria-hidden="true" tabindex="-1"></a><span class="do">## 9           2.9         0.2</span></span>
+<span id="cb4-329"><a href="#cb4-329" aria-hidden="true" tabindex="-1"></a><span class="do">## 10          3.1         0.1</span></span>
+<span id="cb4-330"><a href="#cb4-330" aria-hidden="true" tabindex="-1"></a><span class="do">## 11          3.7         0.2</span></span>
+<span id="cb4-331"><a href="#cb4-331" aria-hidden="true" tabindex="-1"></a><span class="do">## 12          3.4         0.2</span></span>
+<span id="cb4-332"><a href="#cb4-332" aria-hidden="true" tabindex="-1"></a><span class="do">## 13          3.0         0.1</span></span>
+<span id="cb4-333"><a href="#cb4-333" aria-hidden="true" tabindex="-1"></a><span class="do">## 14          3.0         0.1</span></span>
+<span id="cb4-334"><a href="#cb4-334" aria-hidden="true" tabindex="-1"></a><span class="do">## 15          4.0         0.2</span></span>
+<span id="cb4-335"><a href="#cb4-335" aria-hidden="true" tabindex="-1"></a><span class="do">## 16          4.4         0.4</span></span>
+<span id="cb4-336"><a href="#cb4-336" aria-hidden="true" tabindex="-1"></a><span class="do">## 17          3.9         0.4</span></span>
+<span id="cb4-337"><a href="#cb4-337" aria-hidden="true" tabindex="-1"></a><span class="do">## 18          3.5         0.3</span></span>
+<span id="cb4-338"><a href="#cb4-338" aria-hidden="true" tabindex="-1"></a><span class="do">## 19          3.8         0.3</span></span>
+<span id="cb4-339"><a href="#cb4-339" aria-hidden="true" tabindex="-1"></a><span class="do">## 20          3.8         0.3</span></span>
+<span id="cb4-340"><a href="#cb4-340" aria-hidden="true" tabindex="-1"></a><span class="do">## 21          3.4         0.2</span></span>
+<span id="cb4-341"><a href="#cb4-341" aria-hidden="true" tabindex="-1"></a><span class="do">## 22          3.7         0.4</span></span>
+<span id="cb4-342"><a href="#cb4-342" aria-hidden="true" tabindex="-1"></a><span class="do">## 23          3.6         0.2</span></span>
+<span id="cb4-343"><a href="#cb4-343" aria-hidden="true" tabindex="-1"></a><span class="do">## 24          3.3         0.5</span></span>
+<span id="cb4-344"><a href="#cb4-344" aria-hidden="true" tabindex="-1"></a><span class="do">## 25          3.4         0.2</span></span>
+<span id="cb4-345"><a href="#cb4-345" aria-hidden="true" tabindex="-1"></a><span class="do">## 26          3.0         0.2</span></span>
+<span id="cb4-346"><a href="#cb4-346" aria-hidden="true" tabindex="-1"></a><span class="do">## 27          3.4         0.4</span></span>
+<span id="cb4-347"><a href="#cb4-347" aria-hidden="true" tabindex="-1"></a><span class="do">## 28          3.5         0.2</span></span>
+<span id="cb4-348"><a href="#cb4-348" aria-hidden="true" tabindex="-1"></a><span class="do">## 29          3.4         0.2</span></span>
+<span id="cb4-349"><a href="#cb4-349" aria-hidden="true" tabindex="-1"></a><span class="do">## 30          3.2         0.2</span></span>
+<span id="cb4-350"><a href="#cb4-350" aria-hidden="true" tabindex="-1"></a><span class="do">## 31          3.1         0.2</span></span>
+<span id="cb4-351"><a href="#cb4-351" aria-hidden="true" tabindex="-1"></a><span class="do">## 32          3.4         0.4</span></span>
+<span id="cb4-352"><a href="#cb4-352" aria-hidden="true" tabindex="-1"></a><span class="do">## 33          4.1         0.1</span></span>
+<span id="cb4-353"><a href="#cb4-353" aria-hidden="true" tabindex="-1"></a><span class="do">## 34          4.2         0.2</span></span>
+<span id="cb4-354"><a href="#cb4-354" aria-hidden="true" tabindex="-1"></a><span class="do">## 35          3.1         0.2</span></span>
+<span id="cb4-355"><a href="#cb4-355" aria-hidden="true" tabindex="-1"></a><span class="do">## 36          3.2         0.2</span></span>
+<span id="cb4-356"><a href="#cb4-356" aria-hidden="true" tabindex="-1"></a><span class="do">## 37          3.5         0.2</span></span>
+<span id="cb4-357"><a href="#cb4-357" aria-hidden="true" tabindex="-1"></a><span class="do">## 38          3.6         0.1</span></span>
+<span id="cb4-358"><a href="#cb4-358" aria-hidden="true" tabindex="-1"></a><span class="do">## 39          3.0         0.2</span></span>
+<span id="cb4-359"><a href="#cb4-359" aria-hidden="true" tabindex="-1"></a><span class="do">## 40          3.4         0.2</span></span>
+<span id="cb4-360"><a href="#cb4-360" aria-hidden="true" tabindex="-1"></a><span class="do">## 41          3.5         0.3</span></span>
+<span id="cb4-361"><a href="#cb4-361" aria-hidden="true" tabindex="-1"></a><span class="do">## 42          2.3         0.3</span></span>
+<span id="cb4-362"><a href="#cb4-362" aria-hidden="true" tabindex="-1"></a><span class="do">## 43          3.2         0.2</span></span>
+<span id="cb4-363"><a href="#cb4-363" aria-hidden="true" tabindex="-1"></a><span class="do">## 44          3.5         0.6</span></span>
+<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a><span class="do">## 45          3.8         0.4</span></span>
+<span id="cb4-365"><a href="#cb4-365" aria-hidden="true" tabindex="-1"></a><span class="do">## 46          3.0         0.3</span></span>
+<span id="cb4-366"><a href="#cb4-366" aria-hidden="true" tabindex="-1"></a><span class="do">## 47          3.8         0.2</span></span>
+<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a><span class="do">## 48          3.2         0.2</span></span>
+<span id="cb4-368"><a href="#cb4-368" aria-hidden="true" tabindex="-1"></a><span class="do">## 49          3.7         0.2</span></span>
+<span id="cb4-369"><a href="#cb4-369" aria-hidden="true" tabindex="-1"></a><span class="do">## 50          3.3         0.2</span></span>
+<span id="cb4-370"><a href="#cb4-370" aria-hidden="true" tabindex="-1"></a><span class="do">## 51          3.2         1.4</span></span>
+<span id="cb4-371"><a href="#cb4-371" aria-hidden="true" tabindex="-1"></a><span class="do">## 52          3.2         1.5</span></span>
+<span id="cb4-372"><a href="#cb4-372" aria-hidden="true" tabindex="-1"></a><span class="do">## 53          3.1         1.5</span></span>
+<span id="cb4-373"><a href="#cb4-373" aria-hidden="true" tabindex="-1"></a><span class="do">## 54          2.3         1.3</span></span>
+<span id="cb4-374"><a href="#cb4-374" aria-hidden="true" tabindex="-1"></a><span class="do">## 55          2.8         1.5</span></span>
+<span id="cb4-375"><a href="#cb4-375" aria-hidden="true" tabindex="-1"></a><span class="do">## 56          2.8         1.3</span></span>
+<span id="cb4-376"><a href="#cb4-376" aria-hidden="true" tabindex="-1"></a><span class="do">## 57          3.3         1.6</span></span>
+<span id="cb4-377"><a href="#cb4-377" aria-hidden="true" tabindex="-1"></a><span class="do">## 58          2.4         1.0</span></span>
+<span id="cb4-378"><a href="#cb4-378" aria-hidden="true" tabindex="-1"></a><span class="do">## 59          2.9         1.3</span></span>
+<span id="cb4-379"><a href="#cb4-379" aria-hidden="true" tabindex="-1"></a><span class="do">## 60          2.7         1.4</span></span>
+<span id="cb4-380"><a href="#cb4-380" aria-hidden="true" tabindex="-1"></a><span class="do">## 61          2.0         1.0</span></span>
+<span id="cb4-381"><a href="#cb4-381" aria-hidden="true" tabindex="-1"></a><span class="do">## 62          3.0         1.5</span></span>
+<span id="cb4-382"><a href="#cb4-382" aria-hidden="true" tabindex="-1"></a><span class="do">## 63          2.2         1.0</span></span>
+<span id="cb4-383"><a href="#cb4-383" aria-hidden="true" tabindex="-1"></a><span class="do">## 64          2.9         1.4</span></span>
+<span id="cb4-384"><a href="#cb4-384" aria-hidden="true" tabindex="-1"></a><span class="do">## 65          2.9         1.3</span></span>
+<span id="cb4-385"><a href="#cb4-385" aria-hidden="true" tabindex="-1"></a><span class="do">## 66          3.1         1.4</span></span>
+<span id="cb4-386"><a href="#cb4-386" aria-hidden="true" tabindex="-1"></a><span class="do">## 67          3.0         1.5</span></span>
+<span id="cb4-387"><a href="#cb4-387" aria-hidden="true" tabindex="-1"></a><span class="do">## 68          2.7         1.0</span></span>
+<span id="cb4-388"><a href="#cb4-388" aria-hidden="true" tabindex="-1"></a><span class="do">## 69          2.2         1.5</span></span>
+<span id="cb4-389"><a href="#cb4-389" aria-hidden="true" tabindex="-1"></a><span class="do">## 70          2.5         1.1</span></span>
+<span id="cb4-390"><a href="#cb4-390" aria-hidden="true" tabindex="-1"></a><span class="do">## 71          3.2         1.8</span></span>
+<span id="cb4-391"><a href="#cb4-391" aria-hidden="true" tabindex="-1"></a><span class="do">## 72          2.8         1.3</span></span>
+<span id="cb4-392"><a href="#cb4-392" aria-hidden="true" tabindex="-1"></a><span class="do">## 73          2.5         1.5</span></span>
+<span id="cb4-393"><a href="#cb4-393" aria-hidden="true" tabindex="-1"></a><span class="do">## 74          2.8         1.2</span></span>
+<span id="cb4-394"><a href="#cb4-394" aria-hidden="true" tabindex="-1"></a><span class="do">## 75          2.9         1.3</span></span>
+<span id="cb4-395"><a href="#cb4-395" aria-hidden="true" tabindex="-1"></a><span class="do">## 76          3.0         1.4</span></span>
+<span id="cb4-396"><a href="#cb4-396" aria-hidden="true" tabindex="-1"></a><span class="do">## 77          2.8         1.4</span></span>
+<span id="cb4-397"><a href="#cb4-397" aria-hidden="true" tabindex="-1"></a><span class="do">## 78          3.0         1.7</span></span>
+<span id="cb4-398"><a href="#cb4-398" aria-hidden="true" tabindex="-1"></a><span class="do">## 79          2.9         1.5</span></span>
+<span id="cb4-399"><a href="#cb4-399" aria-hidden="true" tabindex="-1"></a><span class="do">## 80          2.6         1.0</span></span>
+<span id="cb4-400"><a href="#cb4-400" aria-hidden="true" tabindex="-1"></a><span class="do">## 81          2.4         1.1</span></span>
+<span id="cb4-401"><a href="#cb4-401" aria-hidden="true" tabindex="-1"></a><span class="do">## 82          2.4         1.0</span></span>
+<span id="cb4-402"><a href="#cb4-402" aria-hidden="true" tabindex="-1"></a><span class="do">## 83          2.7         1.2</span></span>
+<span id="cb4-403"><a href="#cb4-403" aria-hidden="true" tabindex="-1"></a><span class="do">## 84          2.7         1.6</span></span>
+<span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a><span class="do">## 85          3.0         1.5</span></span>
+<span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a><span class="do">## 86          3.4         1.6</span></span>
+<span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a><span class="do">## 87          3.1         1.5</span></span>
+<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a><span class="do">## 88          2.3         1.3</span></span>
+<span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a><span class="do">## 89          3.0         1.3</span></span>
+<span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a><span class="do">## 90          2.5         1.3</span></span>
+<span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a><span class="do">## 91          2.6         1.2</span></span>
+<span id="cb4-411"><a href="#cb4-411" aria-hidden="true" tabindex="-1"></a><span class="do">## 92          3.0         1.4</span></span>
+<span id="cb4-412"><a href="#cb4-412" aria-hidden="true" tabindex="-1"></a><span class="do">## 93          2.6         1.2</span></span>
+<span id="cb4-413"><a href="#cb4-413" aria-hidden="true" tabindex="-1"></a><span class="do">## 94          2.3         1.0</span></span>
+<span id="cb4-414"><a href="#cb4-414" aria-hidden="true" tabindex="-1"></a><span class="do">## 95          2.7         1.3</span></span>
+<span id="cb4-415"><a href="#cb4-415" aria-hidden="true" tabindex="-1"></a><span class="do">## 96          3.0         1.2</span></span>
+<span id="cb4-416"><a href="#cb4-416" aria-hidden="true" tabindex="-1"></a><span class="do">## 97          2.9         1.3</span></span>
+<span id="cb4-417"><a href="#cb4-417" aria-hidden="true" tabindex="-1"></a><span class="do">## 98          2.9         1.3</span></span>
+<span id="cb4-418"><a href="#cb4-418" aria-hidden="true" tabindex="-1"></a><span class="do">## 99          2.5         1.1</span></span>
+<span id="cb4-419"><a href="#cb4-419" aria-hidden="true" tabindex="-1"></a><span class="do">## 100         2.8         1.3</span></span>
+<span id="cb4-420"><a href="#cb4-420" aria-hidden="true" tabindex="-1"></a><span class="do">## 101         3.3         2.5</span></span>
+<span id="cb4-421"><a href="#cb4-421" aria-hidden="true" tabindex="-1"></a><span class="do">## 102         2.7         1.9</span></span>
+<span id="cb4-422"><a href="#cb4-422" aria-hidden="true" tabindex="-1"></a><span class="do">## 103         3.0         2.1</span></span>
+<span id="cb4-423"><a href="#cb4-423" aria-hidden="true" tabindex="-1"></a><span class="do">## 104         2.9         1.8</span></span>
+<span id="cb4-424"><a href="#cb4-424" aria-hidden="true" tabindex="-1"></a><span class="do">## 105         3.0         2.2</span></span>
+<span id="cb4-425"><a href="#cb4-425" aria-hidden="true" tabindex="-1"></a><span class="do">## 106         3.0         2.1</span></span>
+<span id="cb4-426"><a href="#cb4-426" aria-hidden="true" tabindex="-1"></a><span class="do">## 107         2.5         1.7</span></span>
+<span id="cb4-427"><a href="#cb4-427" aria-hidden="true" tabindex="-1"></a><span class="do">## 108         2.9         1.8</span></span>
+<span id="cb4-428"><a href="#cb4-428" aria-hidden="true" tabindex="-1"></a><span class="do">## 109         2.5         1.8</span></span>
+<span id="cb4-429"><a href="#cb4-429" aria-hidden="true" tabindex="-1"></a><span class="do">## 110         3.6         2.5</span></span>
+<span id="cb4-430"><a href="#cb4-430" aria-hidden="true" tabindex="-1"></a><span class="do">## 111         3.2         2.0</span></span>
+<span id="cb4-431"><a href="#cb4-431" aria-hidden="true" tabindex="-1"></a><span class="do">## 112         2.7         1.9</span></span>
+<span id="cb4-432"><a href="#cb4-432" aria-hidden="true" tabindex="-1"></a><span class="do">## 113         3.0         2.1</span></span>
+<span id="cb4-433"><a href="#cb4-433" aria-hidden="true" tabindex="-1"></a><span class="do">## 114         2.5         2.0</span></span>
+<span id="cb4-434"><a href="#cb4-434" aria-hidden="true" tabindex="-1"></a><span class="do">## 115         2.8         2.4</span></span>
+<span id="cb4-435"><a href="#cb4-435" aria-hidden="true" tabindex="-1"></a><span class="do">## 116         3.2         2.3</span></span>
+<span id="cb4-436"><a href="#cb4-436" aria-hidden="true" tabindex="-1"></a><span class="do">## 117         3.0         1.8</span></span>
+<span id="cb4-437"><a href="#cb4-437" aria-hidden="true" tabindex="-1"></a><span class="do">## 118         3.8         2.2</span></span>
+<span id="cb4-438"><a href="#cb4-438" aria-hidden="true" tabindex="-1"></a><span class="do">## 119         2.6         2.3</span></span>
+<span id="cb4-439"><a href="#cb4-439" aria-hidden="true" tabindex="-1"></a><span class="do">## 120         2.2         1.5</span></span>
+<span id="cb4-440"><a href="#cb4-440" aria-hidden="true" tabindex="-1"></a><span class="do">## 121         3.2         2.3</span></span>
+<span id="cb4-441"><a href="#cb4-441" aria-hidden="true" tabindex="-1"></a><span class="do">## 122         2.8         2.0</span></span>
+<span id="cb4-442"><a href="#cb4-442" aria-hidden="true" tabindex="-1"></a><span class="do">## 123         2.8         2.0</span></span>
+<span id="cb4-443"><a href="#cb4-443" aria-hidden="true" tabindex="-1"></a><span class="do">## 124         2.7         1.8</span></span>
+<span id="cb4-444"><a href="#cb4-444" aria-hidden="true" tabindex="-1"></a><span class="do">## 125         3.3         2.1</span></span>
+<span id="cb4-445"><a href="#cb4-445" aria-hidden="true" tabindex="-1"></a><span class="do">## 126         3.2         1.8</span></span>
+<span id="cb4-446"><a href="#cb4-446" aria-hidden="true" tabindex="-1"></a><span class="do">## 127         2.8         1.8</span></span>
+<span id="cb4-447"><a href="#cb4-447" aria-hidden="true" tabindex="-1"></a><span class="do">## 128         3.0         1.8</span></span>
+<span id="cb4-448"><a href="#cb4-448" aria-hidden="true" tabindex="-1"></a><span class="do">## 129         2.8         2.1</span></span>
+<span id="cb4-449"><a href="#cb4-449" aria-hidden="true" tabindex="-1"></a><span class="do">## 130         3.0         1.6</span></span>
+<span id="cb4-450"><a href="#cb4-450" aria-hidden="true" tabindex="-1"></a><span class="do">## 131         2.8         1.9</span></span>
+<span id="cb4-451"><a href="#cb4-451" aria-hidden="true" tabindex="-1"></a><span class="do">## 132         3.8         2.0</span></span>
+<span id="cb4-452"><a href="#cb4-452" aria-hidden="true" tabindex="-1"></a><span class="do">## 133         2.8         2.2</span></span>
+<span id="cb4-453"><a href="#cb4-453" aria-hidden="true" tabindex="-1"></a><span class="do">## 134         2.8         1.5</span></span>
+<span id="cb4-454"><a href="#cb4-454" aria-hidden="true" tabindex="-1"></a><span class="do">## 135         2.6         1.4</span></span>
+<span id="cb4-455"><a href="#cb4-455" aria-hidden="true" tabindex="-1"></a><span class="do">## 136         3.0         2.3</span></span>
+<span id="cb4-456"><a href="#cb4-456" aria-hidden="true" tabindex="-1"></a><span class="do">## 137         3.4         2.4</span></span>
+<span id="cb4-457"><a href="#cb4-457" aria-hidden="true" tabindex="-1"></a><span class="do">## 138         3.1         1.8</span></span>
+<span id="cb4-458"><a href="#cb4-458" aria-hidden="true" tabindex="-1"></a><span class="do">## 139         3.0         1.8</span></span>
+<span id="cb4-459"><a href="#cb4-459" aria-hidden="true" tabindex="-1"></a><span class="do">## 140         3.1         2.1</span></span>
+<span id="cb4-460"><a href="#cb4-460" aria-hidden="true" tabindex="-1"></a><span class="do">## 141         3.1         2.4</span></span>
+<span id="cb4-461"><a href="#cb4-461" aria-hidden="true" tabindex="-1"></a><span class="do">## 142         3.1         2.3</span></span>
+<span id="cb4-462"><a href="#cb4-462" aria-hidden="true" tabindex="-1"></a><span class="do">## 143         2.7         1.9</span></span>
+<span id="cb4-463"><a href="#cb4-463" aria-hidden="true" tabindex="-1"></a><span class="do">## 144         3.2         2.3</span></span>
+<span id="cb4-464"><a href="#cb4-464" aria-hidden="true" tabindex="-1"></a><span class="do">## 145         3.3         2.5</span></span>
+<span id="cb4-465"><a href="#cb4-465" aria-hidden="true" tabindex="-1"></a><span class="do">## 146         3.0         2.3</span></span>
+<span id="cb4-466"><a href="#cb4-466" aria-hidden="true" tabindex="-1"></a><span class="do">## 147         2.5         1.9</span></span>
+<span id="cb4-467"><a href="#cb4-467" aria-hidden="true" tabindex="-1"></a><span class="do">## 148         3.0         2.0</span></span>
+<span id="cb4-468"><a href="#cb4-468" aria-hidden="true" tabindex="-1"></a><span class="do">## 149         3.4         2.3</span></span>
+<span id="cb4-469"><a href="#cb4-469" aria-hidden="true" tabindex="-1"></a><span class="do">## 150         3.0         1.8</span></span>
+<span id="cb4-470"><a href="#cb4-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-471"><a href="#cb4-471" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">select</span>(Sepal.Length<span class="sc">:</span>Petal.Length)</span>
+<span id="cb4-472"><a href="#cb4-472" aria-hidden="true" tabindex="-1"></a><span class="do">##     Sepal.Length Sepal.Width Petal.Length</span></span>
+<span id="cb4-473"><a href="#cb4-473" aria-hidden="true" tabindex="-1"></a><span class="do">## 1            5.1         3.5          1.4</span></span>
+<span id="cb4-474"><a href="#cb4-474" aria-hidden="true" tabindex="-1"></a><span class="do">## 2            4.9         3.0          1.4</span></span>
+<span id="cb4-475"><a href="#cb4-475" aria-hidden="true" tabindex="-1"></a><span class="do">## 3            4.7         3.2          1.3</span></span>
+<span id="cb4-476"><a href="#cb4-476" aria-hidden="true" tabindex="-1"></a><span class="do">## 4            4.6         3.1          1.5</span></span>
+<span id="cb4-477"><a href="#cb4-477" aria-hidden="true" tabindex="-1"></a><span class="do">## 5            5.0         3.6          1.4</span></span>
+<span id="cb4-478"><a href="#cb4-478" aria-hidden="true" tabindex="-1"></a><span class="do">## 6            5.4         3.9          1.7</span></span>
+<span id="cb4-479"><a href="#cb4-479" aria-hidden="true" tabindex="-1"></a><span class="do">## 7            4.6         3.4          1.4</span></span>
+<span id="cb4-480"><a href="#cb4-480" aria-hidden="true" tabindex="-1"></a><span class="do">## 8            5.0         3.4          1.5</span></span>
+<span id="cb4-481"><a href="#cb4-481" aria-hidden="true" tabindex="-1"></a><span class="do">## 9            4.4         2.9          1.4</span></span>
+<span id="cb4-482"><a href="#cb4-482" aria-hidden="true" tabindex="-1"></a><span class="do">## 10           4.9         3.1          1.5</span></span>
+<span id="cb4-483"><a href="#cb4-483" aria-hidden="true" tabindex="-1"></a><span class="do">## 11           5.4         3.7          1.5</span></span>
+<span id="cb4-484"><a href="#cb4-484" aria-hidden="true" tabindex="-1"></a><span class="do">## 12           4.8         3.4          1.6</span></span>
+<span id="cb4-485"><a href="#cb4-485" aria-hidden="true" tabindex="-1"></a><span class="do">## 13           4.8         3.0          1.4</span></span>
+<span id="cb4-486"><a href="#cb4-486" aria-hidden="true" tabindex="-1"></a><span class="do">## 14           4.3         3.0          1.1</span></span>
+<span id="cb4-487"><a href="#cb4-487" aria-hidden="true" tabindex="-1"></a><span class="do">## 15           5.8         4.0          1.2</span></span>
+<span id="cb4-488"><a href="#cb4-488" aria-hidden="true" tabindex="-1"></a><span class="do">## 16           5.7         4.4          1.5</span></span>
+<span id="cb4-489"><a href="#cb4-489" aria-hidden="true" tabindex="-1"></a><span class="do">## 17           5.4         3.9          1.3</span></span>
+<span id="cb4-490"><a href="#cb4-490" aria-hidden="true" tabindex="-1"></a><span class="do">## 18           5.1         3.5          1.4</span></span>
+<span id="cb4-491"><a href="#cb4-491" aria-hidden="true" tabindex="-1"></a><span class="do">## 19           5.7         3.8          1.7</span></span>
+<span id="cb4-492"><a href="#cb4-492" aria-hidden="true" tabindex="-1"></a><span class="do">## 20           5.1         3.8          1.5</span></span>
+<span id="cb4-493"><a href="#cb4-493" aria-hidden="true" tabindex="-1"></a><span class="do">## 21           5.4         3.4          1.7</span></span>
+<span id="cb4-494"><a href="#cb4-494" aria-hidden="true" tabindex="-1"></a><span class="do">## 22           5.1         3.7          1.5</span></span>
+<span id="cb4-495"><a href="#cb4-495" aria-hidden="true" tabindex="-1"></a><span class="do">## 23           4.6         3.6          1.0</span></span>
+<span id="cb4-496"><a href="#cb4-496" aria-hidden="true" tabindex="-1"></a><span class="do">## 24           5.1         3.3          1.7</span></span>
+<span id="cb4-497"><a href="#cb4-497" aria-hidden="true" tabindex="-1"></a><span class="do">## 25           4.8         3.4          1.9</span></span>
+<span id="cb4-498"><a href="#cb4-498" aria-hidden="true" tabindex="-1"></a><span class="do">## 26           5.0         3.0          1.6</span></span>
+<span id="cb4-499"><a href="#cb4-499" aria-hidden="true" tabindex="-1"></a><span class="do">## 27           5.0         3.4          1.6</span></span>
+<span id="cb4-500"><a href="#cb4-500" aria-hidden="true" tabindex="-1"></a><span class="do">## 28           5.2         3.5          1.5</span></span>
+<span id="cb4-501"><a href="#cb4-501" aria-hidden="true" tabindex="-1"></a><span class="do">## 29           5.2         3.4          1.4</span></span>
+<span id="cb4-502"><a href="#cb4-502" aria-hidden="true" tabindex="-1"></a><span class="do">## 30           4.7         3.2          1.6</span></span>
+<span id="cb4-503"><a href="#cb4-503" aria-hidden="true" tabindex="-1"></a><span class="do">## 31           4.8         3.1          1.6</span></span>
+<span id="cb4-504"><a href="#cb4-504" aria-hidden="true" tabindex="-1"></a><span class="do">## 32           5.4         3.4          1.5</span></span>
+<span id="cb4-505"><a href="#cb4-505" aria-hidden="true" tabindex="-1"></a><span class="do">## 33           5.2         4.1          1.5</span></span>
+<span id="cb4-506"><a href="#cb4-506" aria-hidden="true" tabindex="-1"></a><span class="do">## 34           5.5         4.2          1.4</span></span>
+<span id="cb4-507"><a href="#cb4-507" aria-hidden="true" tabindex="-1"></a><span class="do">## 35           4.9         3.1          1.5</span></span>
+<span id="cb4-508"><a href="#cb4-508" aria-hidden="true" tabindex="-1"></a><span class="do">## 36           5.0         3.2          1.2</span></span>
+<span id="cb4-509"><a href="#cb4-509" aria-hidden="true" tabindex="-1"></a><span class="do">## 37           5.5         3.5          1.3</span></span>
+<span id="cb4-510"><a href="#cb4-510" aria-hidden="true" tabindex="-1"></a><span class="do">## 38           4.9         3.6          1.4</span></span>
+<span id="cb4-511"><a href="#cb4-511" aria-hidden="true" tabindex="-1"></a><span class="do">## 39           4.4         3.0          1.3</span></span>
+<span id="cb4-512"><a href="#cb4-512" aria-hidden="true" tabindex="-1"></a><span class="do">## 40           5.1         3.4          1.5</span></span>
+<span id="cb4-513"><a href="#cb4-513" aria-hidden="true" tabindex="-1"></a><span class="do">## 41           5.0         3.5          1.3</span></span>
+<span id="cb4-514"><a href="#cb4-514" aria-hidden="true" tabindex="-1"></a><span class="do">## 42           4.5         2.3          1.3</span></span>
+<span id="cb4-515"><a href="#cb4-515" aria-hidden="true" tabindex="-1"></a><span class="do">## 43           4.4         3.2          1.3</span></span>
+<span id="cb4-516"><a href="#cb4-516" aria-hidden="true" tabindex="-1"></a><span class="do">## 44           5.0         3.5          1.6</span></span>
+<span id="cb4-517"><a href="#cb4-517" aria-hidden="true" tabindex="-1"></a><span class="do">## 45           5.1         3.8          1.9</span></span>
+<span id="cb4-518"><a href="#cb4-518" aria-hidden="true" tabindex="-1"></a><span class="do">## 46           4.8         3.0          1.4</span></span>
+<span id="cb4-519"><a href="#cb4-519" aria-hidden="true" tabindex="-1"></a><span class="do">## 47           5.1         3.8          1.6</span></span>
+<span id="cb4-520"><a href="#cb4-520" aria-hidden="true" tabindex="-1"></a><span class="do">## 48           4.6         3.2          1.4</span></span>
+<span id="cb4-521"><a href="#cb4-521" aria-hidden="true" tabindex="-1"></a><span class="do">## 49           5.3         3.7          1.5</span></span>
+<span id="cb4-522"><a href="#cb4-522" aria-hidden="true" tabindex="-1"></a><span class="do">## 50           5.0         3.3          1.4</span></span>
+<span id="cb4-523"><a href="#cb4-523" aria-hidden="true" tabindex="-1"></a><span class="do">## 51           7.0         3.2          4.7</span></span>
+<span id="cb4-524"><a href="#cb4-524" aria-hidden="true" tabindex="-1"></a><span class="do">## 52           6.4         3.2          4.5</span></span>
+<span id="cb4-525"><a href="#cb4-525" aria-hidden="true" tabindex="-1"></a><span class="do">## 53           6.9         3.1          4.9</span></span>
+<span id="cb4-526"><a href="#cb4-526" aria-hidden="true" tabindex="-1"></a><span class="do">## 54           5.5         2.3          4.0</span></span>
+<span id="cb4-527"><a href="#cb4-527" aria-hidden="true" tabindex="-1"></a><span class="do">## 55           6.5         2.8          4.6</span></span>
+<span id="cb4-528"><a href="#cb4-528" aria-hidden="true" tabindex="-1"></a><span class="do">## 56           5.7         2.8          4.5</span></span>
+<span id="cb4-529"><a href="#cb4-529" aria-hidden="true" tabindex="-1"></a><span class="do">## 57           6.3         3.3          4.7</span></span>
+<span id="cb4-530"><a href="#cb4-530" aria-hidden="true" tabindex="-1"></a><span class="do">## 58           4.9         2.4          3.3</span></span>
+<span id="cb4-531"><a href="#cb4-531" aria-hidden="true" tabindex="-1"></a><span class="do">## 59           6.6         2.9          4.6</span></span>
+<span id="cb4-532"><a href="#cb4-532" aria-hidden="true" tabindex="-1"></a><span class="do">## 60           5.2         2.7          3.9</span></span>
+<span id="cb4-533"><a href="#cb4-533" aria-hidden="true" tabindex="-1"></a><span class="do">## 61           5.0         2.0          3.5</span></span>
+<span id="cb4-534"><a href="#cb4-534" aria-hidden="true" tabindex="-1"></a><span class="do">## 62           5.9         3.0          4.2</span></span>
+<span id="cb4-535"><a href="#cb4-535" aria-hidden="true" tabindex="-1"></a><span class="do">## 63           6.0         2.2          4.0</span></span>
+<span id="cb4-536"><a href="#cb4-536" aria-hidden="true" tabindex="-1"></a><span class="do">## 64           6.1         2.9          4.7</span></span>
+<span id="cb4-537"><a href="#cb4-537" aria-hidden="true" tabindex="-1"></a><span class="do">## 65           5.6         2.9          3.6</span></span>
+<span id="cb4-538"><a href="#cb4-538" aria-hidden="true" tabindex="-1"></a><span class="do">## 66           6.7         3.1          4.4</span></span>
+<span id="cb4-539"><a href="#cb4-539" aria-hidden="true" tabindex="-1"></a><span class="do">## 67           5.6         3.0          4.5</span></span>
+<span id="cb4-540"><a href="#cb4-540" aria-hidden="true" tabindex="-1"></a><span class="do">## 68           5.8         2.7          4.1</span></span>
+<span id="cb4-541"><a href="#cb4-541" aria-hidden="true" tabindex="-1"></a><span class="do">## 69           6.2         2.2          4.5</span></span>
+<span id="cb4-542"><a href="#cb4-542" aria-hidden="true" tabindex="-1"></a><span class="do">## 70           5.6         2.5          3.9</span></span>
+<span id="cb4-543"><a href="#cb4-543" aria-hidden="true" tabindex="-1"></a><span class="do">## 71           5.9         3.2          4.8</span></span>
+<span id="cb4-544"><a href="#cb4-544" aria-hidden="true" tabindex="-1"></a><span class="do">## 72           6.1         2.8          4.0</span></span>
+<span id="cb4-545"><a href="#cb4-545" aria-hidden="true" tabindex="-1"></a><span class="do">## 73           6.3         2.5          4.9</span></span>
+<span id="cb4-546"><a href="#cb4-546" aria-hidden="true" tabindex="-1"></a><span class="do">## 74           6.1         2.8          4.7</span></span>
+<span id="cb4-547"><a href="#cb4-547" aria-hidden="true" tabindex="-1"></a><span class="do">## 75           6.4         2.9          4.3</span></span>
+<span id="cb4-548"><a href="#cb4-548" aria-hidden="true" tabindex="-1"></a><span class="do">## 76           6.6         3.0          4.4</span></span>
+<span id="cb4-549"><a href="#cb4-549" aria-hidden="true" tabindex="-1"></a><span class="do">## 77           6.8         2.8          4.8</span></span>
+<span id="cb4-550"><a href="#cb4-550" aria-hidden="true" tabindex="-1"></a><span class="do">## 78           6.7         3.0          5.0</span></span>
+<span id="cb4-551"><a href="#cb4-551" aria-hidden="true" tabindex="-1"></a><span class="do">## 79           6.0         2.9          4.5</span></span>
+<span id="cb4-552"><a href="#cb4-552" aria-hidden="true" tabindex="-1"></a><span class="do">## 80           5.7         2.6          3.5</span></span>
+<span id="cb4-553"><a href="#cb4-553" aria-hidden="true" tabindex="-1"></a><span class="do">## 81           5.5         2.4          3.8</span></span>
+<span id="cb4-554"><a href="#cb4-554" aria-hidden="true" tabindex="-1"></a><span class="do">## 82           5.5         2.4          3.7</span></span>
+<span id="cb4-555"><a href="#cb4-555" aria-hidden="true" tabindex="-1"></a><span class="do">## 83           5.8         2.7          3.9</span></span>
+<span id="cb4-556"><a href="#cb4-556" aria-hidden="true" tabindex="-1"></a><span class="do">## 84           6.0         2.7          5.1</span></span>
+<span id="cb4-557"><a href="#cb4-557" aria-hidden="true" tabindex="-1"></a><span class="do">## 85           5.4         3.0          4.5</span></span>
+<span id="cb4-558"><a href="#cb4-558" aria-hidden="true" tabindex="-1"></a><span class="do">## 86           6.0         3.4          4.5</span></span>
+<span id="cb4-559"><a href="#cb4-559" aria-hidden="true" tabindex="-1"></a><span class="do">## 87           6.7         3.1          4.7</span></span>
+<span id="cb4-560"><a href="#cb4-560" aria-hidden="true" tabindex="-1"></a><span class="do">## 88           6.3         2.3          4.4</span></span>
+<span id="cb4-561"><a href="#cb4-561" aria-hidden="true" tabindex="-1"></a><span class="do">## 89           5.6         3.0          4.1</span></span>
+<span id="cb4-562"><a href="#cb4-562" aria-hidden="true" tabindex="-1"></a><span class="do">## 90           5.5         2.5          4.0</span></span>
+<span id="cb4-563"><a href="#cb4-563" aria-hidden="true" tabindex="-1"></a><span class="do">## 91           5.5         2.6          4.4</span></span>
+<span id="cb4-564"><a href="#cb4-564" aria-hidden="true" tabindex="-1"></a><span class="do">## 92           6.1         3.0          4.6</span></span>
+<span id="cb4-565"><a href="#cb4-565" aria-hidden="true" tabindex="-1"></a><span class="do">## 93           5.8         2.6          4.0</span></span>
+<span id="cb4-566"><a href="#cb4-566" aria-hidden="true" tabindex="-1"></a><span class="do">## 94           5.0         2.3          3.3</span></span>
+<span id="cb4-567"><a href="#cb4-567" aria-hidden="true" tabindex="-1"></a><span class="do">## 95           5.6         2.7          4.2</span></span>
+<span id="cb4-568"><a href="#cb4-568" aria-hidden="true" tabindex="-1"></a><span class="do">## 96           5.7         3.0          4.2</span></span>
+<span id="cb4-569"><a href="#cb4-569" aria-hidden="true" tabindex="-1"></a><span class="do">## 97           5.7         2.9          4.2</span></span>
+<span id="cb4-570"><a href="#cb4-570" aria-hidden="true" tabindex="-1"></a><span class="do">## 98           6.2         2.9          4.3</span></span>
+<span id="cb4-571"><a href="#cb4-571" aria-hidden="true" tabindex="-1"></a><span class="do">## 99           5.1         2.5          3.0</span></span>
+<span id="cb4-572"><a href="#cb4-572" aria-hidden="true" tabindex="-1"></a><span class="do">## 100          5.7         2.8          4.1</span></span>
+<span id="cb4-573"><a href="#cb4-573" aria-hidden="true" tabindex="-1"></a><span class="do">## 101          6.3         3.3          6.0</span></span>
+<span id="cb4-574"><a href="#cb4-574" aria-hidden="true" tabindex="-1"></a><span class="do">## 102          5.8         2.7          5.1</span></span>
+<span id="cb4-575"><a href="#cb4-575" aria-hidden="true" tabindex="-1"></a><span class="do">## 103          7.1         3.0          5.9</span></span>
+<span id="cb4-576"><a href="#cb4-576" aria-hidden="true" tabindex="-1"></a><span class="do">## 104          6.3         2.9          5.6</span></span>
+<span id="cb4-577"><a href="#cb4-577" aria-hidden="true" tabindex="-1"></a><span class="do">## 105          6.5         3.0          5.8</span></span>
+<span id="cb4-578"><a href="#cb4-578" aria-hidden="true" tabindex="-1"></a><span class="do">## 106          7.6         3.0          6.6</span></span>
+<span id="cb4-579"><a href="#cb4-579" aria-hidden="true" tabindex="-1"></a><span class="do">## 107          4.9         2.5          4.5</span></span>
+<span id="cb4-580"><a href="#cb4-580" aria-hidden="true" tabindex="-1"></a><span class="do">## 108          7.3         2.9          6.3</span></span>
+<span id="cb4-581"><a href="#cb4-581" aria-hidden="true" tabindex="-1"></a><span class="do">## 109          6.7         2.5          5.8</span></span>
+<span id="cb4-582"><a href="#cb4-582" aria-hidden="true" tabindex="-1"></a><span class="do">## 110          7.2         3.6          6.1</span></span>
+<span id="cb4-583"><a href="#cb4-583" aria-hidden="true" tabindex="-1"></a><span class="do">## 111          6.5         3.2          5.1</span></span>
+<span id="cb4-584"><a href="#cb4-584" aria-hidden="true" tabindex="-1"></a><span class="do">## 112          6.4         2.7          5.3</span></span>
+<span id="cb4-585"><a href="#cb4-585" aria-hidden="true" tabindex="-1"></a><span class="do">## 113          6.8         3.0          5.5</span></span>
+<span id="cb4-586"><a href="#cb4-586" aria-hidden="true" tabindex="-1"></a><span class="do">## 114          5.7         2.5          5.0</span></span>
+<span id="cb4-587"><a href="#cb4-587" aria-hidden="true" tabindex="-1"></a><span class="do">## 115          5.8         2.8          5.1</span></span>
+<span id="cb4-588"><a href="#cb4-588" aria-hidden="true" tabindex="-1"></a><span class="do">## 116          6.4         3.2          5.3</span></span>
+<span id="cb4-589"><a href="#cb4-589" aria-hidden="true" tabindex="-1"></a><span class="do">## 117          6.5         3.0          5.5</span></span>
+<span id="cb4-590"><a href="#cb4-590" aria-hidden="true" tabindex="-1"></a><span class="do">## 118          7.7         3.8          6.7</span></span>
+<span id="cb4-591"><a href="#cb4-591" aria-hidden="true" tabindex="-1"></a><span class="do">## 119          7.7         2.6          6.9</span></span>
+<span id="cb4-592"><a href="#cb4-592" aria-hidden="true" tabindex="-1"></a><span class="do">## 120          6.0         2.2          5.0</span></span>
+<span id="cb4-593"><a href="#cb4-593" aria-hidden="true" tabindex="-1"></a><span class="do">## 121          6.9         3.2          5.7</span></span>
+<span id="cb4-594"><a href="#cb4-594" aria-hidden="true" tabindex="-1"></a><span class="do">## 122          5.6         2.8          4.9</span></span>
+<span id="cb4-595"><a href="#cb4-595" aria-hidden="true" tabindex="-1"></a><span class="do">## 123          7.7         2.8          6.7</span></span>
+<span id="cb4-596"><a href="#cb4-596" aria-hidden="true" tabindex="-1"></a><span class="do">## 124          6.3         2.7          4.9</span></span>
+<span id="cb4-597"><a href="#cb4-597" aria-hidden="true" tabindex="-1"></a><span class="do">## 125          6.7         3.3          5.7</span></span>
+<span id="cb4-598"><a href="#cb4-598" aria-hidden="true" tabindex="-1"></a><span class="do">## 126          7.2         3.2          6.0</span></span>
+<span id="cb4-599"><a href="#cb4-599" aria-hidden="true" tabindex="-1"></a><span class="do">## 127          6.2         2.8          4.8</span></span>
+<span id="cb4-600"><a href="#cb4-600" aria-hidden="true" tabindex="-1"></a><span class="do">## 128          6.1         3.0          4.9</span></span>
+<span id="cb4-601"><a href="#cb4-601" aria-hidden="true" tabindex="-1"></a><span class="do">## 129          6.4         2.8          5.6</span></span>
+<span id="cb4-602"><a href="#cb4-602" aria-hidden="true" tabindex="-1"></a><span class="do">## 130          7.2         3.0          5.8</span></span>
+<span id="cb4-603"><a href="#cb4-603" aria-hidden="true" tabindex="-1"></a><span class="do">## 131          7.4         2.8          6.1</span></span>
+<span id="cb4-604"><a href="#cb4-604" aria-hidden="true" tabindex="-1"></a><span class="do">## 132          7.9         3.8          6.4</span></span>
+<span id="cb4-605"><a href="#cb4-605" aria-hidden="true" tabindex="-1"></a><span class="do">## 133          6.4         2.8          5.6</span></span>
+<span id="cb4-606"><a href="#cb4-606" aria-hidden="true" tabindex="-1"></a><span class="do">## 134          6.3         2.8          5.1</span></span>
+<span id="cb4-607"><a href="#cb4-607" aria-hidden="true" tabindex="-1"></a><span class="do">## 135          6.1         2.6          5.6</span></span>
+<span id="cb4-608"><a href="#cb4-608" aria-hidden="true" tabindex="-1"></a><span class="do">## 136          7.7         3.0          6.1</span></span>
+<span id="cb4-609"><a href="#cb4-609" aria-hidden="true" tabindex="-1"></a><span class="do">## 137          6.3         3.4          5.6</span></span>
+<span id="cb4-610"><a href="#cb4-610" aria-hidden="true" tabindex="-1"></a><span class="do">## 138          6.4         3.1          5.5</span></span>
+<span id="cb4-611"><a href="#cb4-611" aria-hidden="true" tabindex="-1"></a><span class="do">## 139          6.0         3.0          4.8</span></span>
+<span id="cb4-612"><a href="#cb4-612" aria-hidden="true" tabindex="-1"></a><span class="do">## 140          6.9         3.1          5.4</span></span>
+<span id="cb4-613"><a href="#cb4-613" aria-hidden="true" tabindex="-1"></a><span class="do">## 141          6.7         3.1          5.6</span></span>
+<span id="cb4-614"><a href="#cb4-614" aria-hidden="true" tabindex="-1"></a><span class="do">## 142          6.9         3.1          5.1</span></span>
+<span id="cb4-615"><a href="#cb4-615" aria-hidden="true" tabindex="-1"></a><span class="do">## 143          5.8         2.7          5.1</span></span>
+<span id="cb4-616"><a href="#cb4-616" aria-hidden="true" tabindex="-1"></a><span class="do">## 144          6.8         3.2          5.9</span></span>
+<span id="cb4-617"><a href="#cb4-617" aria-hidden="true" tabindex="-1"></a><span class="do">## 145          6.7         3.3          5.7</span></span>
+<span id="cb4-618"><a href="#cb4-618" aria-hidden="true" tabindex="-1"></a><span class="do">## 146          6.7         3.0          5.2</span></span>
+<span id="cb4-619"><a href="#cb4-619" aria-hidden="true" tabindex="-1"></a><span class="do">## 147          6.3         2.5          5.0</span></span>
+<span id="cb4-620"><a href="#cb4-620" aria-hidden="true" tabindex="-1"></a><span class="do">## 148          6.5         3.0          5.2</span></span>
+<span id="cb4-621"><a href="#cb4-621" aria-hidden="true" tabindex="-1"></a><span class="do">## 149          6.2         3.4          5.4</span></span>
+<span id="cb4-622"><a href="#cb4-622" aria-hidden="true" tabindex="-1"></a><span class="do">## 150          5.9         3.0          5.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These selection helpers can be extremely useful when choosing columns to pivot.</p>
+</details>
+<details>
+<summary>
+<p>Conversion using wide-to-long and merge/join statements in Python</p>
+</summary>
+<p>A similar operation can be done in python using pd.melt. Think of “melting” your data down from a metal object to a liquid. (There actually used to be an R package that used cast/melt as the terms for pivot wider/longer, but it has been superseded by pivot_wider and pivot_longer syntax).</p>
+<p>As in R, we identify the variables that we DON’T want to pivot, but in python syntax, these are called id_vars. Then, as in R, we need to specify the names of the columns we want to have at the end. In Python, we also have to specify value variables: variables that we will be pivoting (so we specify both those we are pivoting and those we aren’t). Remember, id_vars are variables that we would copy-paste over and over with each set of variables in the manual pivot operation, where value_vars are the set of columns we want to combine into variable:value pairs.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>table4a <span class="op">=</span> r.table4a <span class="co"># get variable from R within python</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>table4b <span class="op">=</span> r.table4b</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>tba <span class="op">=</span> pd.melt(table4a, id_vars <span class="op">=</span> [<span class="st">'country'</span>], </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                       value_vars <span class="op">=</span> [<span class="st">'1999'</span>, <span class="st">'2000'</span>], </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                       var_name <span class="op">=</span> <span class="st">'year'</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                       value_name <span class="op">=</span> <span class="st">'cases'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>tbb <span class="op">=</span> pd.melt(table4a, id_vars <span class="op">=</span> [<span class="st">'country'</span>], </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                       value_vars <span class="op">=</span> [<span class="st">'1999'</span>, <span class="st">'2000'</span>], </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                       var_name <span class="op">=</span> <span class="st">'year'</span>, </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                       value_name <span class="op">=</span> <span class="st">'population'</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>final <span class="op">=</span> pd.merge(tba, tbb, on<span class="op">=</span> [<span class="st">'country'</span>, <span class="st">'year'</span>])</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># convert year to numeric from string</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>final[<span class="st">"year"</span>] <span class="op">=</span> pd.to_numeric(final[<span class="st">"year"</span>])</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>final</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">##        country  year   cases  population</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">## 0  Afghanistan  1999     745         745</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">## 1       Brazil  1999   37737       37737</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">## 2        China  1999  212258      212258</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">## 3  Afghanistan  2000    2666        2666</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">## 4       Brazil  2000   80488       80488</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">## 5        China  2000  213766      213766</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<details>
+<summary>
+<p>Conversion using new variables, appending tables, and wide-to-long statements in R</p>
+</summary>
+<p>If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values “cases” and “population” respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ID columns</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>table4a.x <span class="ot">&lt;-</span> table4a <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="st">"cases"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>table4b.x <span class="ot">&lt;-</span> table4b <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="st">"population"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create one table</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>table4 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(table4a.x, table4b.x)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>table4_long <span class="ot">&lt;-</span> table4 <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rearrange columns</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, id, <span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Don't pivot country or id</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(country<span class="sc">:</span>id), <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Intermediate fully-long form</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>table4_long</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 12 × 4</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">##    country     id         year       count</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Afghanistan cases      1999         745</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Afghanistan cases      2000        2666</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Brazil      cases      1999       37737</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Brazil      cases      2000       80488</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 China       cases      1999      212258</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 China       cases      2000      213766</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Afghanistan population 1999    19987071</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Afghanistan population 2000    20595360</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Brazil      population 1999   172006362</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Brazil      population 2000   174504898</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 China       population 1999  1272915272</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 China       population 2000  1280428583</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># make wider, with case and population columns</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>table4_tidy <span class="ot">&lt;-</span> table4_long <span class="sc">%&gt;%</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> id, <span class="at">values_from =</span> count)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>table4_tidy</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 4</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="do">##   country     year   cases population</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Afghanistan 1999     745   19987071</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Afghanistan 2000    2666   20595360</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Brazil      1999   37737  172006362</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Brazil      2000   80488  174504898</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 China       1999  212258 1272915272</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 China       2000  213766 1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<details>
+<summary>
+<p>Conversion using new variables, appending tables, and wide-to-long statements in Python</p>
+</summary>
+<p>If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values “cases” and “population” respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ID columns</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>table4a_x <span class="op">=</span> r.table4a.assign(<span class="bu">id</span><span class="op">=</span> <span class="st">"cases"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>table4b_x <span class="op">=</span> r.table4b.assign(<span class="bu">id</span> <span class="op">=</span> <span class="st">"population"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create one table</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>table4 <span class="op">=</span> pd.concat([table4a_x, table4b_x])</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>table4</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">##        country        1999        2000          id</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">## 0  Afghanistan         745        2666       cases</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">## 1       Brazil       37737       80488       cases</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">## 2        China      212258      213766       cases</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">## 0  Afghanistan    19987071    20595360  population</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">## 1       Brazil   172006362   174504898  population</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">## 2        China  1272915272  1280428583  population</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>table4_long <span class="op">=</span> pd.melt(table4, </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                      id_vars <span class="op">=</span> [<span class="st">'country'</span>, <span class="st">'id'</span>], </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                      value_vars <span class="op">=</span> [<span class="st">'1999'</span>, <span class="st">'2000'</span>], </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>                      var_name <span class="op">=</span> <span class="st">'year'</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Intermediate fully-long form</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>table4_long</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># make wider, with case and population columns</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Index is the columns we want to keep that ID a unique combination of variables</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Columns are the columns that become new labels</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># There should be a single value for each combination of index and the column variable(s)</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">##         country          id  year       value</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">## 0   Afghanistan       cases  1999         745</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">## 1        Brazil       cases  1999       37737</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">## 2         China       cases  1999      212258</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">## 3   Afghanistan  population  1999    19987071</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">## 4        Brazil  population  1999   172006362</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">## 5         China  population  1999  1272915272</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">## 6   Afghanistan       cases  2000        2666</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">## 7        Brazil       cases  2000       80488</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">## 8         China       cases  2000      213766</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">## 9   Afghanistan  population  2000    20595360</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">## 10       Brazil  population  2000   174504898</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">## 11        China  population  2000  1280428583</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>table4_tidy <span class="op">=</span> pd.pivot(table4_long, </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>                       index <span class="op">=</span> [<span class="st">'country'</span>, <span class="st">'year'</span>],  </span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>                       columns <span class="op">=</span> [<span class="st">'id'</span>], </span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>                       values <span class="op">=</span> <span class="st">'value'</span>)</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>table4_tidy</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">## id                 cases  population</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">## country     year                    </span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co">## Afghanistan 1999     745    19987071</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">##             2000    2666    20595360</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co">## Brazil      1999   37737   172006362</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co">##             2000   80488   174504898</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="co">## China       1999  212258  1272915272</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="co">##             2000  213766  1280428583</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>table4_tidy.reset_index() <span class="co"># to remove the index if you want the normal data table</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="co">## id      country  year   cases  population</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="co">## 0   Afghanistan  1999     745    19987071</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co">## 1   Afghanistan  2000    2666    20595360</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co">## 2        Brazil  1999   37737   172006362</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co">## 3        Brazil  2000   80488   174504898</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="co">## 4         China  1999  212258  1272915272</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co">## 5         China  2000  213766  1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will talk more about long-to-wide pivot operations below. For now, it’s enough to know that the long-to-wide operation can be useful in getting your data into tidy form.</p>
+</details>
+<p>Transitioning from wide data to long data isn’t too complicated in most situations – and it definitely beats doing that operation by hand, even for short, simple tables.</p>
+<p>It takes some getting used to, but once you get a feel for how to do these operations, you’ll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output.</p>
+<div class="warning">
+<p>Because wide-to-long transformations end up combining values from several columns into a single column, you can run into issues with type conversions that happen implicitly. If you try to <code>pivot_longer()</code> using a character column mixed in with numeric columns, your “value” column will be converted to a character automatically.</p>
+</div>
+</section>
+</section>
+<section id="wider" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="wider"><span class="header-section-number">7.2.2</span> Wider</h3>
+<p>While it’s very common to need to transform data into a longer format, it’s not that uncommon to need to do the reverse operation. When an observation is scattered across multiple rows, your data is too long and needs to be made wider again.</p>
+<p>Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be “tidy” - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center" width="50%">
+<figure class="figure">
+<p><img src="images/tidyr_pivot_wider.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">A visual representation of what the pivot_wider operation looks like in practice.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<details>
+<summary>
+<p>In R, long-to-wide conversion operations are performed using <code>pivot_wider()</code></p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> type, <span class="at">values_from =</span> count)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 4</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   country      year  cases population</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Afghanistan  1999    745   19987071</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Afghanistan  2000   2666   20595360</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Brazil       1999  37737  172006362</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Brazil       2000  80488  174504898</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 China        1999 212258 1272915272</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 China        2000 213766 1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<details>
+<summary>
+<p>In python, long-to-wide conversion operations are performed using <code>pd.pivot()</code></p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="op">=</span> r.table2</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>pd.pivot(table2, index <span class="op">=</span> [<span class="st">'country'</span>, <span class="st">'year'</span>], columns <span class="op">=</span> <span class="st">'type'</span>, values <span class="op">=</span> <span class="st">'count'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can get rid of the index by adding a .reset_index() to the end of the command</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">## type               cases  population</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">## country     year                    </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">## Afghanistan 1999     745    19987071</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">##             2000    2666    20595360</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">## Brazil      1999   37737   172006362</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">##             2000   80488   174504898</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">## China       1999  212258  1272915272</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">##             2000  213766  1280428583</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>pd.pivot(table2, index <span class="op">=</span> [<span class="st">'country'</span>, <span class="st">'year'</span>], columns <span class="op">=</span> <span class="st">'type'</span>, values <span class="op">=</span> <span class="st">'count'</span>).reset_index()</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">## type      country  year   cases  population</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">## 0     Afghanistan  1999     745    19987071</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">## 1     Afghanistan  2000    2666    20595360</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">## 2          Brazil  1999   37737   172006362</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">## 3          Brazil  2000   80488   174504898</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">## 4           China  1999  212258  1272915272</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">## 5           China  2000  213766  1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+</section>
+<section id="try-it-out-1" class="level3 unnumbered tryitout">
+<h3 class="unnumbered tryitout anchored" data-anchor-id="try-it-out-1">Try it out!</h3>
+<p>Let’s work with the dog breed traits data to see if we can get it into long format and then back into wide format based on some specific criteria.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>breed_traits <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># There's something funky with the spaces in this data frame... so make them ASCII</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># (this fixes the encoding issues)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Breed =</span> <span class="fu">iconv</span>(Breed, <span class="at">to =</span> <span class="st">"ASCII//translit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> unidecode <span class="im">import</span> unidecode <span class="co"># Change unicode characters to ascii</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>breed_traits <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>breed_traits.Breed <span class="op">=</span> breed_traits[<span class="st">"Breed"</span>].transform(unidecode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You may remember that the breed trait data includes a number of 1-5 numeric variables indicating score on various dimensions such as affection, shedding, openness, and playfulness.</p>
+<p><strong>Task 1</strong>: Take all of the 1-5 numeric variables in the dataset and make a long-format dataset. <strong>Choose 5 breeds of your choice</strong>. Then, using your dataset, plot each breed’s score, with each dimension as a separate facet.</p>
+<p>Your code in ggplot2 would look something like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long_data, <span class="fu">aes</span>(<span class="at">x =</span> breed, <span class="at">y =</span> value)) <span class="sc">+</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable) <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And in plotnine, it would look something like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ggplot(long_data, aes(x <span class="op">=</span> <span class="st">"breed"</span>, y <span class="op">=</span> <span class="st">"value"</span>)) <span class="op">+</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  geom_col() <span class="op">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  facet_wrap(<span class="st">'variable'</span>) <span class="op">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  coord_flip()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<details>
+<summary>
+<p>R solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>my_breeds <span class="ot">&lt;-</span> breed_traits <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Breed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Beagles"</span>, <span class="st">"Dachshunds"</span>, <span class="st">"Samoyeds"</span>, <span class="st">"Russell Terriers"</span>, <span class="st">"Lhasa Apsos"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove variables that aren't 1-5</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(Breed, Coat.Type, Coat.Length), <span class="at">names_to =</span> <span class="st">"Trait"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>my_breeds <span class="sc">%&gt;%</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Breed, <span class="at">y =</span> value)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Trait) <span class="sc">+</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-data-transformations_files/figure-html/tryitout-solution-r-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</details>
+<details>
+<summary>
+<p>python solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>breed_list <span class="op">=</span> [<span class="st">"Beagles"</span>, <span class="st">"Dachshunds"</span>, <span class="st">"Samoyeds"</span>, <span class="st">"Russell Terriers"</span>, <span class="st">"Lhasa Apsos"</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>my_breeds <span class="op">=</span> breed_traits.loc[breed_traits.Breed.isin(breed_list)].<span class="op">\</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>              melt(id_vars <span class="op">=</span> [<span class="st">'Breed'</span>, <span class="st">'Coat Type'</span>, <span class="st">'Coat Length'</span>], </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                   value_name <span class="op">=</span> <span class="st">'value'</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                   var_name <span class="op">=</span> <span class="st">'Trait'</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>ggplot(my_breeds, aes(x <span class="op">=</span> <span class="st">"Breed"</span>, y <span class="op">=</span> <span class="st">"value"</span>)) <span class="op">+</span> geom_col() <span class="op">+</span> facet_wrap(<span class="st">"Trait"</span>) <span class="op">+</span> coord_flip()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">## &lt;ggplot: (8755107917773)&gt;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">## </span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">## /__w/Stat151/Stat151/renv/python/virtualenvs/renv-python-3.8/lib/python3.8/site-packages/plotnine/utils.py:371: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-data-transformations_files/figure-html/tryitout-solution-python-1.png" class="img-fluid" width="614"></p>
+</div>
+</div>
+</details>
+<p><strong>Task 2</strong>: Using your data from the previous task, determine which traits are 5 = good and which traits are 5 = bad (This may not be the same list for everyone!). Create a new variable in the data frame that encodes this information. There are several ways to do this task in R and in Python, so see if you can find a way that works for you.</p>
+<details>
+<summary>
+<p>R solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>good_traits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Affectionate.With.Family"</span>, <span class="st">"Good.With.Young.Children"</span>, <span class="st">"Good.With.Other.Dogs"</span>, <span class="st">"Openness.To.Strangers"</span>, <span class="st">"Playfulness.Level"</span>, <span class="st">"Adaptability.Level"</span>, <span class="st">"Trainability.Level"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>my_breeds <span class="ot">&lt;-</span> my_breeds <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_type =</span> <span class="fu">ifelse</span>(Trait <span class="sc">%in%</span> good_traits, <span class="st">"Good"</span>, <span class="st">"Bad"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<details>
+<summary>
+<p>python solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>good_traits <span class="op">=</span> [<span class="st">"Affectionate With Family"</span>, <span class="st">"Good With Young Children"</span>, <span class="st">"Good With Other Dogs"</span>, <span class="st">"Openness To Strangers"</span>, <span class="st">"Playfulness Level"</span>, <span class="st">"Adaptability Level"</span>, <span class="st">"Trainability Level"</span>]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/questions/19913659/pandas-conditional-creation-of-a-series-dataframe-column</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>my_breeds[<span class="st">"trait_type"</span>] <span class="op">=</span> np.where(my_breeds[<span class="st">"Trait"</span>].isin(good_traits), <span class="st">'Good'</span>, <span class="st">'Bad'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<p><strong>Task 3</strong>: Using your data from the previous task, summarize your data so that you calculate the average score for good and bad traits for each dog breed. For each Breed, your solution should have two rows: one for good traits, one for bad traits. It may help to sketch out what a solution should look like for each Breed before you begin.</p>
+<details>
+<summary>
+<p>R solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>summary_traits <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">unique</span>(my_breeds<span class="sc">$</span>Breed)) {</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  sub_df <span class="ot">&lt;-</span> <span class="fu">filter</span>(my_breeds, Breed <span class="sc">==</span> i)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  sub_df_good <span class="ot">&lt;-</span> <span class="fu">filter</span>(sub_df, trait_type <span class="sc">==</span> <span class="st">"Good"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  sub_df_bad <span class="ot">&lt;-</span> <span class="fu">filter</span>(sub_df, trait_type <span class="sc">==</span> <span class="st">"Bad"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  summary_traits <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    summary_traits, </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">Breed =</span> i, </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">trait_type =</span> <span class="fu">c</span>(<span class="st">"Good"</span>, <span class="st">"Bad"</span>), </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">average =</span> <span class="fu">c</span>(<span class="fu">mean</span>(sub_df_good<span class="sc">$</span>value, <span class="at">na.rm =</span> T), <span class="fu">mean</span>(sub_df_bad<span class="sc">$</span>value)))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>summary_traits</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="do">##               Breed trait_type  average</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 1           Beagles       Good 3.857143</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 2           Beagles        Bad 2.857143</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Dachshunds       Good 4.000000</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 4        Dachshunds        Bad 3.000000</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 5          Samoyeds       Good 4.428571</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 6          Samoyeds        Bad 3.428571</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 7  Russell Terriers       Good 4.285714</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 8  Russell Terriers        Bad 3.428571</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 9       Lhasa Apsos       Good 3.571429</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 10      Lhasa Apsos        Bad 2.714286</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<details>
+<summary>
+<p>python solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>summary_traits <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.unique(my_breeds.Breed):</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  sub_df <span class="op">=</span> my_breeds.loc[my_breeds.Breed <span class="op">==</span> i]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  sub_df_good <span class="op">=</span> sub_df.loc[sub_df.trait_type <span class="op">==</span> <span class="st">"Good"</span>]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  sub_df_bad <span class="op">=</span> sub_df.loc[sub_df.trait_type <span class="op">==</span> <span class="st">"Bad"</span>]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  summary_traits <span class="op">=</span> pd.concat([</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    summary_traits, </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame({<span class="st">'Breed'</span>: [i, i], <span class="st">'trait_type'</span>: [<span class="st">"Good"</span>, <span class="st">"Bad"</span>], </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'average'</span>: [sub_df_good.value.mean(), sub_df_bad.value.mean()]})</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset index so it shows the row number</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>summary_traits <span class="op">=</span> summary_traits.reset_index().drop([<span class="st">'index'</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>summary_traits</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">##               Breed trait_type   average</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">## 0           Beagles       Good  3.857143</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">## 1           Beagles        Bad  2.857143</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">## 2        Dachshunds       Good  4.000000</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co">## 3        Dachshunds        Bad  3.000000</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co">## 4       Lhasa Apsos       Good  3.571429</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co">## 5       Lhasa Apsos        Bad  2.714286</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co">## 6  Russell Terriers       Good  4.285714</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="co">## 7  Russell Terriers        Bad  3.428571</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="co">## 8          Samoyeds       Good  4.428571</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co">## 9          Samoyeds        Bad  3.428571</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<p><strong>Task 4</strong>: Pivot your summary data frame from long to wide to get an overall summary of the good and bad for each of your 5 breeds. Plot the good score on the x axis, the bad score on the y axis, and use the breed name as the label. Use <code>geom_label</code> instead of <code>geom_point</code>.</p>
+<details>
+<summary>
+<p>R solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>summary_traits <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="dv">1</span>, <span class="at">names_from =</span> <span class="dv">2</span>, <span class="at">values_from =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Good, <span class="at">y =</span> Bad, <span class="at">label =</span> Breed)) <span class="sc">+</span> <span class="fu">geom_label</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-data-transformations_files/figure-html/tryitout4-solution-r-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</details>
+<details>
+<summary>
+<p>python solution</p>
+</summary>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tmp <span class="op">=</span> summary_traits.pivot(index <span class="op">=</span> <span class="st">"Breed"</span>, columns <span class="op">=</span> <span class="st">'trait_type'</span>, values <span class="op">=</span> <span class="st">'average'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tmp[<span class="st">"Breed"</span>] <span class="op">=</span> tmp.index <span class="co"># Need to recreate the Breed column</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ggplot(tmp, aes(x <span class="op">=</span> <span class="st">"Good"</span>, y <span class="op">=</span> <span class="st">"Bad"</span>, label <span class="op">=</span> <span class="st">"Breed"</span>)) <span class="op">+</span> geom_label()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">## &lt;ggplot: (8755105305872)&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07-data-transformations_files/figure-html/tryitout4-solution-python-1.png" class="img-fluid" width="614"></p>
+</div>
+</div>
+</details>
+
+
+</section>
+</section>
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    window.tippy(el, {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    }); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</main>
+<div class="page-navigation ">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-data-structures.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08-data-cleaning.html">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Summaries and Data Cleaning</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</div>
+</div> <!-- /main column -->
+</div> <!-- /row -->
+</div> <!-- /container fluid -->
+
+
+</body></html>

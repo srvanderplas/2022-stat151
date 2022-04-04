@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.2.232">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Introduction to Statistical Computing - 9&nbsp; Functions</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="./">
+  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="site_libs/quarto-search/fuse.min.js"></script>
+  <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./git-github.html" rel="next">
+  <link href="./08-data-cleaning.html" rel="prev">
+  <script src="site_libs/quarto-html/quarto.js"></script>
+  <script src="site_libs/quarto-html/popper.min.js"></script>
+  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="site_libs/quarto-html/anchor.min.js"></script>
+  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 2,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20
+  }</script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+<header id="quarto-header" class="headroom fixed-top">
+<nav class="quarto-secondary-nav py-2 d-lg-none d-md-block " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <div class="container-fluid d-flex justify-content-between">
+    <h1 class="quarto-secondary-nav-title mb-0 fs-3 d-inline"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></h1>
+    <button type="button" class="quarto-btn-toggle btn d-lg-none py-0 px-1 d-inline-block border-0 ">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</nav>
+</header>
+ <!-- /navbar/sidebar -->
+<div class="container-fluid quarto-container d-flex flex-column page-layout-article" id="quarto-content">
+<div class="row flex-fill">
+  <div id="quarto-sidebar" class="col col-12 col-lg-3 d-lg-flex px-0 pt-0 sidebar collapse sidebar-navigation">
+    <nav class="ms-lg-auto floating overflow-auto">
+  <div class="px-3 pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Statistical Computing</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/srvanderplas/Stat151" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+  </div>
+    <div class="px-3 mt-2 flex-shrink-0 align-items-center">
+      <div class="sidebar-search">
+      <div id="quarto-search" class="mb-0 " title="Search">
+</div>
+      </div>
+    </div>
+  <div class="sidebar-menu-container"> 
+  <ul class="list-unstyled mt-1 px-3">
+      <li class="sidebar-item">
+  <a href="./index.html" class="">Preface</a>
+</li>
+      <li class="sidebar-item">
+  <a href="./01-getting-started.html" class=""><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./02-markdown.html" class=""><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Scripts and Notebooks</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./03-finding-your-way.html" class=""><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Finding your way in R and Python</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./04-data-types.html" class=""><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Basic Data Types</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./05-vectors.html" class=""><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Vectors, Matrices, Arrays, and Control Structures</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./06-data-structures.html" class=""><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Structures</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./07-data-transformations.html" class=""><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Transformations</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./08-data-cleaning.html" class=""><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Summaries and Data Cleaning</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./09-functions.html" class="active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./git-github.html" class=""><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">git-github.html</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./references.html" class="">References</a>
+</li>
+  </ul>
+  </div>
+</nav>
+  </div>
+  <div id="quarto-toc-sidebar" class=" pt-0 col col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-toc order-last"><nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#when-to-write-a-function" class="nav-link active" data-scroll-target="#when-to-write-a-function"> <span class="header-section-number">9.1</span> When to write a function?</a></li>
+<li><a href="#syntax" class="nav-link" data-scroll-target="#syntax"> <span class="header-section-number">9.2</span> Syntax</a></li>
+<li><a href="#arguments-and-parameters" class="nav-link" data-scroll-target="#arguments-and-parameters"> <span class="header-section-number">9.3</span> Arguments and Parameters</a>
+<ul class="collapse">
+<li><a href="#try-it-out" class="nav-link" data-scroll-target="#try-it-out">Try it out</a></li>
+<li><a href="#named-arguments-and-parameter-order" class="nav-link" data-scroll-target="#named-arguments-and-parameter-order"> <span class="header-section-number">9.3.1</span> Named Arguments and Parameter Order</a></li>
+</ul></li>
+<li><a href="#input-validation" class="nav-link" data-scroll-target="#input-validation"> <span class="header-section-number">9.4</span> Input Validation</a></li>
+<li><a href="#scope" class="nav-link" data-scroll-target="#scope"> <span class="header-section-number">9.5</span> Scope</a>
+<ul class="collapse">
+<li><a href="#name-masking" class="nav-link" data-scroll-target="#name-masking"> <span class="header-section-number">9.5.1</span> Name Masking</a></li>
+<li><a href="#environments-and-scope" class="nav-link" data-scroll-target="#environments-and-scope"> <span class="header-section-number">9.5.2</span> Environments and Scope</a></li>
+<li><a href="#dynamic-lookup" class="nav-link" data-scroll-target="#dynamic-lookup"> <span class="header-section-number">9.5.3</span> Dynamic Lookup</a></li>
+<li><a href="#try-it-out-1" class="nav-link" data-scroll-target="#try-it-out-1"> <span class="header-section-number">9.5.4</span> Try It Out</a></li>
+</ul></li>
+<li><a href="#debugging" class="nav-link" data-scroll-target="#debugging"> <span class="header-section-number">9.6</span> Debugging</a>
+<ul class="collapse">
+<li><a href="#print-debugging" class="nav-link" data-scroll-target="#print-debugging"> <span class="header-section-number">9.6.1</span> Print Debugging</a></li>
+<li><a href="#general-debugging-strategies" class="nav-link" data-scroll-target="#general-debugging-strategies"> <span class="header-section-number">9.6.2</span> General Debugging Strategies</a></li>
+<li><a href="#dividing-problems-into-smaller-parts" class="nav-link" data-scroll-target="#dividing-problems-into-smaller-parts"> <span class="header-section-number">9.6.3</span> Dividing Problems into Smaller Parts</a></li>
+<li><a href="#minimal-working-or-reproducible-examples" class="nav-link" data-scroll-target="#minimal-working-or-reproducible-examples"> <span class="header-section-number">9.6.4</span> Minimal Working (or Reproducible) Examples</a></li>
+</ul></li>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/09-functions.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
+  <div class="col mx-auto col-sm-12 col-md-9 col-lg-7 col-xl-7 px-lg-4 pe-xxl-4 ps-xxl-3">
+<main>
+<header id="title-block-header">
+<h1 class="title d-none d-lg-block display-7"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></h1>
+</header>
+
+<p>A <strong>function</strong> is a set of actions that we group together and name. Throughout this course, you’ve used a bunch of different functions in R and python that are built into the language or added through packages: <code>mean</code>, <code>ggplot</code>, <code>length</code>, <code>print</code>. In this chapter, we’ll be writing our own functions.</p>
+<section id="when-to-write-a-function" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="when-to-write-a-function"><span class="header-section-number">9.1</span> When to write a function?</h2>
+<p>If you’ve written the same code (with a few minor changes, like variable names) more than twice, you should probably write a function instead. There are a few benefits to this rule:</p>
+<ol type="1">
+<li><p>Your code stays neater (and shorter), so it is easier to read, understand, and maintain.</p></li>
+<li><p>If you need to fix the code because of errors, you only have to do it in one place.</p></li>
+<li><p>You can re-use code in other files by keeping functions you need regularly in a file (or if you’re really awesome, in your own package!)</p></li>
+<li><p>If you name your functions well, your code becomes easier to understand thanks to grouping a set of actions under a descriptive function name.</p></li>
+</ol>
+<div class="learn-more">
+<p>There is some extensive material on this subject in <a href="https://r4ds.had.co.nz/functions.html">R for Data Science on functions</a>. If you want to really understand how functions work in R, that is a good place to go.</p>
+</div>
+<p><br></p>
+<div class="ex">
+<p>This example is modified from R for Data Science <span class="citation" data-cites="wickham2016r">(<a href="references.html#ref-wickham2016r" role="doc-biblioref">Wickham and Grolemund 2016, chap. 19</a>)</span>.</p>
+<p>What does this code do? Does it work as intended?</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>a <span class="ot">&lt;-</span> (df<span class="sc">$</span>a <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(df<span class="sc">$</span>a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>b <span class="ot">&lt;-</span> (df<span class="sc">$</span>b <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>b, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(df<span class="sc">$</span>b, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>c <span class="ot">&lt;-</span> (df<span class="sc">$</span>c <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(df<span class="sc">$</span>c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>d <span class="ot">&lt;-</span> (df<span class="sc">$</span>d <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>d, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(df<span class="sc">$</span>d, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>d, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'a'</span>: np.random.randn(<span class="dv">10</span>), </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'b'</span>: np.random.randn(<span class="dv">10</span>), </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'c'</span>: np.random.randn(<span class="dv">10</span>), </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'d'</span>: np.random.randn(<span class="dv">10</span>)})</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df.a <span class="op">=</span> (df.a <span class="op">-</span> <span class="bu">min</span>(df.a))<span class="op">/</span>(<span class="bu">max</span>(df.a) <span class="op">-</span> <span class="bu">min</span>(df.a))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df.b <span class="op">=</span> (df.b <span class="op">-</span> <span class="bu">min</span>(df.b))<span class="op">/</span>(<span class="bu">max</span>(df.b) <span class="op">-</span> <span class="bu">min</span>(df.a))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>df.c <span class="op">=</span> (df.c <span class="op">-</span> <span class="bu">min</span>(df.c))<span class="op">/</span>(<span class="bu">max</span>(df.c) <span class="op">-</span> <span class="bu">min</span>(df.c))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>df.d <span class="op">=</span> (df.d <span class="op">-</span> <span class="bu">min</span>(df.d))<span class="op">/</span>(<span class="bu">max</span>(df.d) <span class="op">-</span> <span class="bu">min</span>(df.d))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>The code rescales a set of variables to have a range from 0 to 1. But, because of the copy-pasting, the code’s author made a mistake and forgot to change an <code>a</code> to <code>b</code>.</p>
+<p>Writing a function to rescale a variable would prevent this type of copy-paste error.</p>
+<p>To write a function, we first analyze the code to determine how many inputs it has</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>a <span class="ot">&lt;-</span> (df<span class="sc">$</span>a <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(df<span class="sc">$</span>a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(df<span class="sc">$</span>a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code has only one input: <code>df$a</code>.</p>
+</div>
+<div id="tabset-2-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.a <span class="op">=</span> (df.a <span class="op">-</span> <span class="bu">min</span>(df.a))<span class="op">/</span>(<span class="bu">max</span>(df.a) <span class="op">-</span> <span class="bu">min</span>(df.a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code has only one input: <code>df.a</code></p>
+</div>
+</div>
+</div>
+<p>To convert the code into a function, we first rewrite it using general names</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-3-1-tab">
+<p>In this case, it might help to replace <code>df$a</code> with <code>x</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> df<span class="sc">$</span>a </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] 0.3980969 0.6573318 0.6373723 0.8599466 0.0000000 1.0000000 0.6140986
+ [8] 0.8297307 0.6405718 0.8183511</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-3-2-tab">
+<p>In this case, it might help to replace <code>df.a</code> with <code>x</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.a</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> <span class="bu">min</span>(x))<span class="op">/</span>(<span class="bu">max</span>(x) <span class="op">-</span> <span class="bu">min</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0    0.411736
+1    1.000000
+2    0.933808
+3    0.791129
+4    0.480214
+5    0.650485
+6    0.306674
+7    0.348679
+8    0.000000
+9    0.084593
+Name: a, dtype: float64</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Then, we make it a bit easier to read, removing duplicate computations if possible (for instance, computing <code>min</code> two times).</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-4-1-tab">
+<p>In R, we can use the <code>range</code> function, which computes the maximum and minimum at the same time and returns the result as <code>c(min, max)</code></p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rng <span class="ot">&lt;-</span> <span class="fu">range</span>(x, <span class="at">na.rm =</span> T)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> rng[<span class="dv">1</span>])<span class="sc">/</span>(rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] 0.3980969 0.6573318 0.6373723 0.8599466 0.0000000 1.0000000 0.6140986
+ [8] 0.8297307 0.6405718 0.8183511</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-4-2-tab">
+<p>In python, <code>range</code> is the equivalent of <code>seq()</code> in R, so we are better off just using <code>min</code> and <code>max</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.a</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>xmin, xmax <span class="op">=</span> [x.<span class="bu">min</span>(), x.<span class="bu">max</span>()]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> xmin)<span class="op">/</span>(xmax <span class="op">-</span> xmin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0    0.411736
+1    1.000000
+2    0.933808
+3    0.791129
+4    0.480214
+5    0.650485
+6    0.306674
+7    0.348679
+8    0.000000
+9    0.084593
+Name: a, dtype: float64</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Finally, we turn this code into a function</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-5-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rescale01 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  rng <span class="ot">&lt;-</span> <span class="fu">range</span>(x, <span class="at">na.rm =</span> T)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> rng[<span class="dv">1</span>])<span class="sc">/</span>(rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rescale01</span>(df<span class="sc">$</span>a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] 0.3980969 0.6573318 0.6373723 0.8599466 0.0000000 1.0000000 0.6140986
+ [8] 0.8297307 0.6405718 0.8183511</code></pre>
+</div>
+</div>
+<ul>
+<li>The name of the function, <code>rescale01</code>, describes what the function does - it rescales the data to between 0 and 1.</li>
+<li>The function takes one <strong>argument</strong>, named <code>x</code>; any references to this value within the function will use <code>x</code> as the name. This allows us to use the function on <code>df$a</code>, <code>df$b</code>, <code>df$c</code>, and so on, with <code>x</code> as a placeholder name for the data we’re working on at the moment.</li>
+<li>The code that actually does what your function is supposed to do goes in the <strong>body</strong> of the function, between <code>{</code> and <code>}</code> (this is true in R, in python, there are different conventions, but the same principle applies)</li>
+<li>The function <strong>returns</strong> the last value computed: in this case, <code>(x - rng[1])/(rng[2]-rng[1])</code>. You can make this explicit by adding a <code>return()</code> statement around that calculation.</li>
+</ul>
+</div>
+<div id="tabset-5-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-5-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rescale01(x):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  xmin, xmax <span class="op">=</span> [x.<span class="bu">min</span>(), x.<span class="bu">max</span>()]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (x <span class="op">-</span> xmin)<span class="op">/</span>(xmax <span class="op">-</span> xmin)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rescale01(df.a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0    0.411736
+1    1.000000
+2    0.933808
+3    0.791129
+4    0.480214
+5    0.650485
+6    0.306674
+7    0.348679
+8    0.000000
+9    0.084593
+Name: a, dtype: float64</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The name of the function, <code>rescale01</code>, describes what the function does - it rescales the data to between 0 and 1.</p></li>
+<li><p>The function takes one <strong>argument</strong>, named <code>x</code>; any references to this value within the function will use <code>x</code> as the name. This allows us to use the function on <code>df.a</code>, <code>df.b</code>, <code>df.c</code>, and so on, with <code>x</code> as a placeholder name for the data we’re working on at the moment.</p></li>
+<li><p>The code that actually does what your function is supposed to do goes in the <strong>body</strong> of the function, indented relative to the line with <code>def: function_name():</code>. At the end of the function, you should have a blank line with no spaces or tabs.</p></li>
+<li><p>The function <strong>returns</strong> the value it is told to <code>return</code>: in this case, <code>(x - xmin)/(xmax - xmin)</code>. In Python, you must <code>return</code> a value if you want the function to perform a computation. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
+</ul>
+</div>
+</div>
+</div>
+<p>The process for creating a function is important: first, you figure out how to do the thing you want to do. Then, you simplify the code as much as possible. Only at the end of that process do you create an actual function.</p>
+</div>
+</section>
+<section id="syntax" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="syntax"><span class="header-section-number">9.2</span> Syntax</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Annotating_function_syntax.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">R and python syntax for defining functions. Portions of the command that indicate the function name, function scope, and return statement are highlighted in each block.</figcaption><p></p>
+</figure>
+</div>
+<p>In R, functions are defined as other variables, using <code>&lt;-</code>, but we specify the arguments a function takes by using the <code>function()</code> statement. The contents of the function are contained within <code>{</code> and <code>}</code>. If the function returns a value, a <code>return()</code> statement can be used; alternately, if there is no return statement, the last computation in the function will be returned.</p>
+<p>In python, functions are defined using the <code>def</code> command, with the function name, parentheses, and the function arguments to follow. The first line of the function definition ends with a <code>:</code>, and all subsequent lines of the function are indented (this is how python knows where the end of the function is). A python function return statement is <code>return &lt;value&gt;</code>, with no parentheses needed.</p>
+<p>Note that in python, the <code>return</code> statement is not optional. It is not uncommon to have python functions that don’t return anything; in R, this is a bit less common, for reasons we won’t get into here.</p>
+</section>
+<section id="arguments-and-parameters" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="arguments-and-parameters"><span class="header-section-number">9.3</span> Arguments and Parameters</h2>
+<p>An <strong>argument</strong> is the name for the object you pass into a function.</p>
+<p>A <strong>parameter</strong> is the name for the object once it is inside the function (or the name of the thing as defined in the function).</p>
+<div class="ex">
+<p>Let’s examine the difference between arguments and parameters by writing a function that takes a puppy’s name and returns “<name> is a good pup!”.</name></p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-6-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dog <span class="ot">&lt;-</span> <span class="st">"Eddie"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>goodpup <span class="ot">&lt;-</span> <span class="cf">function</span>(name) {</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(name, <span class="st">"is a good pup!"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">goodpup</span>(dog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "Eddie is a good pup!"</code></pre>
+</div>
+</div>
+<p>In this example R function, when we call <code>goodpup(dog)</code>, <code>dog</code> is the argument. <code>name</code> is the parameter.</p>
+</div>
+<div id="tabset-6-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-6-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dog <span class="op">=</span> <span class="st">"Eddie"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> goodpup(name):</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> name <span class="op">+</span> <span class="st">" is a good pup!"</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>goodpup(dog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>'Eddie is a good pup!'</code></pre>
+</div>
+</div>
+<p>In this example python function, when we call <code>goodpup(dog)</code>, <code>dog</code> is the argument. <code>name</code> is the parameter.</p>
+</div>
+</div>
+</div>
+<p>What is happening inside the computer’s memory as <code>goodpup</code> runs?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/function_argument_parameters.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">A sketch of the execution of the program <code>goodpup</code>, showing that <code>name</code> is only defined within the local environment that is created while <code>goodpup</code> is running. We can never access <code>name</code> in our global environment.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>This is why the distinction between <strong>arguments</strong> and <strong>parameters</strong> matters. Parameters are only accessible while inside of the function - and in that local environment, we need to call the object by the parameter name, not the name we use outside the function (the argument name).</p>
+<p>We can even call a function with an argument that isn’t defined outside of the function call: <code>goodpup("Tesla")</code> produces “Tesla is a good pup!”. Here, I do not have a variable storing the string “Tesla”, but I can make the function run anyways. So “Tesla” here is an argument to <code>goodpup</code> but it is not a variable in my environment.</p>
+<p>This is a confusing set of concepts and it’s ok if you only just sort of get what I’m trying to explain here. Hopefully it will become more clear as you write more code.</p>
+<section id="try-it-out" class="level3 unnumbered tryitout">
+<h3 class="unnumbered tryitout anchored" data-anchor-id="try-it-out">Try it out</h3>
+<p>For each of the following blocks of code, identify the function name, function arguments, parameter names, and return statements. When the function is called, see if you can predict what the output will be.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Function 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Answer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-7-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hello_world():</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"Hello World"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>hello_world()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-7-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-7-2-tab">
+<ul>
+<li>Function name: <code>hello_world</code></li>
+<li>Function parameters: none</li>
+<li>Function arguments: none</li>
+<li>Function output:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>hello_world()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Hello World</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Function 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Answer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-8-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>my_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  censor_x <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, <span class="at">size =</span> <span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">2</span>, <span class="at">replace =</span> F)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(censor_x)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3420523</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">my_mean</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-8-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-8-2-tab">
+<ul>
+<li>Function name: <code>my_mean</code></li>
+<li>Function parameters: x</li>
+<li>Function arguments: 1:10</li>
+<li>Function output: (varies each time the function is run unless you set the seed)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3420523</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">my_mean</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="named-arguments-and-parameter-order" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="named-arguments-and-parameter-order"><span class="header-section-number">9.3.1</span> Named Arguments and Parameter Order</h3>
+<p>In the examples above, you didn’t have to worry about what order parameters were passed into the function, because there were 0 and 1 parameters, respectively. But what happens when we have a function with multiple parameters?</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-9-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>divide <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">/</span> y</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-9-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-9-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(x, y):</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">/</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>In this function, the order of the parameters matters! <code>divide(3, 6)</code> does not produce the same result as <code>divide(6, 3)</code>. As you might imagine, this can quickly get confusing as the number of parameters in the function increases.</p>
+<p>In this case, it can be simpler to use the parameter names when you pass in arguments.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-10-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">divide</span>(<span class="dv">3</span>, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.5</code></pre>
+</div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">divide</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">y =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.5</code></pre>
+</div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">divide</span>(<span class="at">y =</span> <span class="dv">6</span>, <span class="at">x =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.5</code></pre>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">divide</span>(<span class="dv">6</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">divide</span>(<span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">divide</span>(<span class="at">y =</span> <span class="dv">3</span>, <span class="at">x =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-10-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-10-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb43"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>divide(<span class="dv">3</span>, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0.5</code></pre>
+</div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>divide(x <span class="op">=</span> <span class="dv">3</span>, y <span class="op">=</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0.5</code></pre>
+</div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>divide(y <span class="op">=</span> <span class="dv">6</span>, x <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>0.5</code></pre>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>divide(<span class="dv">6</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>2.0</code></pre>
+</div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>divide(x <span class="op">=</span> <span class="dv">6</span>, y <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>2.0</code></pre>
+</div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>divide(y <span class="op">=</span> <span class="dv">3</span>, x <span class="op">=</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>2.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>As you can see, the order of the arguments doesn’t much matter, as long as you use named arguments, but if you don’t name your arguments, the order very much matters.</p>
+</section>
+</section>
+<section id="input-validation" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="input-validation"><span class="header-section-number">9.4</span> Input Validation</h2>
+<p>When you write a function, you often assume that your parameters will be of a certain type. But you can’t guarantee that the person using your function knows that they need a certain type of input. In these cases, it’s best to <strong>validate</strong> your function input.</p>
+<div class="ex">
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-11-1-tab">
+<p>In R, you can use <code>stopifnot()</code> to check for certain essential conditions. If you want to provide a more illuminating error message, you can check your conditions using <code>if()</code> and then use <code>stop("better error message")</code> in the body of the if statement.</p>
+<div class="cell">
+<div class="sourceCode" id="cb55"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> y</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(<span class="st">"tmp"</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-error">
+<pre><code>Error in x + y: non-numeric argument to binary operator</code></pre>
+</div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(x))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(y))</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> y</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(<span class="st">"tmp"</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-error">
+<pre><code>Error in add("tmp", 3): is.numeric(x) is not TRUE</code></pre>
+</div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-11-2-tab">
+<p>In Python, the easiest way to handle errors is to use a try statement, which operates rather like an if statement: if the statement executes, then we’re good to go; if not, we can use <code>except</code> to handle different types of errors. The <code>else</code> clause is there to handle anything that needs to happen if the statement in the <code>try</code> clause executes without any errors.</p>
+<div class="cell">
+<div class="sourceCode" id="cb61"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(x, y):</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  x <span class="op">+</span> y</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>add(<span class="st">"tmp"</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-error">
+<pre><code>Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: can only concatenate str (not "int") to str
+
+Detailed traceback:
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+  File "&lt;string&gt;", line 2, in add</code></pre>
+</div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(x, y):</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> <span class="pp">TypeError</span>:</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x and y must be add-able"</span>)</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We should never get here, because the try clause has a return statement</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Else clause?"</span>)</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>add(<span class="st">"tmp"</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>x and y must be add-able</code></pre>
+</div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>add(<span class="dv">3</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>7</code></pre>
+</div>
+</div>
+<p>You can read more about error handling in Python <a href="https://docs.python.org/3/tutorial/errors.html">here</a></p>
+</div>
+</div>
+</div>
+</div>
+<p>Input validation is one aspect of <strong>defensive programming</strong> - programming in such a way that you try to ensure that your programs don’t error out due to unexpected bugs by anticipating ways your programs might be misunderstood or misused. If you’re interested, Wikipedia has <a href="https://en.wikipedia.org/wiki/Defensive_programming">more about defensive programming</a>.</p>
+</section>
+<section id="scope" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="scope"><span class="header-section-number">9.5</span> Scope</h2>
+<p>When talking about functions, for the first time we start to confront a critical concept in programming, which is scope. <strong>Scope</strong> is the part of the program where the name you’ve given a variable is valid - that is, where you can use a variable.</p>
+<blockquote class="blockquote">
+<p>A variable is only available from inside the region it is created.</p>
+</blockquote>
+<p>What do I mean by the part of a program? The <strong>lexical scope</strong> is the portion of the code (the set of lines of code) where the name is valid.</p>
+<p>The concept of scope is best demonstrated through a series of examples, so in the rest of this section, I’ll show you some examples of how scope works and the concepts that help you figure out what “scope” actually means in practice.</p>
+<section id="name-masking" class="level3" data-number="9.5.1">
+<h3 data-number="9.5.1" class="anchored" data-anchor-id="name-masking"><span class="header-section-number">9.5.1</span> Name Masking</h3>
+<p>Scope is most clearly demonstrated when we use the same variable name inside and outside a function. Note that this is 1) bad programming practice, and 2) fairly easily avoided if you can make your names even slightly more creative than <code>a</code>, <code>b</code>, and so on. But, for the purposes of demonstration, I hope you’ll forgive my lack of creativity in this area so that you can see how name masking works.</p>
+<div class="ex">
+<p>What does this function return, 10 or 20?</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Pseudocode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Sketch</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-3" role="tab" aria-controls="tabset-12-3" aria-selected="false">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-4" role="tab" aria-controls="tabset-12-4" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-12-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-12-1-tab">
+<pre><code>a = 10
+
+myfun = function() {
+  a = 20
+  return a
+}
+
+myfun()</code></pre>
+</div>
+<div id="tabset-12-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-12-2-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/function-scope.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">A sketch of the global environment as well as the environment within <code>myfun()</code>. Because <code>a=20</code> inside <code>myfun()</code>, when we call <code>myfun()</code>, we get the value of <code>a</code> within that environment, instead of within the global environment.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div id="tabset-12-3" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-12-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb68"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  a</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-12-4" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-12-4-tab">
+<div class="cell">
+<div class="sourceCode" id="cb70"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> myfun():</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  a <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> a</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>myfun()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>20</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The lexical scope of the function is the area that is between the braces (in R) or the indented region (in python). Outside the function, <code>a</code> has the value of 10, but inside the function, <code>a</code> has the value of 20. So when we call <code>myfun()</code>, we get 20, because the scope of <code>myfun</code> is the <strong>local context</strong> where <code>a</code> is evaluated, and the value of <code>a</code> in that environment dominates.</p>
+<p>This is an example of <strong>name masking</strong>, where names defined inside of a function mask names defined outside of a function.</p>
+</section>
+<section id="environments-and-scope" class="level3" data-number="9.5.2">
+<h3 data-number="9.5.2" class="anchored" data-anchor-id="environments-and-scope"><span class="header-section-number">9.5.2</span> Environments and Scope</h3>
+<p>Another principle of scoping is that if you call a function and then call the same function again, the function’s environment is re-created each time. Each function call is unrelated to the next function call when the function is defined using local variables.</p>
+<div class="ex">
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">Pseudocode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Sketch</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-4" role="tab" aria-controls="tabset-13-4" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-13-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-13-1-tab">
+<pre><code>myfun = function() {
+  if a is not defined
+    a = 1
+  else
+    a = a + 1
+}
+
+myfun()
+myfun()
+</code></pre>
+<p>What does this output?</p>
+</div>
+<div id="tabset-13-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-13-2-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/function-scope-environment.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">When we define myfun, we create a template for an environment with variables and code to excecute. Each time <code>myfun()</code> is called, that template is used to create a new environment. This prevents successive calls to <code>myfun()</code> from affecting each other – which means <code>a = 1</code> every time.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div id="tabset-13-3" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-13-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb73"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">exists</span>(<span class="st">"aa"</span>)) {</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    aa <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    aa <span class="ot">&lt;-</span> aa <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(aa)</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-13-4" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-13-4-tab">
+<div class="cell">
+<div class="sourceCode" id="cb77"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> myfun():</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>: aa</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> <span class="pp">NameError</span>: aa <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>: aa <span class="op">=</span> aa <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> aa</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>myfun()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>1</code></pre>
+</div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>myfun()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p>Note that the <code>try</code> command here is used to handle the case where a doesn’t exist. If there is a NameError (which will happen if <code>aa</code> is not defined) then we define <code>aa = 1</code>, if there is not a NameError, then <code>aa = aa + 1</code>.</p>
+<p>This is necessary because <a href="https://www.oreilly.com/library/view/python-cookbook/0596001673/ch17s02.html">Python does not have a built-in way to test if a variable exists before it is used</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="dynamic-lookup" class="level3" data-number="9.5.3">
+<h3 data-number="9.5.3" class="anchored" data-anchor-id="dynamic-lookup"><span class="header-section-number">9.5.3</span> Dynamic Lookup</h3>
+<p>Scoping determines where to look for values – when, however, is determined by the sequence of steps in the code. When a function is called, the <strong>calling environment</strong> (the global environment or set of environments at the time the function is called) determines what values are used.</p>
+<p>If an object doesn’t exist in the function’s environment, the global environment will be searched next; if there is no object in the global environment, the program will error out. This behavior, combined with changes in the calling environment over time, can mean that the output of a function can change based on objects outside of the function.</p>
+<div class="ex">
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">Pseudocode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Sketch</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-3" role="tab" aria-controls="tabset-14-3" aria-selected="false">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-4" role="tab" aria-controls="tabset-14-4" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-14-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-14-1-tab">
+<pre><code>myfun = function() x + 1
+
+x = 14
+
+myfun()
+
+x = 20
+
+myfun()
+</code></pre>
+<p>What will the output be of this code?</p>
+</div>
+<div id="tabset-14-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-14-2-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/function-scope-calling-environment.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">The state of the global environment at the time the function is called (that is, the state of the calling environment) can change the results of the function</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div id="tabset-14-3" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-14-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb82"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">14</span></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-14-4" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-14-4-tab">
+<div class="cell">
+<div class="sourceCode" id="cb86"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> myfun():</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">14</span></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>myfun()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>15</code></pre>
+</div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>myfun()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>21</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-out-1" class="level3 tryitout" data-number="9.5.4">
+<h3 class="tryitout anchored" data-number="9.5.4" data-anchor-id="try-it-out-1"><span class="header-section-number">9.5.4</span> Try It Out</h3>
+<p>What does the following function return? Make a prediction, then run the code yourself. (Taken from <span class="citation" data-cites="wickham_advanced_2015">(<a href="references.html#ref-wickham_advanced_2015" role="doc-biblioref">Wickham 2015, chap. 6</a>)</span>)</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">R code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">R solution</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-3" role="tab" aria-controls="tabset-15-3" aria-selected="false">Python code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-4" role="tab" aria-controls="tabset-15-4" aria-selected="false">Python solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-15-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-15-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb90"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">f</span>() <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">f</span>(x) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-15-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-15-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb91"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">f</span>() <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">f</span>(x) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 202</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-15-3" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-15-3-tab">
+<div class="cell">
+<div class="sourceCode" id="cb93"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> f(x):</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> f():</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> x <span class="op">^</span> <span class="dv">2</span></span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> f() <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> f(x) <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>f(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-15-4" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-15-4-tab">
+<div class="cell">
+<div class="sourceCode" id="cb94"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> f(x):</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> f():</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> f() <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> f(x) <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>f(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>202</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="debugging" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="debugging"><span class="header-section-number">9.6</span> Debugging</h2>
+<p>Now that you’re writing functions, it’s time to talk a bit about debugging techniques. This is a lifelong topic - as you become a more advanced programmer, you will need to develop more advanced debugging skills as well (because you’ll become more adept at screwing things up).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/allisonhorst/stats-illustrations/blob/master/other-stats-artwork/debugging.jpg?raw=true" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">The faces of debugging (by Allison Horst)</figcaption><p></p>
+</figure>
+</div>
+<p>Let’s start with the basics: print debugging.</p>
+<section id="print-debugging" class="level3" data-number="9.6.1">
+<h3 data-number="9.6.1" class="anchored" data-anchor-id="print-debugging"><span class="header-section-number">9.6.1</span> Print Debugging</h3>
+<p>This technique is basically exactly what it sounds like. You insert a ton of print statements to give you an idea of what is happening at each step of the function.</p>
+<p>Let’s try it out on the previous try it out example (see what I did there?)</p>
+<div class="ex">
+<p>Note that I’ve modified the code slightly so that we store the value into <code>retval</code> and then return it later - this allows us to see the code execution without calling functions twice (which would make the print output a bit more confusing).</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-16-1-tab">
+<div class="cell">
+<div class="sourceCode" id="cb96"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">"Entering Outer Function"</span>)</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="fu">sprintf</span>(<span class="st">"x = %0.2f"</span>, x))</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="st">"Entering Middle Function"</span>)</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">sprintf</span>(<span class="st">"x = %0.2f"</span>, x))</span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span> (<span class="st">"Entering Inner Function"</span>)</span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span> (<span class="fu">sprintf</span>(<span class="st">"x = %0.2f"</span>, x))</span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span> (<span class="fu">sprintf</span>(<span class="st">"Inner Function: Returning %0.2f"</span>, x<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a>    retval <span class="ot">&lt;-</span> <span class="fu">f</span>() <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb96-14"><a href="#cb96-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">sprintf</span>(<span class="st">"Middle Function: Returning %0.2f"</span>, retval))</span>
+<span id="cb96-15"><a href="#cb96-15" aria-hidden="true" tabindex="-1"></a>    retval</span>
+<span id="cb96-16"><a href="#cb96-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb96-17"><a href="#cb96-17" aria-hidden="true" tabindex="-1"></a>  retval <span class="ot">&lt;-</span> <span class="fu">f</span>(x) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb96-18"><a href="#cb96-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="fu">sprintf</span>(<span class="st">"Outer Function: Returning %0.2f"</span>, retval))</span>
+<span id="cb96-19"><a href="#cb96-19" aria-hidden="true" tabindex="-1"></a>  retval</span>
+<span id="cb96-20"><a href="#cb96-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb96-21"><a href="#cb96-21" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "Entering Outer Function"
+[1] "x = 10.00"
+[1] "Entering Middle Function"
+[1] "x = 10.00"
+[1] "Entering Inner Function"
+[1] "x = 10.00"
+[1] "Inner Function: Returning 100.00"
+[1] "Middle Function: Returning 101.00"
+[1] "Outer Function: Returning 202.00"</code></pre>
+</div>
+<div class="cell-output-stdout">
+<pre><code>[1] 202</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-16-2-tab">
+<div class="cell">
+<div class="sourceCode" id="cb99"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"Entering Outer function, x = "</span> <span class="op">+</span> <span class="bu">str</span>(x))</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> f(x):</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Entering Middle function, x = "</span> <span class="op">+</span> <span class="bu">str</span>(x))</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> f():</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="st">"Entering Inner function, x = "</span> <span class="op">+</span> <span class="bu">str</span>(x))</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="st">"Inner Function: Returning "</span> <span class="op">+</span> <span class="bu">str</span>(x <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>    retval <span class="op">=</span> f() <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Middle Function: Returning "</span> <span class="op">+</span> <span class="bu">str</span>(retval))</span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> retval</span>
+<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>  retval <span class="op">=</span> f(x) <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"Outer Function: Returning "</span> <span class="op">+</span> <span class="bu">str</span>(retval))</span>
+<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> retval</span>
+<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-18"><a href="#cb99-18" aria-hidden="true" tabindex="-1"></a>f(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Entering Outer function, x = 10
+Entering Middle function, x = 10
+Entering Inner function, x = 10
+Inner Function: Returning 100
+Middle Function: Returning 101
+Outer Function: Returning 202
+202</code></pre>
+</div>
+</div>
+<p>Note that Python has a <code>logging</code> module that may make it easier to print out things (and to filter the debug print statements from other reasonable program output.) You can see an example of this on <a href="https://rosettacode.org/wiki/Print_debugging_statement#Python">Rosetta Code</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="general-debugging-strategies" class="level3" data-number="9.6.2">
+<h3 data-number="9.6.2" class="anchored" data-anchor-id="general-debugging-strategies"><span class="header-section-number">9.6.2</span> General Debugging Strategies</h3>
+<blockquote class="blockquote">
+<p>Debugging: Being the detective in a crime movie where you are also the murderer. - some t-shirt I saw once</p>
+</blockquote>
+<p>The overall process is well described in <a href="https://adv-r.hadley.nz/debugging.html">Advanced R</a> by H. Wickham<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>; I’ve copied it here because it’s such a succinct distillation of the process, but I’ve adapted some of the explanations to this class rather than the original context of package development.</p>
+<ol start="0" type="1">
+<li><p>Realize that you have a bug</p></li>
+<li><p><strong>Google!</strong> In R you can automate this with the <code>errorist</code> and <code>searcher</code> packages, but general Googling the error + the programming language + any packages you think are causing the issue is a good strategy.</p></li>
+<li><p><strong>Make the error repeatable</strong>: This makes it easier to figure out what the error is, faster to iterate, and easier to ask for help.</p>
+<ul>
+<li>Use binary search (remove 1/2 of the code, see if the error occurs, if not go to the other 1/2 of the code. Repeat until you’ve isolated the error.)</li>
+<li>Generate the error faster - use a minimal test dataset, if possible, so that you can ask for help easily and run code faster. This is worth the investment if you’ve been debugging the same error for a while.</li>
+<li>Note which inputs <em>don’t</em> generate the bug – this negative “data” is helpful when asking for help.</li>
+</ul></li>
+<li><p><strong>Figure out where it is</strong>. Debuggers may help with this, but you can also use the <a href="http://web.mit.edu/6.031/www/fa17/classes/13-debugging/#find_the_bug_using_the_scientific_method">scientific method</a> to explore the code, or the tried-and-true method of using lots of <code>print()</code> statements.</p></li>
+<li><p><strong>Fix it and test it</strong>. The goal with tests is to ensure that the same error doesn’t pop back up in a future version of your code. Generate an example that will test for the error, and add it to your documentation.</p></li>
+</ol>
+<p>There are several other general strategies for debugging:</p>
+<ul>
+<li><p>Retype (from scratch) your code<br>
+This works well if it’s a short function or a couple of lines of code, but it’s less useful if you have a big script full of code to debug. However, it does sometimes fix really silly typos that are hard to spot, like having typed <code>&lt;--</code> instead of <code>&lt;-</code> in R and then wondering why your answers are negative.</p></li>
+<li><p>Visualize your data as it moves through the program. This may be done using <code>print()</code> statements, or the debugger, or some other strategy depending on your application.</p></li>
+<li><p>Tracing statements. Again, this is part of <code>print()</code> debugging, but these messages indicate progress - “got into function x”, “returning from function y”, and so on.</p></li>
+<li><p>Rubber ducking. Have you ever tried to explain a problem you’re having to someone else, only to have a moment of insight and “oh, never mind”? Rubber ducking outsources the problem to a nonjudgmental entity, such as a rubber duck<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you’ve found the problem. <a href="https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/">A more thorough explanation can be found at gitduck.com</a>.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rubber_duck_cape.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">You may find it helpful to procure a rubber duck expert for each language you work in. I use color-your-own rubber ducks to endow my ducks with certain language expertise. Other people use plain rubber ducks and give them capes.</figcaption><p></p>
+</figure>
+</div>
+<p>Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that’s well-known enough that it has its <a href="image/99bugs_shirt.png">own t-shirt</a>, in addition to an <a href="https://xkcd.com/1739/">xkcd comic</a>. At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea.</p>
+<p>These next two sections are included as FYI, but you don’t have to read them just now. They’re important, but not urgent, if that makes sense.</p>
+<details>
+<summary>
+</summary></details></section>
+<section id="dividing-problems-into-smaller-parts" class="level3" data-number="9.6.3">
+<h3 data-number="9.6.3" class="anchored" data-anchor-id="dividing-problems-into-smaller-parts"><span class="header-section-number">9.6.3</span> Dividing Problems into Smaller Parts</h3>
+
+<blockquote class="blockquote">
+<p>“Divide each difficulty into as many parts as is feasible and necessary to resolve it.” -René Descartes, Discourse on Method</p>
+</blockquote>
+<p>In programming, as in life, big, general problems are very hard to solve effectively. Instead, the goal is to break a problem down into smaller pieces that may actually be solveable.</p>
+<p>We’ll start with a non-programming example:</p>
+<div class="ex">
+<ol type="1">
+<li><p><strong>General problem statement</strong> : “I’m exhausted all the time”<br>
+Ok, so this is a problem that many of us have from time to time (or all the time). If we get a little bit more specific at outlining the problem, though, we can sometimes get a bit more insight into how to solve it.</p></li>
+<li><p><strong>Specific problem statement</strong>: “I wake up in the morning and I don’t have any energy to do anything. I want to go back to sleep, but I have too much to do to actually give in and sleep. I spend my days worrying about how I’m going to get all of the things on my to-do list done, and then I lie awake at night thinking about how many things there are to do tomorrow. I don’t have time for hobbies or exercise, so I drink a lot of coffee instead to make it through the day.”<br>
+This is a much more specific list of issues, and some of these issues are actually things we can approach separately.</p></li>
+<li><p><strong>Separating things into solvable problems:</strong><br>
+Moving through the list above, we can isolate a few issues. Some of these issues are undoubtedly related to each other, but we can approach them separately (for the most part).</p>
+<ol type="1">
+<li>Poor quality sleep (tired in the morning, lying awake at night)</li>
+<li>Too many things to do (to-do list)</li>
+<li>Chemical solutions to low energy (coffee during the day)</li>
+<li>Anxiety about completing tasks (worrying, insomnia)</li>
+<li>Lack of personal time for hobbies or exercise</li>
+</ol></li>
+<li><p><strong>Brainstorm Solutions:</strong></p>
+<ol type="1">
+<li>Get a check-up to rule out any other issues that could cause sleep quality degradation - depression, anxiety, sleep apnea, thyroid conditions, etc.
+<ul>
+<li>Ask the doctor about taking melatonin supplements for a short time to ensure that sleep starts off well (note, don’t take medical advice from a stats textbook!)</li>
+</ul></li>
+<li>Reformat your to-do list:
+<ul>
+<li>Set time limits for things on the to-do list</li>
+<li>Break the to-do list into smaller, manageable tasks that can be accomplished within a relatively short interval - such as an hour</li>
+<li>Sort the to-do list by priority and level of “fun” so that each day has a few hard tasks and a couple of easy/fun tasks. Do the hard tasks first, and use the easy/fun tasks as a reward.</li>
+</ul></li>
+<li>Set a time limit for caffeine (e.g.&nbsp;no coffee after noon) so that caffeine doesn’t contribute to poor quality sleep</li>
+<li>Address anxiety with medication (from 1), scheduled time for mindfulness meditation, and/or self-care activities</li>
+<li>Scheduling time for exercise/hobbies
+<ul>
+<li>scheduling exercise in the morning to take advantage of the endorphins generated by working out</li>
+<li>scheduling hobbies in the evening to reward yourself for a day’s work and wind down work well before bedtime</li>
+</ul></li>
+</ol></li>
+<li><p><strong>Approach each sub-problem separately</strong><br>
+When the sub-problem has a viable solution, move on to the next sub-problem. Don’t try to tackle everything at once. Here, that might look like this list, where each step is taken separately and you give each thing a few days to see how it affects your sleep quality. In programming, of course, this list would perhaps be a bit more sequential, but real life is messy and the results take a while to populate.</p></li>
+</ol>
+<ul>
+<li>[1] Make the doctor’s appointment.</li>
+<li>[5] While waiting for the appointment, schedule exercise early in the day and hobbies later in the day to create a “no-work” period before bedtime.</li>
+<li>[1] Go to the doctor’s appointment, follow up with any concerns.
+<ul>
+<li>[1] If doctor approves, start taking melatonin according to directions</li>
+</ul></li>
+<li>[2] Work on reformatting the to-do list into manageable chunks. Schedule time to complete chunks using your favorite planning method.</li>
+<li>[4] If anxiety is still an issue after following up with the doctor, add some mindfulness meditation or self-care to the schedule in the mornings or evenings.</li>
+<li>[3] If sleep quality is still an issue, set a time limit for caffeine</li>
+<li>[2] Revise your to-do list and try a different tactic if what you were trying didn’t work.</li>
+</ul>
+</div>
+<p><a href="https://forge.medium.com/the-500-year-old-piece-of-advice-that-will-change-your-life-1e580f115731">Here’s another example</a> of how to break down a real-world personal problem in programming/debugging style.</p>
+
+<details>
+<summary>
+</summary></details></section>
+<section id="minimal-working-or-reproducible-examples" class="level3" data-number="9.6.4">
+<h3 data-number="9.6.4" class="anchored" data-anchor-id="minimal-working-or-reproducible-examples"><span class="header-section-number">9.6.4</span> Minimal Working (or Reproducible) Examples</h3>
+
+<p>If all else has failed, and you can’t figure out what is causing your error, it’s probably time to ask for help. If you have a friend or buddy that knows the language you’re working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you’re asking people who are much more knowledgeable about the topic - members of R core and the people who developed NumPy and Pandas browse stackoverflow and may drop in and help you out. Under those circumstances, it’s better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reprex.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">The reprex R package will help you make a reproducible example (drawing by Allison Horst)</figcaption><p></p>
+</figure>
+</div>
+<p>There is also a <a href="https://reprexpy.readthedocs.io/en/latest/">reprexpy</a> package in python, but it doesn’t have nearly as nice of an illustration to go with it.</p>
+<p>So, with that said, there are numerous resources for writing what’s called a “minimal working example”, “reproducible example” (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a <a href="https://stackoverflow.com/help/minimal-reproducible-example">minimal reproducible example</a>.</p>
+<p>The goal is to reproduce the error message with information that is</p>
+<ul>
+<li><strong>minimal</strong> - as little code as possible to still reproduce the problem</li>
+<li><strong>complete</strong> - everything necessary to reproduce the issue is contained in the description/question</li>
+<li><strong>reproducible</strong> - test the code you provide to reproduce the problem.</li>
+</ul>
+<p>You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you’d hope to see if the code were working.</p>
+<p>Other resources: - <a href="https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html">reprex package: Do’s and Don’ts</a> - <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html">How to use the reprex package</a> - vignette with videos from Jenny Bryan - <a href="https://reprex.tidyverse.org/articles/articles/magic-reprex.html">reprex magic - Vignette adapted from a blog post by Nick Tierney</a> - <a href="https://reprexpy.readthedocs.io/en/latest/">reprexpy package</a></p>
+
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-wickham_advanced_2015" class="csl-entry" role="doc-biblioentry">
+Wickham, H. 2015. <em>Advanced <span>R</span></em>. Chapman &amp; <span>Hall</span>/<span>CRC</span> <span>The</span> <span>R</span> <span>Series</span>. CRC Press. <a href="https://books.google.com/books?id=FfsYCwAAQBAJ">https://books.google.com/books?id=FfsYCwAAQBAJ</a>.
+</div>
+<div id="ref-wickham2016r" class="csl-entry" role="doc-biblioentry">
+Wickham, H., and G. Grolemund. 2016. <em>R for Data Science: <span>Import</span>, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media. <a href="https://books.google.com/books?id=vfi3DQAAQBAJ">https://books.google.com/books?id=vfi3DQAAQBAJ</a>.
+</div>
+</div>
+</section>
+</section>
+<section class="footnotes" role="doc-endnotes"><h2>Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>This is not strictly true, you can of course use pass-by-reference, but we will not be covering that in this class as we are strictly dealing with the bare minimum of learning how to write a function here.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>the 0th step is from the 1st edition, the remaining steps are from the 2nd.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Some people use cats, but I find that they don’t meet the nonjudgmental criteria. Of course, they’re equally judgmental whether your code works or not, so maybe that works if you’re a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you’re upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    window.tippy(el, {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    }); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</main>
+<div class="page-navigation ">
+  <div class="nav-page nav-page-previous">
+      <a href="./08-data-cleaning.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Summaries and Data Cleaning</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./git-github.html">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">git-github.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</div>
+</div> <!-- /main column -->
+</div> <!-- /row -->
+</div> <!-- /container fluid -->
+
+
+</body></html>
