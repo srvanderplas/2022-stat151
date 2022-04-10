@@ -406,6 +406,69 @@ divide(y = 3, x = 6)
 
 As you can see, the order of the arguments doesn't much matter, as long as you use named arguments, but if you don't name your arguments, the order very much matters.
 
+## Input Validation
+
+When you write a function, you often assume that your parameters will be of a certain type. But you can't guarantee that the person using your function knows that they need a certain type of input. In these cases, it's best to **validate** your function input.
+
+::: ex
+
+::: panel-tabset
+
+### R
+
+In R, you can use `stopifnot()` to check for certain essential conditions. If you want to provide a more illuminating error message, you can check your conditions using `if()` and then use `stop("better error message")` in the body of the if statement. 
+
+```{r, error = T}
+add <- function(x, y) {
+  x + y
+}
+
+add("tmp", 3)
+
+add <- function(x, y) {
+  stopifnot(is.numeric(x))
+  stopifnot(is.numeric(y))
+  x + y
+}
+
+add("tmp", 3)
+add(3, 4)
+```
+
+### Python
+
+In Python, the easiest way to handle errors is to use a try statement, which operates rather like an if statement: if the statement executes, then we're good to go; if not, we can use `except` to handle different types of errors. The `else` clause is there to handle anything that needs to happen if the statement in the `try` clause executes without any errors.
+
+```{python, error = T}
+
+def add(x, y):
+  x + y
+
+add("tmp", 3)
+
+def add(x, y):
+  try:
+    return x + y
+  except TypeError:
+    print("x and y must be add-able")
+  else:
+    # We should never get here, because the try clause has a return statement
+    print("Else clause?")
+  return
+
+add("tmp", 3)
+add(3, 4)
+
+```
+
+You can read more about error handling in Python [here](https://docs.python.org/3/tutorial/errors.html)
+
+:::
+
+:::
+
+Input validation is one aspect of **defensive programming** - programming in such a way that you try to ensure that your programs don't error out due to unexpected bugs by anticipating ways your programs might be misunderstood or misused. If you're interested, Wikipedia has [more about defensive programming](https://en.wikipedia.org/wiki/Defensive_programming).
+
 
 ## Scope
 
@@ -732,7 +795,7 @@ f <- function(x) {
 f(10)
 ```
 
-#### Python solution
+#### Python
 
 ```{python}
 def f(x):
@@ -770,7 +833,7 @@ The overall process is well described in [Advanced R](https://adv-r.hadley.nz/de
 
 0. Realize that you have a bug
 
-1. **Google!** In R you can automate this with the `errorist` and `searcher` packages. In SAS, if the error message isn't that clear you'll find a SAS forum page where someone else has made the same mistake - I can almost guarantee it. 
+1. **Google!** In R you can automate this with the `errorist` and `searcher` packages, but general Googling the error + the programming language + any packages you think are causing the issue is a good strategy.
 
 2. **Make the error repeatable**: This makes it easier to figure out what the error is, faster to iterate, and easier to ask for help.
     - Use binary search (remove 1/2 of the code, see if the error occurs, if not go to the other 1/2 of the code. Repeat until you've isolated the error.)
@@ -799,13 +862,14 @@ This works well if it's a short function or a couple of lines of code, but it's 
 Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that's well-known enough that it has its [own t-shirt](image/99bugs_shirt.png), in addition to an [xkcd comic](https://xkcd.com/1739/). At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea. 
 
 
+::: note
+
 These next two sections are included as FYI, but you don't have to read them just now. They're important, but not urgent, if that makes sense.
 
-<details><summary>
+:::
 
 ### Dividing Problems into Smaller Parts
 
-</summary>
 
 > “Divide each difficulty into as many parts as is feasible and necessary to resolve it.” -René Descartes, Discourse on Method 
 
@@ -858,17 +922,14 @@ When the sub-problem has a viable solution, move on to the next sub-problem. Don
 
 [Here's another example](https://forge.medium.com/the-500-year-old-piece-of-advice-that-will-change-your-life-1e580f115731) of how to break down a real-world personal problem in programming/debugging style.
 
-</details>
-
-<details><summary>
-
 
 ### Minimal Working (or Reproducible) Examples
 
-</summary>
-If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
+If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and the people who developed NumPy and Pandas browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
 
 ![The reprex R package will help you make a reproducible example (drawing by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reprex.png)
+
+There is also a [reprexpy](https://reprexpy.readthedocs.io/en/latest/) package in python, but it doesn't have nearly as nice of an illustration to go with it. 
 
 So, with that said, there are numerous resources for writing what's called a "minimal working example", "reproducible example" (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example).
 
@@ -884,5 +945,4 @@ Other resources:
 - [reprex package: Do's and Don'ts](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html)
 - [How to use the reprex package](https://reprex.tidyverse.org/articles/articles/learn-reprex.html) - vignette with videos from Jenny Bryan
 - [reprex magic - Vignette adapted from a blog post by Nick Tierney](https://reprex.tidyverse.org/articles/articles/magic-reprex.html)
-
-</details>
+- [reprexpy package](https://reprexpy.readthedocs.io/en/latest/)
