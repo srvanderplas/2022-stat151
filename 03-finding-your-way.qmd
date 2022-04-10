@@ -87,7 +87,9 @@ you have visual markdown mode on. To turn it off, click on the A icon at the top
 
 If we are working in interactive mode, why did I have you start out by creating a markdown document? Good Question! RStudio allows you to switch back and forth between R and python seamlessly, which is good and bad - it's hard to get a python terminal without telling R which language you're working in! You can create a python script if you'd prefer to work in a script instead of a markdown document, but that would involve working in 2 separate files, which I personally find rather tedious.
 
-### The R Console
+::: panel-tabset
+
+### The R Console {-}
 
 In your R chunk or script, type in `2+2` and hit `Ctrl+Enter` (or `Cmd+Enter` on a mac). Look down to the Console (which is usually below the editor window) and see if 4 appears. If you're like me, output shows up in two places at once:
 
@@ -111,7 +113,7 @@ Suppose we define `I` and `love` as variables by putting a value into each objec
 
 ![R console with commands "Hello", print("Hello"), and (unquoted) "I love R", which causes an error. Defining variables I and love provides us a context in which R's error message about unexpected symbols makes sense - R is reminding us that we need a numerical operator in between the two variable names.](images/R-console-error.png)
 
-### The Python Console
+### The Python Console {-}
 
 In your python chunk or script, type in `2+2` and hit `Ctrl+Enter` (or `Cmd+Enter` on a mac). Look down to the Console (which is usually below the editor window) and see if 4 appears. If you're like me, output shows up in two places at once:
 
@@ -131,6 +133,8 @@ R is nice enough to remind you that to end the conversation with python, you jus
 
 If you want to start a python console outside of RStudio, bring up your command prompt (Darwin on mac, Konsole on Linux, CMD on Windows) and type python3 into that window and you should see the familiar `>>>` waiting for a command.
 
+:::
+
 ## Talking to Python and R - Script Mode
 
 In the last chapter, we played around with scripts and markdown documents for python and R. In the last section, we played with interactive mode by typing R and python commands into a console or running code chunks interactively using the Run button or `Ctrl/Cmd + Enter` (which is the keyboard shortcut).
@@ -142,7 +146,12 @@ Scripts are best used when you have a thing you want to do, and you will need to
 @py4e provides a handy python program to count words. This program is meant to be run on the command line, and it will run for any specified text file.
 
 ::: ex
-### Example: Counting Words in Python on the Command Line
+
+### Example: Counting Words 
+
+::: panel-tabset
+
+#### Python, on the Command Line
 
 Download [words.py](code/words.py) to your computer and open up a command line terminal in the location where you saved the file.
 
@@ -177,12 +186,8 @@ In your terminal, type in `python words.py`. If all goes well, you should get a 
 That is, the word `the` occurs 8854 times in the text.
 
 ![Screenshot of folder and python script evaluation, showing how to run the python script in the terminal and get the count of the most common word, 'the', in the file dickens-oliver-627.txt](images/python-wordcount-example-screenshot.png)
-:::
 
- 
-
-::: ex
-### Example: Counting Words in Python within RStudio
+#### Python within RStudio
 
 We can run this script in interactive mode in RStudio if we want to: Open the words.py file you downloaded in RStudio.
 
@@ -195,14 +200,11 @@ Click the "Source Script" button highlighted in green above, and then look at th
 ![RStudio screenshot of console window with getwd() command and result](images/python-wordcount-rstudio-screenshot-console3.png)
 
 Since I know that I have stored the text file in the `data` subdirectory of the `stat151book` folder, I can type in `data/dickens-oliver-627.txt` and the python program can find my file.
-:::
-
- 
 
 In the above example, RStudio is functioning essentially like a terminal window - it runs the script as a single file, and once it has your input, all commands are executed one after the other automatically. This is convenient if you want to test the whole block of code at once, but it can be more useful to test each line individually and "play" with the output a bit (or modify code line-by-line).
 
-::: ex
-### Example: Counting Words in Python in Interactive Mode (RStudio)
+
+#### Python in Interactive Mode (RStudio)
 
 Suppose we want to modify this python script to be more like the R script, where we tell python what the file name is in the file itself, instead of waiting for user input at the terminal.
 
@@ -252,12 +254,12 @@ Select lines 5-8 as shown above, and click the Run button. Your console window s
 The next few lines of code determine which word has the highest count. We won't get into the details here, but to finish out the running of the program, select lines 10-17 and run them in RStudio.
 
 ![RStudio editor window and console showing the results when lines 10-17 are evaluated. It is clear that line 17 results in the console output of `the 8854`](images/python-wordcount-rstudio-noinput-interactive6.png)
-:::
+
 
 Running scripts in interactive mode or within RStudio is much more convenient if you are still working on the script - it allows you to debug the script line-by-line if necessary. Running a script at the terminal (like we did above) is sometimes more convenient if you have a pre-written script that you know already works. Both modes are useful, but for the time being you will probably be running scripts within your development environment (RStudio or VSCode or any other IDE you prefer) more often than at the command line.
 
-::: ex
-### Example: Counting Words in R within RStudio
+
+#### R within RStudio
 
 Just for fun, let's work with [Oliver Twist, by Charles Dickens](http://www.textfiles.com/etext/AUTHORS/DICKENS/dickens-oliver-627.txt), which I have saved [here](data/dickens-oliver-627.txt).
 
@@ -292,12 +294,9 @@ Save the copy of Oliver Twist to the file `dickens-oliver-627.txt` in the folder
 ![R editor window with relevant script, with R console shown below. dickens-oliver-627.txt is in the working directory, so we can proceed.](images/R-wordcount-rstudio-noinput-interactive2.png)
 
 Use the "Run" button to run the script and see what the output is. How many times does 'the' appear in the file?
-:::
 
- 
 
-::: ex
-### Example: Counting words in R in Interactive Mode
+#### R in Interactive Mode
 
 Using the file you created above, let's examine what each line does in interactive mode.
 
@@ -353,12 +352,9 @@ word_freq[1:5]
 ```
 
 We can then sort `word_freq` so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5.
-:::
 
- 
 
-::: ex
-### Example: Counting Words in R on the Command Line
+#### R on the Command Line
 
 Download the following file to your working directory: [words.R](code/words.R), or paste the following code into a new R script and save it as `words.R`
 
@@ -388,6 +384,7 @@ word_freq[1:10]
 In a terminal window opened at the location you saved the file (and the corresponding text file), enter the following: `Rscript words.R dickens-oliver-627.txt`.
 
 Here, `Rscript` is the command that tells R to evaluate the file, `words.R` is the R code to run, and `dickens-oliver-627.txt` is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit.
+
 :::
 
 ### Comparing Python and R
@@ -421,5 +418,7 @@ for?
 w3schools has an excellent python [help page](https://www.w3schools.com/python/python_for_loops.asp) that may be useful as well - usually, these pages will have examples. A similar set of pages exists for [R help on basic functions](https://www.w3schools.com/r/r_for_loop.asp)
 
 ::: learn-more
+
 -   [A nice explanation of the difference between an interpreter and a compiler](https://www.py4e.com/html3/01-intro#terminology-interpreter-and-compiler). Both Python and R are interpreted languages that are compiled from lower-level languages like C.
+
 :::

@@ -28,7 +28,11 @@ In both R and python, there are some very basic data types:
 
 [^data-types-1]: This means that doubles take up more memory but can store more decimal places. You don't need to worry about this much in R, and only a little in Python, but in older and more precise languages such as C/C++/Java, the difference between floats and doubles can be important.
 
-If you don't know what type a value is, both R and python have functions to help you with that:
+If you don't know what type a value is, both R and python have functions to help you with that.
+
+::: panel-tabset
+
+### R {-}
 
 ```{r identify-var-type-r, results='hold'}
 class(FALSE)
@@ -38,6 +42,8 @@ class(2)
 class("Hello, programmer!")
 ```
 
+### Python {-}
+
 ```{python indentify-var-type-py, results='hold'}
 type(False)
 type(2)
@@ -45,10 +51,14 @@ type(3.1415)
 type("This is python code")
 ```
 
+:::
+
 ::: note
+
 In R, boolean values are `TRUE` and `FALSE`, but in Python they are `True` and `False`. Capitalization matters a LOT.
 
 Other things matter too: if we try to write a million, we would write it `1000000` instead of `1,000,000` (in both languages). Commas are used for separating numbers, not for proper spacing and punctuation of numbers. This is a hard thing to get used to but very important -- especially when we start reading in data.
+
 :::
 
 ## Variables
@@ -57,12 +67,18 @@ Programming languages use **variables** - names that refer to values. Think of a
 
 We **assign** variables values using the syntax `object_name <- value` (R) or `object_name = value` (python). You can read this as "object name gets value" in your head.
 
+::: panel-tabset
+
+### R {-}
+
 ```{r assign-value-r, results='hold'}
 message <- "So long and thanks for all the fish"
 year <- 2025
 the_answer <- 42L
 earth_demolished <- FALSE
 ```
+
+### Python {-}
 
 ```{python assign-value-py, results='hold'}
 message = "So long and thanks for all the fish"
@@ -71,8 +87,12 @@ the_answer = 42
 earth_demolished = False
 ```
 
+:::
+
 ::: note
+
 Note that in R, we assign variables values using the `<-` operator, where in Python, we assign variables values using the `=` operator. Technically, `=` will work for assignment in both languages, but `<-` is more common than `=` in R by convention.
+
 :::
 
 We can then use the variables - do numerical computations, evaluate whether a proposition is true or false, and even manipulate the content of strings, all by referencing the variable by name.
@@ -86,9 +106,17 @@ Object names must start with a letter and can only contain letters, numbers, `_`
 
 What happens if we try to create a variable name that isn't valid?
 
+In both languages, starting a variable name with a number will get you an error message that lets you know that something isn't right - "unexpected symbol" in R and "invalid syntax" in python.
+
+::: panel-tabset
+
+### R {-}
+
 ```{r invalid-variable-name-r, error = T}
 1st_thing <- "check your variable names!"
 ```
+
+### Python {-}
 
 ```{python invalid-variable-name-py, eval = F}
 1st_thing <- "check your variable names!"
@@ -100,14 +128,17 @@ Note: Run the above chunk in your python window - the book won't compile if I se
 second.thing <- "this isn't valid"
 ```
 
-In both languages, starting a variable name with a number will get you an error message that lets you know that something isn't right - "unexpected symbol" in R and "invalid syntax" in python.
-
 In python, trying to have a `.` in a variable name gets a more interesting error: "<first part> is not defined". This is because in python, some objects have components and methods that can be accessed with `.`. We'll get into this more later, but there is a good reason for python's restriction about not using `.` in variable names.
+
+:::
+
 
 Naming things is difficult! When you name variables, try to make the names descriptive - what does the variable hold? What are you going to do with it? The more (concise) information you can pack into your variable names, the more readable your code will be.
 
 ::: learn-more
+
 [Why is naming things hard?](https://neilkakkar.com/why-is-naming-things-hard.html) - Blog post by Neil Kakkar
+
 :::
 
 There are a few different conventions for naming things that may be useful:
@@ -138,6 +169,10 @@ But the discussion of types isn't something we can completely avoid, because we 
 
 So let's see what happens with a couple of examples, just to get a feel for **type conversion** (aka **type casting** or **type coercion**), which is the process of changing an expression from one data type to another.
 
+::: panel-tabset
+
+### R {-}
+
 ```{r}
 mode(2L + 3.14159) # add 2 and pi
 mode(2L + TRUE) # add integer 2 and TRUE
@@ -145,6 +180,8 @@ mode(TRUE + FALSE) # add TRUE and FALSE
 ```
 
 In R, all of the examples above are 'numeric' - basically, a catch-all class for things that are in some way, shape, or form numbers. Integers and decimal numbers are both numeric, but so are logicals (because they can be represented as 0 or 1).
+
+### Python {-}
 
 ```{python}
 type(2 + 3.14159)
@@ -154,9 +191,12 @@ type(True + False)
 
 In python, by contrast, anything without a decimal point is converted into an integer - essentially, python tries to minimize memory used without losing data. So it will never convert a float into an integer implicitly - if you want Python to do that, you'll have to tell it to do so directly.
 
+:::
+
 You may be asking yourself at this point why this matters, and that's a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become *very* important at that point, because we'll have to know how R and python both handle type conversions.
 
 ::: tryitout
+
 ### In class activity {.unnumbered}
 
 Do a bit of experimentation - what happens when you try to add a string and a number? Which types are automatically converted to other types? Fill in the following table in your notes:
@@ -173,6 +213,10 @@ Adding a \_\_\_ and a \_\_\_ produces a \_\_\_:
 
 Above, we looked at automatic type conversions, but in many cases, we also may want to convert variables manually, specifying exactly what type we'd like them to be. A common application for this in data analysis is when there are "\*" or "." or other indicators in an otherwise numeric column of a spreadsheet that indicate missing data: when this data is read in, the whole column is usually read in as character data. So we need to know how to tell R and python that we want our string to be treated as a number, or vice-versa.
 
+::: panel-tabset
+
+#### R {-}
+
 In R, we can explicitly convert a variable's type using `as.XXX()` functions, where XXX is the type you want to convert to (`as.numeric`, `as.integer`, `as.logical`, `as.character`, etc.).
 
 ```{r, error = T}
@@ -184,6 +228,8 @@ x + y
 x + as.numeric(y)
 ```
 
+#### Python {-}
+
 In python, the same basic idea holds true, but in python, we just use the variable type as a function: `int()`, `float()`, `str()`, and `bool()`.
 
 ```{python, error = T}
@@ -194,6 +240,8 @@ x + y
 
 x + float(y)
 ```
+
+:::
 
 ## Operators and Functions
 
@@ -213,17 +261,27 @@ Here are a few of the most important ones:
 | Modular Division | `%%`     | `%`           |
 | Exponentiation   | `^`      | `**`          |
 
-Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B. So `14 %/% 3` in R would be 4, and `14 %% 3` in R would be 2.
+Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B. 
+
+::: panel-tabset
+
+### R {-}
+
+So `14 %/% 3` in R would be 4, and `14 %% 3` in R would be 2.
 
 ```{r}
 14 %/% 3
 14 %% 3
 ```
 
+### Python {-}
+
 ```{python}
 14 // 3
 14 % 3
 ```
+
+:::
 
 Note that these operands are all intended for scalar operations (operations on a single number) - vectorized versions, such as matrix multiplication, are somewhat more complicated (and different between R and python).
 
@@ -231,11 +289,17 @@ Note that these operands are all intended for scalar operations (operations on a
 
 Both R and Python operate under the same mathematical rules of precedence that you learned in school. You may have learned the acronym PEMDAS, which stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. That is, when examining a set of mathematical operations, we evaluate parentheses first, then exponents, and then we do multiplication/division, and finally, we add and subtract.
 
+::: panel-tabset
+
+### R {-}
+
 ```{r}
 (1+1)^(5-2) # 2 ^ 3 = 8
 1 + 2^3 * 4 # 1 + (8 * 4)
 3*1^3 # 3 * 1
 ```
+
+### Python {-}
 
 ```{python}
 (1+1)**(5-2)
@@ -243,9 +307,15 @@ Both R and Python operate under the same mathematical rules of precedence that y
 3*1**3
 ```
 
-### String Operations in Python
+:::
+
+### String Operations
 
 Python has some additional operators that work on strings. In R, you will have to use functions to perform these operations, as R does not have string operators.
+
+::: panel-tabset
+
+#### Python {-}
 
 In Python, `+` will **concatenate** (stick together) two strings, and multiplying a string by an integer will repeat the string the specified number of times
 
@@ -253,6 +323,29 @@ In Python, `+` will **concatenate** (stick together) two strings, and multiplyin
 "first " + "second"
 "hello " * 3
 ```
+
+#### R {-}
+
+In R, to concatenate things, we need to use functions: `paste` or `paste0`:
+
+```{r}
+paste("first", "second", sep = " ")
+paste("first", "second", collapse = " ")
+paste(c("first", "second"), sep = " ") # sep only works on separate parameters
+paste(c("first", "second"), collapse = " ") # collapse works on vectors
+
+paste(c("a", "b", "c", "d"), 
+      c("first", "second", "third", "fourth"), 
+      sep = "-", collapse = " ")
+# sep is used to collapse parameters, then collapse is used to collapse vectors
+
+paste0(c("a", "b", "c"))
+paste0("a", "b", "c") # equivalent to paste(..., sep = "")
+```
+
+You don't need to understand the details of this at this point in the class, but it is useful to know how to combine strings in both languages.
+
+:::
 
 ### Functions
 
@@ -272,12 +365,12 @@ R has methods too, but they are invoked differently. In R, you would get the len
 
 Right now, it is not really necessary to know too much more about functions than this: you can invoke a function by passing in arguments, and the function will do a task and return the value.
 
-::: tryitout
-### In class activity {.unnumbered}
+
+### In class activity {.unnumbered .tryitout}
 
 Try out some of the functions mentioned on the R and Python cheatsheets.
 
 Can you figure out how to define a list or vector of numbers? If so, can you use a function to calculate the maximum value?
 
-Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings?
-:::
+Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings? Can you do this task in Python?
+
