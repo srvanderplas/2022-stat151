@@ -216,7 +216,7 @@
 <li><a href="#operators-and-functions" class="nav-link" data-scroll-target="#operators-and-functions"> <span class="header-section-number">4.4</span> Operators and Functions</a>
 <ul class="collapse">
 <li><a href="#order-of-operations" class="nav-link" data-scroll-target="#order-of-operations"> <span class="header-section-number">4.4.1</span> Order of Operations</a></li>
-<li><a href="#string-operations-in-python" class="nav-link" data-scroll-target="#string-operations-in-python"> <span class="header-section-number">4.4.2</span> String Operations in Python</a></li>
+<li><a href="#string-operations" class="nav-link" data-scroll-target="#string-operations"> <span class="header-section-number">4.4.2</span> String Operations</a></li>
 <li><a href="#functions" class="nav-link" data-scroll-target="#functions"> <span class="header-section-number">4.4.3</span> Functions</a></li>
 <li><a href="#in-class-activity-1" class="nav-link" data-scroll-target="#in-class-activity-1">In class activity</a></li>
 </ul></li>
@@ -247,7 +247,11 @@
 </ul></li>
 <li><p><strong>character</strong> or <strong>string</strong> - holds text, usually enclosed in quotes.</p></li>
 </ul>
-<p>If you don’t know what type a value is, both R and python have functions to help you with that:</p>
+<p>If you don’t know what type a value is, both R and python have functions to help you with that.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-1-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">FALSE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(2L) <span class="co"># by default, R treats all numbers as numeric/decimal values. </span></span>
@@ -261,6 +265,8 @@
 [1] "character"</code></pre>
 </div>
 </div>
+</div>
+<div id="tabset-1-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="va">False</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="dv">2</span>)</span>
@@ -273,6 +279,9 @@
 &lt;class 'str'&gt;</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div class="note">
 <p>In R, boolean values are <code>TRUE</code> and <code>FALSE</code>, but in Python they are <code>True</code> and <code>False</code>. Capitalization matters a LOT.</p>
 <p>Other things matter too: if we try to write a million, we would write it <code>1000000</code> instead of <code>1,000,000</code> (in both languages). Commas are used for separating numbers, not for proper spacing and punctuation of numbers. This is a hard thing to get used to but very important – especially when we start reading in data.</p>
@@ -282,17 +291,26 @@
 <h2 data-number="4.2" class="anchored" data-anchor-id="variables"><span class="header-section-number">4.2</span> Variables</h2>
 <p>Programming languages use <strong>variables</strong> - names that refer to values. Think of a variable as a container that holds something - instead of referring to the value, you can refer to the container and you will get whatever is stored inside.</p>
 <p>We <strong>assign</strong> variables values using the syntax <code>object_name &lt;- value</code> (R) or <code>object_name = value</code> (python). You can read this as “object name gets value” in your head.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-2-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>message <span class="ot">&lt;-</span> <span class="st">"So long and thanks for all the fish"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="dv">2025</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>the_answer <span class="ot">&lt;-</span> 42L</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>earth_demolished <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div id="tabset-2-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-2-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> <span class="st">"So long and thanks for all the fish"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>year <span class="op">=</span> <span class="dv">2025</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>the_answer <span class="op">=</span> <span class="dv">42</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>earth_demolished <span class="op">=</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="note">
 <p>Note that in R, we assign variables values using the <code>&lt;-</code> operator, where in Python, we assign variables values using the <code>=</code> operator. Technically, <code>=</code> will work for assignment in both languages, but <code>&lt;-</code> is more common than <code>=</code> in R by convention.</p>
@@ -306,6 +324,11 @@
 </blockquote>
 <p>Object names must start with a letter and can only contain letters, numbers, <code>_</code>, and <code>.</code> in R. In Python, object names must start with a letter and can consist of letters, numbers, and <code>_</code> (that is, <code>.</code> is not a valid character in a Python variable name). While it is technically fine to use uppercase variable names in Python, it’s recommended that you use lowercase names for variables (you’ll see why later).</p>
 <p>What happens if we try to create a variable name that isn’t valid?</p>
+<p>In both languages, starting a variable name with a number will get you an error message that lets you know that something isn’t right - “unexpected symbol” in R and “invalid syntax” in python.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-3-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>1st_thing <span class="ot">&lt;-</span> <span class="st">"check your variable names!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-error">
@@ -314,10 +337,12 @@
      ^</code></pre>
 </div>
 </div>
+</div>
+<div id="tabset-3-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-3-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="er">st_thing</span> <span class="op">&lt;-</span> <span class="st">"check your variable names!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note: Run the above chunk in your python window - the book won’t compile if I set it to evaluate 😭. It generates an error of <code>SyntaxError: invalid syntax (&lt;string&gt;, line 1)</code></p>
+<p>Note: Run the above chunk in your python window - the book won’t compile if I set it to evaluate 😿. It generates an error of <code>SyntaxError: invalid syntax (&lt;string&gt;, line 1)</code></p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>second.thing <span class="op">&lt;-</span> <span class="st">"this isn't valid"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-error">
@@ -327,8 +352,10 @@ Detailed traceback:
   File "&lt;string&gt;", line 1, in &lt;module&gt;</code></pre>
 </div>
 </div>
-<p>In both languages, starting a variable name with a number will get you an error message that lets you know that something isn’t right - “unexpected symbol” in R and “invalid syntax” in python.</p>
 <p>In python, trying to have a <code>.</code> in a variable name gets a more interesting error: “<first part=""> is not defined”. This is because in python, some objects have components and methods that can be accessed with <code>.</code>. We’ll get into this more later, but there is a good reason for python’s restriction about not using <code>.</code> in variable names.</first></p>
+</div>
+</div>
+</div>
 <p>Naming things is difficult! When you name variables, try to make the names descriptive - what does the variable hold? What are you going to do with it? The more (concise) information you can pack into your variable names, the more readable your code will be.</p>
 <div class="learn-more">
 <p><a href="https://neilkakkar.com/why-is-naming-things-hard.html">Why is naming things hard?</a> - Blog post by Neil Kakkar</p>
@@ -338,7 +365,7 @@ Detailed traceback:
 <li><code>some_people_use_snake_case</code>, where words are separated by underscores</li>
 <li><code>somePeopleUseCamelCase</code>, where words are appended but anything after the first word is capitalized (leading to words with humps like a camel).</li>
 <li><code>some.people.use.periods</code> (in R, obviously this doesn’t work in python)</li>
-<li>A few people mix conventions with <code>variables_thatLookLike.this</code> and they are almost universally hated 👿</li>
+<li>A few people mix conventions with <code>variables_thatLookLike.this</code> and they are almost universally hated 😈</li>
 </ul>
 <p>As long as you pick ONE naming convention and don’t mix-and-match, you’ll be fine. It will be easier to remember what you named your variables (or at least guess) and you’ll have fewer moments where you have to go scrolling through your script file looking for a variable you named.</p>
 </section>
@@ -353,6 +380,10 @@ double b = 3.14159</code></pre>
 <p>Typically, an integer would take up 32 bits of memory, and a double would take up 64 bits, so doubles used 2x the memory that integers did. Both R and python are <strong>dynamically typed</strong>, which means you don’t have to deal with any of the trouble of declaring what your variables will hold - the computer automatically figures out how much memory to use when you run the code. So we can avoid the discussion of memory allocation and types because we’re using higher-level languages that handle that stuff for us<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>But the discussion of types isn’t something we can completely avoid, because we still have to figure out what to do when we do operations on things of two different types - even if memory isn’t a concern, we still have to figure out the arithmetic question.</p>
 <p>So let’s see what happens with a couple of examples, just to get a feel for <strong>type conversion</strong> (aka <strong>type casting</strong> or <strong>type coercion</strong>), which is the process of changing an expression from one data type to another.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-4-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(2L <span class="sc">+</span> <span class="fl">3.14159</span>) <span class="co"># add 2 and pi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -368,6 +399,8 @@ double b = 3.14159</code></pre>
 </div>
 </div>
 <p>In R, all of the examples above are ‘numeric’ - basically, a catch-all class for things that are in some way, shape, or form numbers. Integers and decimal numbers are both numeric, but so are logicals (because they can be represented as 0 or 1).</p>
+</div>
+<div id="tabset-4-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-4-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="dv">2</span> <span class="op">+</span> <span class="fl">3.14159</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -383,6 +416,9 @@ double b = 3.14159</code></pre>
 </div>
 </div>
 <p>In python, by contrast, anything without a decimal point is converted into an integer - essentially, python tries to minimize memory used without losing data. So it will never convert a float into an integer implicitly - if you want Python to do that, you’ll have to tell it to do so directly.</p>
+</div>
+</div>
+</div>
 <p>You may be asking yourself at this point why this matters, and that’s a decent question. We will eventually be reading in data from spreadsheets and other similar tabular data, and types become <em>very</em> important at that point, because we’ll have to know how R and python both handle type conversions.</p>
 <section id="in-class-activity" class="level3 unnumbered tryitout">
 <h3 class="unnumbered anchored" data-anchor-id="in-class-activity">In class activity</h3>
@@ -431,6 +467,10 @@ double b = 3.14159</code></pre>
 </table>
 </section>
 <p>Above, we looked at automatic type conversions, but in many cases, we also may want to convert variables manually, specifying exactly what type we’d like them to be. A common application for this in data analysis is when there are “*” or “.” or other indicators in an otherwise numeric column of a spreadsheet that indicate missing data: when this data is read in, the whole column is usually read in as character data. So we need to know how to tell R and python that we want our string to be treated as a number, or vice-versa.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-5-1-tab">
 <p>In R, we can explicitly convert a variable’s type using <code>as.XXX()</code> functions, where XXX is the type you want to convert to (<code>as.numeric</code>, <code>as.integer</code>, <code>as.logical</code>, <code>as.character</code>, etc.).</p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
@@ -445,6 +485,8 @@ double b = 3.14159</code></pre>
 <pre><code>[1] 6.14159</code></pre>
 </div>
 </div>
+</div>
+<div id="tabset-5-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-5-2-tab">
 <p>In python, the same basic idea holds true, but in python, we just use the variable type as a function: <code>int()</code>, <code>float()</code>, <code>str()</code>, and <code>bool()</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb29"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span></span>
@@ -460,6 +502,9 @@ Detailed traceback:
 <div class="sourceCode" id="cb31"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">+</span> <span class="bu">float</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>6.14159</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -514,7 +559,12 @@ Detailed traceback:
 </tr>
 </tbody>
 </table>
-<p>Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B. So <code>14 %/% 3</code> in R would be 4, and <code>14 %% 3</code> in R would be 2.</p>
+<p>Note that integer division is the whole number answer to A/B, and modular division is the fractional remainder when A/B.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-6-1-tab">
+<p>So <code>14 %/% 3</code> in R would be 4, and <code>14 %% 3</code> in R would be 2.</p>
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="sc">%/%</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -525,6 +575,8 @@ Detailed traceback:
 <pre><code>[1] 2</code></pre>
 </div>
 </div>
+</div>
+<div id="tabset-6-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-6-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="op">//</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -535,10 +587,17 @@ Detailed traceback:
 <pre><code>2</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 <p>Note that these operands are all intended for scalar operations (operations on a single number) - vectorized versions, such as matrix multiplication, are somewhat more complicated (and different between R and python).</p>
 <section id="order-of-operations" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="order-of-operations"><span class="header-section-number">4.4.1</span> Order of Operations</h3>
 <p>Both R and Python operate under the same mathematical rules of precedence that you learned in school. You may have learned the acronym PEMDAS, which stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. That is, when examining a set of mathematical operations, we evaluate parentheses first, then exponents, and then we do multiplication/division, and finally, we add and subtract.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-7-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">^</span>(<span class="dv">5-2</span>) <span class="co"># 2 ^ 3 = 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -553,6 +612,8 @@ Detailed traceback:
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
+</div>
+<div id="tabset-7-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-7-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb47"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="op">+</span><span class="dv">1</span>)<span class="op">**</span>(<span class="dv">5</span><span class="op">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -567,10 +628,17 @@ Detailed traceback:
 <pre><code>3</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="string-operations-in-python" class="level3" data-number="4.4.2">
-<h3 data-number="4.4.2" class="anchored" data-anchor-id="string-operations-in-python"><span class="header-section-number">4.4.2</span> String Operations in Python</h3>
+<section id="string-operations" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="string-operations"><span class="header-section-number">4.4.2</span> String Operations</h3>
 <p>Python has some additional operators that work on strings. In R, you will have to use functions to perform these operations, as R does not have string operators.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">R</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-8-1-tab">
 <p>In Python, <code>+</code> will <strong>concatenate</strong> (stick together) two strings, and multiplying a string by an integer will repeat the string the specified number of times</p>
 <div class="cell">
 <div class="sourceCode" id="cb53"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">"first "</span> <span class="op">+</span> <span class="st">"second"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -580,6 +648,47 @@ Detailed traceback:
 <div class="sourceCode" id="cb55"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">"hello "</span> <span class="op">*</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>'hello hello hello '</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-8-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-8-2-tab">
+<p>In R, to concatenate things, we need to use functions: <code>paste</code> or <code>paste0</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb57"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"first"</span>, <span class="st">"second"</span>, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "first second"</code></pre>
+</div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"first"</span>, <span class="st">"second"</span>, <span class="at">collapse =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "first second"</code></pre>
+</div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">c</span>(<span class="st">"first"</span>, <span class="st">"second"</span>), <span class="at">sep =</span> <span class="st">" "</span>) <span class="co"># sep only works on separate parameters</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "first"  "second"</code></pre>
+</div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">c</span>(<span class="st">"first"</span>, <span class="st">"second"</span>), <span class="at">collapse =</span> <span class="st">" "</span>) <span class="co"># collapse works on vectors</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "first second"</code></pre>
+</div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>), </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(<span class="st">"first"</span>, <span class="st">"second"</span>, <span class="st">"third"</span>, <span class="st">"fourth"</span>), </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">sep =</span> <span class="st">"-"</span>, <span class="at">collapse =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "a-first b-second c-third d-fourth"</code></pre>
+</div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sep is used to collapse parameters, then collapse is used to collapse vectors</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "a" "b" "c"</code></pre>
+</div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>) <span class="co"># equivalent to paste(..., sep = "")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "abc"</code></pre>
+</div>
+</div>
+<p>You don’t need to understand the details of this at this point in the class, but it is useful to know how to combine strings in both languages.</p>
+</div>
 </div>
 </div>
 </section>
@@ -593,13 +702,13 @@ Detailed traceback:
 <p>Right now, it is not really necessary to know too much more about functions than this: you can invoke a function by passing in arguments, and the function will do a task and return the value.</p>
 </section>
 <section id="in-class-activity-1" class="level3 unnumbered tryitout">
-<h3 class="unnumbered anchored" data-anchor-id="in-class-activity-1">In class activity</h3>
+<h3 class="unnumbered tryitout anchored" data-anchor-id="in-class-activity-1">In class activity</h3>
 <p>Try out some of the functions mentioned on the R and Python cheatsheets.</p>
 <p>Can you figure out how to define a list or vector of numbers? If so, can you use a function to calculate the maximum value?</p>
-<p>Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings?</p>
+<p>Can you find the R functions that will allow you to repeat a string variable multiple times or concatenate two strings? Can you do this task in Python?</p>
+
+
 </section>
-
-
 </section>
 <section class="footnotes" role="doc-endnotes"><h2>Footnotes</h2>
 

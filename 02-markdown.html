@@ -206,14 +206,12 @@
 <ul>
 <li><a href="#scripts" class="nav-link active" data-scroll-target="#scripts"> <span class="header-section-number">2.1</span> Scripts</a>
 <ul class="collapse">
-<li><a href="#plotting-a-logarithmic-spiral-in-r-and-python" class="nav-link" data-scroll-target="#plotting-a-logarithmic-spiral-in-r-and-python"> <span class="header-section-number">2.1.1</span> Plotting a <span>logarithmic spiral</span> in R and python</a></li>
+<li><a href="#plotting-a-logarithmic-spiral" class="nav-link" data-scroll-target="#plotting-a-logarithmic-spiral"> <span class="header-section-number">2.1.1</span> Plotting a <span>logarithmic spiral</span></a></li>
 <li><a href="#try-it-out" class="nav-link" data-scroll-target="#try-it-out"> <span class="header-section-number">2.1.2</span> Try it out!</a></li>
 </ul></li>
 <li><a href="#notebooks" class="nav-link" data-scroll-target="#notebooks"> <span class="header-section-number">2.2</span> Notebooks</a>
 <ul class="collapse">
-<li><a href="#try-it-out---r-markdown" class="nav-link" data-scroll-target="#try-it-out---r-markdown"> <span class="header-section-number">2.2.1</span> Try it out - R markdown</a></li>
-<li><a href="#try-it-out---jupyter" class="nav-link" data-scroll-target="#try-it-out---jupyter"> <span class="header-section-number">2.2.2</span> Try it out - Jupyter</a></li>
-<li><a href="#try-it-out---quarto-markdown" class="nav-link" data-scroll-target="#try-it-out---quarto-markdown"> <span class="header-section-number">2.2.3</span> Try it out - Quarto markdown</a></li>
+<li><a href="#try-it-out-1" class="nav-link" data-scroll-target="#try-it-out-1"> <span class="header-section-number">2.2.1</span> Try it out</a></li>
 </ul></li>
 </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/srvanderplas/Stat151/edit/main/02-markdown.qmd" class="toc-action">Edit this page</a></p></div></div></nav></div>
@@ -228,9 +226,13 @@
 <h2 data-number="2.1" class="anchored" data-anchor-id="scripts"><span class="header-section-number">2.1</span> Scripts</h2>
 <p>Before I show you how to use literate programming, let’s look at what it replaces: scripts. <strong>Scripts</strong> are files of code that are meant to be run on their own. They may produce results, or format data and save it somewhere, or scrape data from the web – scripts can do just about anything.</p>
 <p>Scripts can even have documentation within the file, using <code>#</code> characters (at least, in R and python) at the beginning of a line. <code>#</code> indicates a comment – that is, that the line does not contain code and should be ignored by the computer when the program is run. Comments are incredibly useful to help humans understand what the code does and why it does it.</p>
-<section id="plotting-a-logarithmic-spiral-in-r-and-python" class="level3 ex" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="plotting-a-logarithmic-spiral-in-r-and-python"><span class="header-section-number">2.1.1</span> Plotting a <a href="https://mathworld.wolfram.com/LogarithmicSpiral.html">logarithmic spiral</a> in R and python</h3>
+<section id="plotting-a-logarithmic-spiral" class="level3 ex" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="plotting-a-logarithmic-spiral"><span class="header-section-number">2.1.1</span> Plotting a <a href="https://mathworld.wolfram.com/LogarithmicSpiral.html">logarithmic spiral</a></h3>
 <p>This code will use concepts we have not yet introduced - feel free to tinker with it if you want, but know that you’re not responsible for being able to <strong>write</strong> this code yet. You just need to read it and get a sense for what it does. I have heavily commented it to help with this process.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-1-1-tab">
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the angle of the spiral (polar coords)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># go around two full times (2*pi = one revolution)</span></span>
@@ -254,6 +256,8 @@
 </div>
 </div>
 <p>I have saved this script <a href="files/markdown-spiral-script.R">here</a>. You can download it and open it up in RStudio (File -&gt; Open -&gt; Navigate to file location).</p>
+</div>
+<div id="tabset-1-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -286,6 +290,9 @@
 </div>
 </div>
 <p>I have saved this script <a href="files/markdown-spiral-script.py">here</a>. You can download it and open it up in RStudio (File -&gt; Open -&gt; Navigate to file location).</p>
+</div>
+</div>
+</div>
 </section>
 <p>Scripts can be run in Rstudio by clicking the Run button <img src="images/Run-button-Rstudio.png" class="img-fluid" alt="RStudio run button"> at the top of the editor window when the script is open.</p>
 <section id="try-it-out" class="level3 tryitout" data-number="2.1.2">
@@ -313,8 +320,12 @@ Yihui Xie is the person responsible for <code>knitr</code> and <code>Rmarkdown</
 </ul>
 </div>
 <p>&nbsp;</p>
-<section id="try-it-out---r-markdown" class="level3 tryitout" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="try-it-out---r-markdown"><span class="header-section-number">2.2.1</span> Try it out - R markdown</h3>
+<section id="try-it-out-1" class="level3 tryitout" data-number="2.2.1">
+<h3 class="tryitout anchored" data-number="2.2.1" data-anchor-id="try-it-out-1"><span class="header-section-number">2.2.1</span> Try it out</h3>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R markdown</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Jupyter</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Quarto markdown</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-2-1-tab">
 <p>Take a look at the <a href="./files/markdown-demo.html">R markdown sample file</a> I’ve created to go with the R script above. You can see the HTML file it generates <a href="files/markdown-demo.html">here</a>.</p>
 <ul>
 <li><p>Download the Rmd file and open it with RStudio.</p></li>
@@ -322,31 +333,29 @@ Yihui Xie is the person responsible for <code>knitr</code> and <code>Rmarkdown</
 <li><p>Change the output to <code>output: pdf_document</code> and hit the Render button <img src="images/Render-button-Rstudio.png" class="img-fluid" alt="Render button in RStudio">. Can you find the markdown-demo.pdf file that was generated? What does it look like?</p></li>
 </ul>
 <p>Rmarkdown tries very hard to preserve your formatted text appropriately regardless of the output document type. While things may not look exactly the same, the goal is to allow you to focus on the content and the formatting will “just work”.</p>
-</section>
-<p>&nbsp;</p>
-<section id="try-it-out---jupyter" class="level3 tryitout" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="try-it-out---jupyter"><span class="header-section-number">2.2.2</span> Try it out - Jupyter</h3>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-2-tab">
 <p>Take a look at the <a href="./files/Jupyter-demo.html">jupyter notebook sample file</a> I’ve created to go with the R script above. You can see the HTML file it generates <a href="files/Jupyter-demo.html">here</a>.</p>
 <ul>
 <li><p>Download the ipynb file and open it with jupyter.</p></li>
 <li><p>Export the notebook as a pdf file (File -&gt; Save as -&gt; PDF via HTML). Can you find the jupyter-demo.pdf file that was generated? What does it look like?</p></li>
 <li><p>Export the notebook as an html file (File -&gt; Save as -&gt; HTML). Can you find the jupyter-demo.html file that was generated? What does it look like?</p></li>
 </ul>
-</section>
-<p>&nbsp;</p>
-<section id="try-it-out---quarto-markdown" class="level3 tryitout" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="try-it-out---quarto-markdown"><span class="header-section-number">2.2.3</span> Try it out - Quarto markdown</h3>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-3-tab">
 <p>The nice thing about quarto is that it will work with python and R seamlessly, and you can compile the document using python or R. R markdown will also allow you to use python chunks, but you must compile the document in R.</p>
 <p>Take a look at the <a href="./files/quarto-demo.html">Qmd notebook sample file</a> I’ve created to go with the scripts above. You’ll notice that it is basically the script portion of this textbook – that’s because I’m writing the textbook in Quarto.</p>
 <ul>
 <li><p>Download the qmd file and open it with RStudio</p></li>
 <li><p>Try to compile the file by hitting the Render button <img src="images/Render-button-Rstudio.png" class="img-fluid" alt="Render button in RStudio"></p></li>
-<li><p>(Advanced) In the terminal, type in <code>quarto render path/to/file/quarto-demo.qmd</code>. Does that render the HTML file?<br>
-One advantage of this is that using quarto to render the file doesn’t require R at the command line. As the document contains R chunks, R is still required to compile the document, but the biggest difference between qmd and rmd is that qmd files are workflow agnostic - you can generate them in e.g.&nbsp;MS Visual Studio Code, compile them in that workflow, and never have to use RStudio.</p></li>
+<li><p>(Advanced) In the terminal, type in <code>quarto render path/to/file/quarto-demo.qmd</code>. Does that render the HTML file? One advantage of this is that using quarto to render the file doesn’t require R at the command line. As the document contains R chunks, R is still required to compile the document, but the biggest difference between qmd and rmd is that qmd files are workflow agnostic - you can generate them in e.g.&nbsp;MS Visual Studio Code, compile them in that workflow, and never have to use RStudio.</p></li>
 </ul>
+</div>
+</div>
+</div>
+
+
 </section>
-
-
 </section>
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

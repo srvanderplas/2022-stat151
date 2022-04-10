@@ -225,20 +225,11 @@
 <ul>
 <li><a href="#programming" class="nav-link active" data-scroll-target="#programming"> <span class="header-section-number">3.1</span> Programming</a></li>
 <li><a href="#hello-world" class="nav-link" data-scroll-target="#hello-world"> <span class="header-section-number">3.2</span> Hello world</a></li>
-<li><a href="#talking-to-python-and-r---interactive-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---interactive-mode"> <span class="header-section-number">3.3</span> Talking to Python and R - Interactive mode</a>
-<ul class="collapse">
-<li><a href="#the-r-console" class="nav-link" data-scroll-target="#the-r-console"> <span class="header-section-number">3.3.1</span> The R Console</a></li>
-<li><a href="#the-python-console" class="nav-link" data-scroll-target="#the-python-console"> <span class="header-section-number">3.3.2</span> The Python Console</a></li>
-</ul></li>
+<li><a href="#talking-to-python-and-r---interactive-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---interactive-mode"> <span class="header-section-number">3.3</span> Talking to Python and R - Interactive mode</a></li>
 <li><a href="#talking-to-python-and-r---script-mode" class="nav-link" data-scroll-target="#talking-to-python-and-r---script-mode"> <span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</a>
 <ul class="collapse">
-<li><a href="#example-counting-words-in-python-on-the-command-line" class="nav-link" data-scroll-target="#example-counting-words-in-python-on-the-command-line"> <span class="header-section-number">3.4.1</span> Example: Counting Words in Python on the Command Line</a></li>
-<li><a href="#example-counting-words-in-python-within-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-python-within-rstudio"> <span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</a></li>
-<li><a href="#example-counting-words-in-python-in-interactive-mode-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-python-in-interactive-mode-rstudio"> <span class="header-section-number">3.4.3</span> Example: Counting Words in Python in Interactive Mode (RStudio)</a></li>
-<li><a href="#example-counting-words-in-r-within-rstudio" class="nav-link" data-scroll-target="#example-counting-words-in-r-within-rstudio"> <span class="header-section-number">3.4.4</span> Example: Counting Words in R within RStudio</a></li>
-<li><a href="#example-counting-words-in-r-in-interactive-mode" class="nav-link" data-scroll-target="#example-counting-words-in-r-in-interactive-mode"> <span class="header-section-number">3.4.5</span> Example: Counting words in R in Interactive Mode</a></li>
-<li><a href="#example-counting-words-in-r-on-the-command-line" class="nav-link" data-scroll-target="#example-counting-words-in-r-on-the-command-line"> <span class="header-section-number">3.4.6</span> Example: Counting Words in R on the Command Line</a></li>
-<li><a href="#comparing-python-and-r" class="nav-link" data-scroll-target="#comparing-python-and-r"> <span class="header-section-number">3.4.7</span> Comparing Python and R</a></li>
+<li><a href="#example-counting-words" class="nav-link" data-scroll-target="#example-counting-words"> <span class="header-section-number">3.4.1</span> Example: Counting Words</a></li>
+<li><a href="#comparing-python-and-r" class="nav-link" data-scroll-target="#comparing-python-and-r"> <span class="header-section-number">3.4.2</span> Comparing Python and R</a></li>
 </ul></li>
 <li><a href="#getting-help" class="nav-link" data-scroll-target="#getting-help"> <span class="header-section-number">3.5</span> Getting help</a></li>
 </ul>
@@ -340,8 +331,10 @@ NaN         NA       function    ...</code></pre>
 </figure>
 </div>
 <p>If we are working in interactive mode, why did I have you start out by creating a markdown document? Good Question! RStudio allows you to switch back and forth between R and python seamlessly, which is good and bad - it’s hard to get a python terminal without telling R which language you’re working in! You can create a python script if you’d prefer to work in a script instead of a markdown document, but that would involve working in 2 separate files, which I personally find rather tedious.</p>
-<section id="the-r-console" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="the-r-console"><span class="header-section-number">3.3.1</span> The R Console</h3>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">The R Console</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">The Python Console</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="unnumbered tab-pane active" role="tabpanel" aria-labeledby="tabset-1-1-tab">
 <p>In your R chunk or script, type in <code>2+2</code> and hit <code>Ctrl+Enter</code> (or <code>Cmd+Enter</code> on a mac). Look down to the Console (which is usually below the editor window) and see if 4 appears. If you’re like me, output shows up in two places at once:</p>
 <table class="table">
 <thead>
@@ -382,9 +375,8 @@ NaN         NA       function    ...</code></pre>
 <p></p><figcaption aria-hidden="true" class="figure-caption">R console with commands “Hello”, print(“Hello”), and (unquoted) “I love R”, which causes an error. Defining variables I and love provides us a context in which R’s error message about unexpected symbols makes sense - R is reminding us that we need a numerical operator in between the two variable names.</figcaption><p></p>
 </figure>
 </div>
-</section>
-<section id="the-python-console" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="the-python-console"><span class="header-section-number">3.3.2</span> The Python Console</h3>
+</div>
+<div id="tabset-1-2" class="unnumbered tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
 <p>In your python chunk or script, type in <code>2+2</code> and hit <code>Ctrl+Enter</code> (or <code>Cmd+Enter</code> on a mac). Look down to the Console (which is usually below the editor window) and see if 4 appears. If you’re like me, output shows up in two places at once:</p>
 <table class="table">
 <thead>
@@ -413,7 +405,9 @@ NaN         NA       function    ...</code></pre>
 <p>If you want to start the python console by itself (without a script or working in a markdown document), you can simply type <code>reticulate::repl_python()</code> into the R console. <img src="images/python-console.png" class="img-fluid" alt="Screenshot of how to get the python console"></p>
 <p>R is nice enough to remind you that to end the conversation with python, you just need to type “exit” or “quit”.</p>
 <p>If you want to start a python console outside of RStudio, bring up your command prompt (Darwin on mac, Konsole on Linux, CMD on Windows) and type python3 into that window and you should see the familiar <code>&gt;&gt;&gt;</code> waiting for a command.</p>
-</section>
+</div>
+</div>
+</div>
 </section>
 <section id="talking-to-python-and-r---script-mode" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="talking-to-python-and-r---script-mode"><span class="header-section-number">3.4</span> Talking to Python and R - Script Mode</h2>
@@ -421,8 +415,13 @@ NaN         NA       function    ...</code></pre>
 <p>You may be learning to program in R and python because it’s a required part of the curriculum, but hopefully, you also have some broader ideas of what you might do with either language - process data, make pretty pictures, write a program to trigger the computer uprising…</p>
 <p>Scripts are best used when you have a thing you want to do, and you will need to do that thing many times, perhaps with different input data. Suppose that I have a text file and I want to pull out the most common word in that file. In the next few examples, I will show you how to do this in R and python, and at the same time, demonstrate the difference between interactive mode and script mode in both languages. In each example, try to compare to the previous example to identify whether something is running as a full script or in interactive mode, and how it is launched (in R? at the command line?).</p>
 <p><span class="citation" data-cites="py4e">Severance (<a href="references.html#ref-py4e" role="doc-biblioref">2016</a>)</span> provides a handy python program to count words. This program is meant to be run on the command line, and it will run for any specified text file.</p>
-<section id="example-counting-words-in-python-on-the-command-line" class="level3 ex" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="example-counting-words-in-python-on-the-command-line"><span class="header-section-number">3.4.1</span> Example: Counting Words in Python on the Command Line</h3>
+<p>::: ex</p>
+<section id="example-counting-words" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="example-counting-words"><span class="header-section-number">3.4.1</span> Example: Counting Words</h3>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Python, on the Command Line</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python within RStudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Python in Interactive Mode (RStudio)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">R within RStudio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false">R in Interactive Mode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-6" role="tab" aria-controls="tabset-2-6" aria-selected="false">R on the Command Line</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-2-1-tab">
 <p>Download <a href="code/words.py">words.py</a> to your computer and open up a command line terminal in the location where you saved the file.</p>
 <p>Before you run the script, save <a href="data/dickens-oliver-627.txt">Oliver Twist</a> to the same folder as <code>dickens-oliver-627.txt</code> (you can use another file name, but you will have to adjust your response to the program)</p>
 <div class="cell">
@@ -455,10 +454,8 @@ NaN         NA       function    ...</code></pre>
 <p></p><figcaption aria-hidden="true" class="figure-caption">Screenshot of folder and python script evaluation, showing how to run the python script in the terminal and get the count of the most common word, ‘the’, in the file dickens-oliver-627.txt</figcaption><p></p>
 </figure>
 </div>
-</section>
-<p>&nbsp;</p>
-<section id="example-counting-words-in-python-within-rstudio" class="level3 ex" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="example-counting-words-in-python-within-rstudio"><span class="header-section-number">3.4.2</span> Example: Counting Words in Python within RStudio</h3>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-2-tab">
 <p>We can run this script in interactive mode in RStudio if we want to: Open the words.py file you downloaded in RStudio.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -475,11 +472,9 @@ NaN         NA       function    ...</code></pre>
 </figure>
 </div>
 <p>Since I know that I have stored the text file in the <code>data</code> subdirectory of the <code>stat151book</code> folder, I can type in <code>data/dickens-oliver-627.txt</code> and the python program can find my file.</p>
-</section>
-<p>&nbsp;</p>
 <p>In the above example, RStudio is functioning essentially like a terminal window - it runs the script as a single file, and once it has your input, all commands are executed one after the other automatically. This is convenient if you want to test the whole block of code at once, but it can be more useful to test each line individually and “play” with the output a bit (or modify code line-by-line).</p>
-<section id="example-counting-words-in-python-in-interactive-mode-rstudio" class="level3 ex" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="example-counting-words-in-python-in-interactive-mode-rstudio"><span class="header-section-number">3.4.3</span> Example: Counting Words in Python in Interactive Mode (RStudio)</h3>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-3-tab">
 <p>Suppose we want to modify this python script to be more like the R script, where we tell python what the file name is in the file itself, instead of waiting for user input at the terminal.</p>
 <p>Instead of using the <code>input</code> command, I just provide python with a string that contains the path to the file. If you have downloaded the text file to a different folder and RStudio’s working directory is set to that folder, you would change the first line to <code>name = "dickens-oliver-627.txt"</code> - I have set things up to live in a data folder because if I had all of the files in the same directory where this book lives, I would never be able to find anything.</p>
 <p>Create a new python script file in RStudio (File -&gt; New File -&gt; Python Script) and paste in the following lines of code, adjusting the path to the text file appropriately.</p>
@@ -542,10 +537,9 @@ NaN         NA       function    ...</code></pre>
 <p></p><figcaption aria-hidden="true" class="figure-caption">RStudio editor window and console showing the results when lines 10-17 are evaluated. It is clear that line 17 results in the console output of <code>the 8854</code></figcaption><p></p>
 </figure>
 </div>
-</section>
 <p>Running scripts in interactive mode or within RStudio is much more convenient if you are still working on the script - it allows you to debug the script line-by-line if necessary. Running a script at the terminal (like we did above) is sometimes more convenient if you have a pre-written script that you know already works. Both modes are useful, but for the time being you will probably be running scripts within your development environment (RStudio or VSCode or any other IDE you prefer) more often than at the command line.</p>
-<section id="example-counting-words-in-r-within-rstudio" class="level3 ex" data-number="3.4.4">
-<h3 data-number="3.4.4" class="anchored" data-anchor-id="example-counting-words-in-r-within-rstudio"><span class="header-section-number">3.4.4</span> Example: Counting Words in R within RStudio</h3>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-4-tab">
 <p>Just for fun, let’s work with <a href="http://www.textfiles.com/etext/AUTHORS/DICKENS/dickens-oliver-627.txt">Oliver Twist, by Charles Dickens</a>, which I have saved <a href="data/dickens-oliver-627.txt">here</a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the file</span></span>
@@ -582,10 +576,8 @@ NaN         NA       function    ...</code></pre>
 </figure>
 </div>
 <p>Use the “Run” button to run the script and see what the output is. How many times does ‘the’ appear in the file?</p>
-</section>
-<p>&nbsp;</p>
-<section id="example-counting-words-in-r-in-interactive-mode" class="level3 ex" data-number="3.4.5">
-<h3 data-number="3.4.5" class="anchored" data-anchor-id="example-counting-words-in-r-in-interactive-mode"><span class="header-section-number">3.4.5</span> Example: Counting words in R in Interactive Mode</h3>
+</div>
+<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-5-tab">
 <p>Using the file you created above, let’s examine what each line does in interactive mode.</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the file</span></span>
@@ -655,10 +647,8 @@ NaN         NA       function    ...</code></pre>
 </div>
 </div>
 <p>We can then sort <code>word_freq</code> so that the most frequent words are listed first. The final line just prints out the first 10 words instead of the first 5.</p>
-</section>
-<p>&nbsp;</p>
-<section id="example-counting-words-in-r-on-the-command-line" class="level3 ex" data-number="3.4.6">
-<h3 data-number="3.4.6" class="anchored" data-anchor-id="example-counting-words-in-r-on-the-command-line"><span class="header-section-number">3.4.6</span> Example: Counting Words in R on the Command Line</h3>
+</div>
+<div id="tabset-2-6" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-6-tab">
 <p>Download the following file to your working directory: <a href="code/words.R">words.R</a>, or paste the following code into a new R script and save it as <code>words.R</code></p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take arguments from the command line</span></span>
@@ -684,9 +674,12 @@ NaN         NA       function    ...</code></pre>
 </div>
 <p>In a terminal window opened at the location you saved the file (and the corresponding text file), enter the following: <code>Rscript words.R dickens-oliver-627.txt</code>.</p>
 <p>Here, <code>Rscript</code> is the command that tells R to evaluate the file, <code>words.R</code> is the R code to run, and <code>dickens-oliver-627.txt</code> is an argument to your R script that tells R where to find the text file. This is similar to the python code, but instead, the user passes the file name in at the same time as the script instead of having to wait around a little bit.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="comparing-python-and-r" class="level3" data-number="3.4.7">
-<h3 data-number="3.4.7" class="anchored" data-anchor-id="comparing-python-and-r"><span class="header-section-number">3.4.7</span> Comparing Python and R</h3>
+<section id="comparing-python-and-r" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="comparing-python-and-r"><span class="header-section-number">3.4.2</span> Comparing Python and R</h3>
 <p>This is one good example of the difference in culture between python and R: python is a general-purpose programming language, where R is a domain specific programming language. In both languages, I’ve shown you how I would run the script by default first - in python, I would use a pre-built script to run things, and in R I would open things up in RStudio and source the script rather than running R from the command line.</p>
 <p>This is a bit of a cultural difference – because python is a general purpose programming language, it is easy to use for a wide variety of tasks, and is a common choice for creating scripts that are used on the command line. R is a domain-specific language, so it is extremely easy to use R for data analysis, but that tends to take place (in my experience) in an interactive or script-development setting using RStudio. It is less natural to me to write an R script that takes input from the user on the command line, even though obviously R is completely capable of doing that task. More commonly, I will write an R script for my own use, and thus there is no need to make it easy to use on the command line, because I can just change it in interactive mode. Python scripts, on the other hand, may be written for a novice to use at the command line with no idea of how to write or modify python code. This is a subtle difference, and may not make a huge impression on you now, but it is something to keep in mind as you learn to write code in each language – the culture around python and the culture around R are slightly different, and this affects how each language is used in practice.</p>
 </section>
