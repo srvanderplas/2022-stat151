@@ -249,10 +249,10 @@ Use the <code>rnorm</code> function in R to generate 100 draws from a standard n
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.09752052</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.05089834</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">100</span>) <span class="sc">|</span><span class="er">&gt;</span> <span class="fu">mean</span>()</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2528021</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.09734837</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details>
 <details>
@@ -265,7 +265,7 @@ Calculate the mean of 100 random normal variables in python.
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>nums <span class="op">=</span> pd.Series(np.random.normal(size <span class="op">=</span> <span class="dv">100</span>))</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>nums.mean()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">## 0.20629415156059103</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">## 0.0179336066906035</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The conclusion here is that it’s far easier to not use the pipe in python because the <code>.function</code> notation that python uses mimics the step-by-step approach of pipes in R even without using the actual pipe function. When you use data frames instead of Series, you <em>might</em> start using the pipe, but only in some circumstances.</p>
 </details>
@@ -1468,16 +1468,16 @@ Sampling in R
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 × 17</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    Name     Last  First Graduation_Date     Graduation_Rank Class Graduated_From</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;         </span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Harris,… Harr… Rich… 1943-06-30 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Polking… Polk… Jame… 1943-02-16 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 William… Will… Jose… 1944-11-20 00:00:00 2nd Lt          TE-4… TAAF          </span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Armstro… Arms… Will… 1944-09-08 00:00:00 Flight Officer  SE-4… TAAF          </span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Pillow,… Pill… Robe… 1944-05-23 00:00:00 Flight Officer  SE-4… TAAF          </span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Orduna,… Ordu… Ralph 1944-05-23 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Hayes, … Hayes Lee … 1946-01-29 00:00:00 Flight Officer  TE-4… TAAF          </span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 White, … White Sher… 1942-05-20 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Cheatha… Chea… Euge… 1943-12-05 00:00:00 2nd Lt          TE-4… TAAF          </span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Braswel… Bras… Thom… 1944-02-08 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 James, … James Dani… 1943-07-28 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Gray, E… Gray  Elli… 1945-09-08 00:00:00 Flight Officer  SE-4… TAAF          </span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Bilbo, … Bilbo Reub… 1945-06-27 00:00:00 Flight Officer  SE-4… TAAF          </span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 William… Will… Clar… 1944-01-07 00:00:00 Flight Officer  TE-4… TAAF          </span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Mann, H… Mann  Hira… 1944-06-27 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Greer, … Greer Jame… 1944-12-28 00:00:00 Flight Officer  SE-4… TAAF          </span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Hardy, … Hardy Geor… 1944-09-08 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Desvign… Desv… Russ… 1945-04-15 00:00:00 Flight Officer  TE-4… TAAF          </span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Brother… Brot… Jame… 1943-04-29 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Toppins… Topp… Edwa… 1942-09-06 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
 <span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 10 more variables: Pilot_Type &lt;chr&gt;, Hometown &lt;chr&gt;, State &lt;chr&gt;,</span></span>
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   Aerial_Victory_Credits &lt;chr&gt;, Num_Aerial_Victory_Credits &lt;dbl&gt;,</span></span>
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="do">## #   Reported_Lost &lt;chr&gt;, Reported_Lost_Date &lt;dttm&gt;,</span></span>
@@ -1486,11 +1486,11 @@ Sampling in R
 <span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 17</span></span>
 <span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="do">##   Name      Last  First Graduation_Date     Graduation_Rank Class Graduated_From</span></span>
 <span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;         </span></span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Lyle, Pa… Lyle  Payt… 1944-03-12 00:00:00 1st Lt          TE-4… TAAF          </span></span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Moret, C… Moret Calv… 1944-11-20 00:00:00 Flight Officer  SE-4… TAAF          </span></span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Roberts,… Robe… Lero… 1944-05-23 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Campbell… Camp… Lawr… 1948-10-12 00:00:00 2nd Lt          Unk   Williams AFB,…</span></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Carroll,… Carr… Lawr… 1945-11-20 00:00:00 2nd Lt          TE-4… TAAF          </span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Williams… Will… Crai… 1943-05-28 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Hall, Ja… Hall  Jame… 1944-03-12 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Hanks, L… Hanks Loui… 1943-10-22 00:00:00 2nd Lt          CL-4… TAAF          </span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Peoples,… Peop… Fran… 1944-04-15 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Scott, J… Scott Jose… 1945-08-04 00:00:00 2nd Lt          SE-4… TAAF          </span></span>
 <span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 10 more variables: Pilot_Type &lt;chr&gt;, Hometown &lt;chr&gt;, State &lt;chr&gt;,</span></span>
 <span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="do">## #   Aerial_Victory_Credits &lt;chr&gt;, Num_Aerial_Victory_Credits &lt;dbl&gt;,</span></span>
 <span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="do">## #   Reported_Lost &lt;chr&gt;, Reported_Lost_Date &lt;dttm&gt;,</span></span>
@@ -1503,26 +1503,26 @@ Sampling rows is similarly easy in python:
 </summary>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>airmen.sample(frac<span class="op">=</span><span class="fl">.01</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">##                      Name  ... initials</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">## 274      Flake, Thomas M.  ...       TF</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">## 614      Moody, Roland W.  ...       RM</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">## 351    Harder, Richard S.  ...       RH</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">## 942  Willette, Leonard R.  ...       LW</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">## 146       Chavis, John H.  ...       JC</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co">## 168   Coleman, William C.  ...       WC</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">## 717          Rayford, Lee  ...       LR</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">## 163      Cobbs, Wilson N.  ...       WC</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co">## 480       Jones, Edgar L.  ...       EJ</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co">## 793        Sloan, John S.  ...       JS</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">##                         Name  ... initials</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">## 803          Smith, Lewis C.  ...       LS</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">## 657            Orduna, Ralph  ...       RO</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">## 962      Williams, Thomas E.  ...       TW</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">## 180          Cowan, Edwin T.  ...       EC</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">## 987        Woodson, James E.  ...       JW</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co">## 247       Dunlap, Alwayne M.  ...       AD</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">## 993         Wright, James E.  ...       JW</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">## 639     Neblett, Nicholas S.  ...       NN</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co">## 663           Parker, Melvin  ...       MP</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co">## 443  Jackson, Julien D., Jr.  ...       JJ</span></span>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co">## </span></span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co">## [10 rows x 17 columns]</span></span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>airmen.sample(n <span class="op">=</span> <span class="dv">5</span>)</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co">##                           Name  ... initials</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">## 7    Alexander, Walter G., III  ...       WA</span></span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co">## 200              Daniels, John  ...       JD</span></span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co">## 162          Clifton, Emile G.  ...       EC</span></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co">## 455          Jefferson, Samuel  ...       SJ</span></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co">## 602          Miller, Oliver O.  ...       OM</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co">##                         Name  ... initials</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">## 414        Honemond, Maxwell  ...       MH</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co">## 87        Brothers, James E.  ...       JB</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co">## 523               Lee, Frank  ...       FL</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co">## 693  Powell, William S., Jr.  ...       WP</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co">## 32       Barksdale, James M.  ...       JB</span></span>
 <span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co">## </span></span>
 <span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="co">## [5 rows x 17 columns]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1819,7 +1819,7 @@ Solutions (python)
 <div class="sourceCode" id="cb42"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>ggplot(hbcu_all, aes(x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"4-year"</span>)) <span class="op">+</span> geom_line() <span class="op">+</span> <span class="op">\</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  ggtitle(<span class="st">"4-year HBCU College Enrollment"</span>)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">## &lt;ggplot: (8757466843682)&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">## &lt;ggplot: (8756872807199)&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="06-data-structures_files/figure-html/line-graph-python-1.png" class="img-fluid" width="614"></p>
 </div>
@@ -1869,7 +1869,7 @@ Solutions (python)
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>ggplot(hbcu_long, aes(x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"value"</span>, color <span class="op">=</span> <span class="st">"variable"</span>)) <span class="op">+</span> geom_line() <span class="op">+</span> <span class="op">\</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  ggtitle(<span class="st">"HBCU College Enrollment"</span>) <span class="op">+</span> <span class="op">\</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  theme(subplots_adjust<span class="op">=</span>{<span class="st">'right'</span>:<span class="fl">0.75</span>}) <span class="co"># This moves the key so it takes up 25% of the area</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co">## &lt;ggplot: (8757481957310)&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co">## &lt;ggplot: (8756893202312)&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="06-data-structures_files/figure-html/long-form-demo-python-1.png" class="img-fluid" width="614"></p>
 </div>
