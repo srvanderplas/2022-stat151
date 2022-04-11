@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://srvanderplas.github.io/Stat151/index.html</loc>
-    <lastmod>2022-04-11T13:02:24.509Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.351Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/01-getting-started.html</loc>
-    <lastmod>2022-04-11T13:02:24.509Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.351Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/02-markdown.html</loc>
-    <lastmod>2022-04-11T13:02:24.509Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.351Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/03-finding-your-way.html</loc>
-    <lastmod>2022-04-11T13:02:24.513Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.355Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/04-data-types.html</loc>
-    <lastmod>2022-04-11T13:02:24.513Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.355Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/05-vectors.html</loc>
-    <lastmod>2022-04-11T13:02:24.525Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.363Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/06-data-structures.html</loc>
-    <lastmod>2022-04-11T13:02:24.533Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.371Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/07-data-transformations.html</loc>
-    <lastmod>2022-04-11T13:02:24.541Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.375Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/08-data-cleaning.html</loc>
-    <lastmod>2022-04-11T13:02:24.545Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.379Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/09-functions.html</loc>
-    <lastmod>2022-04-11T13:02:24.553Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.387Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/git-github.html</loc>
-    <lastmod>2022-04-11T13:02:24.553Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.387Z</lastmod>
   </url>
   <url>
     <loc>https://srvanderplas.github.io/Stat151/references.html</loc>
-    <lastmod>2022-04-11T13:02:24.553Z</lastmod>
+    <lastmod>2022-04-11T16:32:19.387Z</lastmod>
   </url>
 </urlset>
