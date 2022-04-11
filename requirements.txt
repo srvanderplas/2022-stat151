@@ -78,6 +78,7 @@ six==1.16.0
 stack-data==0.1.4
 statsmodels==0.13.2
 terminado==0.13.1
+testbook==0.4.2
 testpath==0.5.0
 threadpoolctl==3.1.0
 tomli==2.0.1
