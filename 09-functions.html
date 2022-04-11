@@ -105,7 +105,7 @@
   <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <link href="./git-github.html" rel="next">
+  <link href="./10-graphics.html" rel="next">
   <link href="./08-data-cleaning.html" rel="prev">
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -211,7 +211,10 @@
   <a href="./09-functions.html" class="active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></a>
 </li>
       <li class="sidebar-item">
-  <a href="./git-github.html" class=""><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">git-github.html</span></a>
+  <a href="./10-graphics.html" class=""><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data Visualization</span></a>
+</li>
+      <li class="sidebar-item">
+  <a href="./git-github.html" class=""><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">git-github.html</span></a>
 </li>
       <li class="sidebar-item">
   <a href="./references.html" class="">References</a>
@@ -345,8 +348,8 @@
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.0000000 0.9964725 0.1824905 0.8104303 1.0000000 0.8555287 0.8009001
- [8] 0.2075948 0.3108555 0.5508642</code></pre>
+<pre><code> [1] 0.67381682 0.65868249 0.03795440 0.50314885 0.23466904 0.10242365
+ [7] 1.00000000 0.00000000 0.04147586 0.95970930</code></pre>
 </div>
 </div>
 </div>
@@ -357,16 +360,16 @@
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> <span class="bu">min</span>(x))<span class="op">/</span>(<span class="bu">max</span>(x) <span class="op">-</span> <span class="bu">min</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.303372
-1    0.578162
-2    0.849951
-3    0.378253
-4    0.000000
-5    0.304622
-6    0.339136
-7    0.850113
-8    1.000000
-9    0.137003
+<pre><code>0    0.391238
+1    0.462839
+2    0.000000
+3    1.000000
+4    0.543296
+5    0.182095
+6    0.473582
+7    0.006859
+8    0.207376
+9    0.233570
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -384,8 +387,8 @@ Name: a, dtype: float64</code></pre>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>(x <span class="sc">-</span> rng[<span class="dv">1</span>])<span class="sc">/</span>(rng[<span class="dv">2</span>] <span class="sc">-</span> rng[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.0000000 0.9964725 0.1824905 0.8104303 1.0000000 0.8555287 0.8009001
- [8] 0.2075948 0.3108555 0.5508642</code></pre>
+<pre><code> [1] 0.67381682 0.65868249 0.03795440 0.50314885 0.23466904 0.10242365
+ [7] 1.00000000 0.00000000 0.04147586 0.95970930</code></pre>
 </div>
 </div>
 </div>
@@ -398,16 +401,16 @@ Name: a, dtype: float64</code></pre>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>xmin, xmax <span class="op">=</span> [x.<span class="bu">min</span>(), x.<span class="bu">max</span>()]</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>(x <span class="op">-</span> xmin)<span class="op">/</span>(xmax <span class="op">-</span> xmin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.303372
-1    0.578162
-2    0.849951
-3    0.378253
-4    0.000000
-5    0.304622
-6    0.339136
-7    0.850113
-8    1.000000
-9    0.137003
+<pre><code>0    0.391238
+1    0.462839
+2    0.000000
+3    1.000000
+4    0.543296
+5    0.182095
+6    0.473582
+7    0.006859
+8    0.207376
+9    0.233570
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -427,8 +430,8 @@ Name: a, dtype: float64</code></pre>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rescale01</span>(df<span class="sc">$</span>a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code> [1] 0.0000000 0.9964725 0.1824905 0.8104303 1.0000000 0.8555287 0.8009001
- [8] 0.2075948 0.3108555 0.5508642</code></pre>
+<pre><code> [1] 0.67381682 0.65868249 0.03795440 0.50314885 0.23466904 0.10242365
+ [7] 1.00000000 0.00000000 0.04147586 0.95970930</code></pre>
 </div>
 </div>
 <ul>
@@ -446,16 +449,16 @@ Name: a, dtype: float64</code></pre>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rescale01(df.a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>0    0.303372
-1    0.578162
-2    0.849951
-3    0.378253
-4    0.000000
-5    0.304622
-6    0.339136
-7    0.850113
-8    1.000000
-9    0.137003
+<pre><code>0    0.391238
+1    0.462839
+2    0.000000
+3    1.000000
+4    0.543296
+5    0.182095
+6    0.473582
+7    0.006859
+8    0.207376
+9    0.233570
 Name: a, dtype: float64</code></pre>
 </div>
 </div>
@@ -1357,8 +1360,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./git-github.html">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">git-github.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./10-graphics.html">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data Visualization</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </div>
