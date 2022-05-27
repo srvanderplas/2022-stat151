@@ -651,7 +651,7 @@ Python solution
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>dinos <span class="op">=</span> lego_data.loc[lego_data[<span class="st">"theme_name"</span>].<span class="bu">str</span>.contains(<span class="st">"Jurassic"</span>)]</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>ggplot(dinos, aes(x <span class="op">=</span> <span class="st">"year"</span>, y <span class="op">=</span> <span class="st">"num_parts"</span>)) <span class="op">+</span> geom_jitter()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>&lt;ggplot: (8734001915203)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8734863095263)&gt;</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="08-data-cleaning_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="614"></p>
@@ -712,7 +712,7 @@ Summarizing data with Lego
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  n <span class="op">=</span> pd.NamedAgg(<span class="st">'num_parts'</span>, <span class="st">'count'</span>))</span>
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>ggplot(tmp, aes(x <span class="op">=</span> <span class="st">"year"</span>, y <span class="op">=</span> <span class="st">"mean_pieces"</span>, size <span class="op">=</span> <span class="st">"n"</span>)) <span class="op">+</span> geom_point()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>&lt;ggplot: (8733988170322)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8734847067167)&gt;</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="08-data-cleaning_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="614"></p>
@@ -883,7 +883,7 @@ What proportion of the schools operating in each state have the state’s name i
 <span id="cb61-43"><a href="#cb61-43" aria-hidden="true" tabindex="-1"></a>geom_text(aes(x <span class="op">=</span> <span class="st">"State"</span>, y <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">'label'</span>), ha<span class="op">=</span><span class="st">'right'</span>) <span class="op">+</span> <span class="op">\</span></span>
 <span id="cb61-44"><a href="#cb61-44" aria-hidden="true" tabindex="-1"></a>geom_col(aes(x <span class="op">=</span> <span class="st">"State"</span>, y <span class="op">=</span> <span class="st">"pct_uses_st_name"</span>)) <span class="op">+</span> coord_flip()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>&lt;ggplot: (8733986836465)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8734846979404)&gt;</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="08-data-cleaning_files/figure-html/string-ops-py-1.png" class="img-fluid" width="4"></p>
