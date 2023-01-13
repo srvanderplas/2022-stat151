@@ -45,13 +45,6 @@ jobs:
       - name: Install and activate renv
         run: |
           pak::pkg_install("rstudio/renv")
-          pak::pkg_install("hadley/emo")
-          pak::pkg_install("rstudio/fontawesome")
-          # pak::pkg_install("tidyverse/dplyr")
-          # pak::pkg_install("tidyverse/readr")
-          # pak::pkg_install("tidyverse/tidyr")
-          # pak::pkg_install("tidyverse/ggplot2")
-          # pak::pkg_install("skimr")
           options(renv.download.override = utils::download.file)
           renv::restore()
         shell: Rscript {0}
